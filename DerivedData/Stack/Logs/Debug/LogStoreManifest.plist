@@ -244,6 +244,40 @@
 			<key>uniqueIdentifier</key>
 			<string>8618FED9-0E5C-4150-B84B-4105E23881E9</string>
 		</dict>
+		<key>956AD8E6-540C-4D63-9C5D-38685385813A</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>956AD8E6-540C-4D63-9C5D-38685385813A.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599437119.07050002</real>
+			<key>timeStoppedRecording</key>
+			<real>599437142.805179</real>
+			<key>title</key>
+			<string>Debug Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>956AD8E6-540C-4D63-9C5D-38685385813A</string>
+		</dict>
 		<key>986BEC16-C462-4837-9318-957C7DA4470D</key>
 		<dict>
 			<key>className</key>
@@ -277,6 +311,40 @@
 			<string>Debug Stack</string>
 			<key>uniqueIdentifier</key>
 			<string>986BEC16-C462-4837-9318-957C7DA4470D</string>
+		</dict>
+		<key>A3FC8C6B-DAEB-4540-9B11-DD0852F6B114</key>
+		<dict>
+			<key>className</key>
+			<string>DBGConsoleLog</string>
+			<key>documentTypeString</key>
+			<string>com.apple.dt.IDE.DebuggerLogContentType</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.DebugLog</string>
+			<key>fileName</key>
+			<string>A3FC8C6B-DAEB-4540-9B11-DD0852F6B114.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Debug Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599431534.23298204</real>
+			<key>timeStoppedRecording</key>
+			<real>599431546.80682302</real>
+			<key>title</key>
+			<string>Debug Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>A3FC8C6B-DAEB-4540-9B11-DD0852F6B114</string>
 		</dict>
 		<key>A7D4ABA9-995C-47E7-AC41-113D28A01B3B</key>
 		<dict>

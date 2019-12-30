@@ -34,7 +34,7 @@
 			<key>uniqueIdentifier</key>
 			<string>005ADFE3-E786-4013-9FE8-35369546504B</string>
 		</dict>
-		<key>648B9F24-C53A-4CF7-AD27-060DAB66654E</key>
+		<key>F82B93BC-29D2-45F3-A02B-C25F4F044046</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogMajorGroupSection</string>
@@ -43,24 +43,24 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>648B9F24-C53A-4CF7-AD27-060DAB66654E.xcactivitylog</string>
+			<string>F82B93BC-29D2-45F3-A02B-C25F4F044046.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
 			<dict>
 				<key>highLevelStatus</key>
-				<string>S</string>
+				<string>W</string>
 			</dict>
 			<key>signature</key>
 			<string>Stack-bilstfyylxycdkejbjgtulujrydr</string>
 			<key>timeStartedRecording</key>
-			<real>599415612.92878306</real>
+			<real>599437115.60431194</real>
 			<key>timeStoppedRecording</key>
-			<real>599415615.64540398</real>
+			<real>599437119.05676794</real>
 			<key>title</key>
 			<string>Build target Stack</string>
 			<key>uniqueIdentifier</key>
-			<string>648B9F24-C53A-4CF7-AD27-060DAB66654E</string>
+			<string>F82B93BC-29D2-45F3-A02B-C25F4F044046</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

@@ -312,6 +312,40 @@
 			<key>uniqueIdentifier</key>
 			<string>86750547-CEA0-408B-990C-4E2D5C835C19</string>
 		</dict>
+		<key>881B6C30-DFB7-464E-A115-F72B4D19AF70</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>881B6C30-DFB7-464E-A115-F72B4D19AF70.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599431526.972489</real>
+			<key>timeStoppedRecording</key>
+			<real>599431534.226596</real>
+			<key>title</key>
+			<string>Build Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>881B6C30-DFB7-464E-A115-F72B4D19AF70</string>
+		</dict>
 		<key>9DFB7993-2557-4BDF-BD7D-A40DD95A9A14</key>
 		<dict>
 			<key>className</key>
@@ -447,6 +481,74 @@
 			<string>Build Stack</string>
 			<key>uniqueIdentifier</key>
 			<string>F0D56EA3-32EF-4476-8C1A-6C6E5794160C</string>
+		</dict>
+		<key>F1E1F46E-59E6-407F-B71B-A4CA8E92FA11</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F1E1F46E-59E6-407F-B71B-A4CA8E92FA11.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599436320.97336197</real>
+			<key>timeStoppedRecording</key>
+			<real>599436326.93902898</real>
+			<key>title</key>
+			<string>Build Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>F1E1F46E-59E6-407F-B71B-A4CA8E92FA11</string>
+		</dict>
+		<key>F5793E15-064B-46A7-AC36-62741096033F</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>F5793E15-064B-46A7-AC36-62741096033F.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599437115.47512102</real>
+			<key>timeStoppedRecording</key>
+			<real>599437119.06698</real>
+			<key>title</key>
+			<string>Build Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>F5793E15-064B-46A7-AC36-62741096033F</string>
 		</dict>
 		<key>F9AFE225-739E-4FA1-B56C-1EC0884969C4</key>
 		<dict>
