@@ -10,24 +10,21 @@ import XCTest
 
 class StackTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    func testToDoStore() {
+        let td1 = ToDo(title: "grind", complete: false)
+        let td2 = ToDo(title: "yo", complete: false)
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        let store = ToDoStore()
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+        store.newToDo(td1)
+        store.newToDo(td2)
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+        print("hello?????")
+        XCTAssert(store.topToDo == td1)
+
+        store.checkTopToDo()
+
+        XCTAssert(store.topToDo == td2)
     }
 
 }

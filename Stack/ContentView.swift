@@ -8,66 +8,40 @@
 
 import SwiftUI
 
-struct ToDo: Identifiable, Hashable {
-    let id = UUID()
-    var title: String
-    var complete: Bool
-}
-
-struct ToDoView: View {
-    var toDo: ToDo
-    
-    var body: some View {
-        Text(toDo.title)
-    }
-}
-
-var toDos: [ToDo] = []
-
 struct ContentView: View {
     @State var adding: Bool = false
-    @State var toDo: ToDo? = nil
+    @EnvironmentObject var store: ToDoStore
+    
+    var emptyState = Text("Nothing to do!")
     
     var body: some View {
         ZStack {
-            VStack {
-                HStack {
-                    Spacer()
-                    TargetButton() {
-                        self.adding.toggle()
-                    }.sheet(isPresented: $adding) {
-                        CreatorModal(adding: self.$adding, toDo: self.$toDo)
-                    }
-                }
-                
-                Spacer()
-            }
+            TargetButton() {
+                self.adding.toggle()
+            }.sheet(isPresented: $adding) {
+                CreatorModal(adding: self.$adding).environmentObject(self.store)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             
             Group {
-                if toDo != nil {
+                if self.store.topToDo != nil {
                     VStack {
                         Spacer()
-                        
-                        Text(toDo!.title)
-                        
+                        Text(self.store.topToDo!.title)
                         Spacer()
                         
-                        Button(action: {
-                            toDos.removeFirst()
-                            
-                            if !toDos.isEmpty {
-                                self.toDo = toDos[0]
-                            }
-                            else {
-                                self.toDo = nil
-                            }
-                        }) {
-                            Image(systemName: "checkmark")
+                        HStack {
+                            Spacer()
+                            Button(action: { self.store.checkTopToDo() }) {
+                                Image(systemName: "checkmark")
+                                    .imageScale(.large)
+                                    .foregroundColor(Color.orange)
+
+                            }.padding()
                         }
                     }
                 }
                 else {
-                    Text("Nothing to do!")
+                    emptyState
                 }
             }
         }
@@ -75,31 +49,22 @@ struct ContentView: View {
 }
 
 struct CreatorModal: View {
+    @State var typing: String = ""
     @Binding var adding: Bool
-    @Binding var toDo: ToDo?
-    @State var tempName: String = ""
+    @EnvironmentObject var store: ToDoStore
     
     var body: some View {
-        VStack {
-            TextField("New Todo", text: $tempName, onCommit: {
-                toDos.append(ToDo(title: self.tempName, complete: false))
-                
-                if self.toDo == nil {
-                    self.toDo = toDos[0]
-                }
-                
-                self.adding.toggle()
-            }).multilineTextAlignment(.center)
-            
-            Spacer()
-        }.padding(.top, 20)
+        TextField("New ToDo", text: $typing, onCommit: {
+            self.store.newToDo(ToDo(title: self.typing, complete: false))
+            self.adding.toggle()
+        }).multilineTextAlignment(.center)
     }
 }
 
-
 struct ContentView_Previews: PreviewProvider {
+    static let store = ToDoStore()
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(store)
     }
 }
 
