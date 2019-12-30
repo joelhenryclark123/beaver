@@ -5,7 +5,64 @@
 	<key>logFormatVersion</key>
 	<integer>10</integer>
 	<key>logs</key>
-	<dict/>
+	<dict>
+		<key>170FCAB5-2FE2-4276-95EC-B347FF4D4E30</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogMajorGroupSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.bundle</string>
+			<key>fileName</key>
+			<string>170FCAB5-2FE2-4276-95EC-B347FF4D4E30.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>signature</key>
+			<string>StackTests-bilstfyylxycdkejbjgtulujrydr</string>
+			<key>timeStartedRecording</key>
+			<real>599367431.07236803</real>
+			<key>timeStoppedRecording</key>
+			<real>599367431.39036298</real>
+			<key>title</key>
+			<string>Build target StackTests</string>
+			<key>uniqueIdentifier</key>
+			<string>170FCAB5-2FE2-4276-95EC-B347FF4D4E30</string>
+		</dict>
+		<key>D73E4978-0887-4081-9413-DDCEBBE218E5</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogMajorGroupSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
+			<key>fileName</key>
+			<string>D73E4978-0887-4081-9413-DDCEBBE218E5.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>signature</key>
+			<string>Stack-bilstfyylxycdkejbjgtulujrydr</string>
+			<key>timeStartedRecording</key>
+			<real>599367428.32978106</real>
+			<key>timeStoppedRecording</key>
+			<real>599367431.06841898</real>
+			<key>title</key>
+			<string>Build target Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>D73E4978-0887-4081-9413-DDCEBBE218E5</string>
+		</dict>
+	</dict>
 	<key>preserveOldLogs</key>
 	<true/>
 </dict>

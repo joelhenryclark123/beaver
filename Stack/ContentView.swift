@@ -8,35 +8,130 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    @State private var selection = 0
- 
+struct ToDo: Identifiable, Hashable {
+    let id = UUID()
+    var title: String
+    var complete: Bool
+}
+
+struct ToDoView: View {
+    var toDo: ToDo
+    
     var body: some View {
-        TabView(selection: $selection){
-            Text("First View")
-                .font(.title)
-                .tabItem {
-                    VStack {
-                        Image("first")
-                        Text("First")
+        Text(toDo.title)
+    }
+}
+
+var toDos: [ToDo] = []
+
+struct ContentView: View {
+    @State var adding: Bool = false
+    @State var toDo: ToDo? = nil
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                HStack {
+                    Spacer()
+                    TargetButton() {
+                        self.adding.toggle()
+                    }.sheet(isPresented: $adding) {
+                        CreatorModal(adding: self.$adding, toDo: self.$toDo)
                     }
                 }
-                .tag(0)
-            Text("Second View")
-                .font(.title)
-                .tabItem {
+                
+                Spacer()
+            }
+            
+            Group {
+                if toDo != nil {
                     VStack {
-                        Image("second")
-                        Text("Second")
+                        Spacer()
+                        
+                        Text(toDo!.title)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            toDos.removeFirst()
+                            
+                            if !toDos.isEmpty {
+                                self.toDo = toDos[0]
+                            }
+                            else {
+                                self.toDo = nil
+                            }
+                        }) {
+                            Image(systemName: "checkmark")
+                        }
                     }
                 }
-                .tag(1)
+                else {
+                    Text("Nothing to do!")
+                }
+            }
         }
     }
 }
 
+struct CreatorModal: View {
+    @Binding var adding: Bool
+    @Binding var toDo: ToDo?
+    @State var tempName: String = ""
+    
+    var body: some View {
+        VStack {
+            TextField("New Todo", text: $tempName, onCommit: {
+                toDos.append(ToDo(title: self.tempName, complete: false))
+                
+                if self.toDo == nil {
+                    self.toDo = toDos[0]
+                }
+                
+                self.adding.toggle()
+            }).multilineTextAlignment(.center)
+            
+            Spacer()
+        }.padding(.top, 20)
+    }
+}
+
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+struct TargetButton: View {
+    var diameter: CGFloat = 50.0
+    var stroke: CGFloat = 2.5
+    var strokeColor: Color = .orange
+    var insideColor: Color = .white
+    
+    var innerDiameter: CGFloat {
+        diameter - 2 * stroke
+    }
+    
+    var glyph: Image = Image(systemName: "plus")
+    
+    var action: () -> Void
+    
+    var body: some View {
+        VStack {
+            Button(action: self.action) {
+                Circle()
+                    .frame(width: diameter, height: diameter)
+                    .foregroundColor(strokeColor)
+                    .overlay(
+                        Circle()
+                            .frame(width: innerDiameter, height: innerDiameter)
+                            .foregroundColor(insideColor)
+                    )
+                    .shadow(radius: 1)
+                    .overlay(glyph.foregroundColor(strokeColor))
+                    .padding()
+            }
+        }
     }
 }
