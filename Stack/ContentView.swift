@@ -12,7 +12,11 @@ struct ContentView: View {
     @State var adding: Bool = false
     @EnvironmentObject var store: ToDoStore
     
-    var emptyState = Text("Nothing to do!")
+    var emptyState: some View {
+        Text("Nothing to do!")
+            .foregroundColor(.gray)
+    }
+    
     
     var body: some View {
         ZStack {
@@ -24,20 +28,12 @@ struct ContentView: View {
             
             Group {
                 if self.store.topToDo != nil {
-                    VStack {
-                        Spacer()
+                    ZStack {
                         Text(self.store.topToDo!.title)
-                        Spacer()
                         
-                        HStack {
-                            Spacer()
-                            Button(action: { self.store.checkTopToDo() }) {
-                                Image(systemName: "checkmark")
-                                    .imageScale(.large)
-                                    .foregroundColor(Color.orange)
-
-                            }.padding()
-                        }
+                        TargetButton(height: 0, sfSymbol: "checkmark") {
+                            self.store.checkTopToDo()
+                        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                     }
                 }
                 else {
@@ -72,13 +68,18 @@ struct TargetButton: View {
     var diameter: CGFloat = 50.0
     var stroke: CGFloat = 2.5
     var strokeColor: Color = .orange
-    var insideColor: Color = .white
+    var insideColor: Color = Color("systemBackgroundColor")
+    var height: CGFloat = 1.0
     
     var innerDiameter: CGFloat {
         diameter - 2 * stroke
     }
     
-    var glyph: Image = Image(systemName: "plus")
+    var sfSymbol: String = "plus"
+    
+    var glyph: Image {
+        Image(systemName: sfSymbol)
+    }
     
     var action: () -> Void
     
@@ -93,7 +94,7 @@ struct TargetButton: View {
                             .frame(width: innerDiameter, height: innerDiameter)
                             .foregroundColor(insideColor)
                     )
-                    .shadow(radius: 1)
+                    .shadow(radius: height)
                     .overlay(glyph.foregroundColor(strokeColor))
                     .padding()
             }
