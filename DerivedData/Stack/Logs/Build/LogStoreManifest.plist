@@ -6,6 +6,74 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
+		<key>0FA5F047-EE0A-44F2-9058-87445D487652</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>0FA5F047-EE0A-44F2-9058-87445D487652.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599782878.44826198</real>
+			<key>timeStoppedRecording</key>
+			<real>599782878.95630503</real>
+			<key>title</key>
+			<string>Build Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>0FA5F047-EE0A-44F2-9058-87445D487652</string>
+		</dict>
+		<key>E80FE7A2-37F0-4FD8-8F67-E6A5C9176D30</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>E80FE7A2-37F0-4FD8-8F67-E6A5C9176D30.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>Stack project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>Stack</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build Stack</string>
+			<key>timeStartedRecording</key>
+			<real>599782235.662135</real>
+			<key>timeStoppedRecording</key>
+			<real>599782246.57504106</real>
+			<key>title</key>
+			<string>Build Stack</string>
+			<key>uniqueIdentifier</key>
+			<string>E80FE7A2-37F0-4FD8-8F67-E6A5C9176D30</string>
+		</dict>
 		<key>F67DB231-DD9A-4A54-ABFC-742868CD3D60</key>
 		<dict>
 			<key>className</key>
