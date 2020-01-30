@@ -1,1 +1,3 @@
-This is the pages site directory!
+# Privacy Policy
+
+We do not collect any of your data. All data is stored on your device.
