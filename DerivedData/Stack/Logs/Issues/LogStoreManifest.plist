@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>BDC5493D-AC40-448C-8BE7-7FF592FD08FF</key>
+		<key>D1C2C341-7AD7-4A82-BAD6-1DE66FC20D1A</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogMajorGroupSection</string>
@@ -15,35 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>BDC5493D-AC40-448C-8BE7-7FF592FD08FF.xcactivitylog</string>
-			<key>hasPrimaryLog</key>
-			<true/>
-			<key>primaryObservable</key>
-			<dict>
-				<key>highLevelStatus</key>
-				<string>W</string>
-			</dict>
-			<key>signature</key>
-			<string>Stack-bilstfyylxycdkejbjgtulujrydr</string>
-			<key>timeStartedRecording</key>
-			<real>599782235.884956</real>
-			<key>timeStoppedRecording</key>
-			<real>599782246.56013405</real>
-			<key>title</key>
-			<string>Build target Stack</string>
-			<key>uniqueIdentifier</key>
-			<string>BDC5493D-AC40-448C-8BE7-7FF592FD08FF</string>
-		</dict>
-		<key>DEABC67D-C820-437A-8510-2F6425D0495E</key>
-		<dict>
-			<key>className</key>
-			<string>IDEActivityLogMajorGroupSection</string>
-			<key>documentTypeString</key>
-			<string>&lt;nil&gt;</string>
-			<key>domainType</key>
-			<string>Xcode.IDEActivityLogDomainType.target.product-type.bundle</string>
-			<key>fileName</key>
-			<string>DEABC67D-C820-437A-8510-2F6425D0495E.xcactivitylog</string>
+			<string>D1C2C341-7AD7-4A82-BAD6-1DE66FC20D1A.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -52,15 +24,15 @@
 				<string>S</string>
 			</dict>
 			<key>signature</key>
-			<string>StackTests-bilstfyylxycdkejbjgtulujrydr</string>
+			<string>Stack-bilstfyylxycdkejbjgtulujrydr</string>
 			<key>timeStartedRecording</key>
-			<real>599439398.34001696</real>
+			<real>602095883.22368705</real>
 			<key>timeStoppedRecording</key>
-			<real>599439399.59347701</real>
+			<real>602095891.51831305</real>
 			<key>title</key>
-			<string>Build target StackTests</string>
+			<string>Build target Stack</string>
 			<key>uniqueIdentifier</key>
-			<string>DEABC67D-C820-437A-8510-2F6425D0495E</string>
+			<string>D1C2C341-7AD7-4A82-BAD6-1DE66FC20D1A</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>
