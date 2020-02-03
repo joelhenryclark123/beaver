@@ -12,4 +12,5 @@ import CoreData
 public class ToDo: NSManagedObject, Identifiable {
     @NSManaged var title: String
     @NSManaged var completedAt: Date?
+    @NSManaged var createdAt: Date?
 }

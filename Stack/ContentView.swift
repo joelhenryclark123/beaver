@@ -11,16 +11,26 @@ import SwiftUI
 struct ContentView: View {
     @State var adding: Bool = false
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(entity: ToDo.entity(), sortDescriptors: []) var toDos: FetchedResults<ToDo>
+    
+    @FetchRequest(
+        entity: ToDo.entity(),
+        sortDescriptors: [NSSortDescriptor(key: "createdAt", ascending: true)],
+        predicate: NSPredicate(format: "completedAt == nil")
+    ) var toDos: FetchedResults<ToDo>
     
     var emptyState: some View {
-        Text("Nothing to do!")
-            .foregroundColor(.gray)
+        VStack(spacing: 10) {
+            Text("Empty")
+                .font(.largeTitle)
+                .foregroundColor(.gray)
+                .fontWeight(.light)
+        }
     }
     
     
     var body: some View {
         ZStack {
+            // Add Button
             TargetButton() {
                 self.adding.toggle()
             }.sheet(isPresented: $adding) {
@@ -28,18 +38,26 @@ struct ContentView: View {
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             
             Group {
-                if self.toDos.count != 0 {
+                if self.toDos.count == 0 {
+                    emptyState
+                }
+                else {
                     ZStack {
                         Text(self.toDos.first!.title)
                         
                         TargetButton(height: 0, sfSymbol: "checkmark") {
-                            //TODO: remove top ToDo
+                            self.toDos.first!.setValue(Date(), forKey: "completedAt")
+                            print(self.toDos)
+                            
+                            do {
+                                try self.context.save()
+                            } catch {
+                                print("ERROR SAVING")
+                                assert(false)
+                            }
                             print("Remove Top To Do")
                         }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                     }
-                }
-                else {
-                    emptyState
                 }
             }
         }
@@ -50,12 +68,13 @@ struct CreatorModal: View {
     @State var typing: String = ""
     @Binding var adding: Bool
     @Environment(\.managedObjectContext) var context
-
+    
     var body: some View {
         TextField("New ToDo", text: $typing, onCommit: {
             let newToDo = ToDo(context: self.context)
             newToDo.title = self.typing
             newToDo.completedAt = nil
+            newToDo.createdAt = Date()
             
             do {
                 try self.context.save()
