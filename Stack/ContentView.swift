@@ -51,7 +51,7 @@ struct CreatorModal: View {
     
     var body: some View {
         TextField("New ToDo", text: $typing, onCommit: {
-            self.store.newToDo(ToDo(title: self.typing, complete: false))
+            self.store.newToDo(ToDo(title: self.typing))
             self.adding.toggle()
         }).multilineTextAlignment(.center)
     }

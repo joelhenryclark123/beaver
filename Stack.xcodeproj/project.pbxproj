@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
 		E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9523B83CA00068B86E /* AppDelegate.swift */; };
 		E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9723B83CA00068B86E /* SceneDelegate.swift */; };
 		E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9923B83CA00068B86E /* ContentView.swift */; };
@@ -29,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
+		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E9F51B9223B83CA00068B86E /* Stack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51B9523B83CA00068B86E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9723B83CA00068B86E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,12 +65,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E95D679C23E75FD800AB3320 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E95D679D23E75FD800AB3320 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E9F51B8923B83CA00068B86E = {
 			isa = PBXGroup;
 			children = (
 				E9F51B9423B83CA00068B86E /* Stack */,
 				E9F51BAE23B845780068B86E /* StackTests */,
 				E9F51B9323B83CA00068B86E /* Products */,
+				E95D679C23E75FD800AB3320 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,6 +95,7 @@
 		E9F51B9423B83CA00068B86E /* Stack */ = {
 			isa = PBXGroup;
 			children = (
+				E95D679B23E75F8600AB3320 /* Stack.entitlements */,
 				E9F51B9523B83CA00068B86E /* AppDelegate.swift */,
 				E9F51B9723B83CA00068B86E /* SceneDelegate.swift */,
 				E9F51B9923B83CA00068B86E /* ContentView.swift */,
@@ -368,6 +382,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Stack/Stack.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Stack/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
@@ -388,6 +403,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Stack/Stack.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Stack/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;

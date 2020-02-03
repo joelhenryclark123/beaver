@@ -11,7 +11,7 @@ import Foundation
 struct ToDo: Identifiable, Hashable, Codable {
     let id = UUID()
     var title: String
-    var complete: Bool
+    var completedAt: Date? = nil
 }
 
 class ToDoStore: ObservableObject {
