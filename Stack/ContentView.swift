@@ -10,34 +10,54 @@ import SwiftUI
 
 struct ContentView: View {
     @State var adding: Bool = false
-    @EnvironmentObject var store: ToDoStore
+    @Environment(\.managedObjectContext) var context
+    
+    @FetchRequest(
+        entity: ToDo.entity(),
+        sortDescriptors: [NSSortDescriptor(key: "createdAt", ascending: true)],
+        predicate: NSPredicate(format: "completedAt == nil")
+    ) var toDos: FetchedResults<ToDo>
     
     var emptyState: some View {
-        Text("Nothing to do!")
-            .foregroundColor(.gray)
+        VStack(spacing: 10) {
+            Text("Empty")
+                .font(.largeTitle)
+                .foregroundColor(.gray)
+                .fontWeight(.light)
+        }
     }
     
     
     var body: some View {
         ZStack {
+            // Add Button
             TargetButton() {
                 self.adding.toggle()
             }.sheet(isPresented: $adding) {
-                CreatorModal(adding: self.$adding).environmentObject(self.store)
+                CreatorModal(adding: self.$adding).environment(\.managedObjectContext, self.context)
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             
             Group {
-                if self.store.topToDo != nil {
-                    ZStack {
-                        Text(self.store.topToDo!.title)
-                        
-                        TargetButton(height: 0, sfSymbol: "checkmark") {
-                            self.store.checkTopToDo()
-                        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    }
+                if self.toDos.count == 0 {
+                    emptyState
                 }
                 else {
-                    emptyState
+                    ZStack {
+                        Text(self.toDos.first!.title)
+                        
+                        TargetButton(height: 0, sfSymbol: "checkmark") {
+                            self.toDos.first!.setValue(Date(), forKey: "completedAt")
+                            print(self.toDos)
+                            
+                            do {
+                                try self.context.save()
+                            } catch {
+                                print("ERROR SAVING")
+                                assert(false)
+                            }
+                            print("Remove Top To Do")
+                        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                    }
                 }
             }
         }
@@ -47,20 +67,32 @@ struct ContentView: View {
 struct CreatorModal: View {
     @State var typing: String = ""
     @Binding var adding: Bool
-    @EnvironmentObject var store: ToDoStore
+    @Environment(\.managedObjectContext) var context
     
     var body: some View {
         TextField("New ToDo", text: $typing, onCommit: {
-            self.store.newToDo(ToDo(title: self.typing))
+            let newToDo = ToDo(context: self.context)
+            newToDo.title = self.typing
+            newToDo.completedAt = nil
+            newToDo.createdAt = Date()
+            
+            do {
+                try self.context.save()
+            } catch {
+                assert(false, "Error saving context")
+            }
+            
             self.adding.toggle()
         }).multilineTextAlignment(.center)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let store = ToDoStore()
+    // Import ManagedObjectContext
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     static var previews: some View {
-        ContentView().environmentObject(store)
+        ContentView().environment(\.managedObjectContext, context)
     }
 }
 

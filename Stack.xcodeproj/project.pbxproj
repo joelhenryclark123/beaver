@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
+		E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */; };
 		E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9523B83CA00068B86E /* AppDelegate.swift */; };
 		E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9723B83CA00068B86E /* SceneDelegate.swift */; };
 		E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9923B83CA00068B86E /* ContentView.swift */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
 		E9F51B9223B83CA00068B86E /* Stack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51B9523B83CA00068B86E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9723B83CA00068B86E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				E95D679B23E75F8600AB3320 /* Stack.entitlements */,
+				E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */,
 				E9F51B9523B83CA00068B86E /* AppDelegate.swift */,
 				E9F51B9723B83CA00068B86E /* SceneDelegate.swift */,
 				E9F51B9923B83CA00068B86E /* ContentView.swift */,
@@ -230,6 +233,7 @@
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E9F9F37023BA46EB00EC1EBE /* ToDo.swift in Sources */,
+				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,6 +495,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */,
+			);
+			currentVersion = E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */;
+			path = Stack.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E9F51B8A23B83CA00068B86E /* Project object */;
 }
