@@ -6,7 +6,7 @@
 	<integer>10</integer>
 	<key>logs</key>
 	<dict>
-		<key>D1C2C341-7AD7-4A82-BAD6-1DE66FC20D1A</key>
+		<key>35AC2FC1-1D66-4D00-B658-5BCB23575707</key>
 		<dict>
 			<key>className</key>
 			<string>IDEActivityLogMajorGroupSection</string>
@@ -15,7 +15,7 @@
 			<key>domainType</key>
 			<string>Xcode.IDEActivityLogDomainType.target.product-type.application</string>
 			<key>fileName</key>
-			<string>D1C2C341-7AD7-4A82-BAD6-1DE66FC20D1A.xcactivitylog</string>
+			<string>35AC2FC1-1D66-4D00-B658-5BCB23575707.xcactivitylog</string>
 			<key>hasPrimaryLog</key>
 			<true/>
 			<key>primaryObservable</key>
@@ -26,13 +26,41 @@
 			<key>signature</key>
 			<string>Stack-bilstfyylxycdkejbjgtulujrydr</string>
 			<key>timeStartedRecording</key>
-			<real>602095883.22368705</real>
+			<real>602448029.50603402</real>
 			<key>timeStoppedRecording</key>
-			<real>602095891.51831305</real>
+			<real>602448032.94182503</real>
 			<key>title</key>
 			<string>Build target Stack</string>
 			<key>uniqueIdentifier</key>
-			<string>D1C2C341-7AD7-4A82-BAD6-1DE66FC20D1A</string>
+			<string>35AC2FC1-1D66-4D00-B658-5BCB23575707</string>
+		</dict>
+		<key>DD5A1798-0609-4487-BF76-3F526B26E742</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogMajorGroupSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.target.product-type.bundle</string>
+			<key>fileName</key>
+			<string>DD5A1798-0609-4487-BF76-3F526B26E742.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>signature</key>
+			<string>StackTests-bilstfyylxycdkejbjgtulujrydr</string>
+			<key>timeStartedRecording</key>
+			<real>602446812.88901699</real>
+			<key>timeStoppedRecording</key>
+			<real>602446821.31350899</real>
+			<key>title</key>
+			<string>Build target StackTests</string>
+			<key>uniqueIdentifier</key>
+			<string>DD5A1798-0609-4487-BF76-3F526B26E742</string>
 		</dict>
 	</dict>
 	<key>preserveOldLogs</key>

@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var adding: Bool = false
-    @EnvironmentObject var store: ToDoStore
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest(entity: ToDo.entity(), sortDescriptors: []) var toDos: FetchedResults<ToDo>
     
     var emptyState: some View {
         Text("Nothing to do!")
@@ -23,16 +24,17 @@ struct ContentView: View {
             TargetButton() {
                 self.adding.toggle()
             }.sheet(isPresented: $adding) {
-                CreatorModal(adding: self.$adding).environmentObject(self.store)
+                CreatorModal(adding: self.$adding).environment(\.managedObjectContext, self.context)
             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             
             Group {
-                if self.store.topToDo != nil {
+                if self.toDos.count != 0 {
                     ZStack {
-                        Text(self.store.topToDo!.title)
+                        Text(self.toDos.first!.title)
                         
                         TargetButton(height: 0, sfSymbol: "checkmark") {
-                            self.store.checkTopToDo()
+                            //TODO: remove top ToDo
+                            print("Remove Top To Do")
                         }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
                     }
                 }
@@ -47,20 +49,31 @@ struct ContentView: View {
 struct CreatorModal: View {
     @State var typing: String = ""
     @Binding var adding: Bool
-    @EnvironmentObject var store: ToDoStore
-    
+    @Environment(\.managedObjectContext) var context
+
     var body: some View {
         TextField("New ToDo", text: $typing, onCommit: {
-            self.store.newToDo(ToDo(title: self.typing))
+            let newToDo = ToDo(context: self.context)
+            newToDo.title = self.typing
+            newToDo.completedAt = nil
+            
+            do {
+                try self.context.save()
+            } catch {
+                assert(false, "Error saving context")
+            }
+            
             self.adding.toggle()
         }).multilineTextAlignment(.center)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let store = ToDoStore()
+    // Import ManagedObjectContext
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     static var previews: some View {
-        ContentView().environmentObject(store)
+        ContentView().environment(\.managedObjectContext, context)
     }
 }
 
