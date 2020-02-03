@@ -23,6 +23,9 @@ xcuserdata
 *.xcuserstate
 *.xcscmblueprint
 
+## DerivedData
+DerivedData/
+
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
