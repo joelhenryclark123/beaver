@@ -41,6 +41,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        
+        do {
+            try container.viewContext.setQueryGenerationFrom(.current)
+            container.viewContext.automaticallyMergesChangesFromParent = true
+        } catch {
+            print("Error setting query generation in app delegate")
+            assert(false)
+        }
+        
+        
         return container
     }()
 

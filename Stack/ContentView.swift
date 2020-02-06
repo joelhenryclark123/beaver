@@ -44,6 +44,7 @@ struct ContentView: View {
                 else {
                     ZStack {
                         Text(self.toDos.first!.title)
+                            .padding(.horizontal)
                         
                         TargetButton(height: 0, sfSymbol: "checkmark") {
                             self.toDos.first!.setValue(Date(), forKey: "completedAt")
