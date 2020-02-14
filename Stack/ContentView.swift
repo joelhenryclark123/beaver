@@ -7,62 +7,36 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
-    @State var adding: Bool = false
     @Environment(\.managedObjectContext) var context
-    
-    @FetchRequest(
-        entity: ToDo.entity(),
-        sortDescriptors: [NSSortDescriptor(key: "createdAt", ascending: true)],
-        predicate: NSPredicate(format: "completedAt == nil")
-    ) var toDos: FetchedResults<ToDo>
-    
-    var emptyState: some View {
-        VStack(spacing: 10) {
-            Text("Empty")
-                .font(.largeTitle)
-                .foregroundColor(.gray)
-                .fontWeight(.light)
-        }
-    }
-    
+    @State var currentScene: Scene = .stack
     
     var body: some View {
-        ZStack {
-            // Add Button
-            TargetButton() {
-                self.adding.toggle()
-            }.sheet(isPresented: $adding) {
-                CreatorModal(adding: self.$adding).environment(\.managedObjectContext, self.context)
-            }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-            
+        ZStack(alignment: .bottom) {
             Group {
-                if self.toDos.count == 0 {
-                    emptyState
-                }
-                else {
-                    ZStack {
-                        Text(self.toDos.first!.title)
-                            .padding(.horizontal)
-                        
-                        TargetButton(height: 0, sfSymbol: "checkmark") {
-                            self.toDos.first!.setValue(Date(), forKey: "completedAt")
-                            print(self.toDos)
-                            
-                            do {
-                                try self.context.save()
-                            } catch {
-                                print("ERROR SAVING")
-                                assert(false)
-                            }
-                            print("Remove Top To Do")
-                        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                    }
+                if self.currentScene == .stack {
+                    //TODO: Revert
+                    Color("stackBackgroundColor")
+                        .edgesIgnoringSafeArea(.all)
+
+                    StackView()
+                        .environment(\.managedObjectContext, context)
+                        .padding(.horizontal, 10)
+                        .padding(.top, 20)
+                        .padding(.bottom, 60)
                 }
             }
+            
+            Footer(currentScene: $currentScene)
         }
     }
+}
+
+enum Scene {
+    case stack
+    case store
 }
 
 struct CreatorModal: View {
@@ -90,7 +64,32 @@ struct CreatorModal: View {
 
 struct ContentView_Previews: PreviewProvider {
     // Import ManagedObjectContext
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let context: NSManagedObjectContext = {
+    let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    let obj1 = ToDo(context: mc)
+    obj1.title = "uno"
+    obj1.createdAt = Date()
+    obj1.location = "Store"
+    
+    let obj2 = ToDo(context: mc)
+    obj2.title = "dos"
+    obj2.createdAt = Date()
+    obj2.location = "Stack"
+
+    
+    let obj3 = ToDo(context: mc)
+    obj3.title = "tres"
+    obj3.createdAt = Date()
+    obj3.location = "Stack"
+
+    
+    mc.insert(obj1)
+    mc.insert(obj2)
+    mc.insert(obj3)
+    
+    return mc
+    }()
     
     static var previews: some View {
         ContentView().environment(\.managedObjectContext, context)
@@ -130,6 +129,40 @@ struct TargetButton: View {
                     .shadow(radius: height)
                     .overlay(glyph.foregroundColor(strokeColor))
                     .padding()
+            }
+        }
+    }
+}
+
+struct Footer: View {
+    @Binding var currentScene: Scene
+    
+    var body: some View {
+        Group {
+            if currentScene == .stack {
+                HStack {
+                    Image(systemName: "lightbulb")
+                        .foregroundColor(Color.white)
+                        .scaleEffect(1.5)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "square.stack.fill")
+                        .foregroundColor(Color.white)
+                        .scaleEffect(2.0)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "lightbulb")
+                    .foregroundColor(Color("stackBackgroundColor"))
+                    .scaleEffect(1.5)
+                    
+                }
+                .padding(.horizontal, 25)
+                .padding(.bottom, 12)
+            }
+            else {
+                Text("????????")
             }
         }
     }

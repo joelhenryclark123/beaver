@@ -35,19 +35,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
+        print("loading persistent container...")
+        
         let container = NSPersistentCloudKitContainer(name: "Stack")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
+                print("error in persistent container initialization!")
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
+            print("No errors loading persistent container!")
         })
         
         do {
+            print("setting query generation...")
             try container.viewContext.setQueryGenerationFrom(.current)
             container.viewContext.automaticallyMergesChangesFromParent = true
+            print("query generation set!")
         } catch {
             print("Error setting query generation in app delegate")
-            assert(false)
         }
         
         
@@ -64,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
+                print("App delegate savecontext error")
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
