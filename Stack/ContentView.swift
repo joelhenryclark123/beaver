@@ -14,22 +14,29 @@ struct ContentView: View {
     @State var currentScene: Scene = .stack
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Group {
-                if self.currentScene == .stack {
-                    //TODO: Revert
-                    Color("stackBackgroundColor")
-                        .edgesIgnoringSafeArea(.all)
-
-                    StackView()
-                        .environment(\.managedObjectContext, context)
-                        .padding(.horizontal, 10)
-                        .padding(.top, 20)
-                        .padding(.bottom, 60)
-                }
+        ZStack {
+            if self.currentScene == .stack {
+                Color("stackBackgroundColor")
+                    .edgesIgnoringSafeArea(.all)
             }
             
-            Footer(currentScene: $currentScene)
+            VStack {
+                Group {
+                    if self.currentScene == .stack {
+                        StackView()
+                            .environment(\.managedObjectContext, context)
+                            .padding(.horizontal, 10)
+                            .padding(.top, 20)
+                    }
+                    else if self.currentScene == .store {
+                        StoreView()
+                    }
+                }.animation(.spring())
+                
+                Footer(currentScene: $currentScene)
+                    .padding(.top,20)
+            }
+            
         }
     }
 }
@@ -136,34 +143,41 @@ struct TargetButton: View {
 
 struct Footer: View {
     @Binding var currentScene: Scene
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var body: some View {
-        Group {
-            if currentScene == .stack {
-                HStack {
+            HStack {
+                Button(action: {
+                    self.currentScene = .store
+                }) {
                     Image(systemName: "lightbulb")
-                        .foregroundColor(Color.white)
-                        .scaleEffect(1.5)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "square.stack.fill")
-                        .foregroundColor(Color.white)
-                        .scaleEffect(2.0)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "lightbulb")
-                    .foregroundColor(Color("stackBackgroundColor"))
-                    .scaleEffect(1.5)
-                    
+                        .foregroundColor((self.currentScene == .store &&
+                        self.colorScheme == .light) ? Color.black : Color.white)
+                        .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
+                        .animation(.spring())
                 }
-                .padding(.horizontal, 25)
-                .padding(.bottom, 12)
+                
+                Spacer()
+                
+                Button(action: {
+                    self.currentScene = .stack
+                }) {
+                    Image(systemName: "square.stack.fill")
+                    .foregroundColor(
+                        (self.currentScene == .store &&
+                            self.colorScheme == .light) ? Color.black : Color.white)
+                    .scaleEffect((self.currentScene == .stack) ? 2.0 : 1.5)
+                    .animation(.spring())
+                }
+                
+                Spacer()
+                
+                Image(systemName: "lightbulb")
+                .hidden()
+                .scaleEffect(1.5)
+                
             }
-            else {
-                Text("????????")
-            }
-        }
+            .padding(.horizontal, 25)
+            .padding(.bottom, 20)
     }
 }

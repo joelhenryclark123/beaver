@@ -20,7 +20,24 @@ struct CardView: View {
                 
             Text(toDo.title)
                 .font(.system(size: 34))
+                .foregroundColor(Color.black)
                 
+            VStack {
+                Spacer()
+                Button(action: {
+                    self.toDo.completedAt = Date()
+                    
+                    do {
+                        try self.toDo.managedObjectContext?.save()
+                    } catch {
+                        //TODO: Figure this out
+                    }
+                }) {
+                    Image(systemName: "checkmark")
+                        .scaleEffect(3.0)
+                        .foregroundColor(Color("stackBackgroundColor"))
+                }.padding(.bottom, 50)
+            }
         }.opacity(opacity)
     }
 }

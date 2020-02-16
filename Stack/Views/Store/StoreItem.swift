@@ -15,6 +15,7 @@ struct StoreItem: View {
         HStack {
             Button(action: {
                 self.toDo.location = "Stack"
+                self.toDo.movedAt = Date()
                 do {
                     try self.toDo.managedObjectContext?.save()
                 } catch {

@@ -14,4 +14,5 @@ public class ToDo: NSManagedObject, Identifiable {
     @NSManaged var completedAt: Date?
     @NSManaged var createdAt: Date?
     @NSManaged var location: String?
+    @NSManaged var movedAt: Date?
 }

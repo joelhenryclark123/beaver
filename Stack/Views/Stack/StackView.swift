@@ -14,7 +14,7 @@ struct StackView: View {
     
     @FetchRequest(
         entity: ToDo.entity(),
-        sortDescriptors: [NSSortDescriptor(key: "createdAt", ascending: true)],
+        sortDescriptors: [NSSortDescriptor(key: "movedAt", ascending: true)],
         predicate: NSPredicate(format: "(completedAt == nil) AND (location = 'Stack')")
     ) var toDos: FetchedResults<ToDo>
     
@@ -34,15 +34,22 @@ struct StackView: View {
             }
             else {
                 ZStack {
-                    CardView(opacity: 0.25, toDo: toDos.first!)
-                        .scaleEffect(0.8)
-                        .offset(x: 0, y: -90)
+                    ForEach(
+                        toDos.indices.reversed(),
+                        id: \.self
+                    ) { index in
+                        CardView(toDo: self.toDos[index])
+                    }
 
-                    CardView(opacity: 0.5, toDo: toDos.first!)
-                        .scaleEffect(0.9)
-                        .offset(x: 0, y: -45)
-
-                    CardView(toDo: toDos.first!)
+//                    CardView(opacity: 0.25, toDo: toDos[1])
+//                        .scaleEffect(0.8)
+//                        .offset(x: 0, y: -90)
+//
+//                    CardView(opacity: 0.5, toDo: toDos.first!)
+//                        .scaleEffect(0.9)
+//                        .offset(x: 0, y: -45)
+//
+//                    CardView(toDo: toDos[2])
                 }
             }
         }
@@ -56,18 +63,21 @@ struct StackView_Previews: PreviewProvider {
     let obj1 = ToDo(context: mc)
     obj1.title = "uno"
     obj1.createdAt = Date()
+    obj1.movedAt = obj1.createdAt
     obj1.location = "Stack"
     
     let obj2 = ToDo(context: mc)
     obj2.title = "dos"
     obj2.createdAt = Date()
-    obj1.location = "Stack"
+    obj2.movedAt = obj2.createdAt
+    obj2.location = "Stack"
 
     
     let obj3 = ToDo(context: mc)
     obj3.title = "tres"
     obj3.createdAt = Date()
-    obj1.location = "Stack"
+    obj3.movedAt = obj3.createdAt
+    obj3.location = "Stack"
 
     
     mc.insert(obj1)
