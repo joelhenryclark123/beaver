@@ -12,61 +12,64 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @State var currentScene: Scene = .stack
+    @State var screenPosition = CGSize.zero
+    @GestureState var dragOffset = CGSize.zero
+    
+    let screen = UIScreen.main.bounds
+    let footerHeight: CGFloat = 60
     
     var body: some View {
         ZStack {
-            if self.currentScene == .stack {
-                Color("stackBackgroundColor")
-                    .edgesIgnoringSafeArea(.all)
-            }
+            Color("stackBackgroundColor")
+                .edgesIgnoringSafeArea(.all)
             
+            StackView()
+                .offset(x: self.screenPosition.width + self.dragOffset.width)
+                .padding(.horizontal, 10)
+                .padding(.top, 20)
+                .padding(.bottom, footerHeight)
+            
+            StoreView()
+                .offset(x: screen.width + self.screenPosition.width + self.dragOffset.width)
             VStack {
-                Group {
-                    if self.currentScene == .stack {
-                        StackView()
-                            .environment(\.managedObjectContext, context)
-                            .padding(.horizontal, 10)
-                            .padding(.top, 20)
-                    }
-                    else if self.currentScene == .store {
-                        StoreView()
-                    }
-                }.animation(.spring())
+            Spacer()
                 
-                Footer(currentScene: $currentScene)
-                    .padding(.top,20)
+            Footer(currentScene: $currentScene)
+            }
+        }.gesture(DragGesture().updating($dragOffset, body: { (value, state, tx) in
+            // stack going to store
+            if self.currentScene == .stack && value.translation.width <= -10 {
+                state = value.translation
+            }
+            // stack checking off
+            else if self.currentScene == .stack && value.translation.height <= -10 {
+                //TODO: Checkoff action
+                print("Check off!!")
             }
             
-        }
+            // store going to stack
+            else if self.currentScene == .store && value.translation.width >= 10 {
+                state = value.translation
+            }
+        }).onEnded({ (value) in
+            //stack to store
+            if value.translation.width <= -50 && self.currentScene == .stack {
+                self.screenPosition.width = -1*self.screen.width
+                self.currentScene = .store
+            }
+            //store to stack
+            else if value.translation.width >= 50 && self.currentScene == .store {
+                self.screenPosition = CGSize.zero
+                self.currentScene = .stack
+            }
+        })).animation(.easeOut)
+        
     }
 }
 
 enum Scene {
     case stack
     case store
-}
-
-struct CreatorModal: View {
-    @State var typing: String = ""
-    @Binding var adding: Bool
-    @Environment(\.managedObjectContext) var context
-    
-    var body: some View {
-        TextField("New ToDo", text: $typing, onCommit: {
-            let newToDo = ToDo(context: self.context)
-            newToDo.title = self.typing
-            newToDo.completedAt = nil
-            newToDo.createdAt = Date()
-            
-            do {
-                try self.context.save()
-            } catch {
-                assert(false, "Error saving context")
-            }
-            
-            self.adding.toggle()
-        }).multilineTextAlignment(.center)
-    }
 }
 
 struct ContentView_Previews: PreviewProvider {

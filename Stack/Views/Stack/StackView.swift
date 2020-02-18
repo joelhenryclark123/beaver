@@ -20,6 +20,7 @@ struct StackView: View {
     ) var toDos: FetchedResults<ToDo>
     
     @State var topCardPosition = CGSize.zero
+    var saveBoundary: CGFloat = -200
         
     var emptyState: some View {
         VStack(spacing: 10) {
@@ -40,7 +41,6 @@ struct StackView: View {
                 ZStack {
                     ForEach(self.toDos.indices.reversed(), id: \.self) { index in
                         CardView(toDo: self.toDos[index])
-                        
                     }
                 }
             }
