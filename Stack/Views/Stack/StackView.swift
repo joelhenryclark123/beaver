@@ -38,7 +38,7 @@ struct StackView: View {
             }
             else {
                 ZStack {
-                    ForEach(self.toDos.indices, id: \.self) { index in
+                    ForEach(self.toDos.indices.reversed(), id: \.self) { index in
                         CardView(toDo: self.toDos[index])
                         
                     }
