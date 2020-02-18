@@ -20,6 +20,7 @@ struct CardView: View {
                 
             Text(toDo.title)
                 .font(.system(size: 34))
+                .multilineTextAlignment(.center)
                 .foregroundColor(Color.black)
                 
             VStack {
@@ -34,9 +35,9 @@ struct CardView: View {
                     }
                 }) {
                     Image(systemName: "checkmark")
-                        .scaleEffect(3.0)
                         .foregroundColor(Color("stackBackgroundColor"))
-                }.padding(.bottom, 50)
+                }.scaleEffect(3.0)
+                    .padding(.bottom, 50)
             }
         }.opacity(opacity)
     }

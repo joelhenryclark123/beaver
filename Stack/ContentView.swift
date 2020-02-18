@@ -153,9 +153,9 @@ struct Footer: View {
                     Image(systemName: "lightbulb")
                         .foregroundColor((self.currentScene == .store &&
                         self.colorScheme == .light) ? Color.black : Color.white)
-                        .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
-                        .animation(.spring())
                 }
+                .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
+                .animation(.spring())
                 
                 Spacer()
                 
@@ -166,15 +166,15 @@ struct Footer: View {
                     .foregroundColor(
                         (self.currentScene == .store &&
                             self.colorScheme == .light) ? Color.black : Color.white)
-                    .scaleEffect((self.currentScene == .stack) ? 2.0 : 1.5)
-                    .animation(.spring())
-                }
+                }.scaleEffect((self.currentScene == .stack) ? 2.0 : 1.5)                    .animation(.spring())
+
+
                 
                 Spacer()
                 
                 Image(systemName: "lightbulb")
                 .hidden()
-                .scaleEffect(1.5)
+                .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
                 
             }
             .padding(.horizontal, 25)
