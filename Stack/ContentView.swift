@@ -72,30 +72,30 @@ struct CreatorModal: View {
 struct ContentView_Previews: PreviewProvider {
     // Import ManagedObjectContext
     static let context: NSManagedObjectContext = {
-    let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    let obj1 = ToDo(context: mc)
-    obj1.title = "uno"
-    obj1.createdAt = Date()
-    obj1.location = "Store"
-    
-    let obj2 = ToDo(context: mc)
-    obj2.title = "dos"
-    obj2.createdAt = Date()
-    obj2.location = "Stack"
-
-    
-    let obj3 = ToDo(context: mc)
-    obj3.title = "tres"
-    obj3.createdAt = Date()
-    obj3.location = "Stack"
-
-    
-    mc.insert(obj1)
-    mc.insert(obj2)
-    mc.insert(obj3)
-    
-    return mc
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let obj1 = ToDo(context: mc)
+        obj1.title = "uno"
+        obj1.createdAt = Date()
+        obj1.location = "Store"
+        
+        let obj2 = ToDo(context: mc)
+        obj2.title = "dos"
+        obj2.createdAt = Date()
+        obj2.location = "Stack"
+        
+        
+        let obj3 = ToDo(context: mc)
+        obj3.title = "tres"
+        obj3.createdAt = Date()
+        obj3.location = "Stack"
+        
+        
+        mc.insert(obj1)
+        mc.insert(obj2)
+        mc.insert(obj3)
+        
+        return mc
     }()
     
     static var previews: some View {
@@ -132,7 +132,7 @@ struct TargetButton: View {
                         Circle()
                             .frame(width: innerDiameter, height: innerDiameter)
                             .foregroundColor(insideColor)
-                    )
+                )
                     .shadow(radius: height)
                     .overlay(glyph.foregroundColor(strokeColor))
                     .padding()
@@ -146,38 +146,35 @@ struct Footer: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var body: some View {
-            HStack {
-                Button(action: {
-                    self.currentScene = .store
-                }) {
-                    Image(systemName: "lightbulb")
-                        .foregroundColor((self.currentScene == .store &&
-                        self.colorScheme == .light) ? Color.black : Color.white)
-                }
+        HStack {
+            Image(systemName: "lightbulb")
+                .hidden()
                 .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
-                .animation(.spring())
-                
-                Spacer()
-                
-                Button(action: {
-                    self.currentScene = .stack
-                }) {
-                    Image(systemName: "square.stack.fill")
+            
+            Spacer()
+            
+            Button(action: {
+                self.currentScene = .stack
+            }) {
+                Image(systemName: "square.stack.fill")
                     .foregroundColor(
                         (self.currentScene == .store &&
                             self.colorScheme == .light) ? Color.black : Color.white)
-                }.scaleEffect((self.currentScene == .stack) ? 2.0 : 1.5)                    .animation(.spring())
-
-
-                
-                Spacer()
-                
+            }.scaleEffect((self.currentScene == .stack) ? 2.0 : 1.5)                    .animation(.spring())
+            
+            Spacer()
+            
+            Button(action: {
+                self.currentScene = .store
+            }) {
                 Image(systemName: "lightbulb")
-                .hidden()
-                .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
-                
+                    .foregroundColor((self.currentScene == .store &&
+                        self.colorScheme == .light) ? Color.black : Color.white)
             }
-            .padding(.horizontal, 25)
-            .padding(.bottom, 20)
+            .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
+            .animation(.spring())
+        }
+        .padding(.horizontal, 25)
+        .padding(.bottom, 20)
     }
 }
