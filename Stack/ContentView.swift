@@ -47,7 +47,7 @@ struct ContentView: View {
                     /*
                      .inactive interprets the current drag using if statements,
                      and reassigns self.dragState to a case representing desired app behavior
-                    */
+                     */
                     switch self.dragState {
                     case .inactive:
                         // Stack to store
@@ -121,26 +121,28 @@ struct ContentView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
+        mc.reset()
+        
         let obj1 = ToDo(context: mc)
         obj1.title = "uno"
         obj1.createdAt = Date()
         obj1.location = "Store"
         
-        let obj2 = ToDo(context: mc)
-        obj2.title = "dos"
-        obj2.createdAt = Date()
-        obj2.location = "Stack"
-        
-        
-        let obj3 = ToDo(context: mc)
-        obj3.title = "tres"
-        obj3.createdAt = Date()
-        obj3.location = "Stack"
+//        let obj2 = ToDo(context: mc)
+//        obj2.title = "dos"
+//        obj2.createdAt = Date()
+//        obj2.location = "Stack"
+//
+//
+//        let obj3 = ToDo(context: mc)
+//        obj3.title = "tres"
+//        obj3.createdAt = Date()
+//        obj3.location = "Stack"
         
         
         mc.insert(obj1)
-        mc.insert(obj2)
-        mc.insert(obj3)
+//        mc.insert(obj2)
+//        mc.insert(obj3)
         
         return mc
     }()

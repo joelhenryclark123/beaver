@@ -13,7 +13,6 @@ struct CardView: View {
     @State var opacity: Double = 1.0
     var toDo: ToDo
 
-    
     var body: some View {
         RoundedRectangle(cornerRadius: 38.5, style: .continuous)
             .foregroundColor(Color.white)

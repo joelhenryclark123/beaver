@@ -19,7 +19,6 @@ struct StackView: View {
         )
     ) var toDos: FetchedResults<ToDo>
     
-    @State var topCardPosition = CGSize.zero
     var saveBoundary: CGFloat = -200
         
     var emptyState: some View {
@@ -52,29 +51,31 @@ struct StackView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
+        mc.reset()
+        
         let obj1 = ToDo(context: mc)
         obj1.title = "uno"
         obj1.createdAt = Date()
         obj1.movedAt = obj1.createdAt
         obj1.location = "Stack"
         
-        let obj2 = ToDo(context: mc)
-        obj2.title = "dos"
-        obj2.createdAt = Date()
-        obj2.movedAt = obj2.createdAt
-        obj2.location = "Stack"
-
-
-        let obj3 = ToDo(context: mc)
-        obj3.title = "tres"
-        obj3.createdAt = Date()
-        obj3.movedAt = obj3.createdAt
-        obj3.location = "Stack"
+//        let obj2 = ToDo(context: mc)
+//        obj2.title = "dos"
+//        obj2.createdAt = Date()
+//        obj2.movedAt = obj2.createdAt
+//        obj2.location = "Stack"
+//
+//
+//        let obj3 = ToDo(context: mc)
+//        obj3.title = "tres"
+//        obj3.createdAt = Date()
+//        obj3.movedAt = obj3.createdAt
+//        obj3.location = "Stack"
         
         
         mc.insert(obj1)
-        mc.insert(obj2)
-        mc.insert(obj3)
+//        mc.insert(obj2)
+//        mc.insert(obj3)
         
         return mc
     }()
