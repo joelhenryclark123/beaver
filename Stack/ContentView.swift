@@ -9,60 +9,80 @@
 import SwiftUI
 import CoreData
 
+let footerHeight: CGFloat = 60
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
+    
     @State var currentScene: Scene = .stack
     @State var screenPosition = CGSize.zero
-    @GestureState var dragOffset = CGSize.zero
+    @State var dragState = DragState.inactive
     
     let screen = UIScreen.main.bounds
-    let footerHeight: CGFloat = 60
     
+    //MARK: Body
     var body: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
             StackView()
-                .offset(x: self.screenPosition.width + self.dragOffset.width)
+                .offset(x: dragState.scrollTranslation.width + screenPosition.width)
                 .padding(.horizontal, 10)
                 .padding(.top, 20)
                 .padding(.bottom, footerHeight)
             
             StoreView()
-                .offset(x: screen.width + self.screenPosition.width + self.dragOffset.width)
-            VStack {
-            Spacer()
-                
-            Footer(currentScene: $currentScene)
-            }
-        }.gesture(DragGesture().updating($dragOffset, body: { (value, state, tx) in
-            // stack going to store
-            if self.currentScene == .stack && value.translation.width <= -10 {
-                state = value.translation
-            }
-            // stack checking off
-            else if self.currentScene == .stack && value.translation.height <= -10 {
-                //TODO: Checkoff action
-                print("Check off!!")
-            }
+                .offset(x: screen.width + dragState.scrollTranslation.width + screenPosition.width)
             
-            // store going to stack
-            else if self.currentScene == .store && value.translation.width >= 10 {
-                state = value.translation
+            VStack {
+                Spacer()
+                
+                Footer(currentScene: $currentScene)
             }
-        }).onEnded({ (value) in
-            //stack to store
-            if value.translation.width <= -50 && self.currentScene == .stack {
-                self.screenPosition.width = -1*self.screen.width
-                self.currentScene = .store
-            }
-            //store to stack
-            else if value.translation.width >= 50 && self.currentScene == .store {
-                self.screenPosition = CGSize.zero
-                self.currentScene = .stack
-            }
-        })).animation(.easeOut)
+        }.gesture(
+            //MARK: Gestures
+            DragGesture()
+                .onChanged({ value in
+                    /*
+                     .inactive interprets the current drag using if statements,
+                     and reassigns self.dragState to a case representing desired app behavior
+                    */
+                    switch self.dragState {
+                    case .inactive:
+                        // Stack to store
+                        if value.translation.width <= -10 && self.currentScene == .stack {
+                            self.dragState = .draggingSideways(translation: value.translation)
+                        }
+                        // Store to stack
+                        if value.translation.width >= 10 && self.currentScene == .store {
+                            self.dragState = .draggingSideways(translation: value.translation)
+                        }
+                        // Checking off
+                        else if value.translation.height <= -10 && self.currentScene == .stack {
+                            self.dragState = .checkingOff(translation: value.translation)
+                        }
+                    case .draggingSideways(_):
+                        self.dragState = .draggingSideways(translation: value.translation)
+                    case .checkingOff(_):
+                        self.dragState = .checkingOff(translation: value.translation)
+                    }
+                })
+                .onEnded({ (value) in
+                    // Stack to store
+                    if self.currentScene == .stack && self.dragState.scrollTranslation.width <= -20 {
+                        self.screenPosition.width = -1 * self.screen.width
+                        self.currentScene = .store
+                    }
+                    // Store to stack
+                    if self.currentScene == .store && self.dragState.scrollTranslation.width >= 20 {
+                        self.screenPosition = .zero
+                        self.currentScene = .stack
+                    }
+                    // Reset dragState
+                    self.dragState = .inactive
+                }))
+            .animation(.easeOut)
         
     }
 }
@@ -70,6 +90,30 @@ struct ContentView: View {
 enum Scene {
     case stack
     case store
+}
+
+enum DragState {
+    case inactive
+    case draggingSideways(translation: CGSize)
+    case checkingOff(translation: CGSize)
+    
+    var scrollTranslation: CGSize {
+        switch self {
+        case .inactive, .checkingOff(_):
+            return .zero
+        case .draggingSideways(let translation):
+            return translation
+        }
+    }
+    
+    var checkingTranslation: CGSize {
+        switch self {
+        case .inactive, .draggingSideways(_):
+            return .zero
+        case .checkingOff(let translation):
+            return translation
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
