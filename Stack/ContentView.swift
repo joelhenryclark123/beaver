@@ -15,10 +15,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     
     @State var currentScene: Scene = .stack
-    @State var dragState = DragState.inactive
-    
-    let screen = UIScreen.main.bounds
-    
+    @State var dragState: DragState = .inactive
+        
     //MARK: Body
     var body: some View {
         ZStack {
@@ -26,13 +24,13 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             
             StackView()
-                .offset(x: dragState.scrollTranslation.width + currentScene.position)
+                .offset(x: dragState.scrollTranslation.width + currentScene.stackOffset)
                 .padding(.horizontal, 10)
                 .padding(.top, 20)
                 .padding(.bottom, footerHeight)
             
             StoreView()
-                .offset(x: screen.width + dragState.scrollTranslation.width + currentScene.position)
+                .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
             
             VStack {
                 Spacer()
@@ -90,12 +88,21 @@ enum Scene {
     case stack
     case store
     
-    var position: CGFloat {
+    var stackOffset: CGFloat {
         switch self {
         case .stack:
             return CGFloat.zero
         case .store:
             return -1 * UIScreen.main.bounds.width
+        }
+    }
+    
+    var storeOffset: CGFloat {
+        switch self {
+        case .store:
+            return CGFloat.zero
+        case .stack:
+            return UIScreen.main.bounds.width
         }
     }
 }
