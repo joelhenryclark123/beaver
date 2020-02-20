@@ -18,6 +18,7 @@ struct StoreView: View {
     ) var toDos: FetchedResults<ToDo>
     
     @State var newToDoTitle: String = ""
+    let footerHeight: CGFloat = 60
     
     var body: some View {
         NavigationView {
@@ -60,6 +61,9 @@ struct StoreView: View {
                         }
                     }
                 }
+                
+                Spacer()
+                    .frame(height: footerHeight)
             }.navigationBarTitle("Ideas")
             .navigationBarItems(trailing: EditButton())
         }.navigationViewStyle(StackNavigationViewStyle())
