@@ -15,7 +15,6 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     
     @State var currentScene: Scene = .stack
-    @State var screenPosition = CGSize.zero
     @State var dragState = DragState.inactive
     
     let screen = UIScreen.main.bounds
@@ -27,13 +26,13 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
             
             StackView()
-                .offset(x: dragState.scrollTranslation.width + screenPosition.width)
+                .offset(x: dragState.scrollTranslation.width + currentScene.position)
                 .padding(.horizontal, 10)
                 .padding(.top, 20)
                 .padding(.bottom, footerHeight)
             
             StoreView()
-                .offset(x: screen.width + dragState.scrollTranslation.width + screenPosition.width)
+                .offset(x: screen.width + dragState.scrollTranslation.width + currentScene.position)
             
             VStack {
                 Spacer()
@@ -42,7 +41,7 @@ struct ContentView: View {
             }
         }.gesture(
             //MARK: Gestures
-            DragGesture()
+            DragGesture(minimumDistance: 30, coordinateSpace: .local)
                 .onChanged({ value in
                     /*
                      .inactive interprets the current drag using if statements,
@@ -50,17 +49,16 @@ struct ContentView: View {
                      */
                     switch self.dragState {
                     case .inactive:
-                        // Stack to store
-                        if value.translation.width <= -10 && self.currentScene == .stack {
-                            self.dragState = .draggingSideways(translation: value.translation)
-                        }
-                        // Store to stack
-                        if value.translation.width >= 10 && self.currentScene == .store {
-                            self.dragState = .draggingSideways(translation: value.translation)
-                        }
-                        // Checking off
-                        else if value.translation.height <= -10 && self.currentScene == .stack {
-                            self.dragState = .checkingOff(translation: value.translation)
+                        switch self.currentScene {
+                        case .stack:
+                            if value.translation.width <= -10 {
+                                self.dragState = .draggingSideways(translation: value.translation)
+                            }
+                        case .store:
+                            if value.translation.width >= 10 {
+                                self.dragState = .draggingSideways(translation: value.translation)
+                            }
+
                         }
                     case .draggingSideways(_):
                         self.dragState = .draggingSideways(translation: value.translation)
@@ -69,16 +67,17 @@ struct ContentView: View {
                     }
                 })
                 .onEnded({ (value) in
-                    // Stack to store
-                    if self.currentScene == .stack && self.dragState.scrollTranslation.width <= -20 {
-                        self.screenPosition.width = -1 * self.screen.width
-                        self.currentScene = .store
+                    switch self.currentScene {
+                    case .stack:
+                        if value.translation.width <= -20 {
+                            self.currentScene = .store
+                        }
+                    case .store:
+                        if value.translation.width >= 20 {
+                            self.currentScene = .stack
+                        }
                     }
-                    // Store to stack
-                    if self.currentScene == .store && self.dragState.scrollTranslation.width >= 20 {
-                        self.screenPosition = .zero
-                        self.currentScene = .stack
-                    }
+                    
                     // Reset dragState
                     self.dragState = .inactive
                 }))
@@ -90,6 +89,15 @@ struct ContentView: View {
 enum Scene {
     case stack
     case store
+    
+    var position: CGFloat {
+        switch self {
+        case .stack:
+            return CGFloat.zero
+        case .store:
+            return -1 * UIScreen.main.bounds.width
+        }
+    }
 }
 
 enum DragState {
@@ -194,11 +202,13 @@ struct Footer: View {
     @Binding var currentScene: Scene
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
+    let screen = UIScreen.main.bounds
+    
     var body: some View {
         HStack {
             Image(systemName: "lightbulb")
                 .hidden()
-                .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
+                .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
             
             Spacer()
             
@@ -206,10 +216,11 @@ struct Footer: View {
                 self.currentScene = .stack
             }) {
                 Image(systemName: "square.stack.fill")
-                    .foregroundColor(
-                        (self.currentScene == .store &&
+                    .foregroundColor((
+                        (currentScene == .store) &&
                             self.colorScheme == .light) ? Color.black : Color.white)
-            }.scaleEffect((self.currentScene == .stack) ? 2.0 : 1.5)                    .animation(.spring())
+            }.scaleEffect((currentScene == .stack) ? 2.0 : 1.5)
+            .animation(.spring())
             
             Spacer()
             
@@ -217,10 +228,10 @@ struct Footer: View {
                 self.currentScene = .store
             }) {
                 Image(systemName: "lightbulb")
-                    .foregroundColor((self.currentScene == .store &&
+                    .foregroundColor(((currentScene == .store) &&
                         self.colorScheme == .light) ? Color.black : Color.white)
             }
-            .scaleEffect((self.currentScene == .stack) ? 1.5 : 2.0)
+            .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
             .animation(.spring())
         }
         .padding(.horizontal, 25)
