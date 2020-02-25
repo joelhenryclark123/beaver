@@ -83,7 +83,6 @@ struct StackView_Previews: PreviewProvider {
             
             StackView()
                 .environment(\.managedObjectContext, context)
-                .padding(10)
         }
     }
 }

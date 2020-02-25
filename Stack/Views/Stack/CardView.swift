@@ -15,8 +15,6 @@ struct CardView: View {
     var body: some View {
         VStack {
             RoundedRectangle(cornerRadius: 38.5, style: .continuous)
-                .padding(16)
-                .aspectRatio(1.0, contentMode: .fit)
                 .shadow(
                     color: Color(UIColor(red: 0.14, green: 0.696, blue: 1, alpha: 1)),
                     radius: 16, x: -5, y: -8
@@ -25,6 +23,7 @@ struct CardView: View {
                     color: Color(UIColor(red: 0, green: 0.556, blue: 0.86, alpha: 1)),
                     radius: 16, x: 8, y: 5
                 )
+                .aspectRatio(1.0, contentMode: .fit)
                 .foregroundColor(Color.white)
                 .overlay(
                     RoundedRectangle(
@@ -39,7 +38,8 @@ struct CardView: View {
                         .font(.system(size: 40))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("stackBackgroundColor"))
-            )
+                    .padding(10)
+            ).padding(16)
             
             Button(action: { self.saveToDo() }) {
                 Image(systemName: "checkmark")

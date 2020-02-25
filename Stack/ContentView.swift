@@ -13,8 +13,8 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var state: AppState
     
-    @State var currentScene: Scene = .store
-    @State var dragState: DragState = .inactive
+    @State var currentScene: Scene = .stack
+    @GestureState var dragState: DragState = .inactive
         
     //MARK: Body
     var body: some View {
@@ -39,28 +39,27 @@ struct ContentView: View {
         }.gesture(
             //MARK: Gestures
             DragGesture(minimumDistance: 30, coordinateSpace: .local)
-                .onChanged({ value in
+                .updating($dragState, body: { (value, state, tx) in
                     /*
                      .inactive interprets the current drag using if statements,
                      and reassigns self.dragState to a case representing desired app behavior
                      */
-                    switch self.dragState {
+                    switch state {
                     case .inactive:
                         switch self.currentScene {
                         case .stack:
-                            if value.translation.width <= -10 {
-                                self.dragState = .draggingSideways(translation: value.translation)
+                            if value.translation.width >= 10 {
+                                state = .draggingSideways(translation: value.translation)
                             }
                         case .store:
-                            if value.translation.width >= 10 {
-                                self.dragState = .draggingSideways(translation: value.translation)
+                            if value.translation.width <= -10 {
+                                state = .draggingSideways(translation: value.translation)
                             }
-
                         }
                     case .draggingSideways(_):
-                        self.dragState = .draggingSideways(translation: value.translation)
+                        state = .draggingSideways(translation: value.translation)
                     case .checkingOff(_):
-                        self.dragState = .checkingOff(translation: value.translation)
+                        state = .checkingOff(translation: value.translation)
                     }
                 })
                 .onEnded({ (value) in
@@ -74,9 +73,6 @@ struct ContentView: View {
                             self.currentScene = .stack
                         }
                     }
-                    
-                    // Reset dragState
-                    self.dragState = .inactive
                 }))
             .animation(.easeOut)
         
@@ -181,6 +177,8 @@ struct Footer: View {
             Image(systemName: "lightbulb")
             .foregroundColor(((currentScene == .store) &&
                 self.colorScheme == .light) ? Color.black : Color.white)
+            .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
+
             
             Spacer()
             
