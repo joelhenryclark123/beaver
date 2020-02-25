@@ -13,8 +13,15 @@ struct StoreView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(
         entity: ToDo.entity(),
-        sortDescriptors: [NSSortDescriptor(key: "createdAt", ascending: true)],
-        predicate: NSPredicate(format: "(completedAt == nil) AND (location = 'Store')")
+        sortDescriptors: [
+            NSSortDescriptor(
+                key: "createdAt",
+                ascending: true
+            )
+        ],
+        predicate: NSPredicate(
+            format: "(completedAt == nil) AND (location = 'Store')"
+        )
     ) var toDos: FetchedResults<ToDo>
     
     @State var newToDoTitle: String = ""

@@ -10,32 +10,56 @@ import SwiftUI
 
 
 struct CardView: View {
-    @State var opacity: Double = 1.0
     var toDo: ToDo
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 38.5, style: .continuous)
-            .foregroundColor(Color.white)
-            .shadow(radius: 3)
-            .overlay (
-                ZStack {
+        VStack {
+            RoundedRectangle(cornerRadius: 38.5, style: .continuous)
+                .padding(16)
+                .aspectRatio(1.0, contentMode: .fit)
+                .shadow(
+                    color: Color(UIColor(red: 0.14, green: 0.696, blue: 1, alpha: 1)),
+                    radius: 16, x: -5, y: -8
+                )
+                .shadow(
+                    color: Color(UIColor(red: 0, green: 0.556, blue: 0.86, alpha: 1)),
+                    radius: 16, x: 8, y: 5
+                )
+                .foregroundColor(Color.white)
+                .overlay(
+                    RoundedRectangle(
+                        cornerRadius: 38.5,
+                        style: .continuous
+                    ).stroke(
+                        Color("stackBackgroundColor"),
+                        lineWidth: 3
+                    ))
+                .overlay (
                     Text(toDo.title)
-                        .font(.system(size: 34))
+                        .font(.system(size: 40))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(Color.black)
-                    VStack {
-                        Spacer()
-                        Button(action: { self.saveToDo() }) {
-                            Image(systemName: "checkmark")
-                        }.scaleEffect(3.0)
-                            .offset(y: -50)
-                    }
-                }
+                        .foregroundColor(Color("stackBackgroundColor"))
             )
+            
+            Button(action: { self.saveToDo() }) {
+                Image(systemName: "checkmark")
+                .resizable()
+            }.foregroundColor(.white).frame(width:40, height: 40)
+        }
     }
     
     func saveToDo() {
         self.toDo.completedAt = Date()
+        
+        do {
+            try self.toDo.managedObjectContext?.save()
+        } catch {
+            //TODO: Figure this out
+        }
+    }
+    
+    func moveToDo() {
+        self.toDo.location = "Store"
         
         do {
             try self.toDo.managedObjectContext?.save()

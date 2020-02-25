@@ -9,12 +9,11 @@
 import SwiftUI
 import CoreData
 
-let footerHeight: CGFloat = 60
-
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
+    @EnvironmentObject var state: AppState
     
-    @State var currentScene: Scene = .stack
+    @State var currentScene: Scene = .store
     @State var dragState: DragState = .inactive
         
     //MARK: Body
@@ -23,14 +22,14 @@ struct ContentView: View {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
+            StoreView()
+            .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
+            
             StackView()
                 .offset(x: dragState.scrollTranslation.width + currentScene.stackOffset)
                 .padding(.horizontal, 10)
                 .padding(.top, 20)
-                .padding(.bottom, footerHeight)
-            
-            StoreView()
-                .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
+                .padding(.bottom, state.footerHeight)
             
             VStack {
                 Spacer()
@@ -67,11 +66,11 @@ struct ContentView: View {
                 .onEnded({ (value) in
                     switch self.currentScene {
                     case .stack:
-                        if value.translation.width <= -20 {
+                        if value.translation.width >= 20 {
                             self.currentScene = .store
                         }
                     case .store:
-                        if value.translation.width >= 20 {
+                        if value.translation.width <= -20 {
                             self.currentScene = .stack
                         }
                     }
@@ -93,7 +92,7 @@ enum Scene {
         case .stack:
             return CGFloat.zero
         case .store:
-            return -1 * UIScreen.main.bounds.width
+            return UIScreen.main.bounds.width
         }
     }
     
@@ -102,7 +101,7 @@ enum Scene {
         case .store:
             return CGFloat.zero
         case .stack:
-            return UIScreen.main.bounds.width
+            return -1 * UIScreen.main.bounds.width
         }
     }
 }
@@ -162,46 +161,12 @@ struct ContentView_Previews: PreviewProvider {
         return mc
     }()
     
+    static let state = AppState()
+    
     static var previews: some View {
-        ContentView().environment(\.managedObjectContext, context)
-    }
-}
-
-struct TargetButton: View {
-    var diameter: CGFloat = 50.0
-    var stroke: CGFloat = 2.5
-    var strokeColor: Color = .orange
-    var insideColor: Color = Color("systemBackgroundColor")
-    var height: CGFloat = 1.0
-    
-    var innerDiameter: CGFloat {
-        diameter - 2 * stroke
-    }
-    
-    var sfSymbol: String = "plus"
-    
-    var glyph: Image {
-        Image(systemName: sfSymbol)
-    }
-    
-    var action: () -> Void
-    
-    var body: some View {
-        VStack {
-            Button(action: self.action) {
-                Circle()
-                    .frame(width: diameter, height: diameter)
-                    .foregroundColor(strokeColor)
-                    .overlay(
-                        Circle()
-                            .frame(width: innerDiameter, height: innerDiameter)
-                            .foregroundColor(insideColor)
-                )
-                    .shadow(radius: height)
-                    .overlay(glyph.foregroundColor(strokeColor))
-                    .padding()
-            }
-        }
+        ContentView()
+            .environment(\.managedObjectContext, context)
+            .environmentObject(state)
     }
 }
 
@@ -214,8 +179,8 @@ struct Footer: View {
     var body: some View {
         HStack {
             Image(systemName: "lightbulb")
-                .hidden()
-                .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
+            .foregroundColor(((currentScene == .store) &&
+                self.colorScheme == .light) ? Color.black : Color.white)
             
             Spacer()
             
@@ -235,8 +200,8 @@ struct Footer: View {
                 self.currentScene = .store
             }) {
                 Image(systemName: "lightbulb")
-                    .foregroundColor(((currentScene == .store) &&
-                        self.colorScheme == .light) ? Color.black : Color.white)
+                .hidden()
+                .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
             }
             .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
             .animation(.spring())
