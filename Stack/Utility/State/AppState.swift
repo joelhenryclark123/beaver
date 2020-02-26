@@ -8,7 +8,22 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 final class AppState: ObservableObject {
-    var currentScene: Scene = .stack
+    @Published var dragState: DragState = .inactive
+    @Published var currentScene: Scene = .stack
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    func moveActiveToStore() {
+        let toDos = try! (context.fetch(NSFetchRequest<NSFetchRequestResult>.init(entityName: "ToDo")) as! [ToDo])
+        
+        for toDo in toDos {
+            if toDo.location == "Stack" {
+                toDo.location = "Store"
+                return
+            }
+        }
+    }
 }

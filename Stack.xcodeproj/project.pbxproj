@@ -12,6 +12,8 @@
 		E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */; };
 		E98073E723F71C6A00FDAF08 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* CardView.swift */; };
 		E98073EA23F723FE00FDAF08 /* StackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E923F723FE00FDAF08 /* StackView.swift */; };
+		E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F232406F4EE0028C4E1 /* DragState.swift */; };
+		E9826F262406F56E0028C4E1 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F252406F56E0028C4E1 /* Scene.swift */; };
 		E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F64E23F75EB200BE2133 /* StoreView.swift */; };
 		E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F65123F75ECD00BE2133 /* StoreItem.swift */; };
 		E9B37231240335FC003B46B0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
@@ -41,6 +43,8 @@
 		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
 		E98073E623F71C6A00FDAF08 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		E98073E923F723FE00FDAF08 /* StackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackView.swift; sourceTree = "<group>"; };
+		E9826F232406F4EE0028C4E1 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
+		E9826F252406F56E0028C4E1 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		E9B2F64E23F75EB200BE2133 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		E9B2F65123F75ECD00BE2133 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -133,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				E9B37230240335FC003B46B0 /* AppState.swift */,
+				E9826F252406F56E0028C4E1 /* Scene.swift */,
+				E9826F232406F4EE0028C4E1 /* DragState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -306,7 +312,9 @@
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
+				E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
+				E9826F262406F56E0028C4E1 /* Scene.swift in Sources */,
 				E9F9F37023BA46EB00EC1EBE /* ToDo.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* CardView.swift in Sources */,
 				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,
