@@ -74,8 +74,7 @@ struct StoreView: View {
                 }.navigationBarTitle("Ideas")
                     .navigationBarItems(trailing: EditButton().padding(.top, 100))
             }.navigationViewStyle(StackNavigationViewStyle()
-            )
-                .clipShape(RoundedRectangle(cornerRadius: 39.5, style: .continuous))
+                ).clipShape(RoundedRectangle(cornerRadius: 39.5, style: .continuous)).padding(8)
     }
 }
 

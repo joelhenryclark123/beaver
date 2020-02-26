@@ -25,17 +25,13 @@ struct ContentView: View {
             StoreView().zIndex(1)
                 .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
                 .shadow(radius: 10)
-                .padding(.bottom, state.footerHeight)
             
             StackView()
-                .padding(.horizontal, 10)
-                .padding(.top, 20)
-                .padding(.bottom, state.footerHeight)
 
             VStack {
                 Spacer()
                 
-                Footer(currentScene: $currentScene)
+//                Footer(currentScene: $currentScene)
             }.zIndex(2)
         }.gesture(
             //MARK: Gestures
