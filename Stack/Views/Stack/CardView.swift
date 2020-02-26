@@ -13,7 +13,7 @@ struct CardView: View {
     var toDo: ToDo
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 32) {
             RoundedRectangle(cornerRadius: 38.5, style: .continuous)
                 .modifier(SoftBlueShadow())
                 .aspectRatio(1.0, contentMode: .fit)
@@ -32,7 +32,7 @@ struct CardView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("stackBackgroundColor"))
                     .padding(10)
-            ).padding(16)
+            )
             
             Button(action: { self.saveToDo() }) {
                 RoundedRectangle(cornerRadius: 39.5, style: .continuous)
@@ -52,8 +52,8 @@ struct CardView: View {
                 .foregroundColor(Color("stackBackgroundColor"))
                 .padding(25)
                 )
-            }.frame(width:100, height: 100)
-        }
+                }.frame(width:100, height: 100)
+        }.padding(16)
     }
     
     func saveToDo() {

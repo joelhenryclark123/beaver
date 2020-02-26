@@ -13,7 +13,6 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var state: AppState
     
-    @State var currentScene: Scene = .stack
     @GestureState var dragState: DragState = .inactive
             
     //MARK: Body
@@ -21,9 +20,8 @@ struct ContentView: View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
-            
             StoreView().zIndex(1)
-                .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
+                .offset(x: dragState.scrollTranslation.width + state.currentScene.storeOffset)
                 .shadow(radius: 10)
             
             StackView()
@@ -43,7 +41,7 @@ struct ContentView: View {
                      */
                     switch state {
                     case .inactive:
-                        switch self.currentScene {
+                        switch self.state.currentScene {
                         case .stack:
                             if value.translation.width >= 10 {
                                 state = .draggingSideways(translation: value.translation)
@@ -54,7 +52,7 @@ struct ContentView: View {
                             }
                         }
                     case .draggingSideways(_):
-                        switch self.currentScene {
+                        switch self.state.currentScene {
                         case .stack:
                             if value.translation.width >= 0 {
                                 state = .draggingSideways(translation: value.translation)
@@ -69,14 +67,14 @@ struct ContentView: View {
                     }
                 })
                 .onEnded({ (value) in
-                    switch self.currentScene {
+                    switch self.state.currentScene {
                     case .stack:
                         if value.translation.width >= 20 {
-                            self.currentScene = .store
+                            self.state.currentScene = .store
                         }
                     case .store:
                         if value.translation.width <= -20 {
-                            self.currentScene = .stack
+                            self.state.currentScene = .stack
                         }
                     }
                 }))

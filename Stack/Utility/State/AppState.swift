@@ -10,5 +10,5 @@ import Foundation
 import SwiftUI
 
 final class AppState: ObservableObject {
-    let footerHeight: CGFloat = 60
+    var currentScene: Scene = .stack
 }
