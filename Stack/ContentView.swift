@@ -15,27 +15,28 @@ struct ContentView: View {
     
     @State var currentScene: Scene = .stack
     @GestureState var dragState: DragState = .inactive
-        
+            
     //MARK: Body
     var body: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
-            StoreView()
-            .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
+            StoreView().zIndex(1)
+                .offset(x: dragState.scrollTranslation.width + currentScene.storeOffset)
+                .shadow(radius: 10)
+                .padding(.bottom, state.footerHeight)
             
             StackView()
-                .offset(x: dragState.scrollTranslation.width + currentScene.stackOffset)
                 .padding(.horizontal, 10)
                 .padding(.top, 20)
                 .padding(.bottom, state.footerHeight)
-            
+
             VStack {
                 Spacer()
                 
                 Footer(currentScene: $currentScene)
-            }
+            }.zIndex(2)
         }.gesture(
             //MARK: Gestures
             DragGesture(minimumDistance: 30, coordinateSpace: .local)
@@ -57,7 +58,16 @@ struct ContentView: View {
                             }
                         }
                     case .draggingSideways(_):
-                        state = .draggingSideways(translation: value.translation)
+                        switch self.currentScene {
+                        case .stack:
+                            if value.translation.width >= 0 {
+                                state = .draggingSideways(translation: value.translation)
+                            }
+                        case .store:
+                            if value.translation.width <= 0 {
+                                state = .draggingSideways(translation: value.translation)
+                            }
+                        }
                     case .checkingOff(_):
                         state = .checkingOff(translation: value.translation)
                     }
@@ -88,7 +98,7 @@ enum Scene {
         case .stack:
             return CGFloat.zero
         case .store:
-            return UIScreen.main.bounds.width
+            return UIScreen.main.bounds.width + 10.0
         }
     }
     
@@ -176,7 +186,7 @@ struct Footer: View {
         HStack {
             Image(systemName: "lightbulb")
             .foregroundColor(((currentScene == .store) &&
-                self.colorScheme == .light) ? Color.black : Color.white)
+                self.colorScheme == .light) ? Color.white : Color.white)
             .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
 
             
@@ -188,7 +198,7 @@ struct Footer: View {
                 Image(systemName: "square.stack.fill")
                     .foregroundColor((
                         (currentScene == .store) &&
-                            self.colorScheme == .light) ? Color.black : Color.white)
+                            self.colorScheme == .light) ? Color.white : Color.white)
             }.scaleEffect((currentScene == .stack) ? 2.0 : 1.5)
             .animation(.spring())
             

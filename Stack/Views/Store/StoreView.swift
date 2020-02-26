@@ -28,52 +28,54 @@ struct StoreView: View {
     let footerHeight: CGFloat = 60
     
     var body: some View {
-        NavigationView {
-            VStack {
-                TextField("New", text: $newToDoTitle, onCommit: {
-                    let newToDo = ToDo(context: self.context)
-                    newToDo.title = self.newToDoTitle
-                    newToDo.completedAt = nil
-                    newToDo.createdAt = Date()
-                    newToDo.location = "Store"
+            NavigationView {
+                VStack {
+                    TextField("New", text: $newToDoTitle, onCommit: {
+                        let newToDo = ToDo(context: self.context)
+                        newToDo.title = self.newToDoTitle
+                        newToDo.completedAt = nil
+                        newToDo.createdAt = Date()
+                        newToDo.location = "Store"
+                        
+                        do {
+                            try self.context.save()
+                            self.newToDoTitle = ""
+                        } catch {
+                            assert(false, "Error saving context")
+                        }
+                    })
+                        .padding(.leading, 10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                .frame(height: 42)
+                                .foregroundColor(Color.gray)
+                                .opacity(0.3)
+                        )
+                        .padding()
                     
-                    do {
-                        try self.context.save()
-                        self.newToDoTitle = ""
-                    } catch {
-                        assert(false, "Error saving context")
-                    }
-                })
-                    .padding(.leading, 10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .frame(height: 42)
-                            .foregroundColor(Color.gray)
-                            .opacity(0.3)
-                    )
-                    .padding()
-                
-                List{
-                    ForEach(toDos) { toDo in
-                        StoreItem(toDo: toDo)
-                    }.onDelete { (offsets) in
-                        for index in offsets {
-                            let toDo = self.toDos[index]
-                            self.context.delete(toDo)
-                            do {
-                                try self.context.save()
-                            } catch {
-                                //TODO: Deal with this
+                    List{
+                        ForEach(toDos) { toDo in
+                            StoreItem(toDo: toDo)
+                        }.onDelete { (offsets) in
+                            for index in offsets {
+                                let toDo = self.toDos[index]
+                                self.context.delete(toDo)
+                                do {
+                                    try self.context.save()
+                                } catch {
+                                    //TODO: Deal with this
+                                }
                             }
                         }
                     }
-                }
-                
-                Spacer()
-                    .frame(height: footerHeight)
-            }.navigationBarTitle("Ideas")
-            .navigationBarItems(trailing: EditButton())
-        }.navigationViewStyle(StackNavigationViewStyle())
+                    
+                    Spacer()
+                        .frame(height: footerHeight)
+                }.navigationBarTitle("Ideas")
+                    .navigationBarItems(trailing: EditButton().padding(.top, 100))
+            }.navigationViewStyle(StackNavigationViewStyle()
+            )
+                .clipShape(RoundedRectangle(cornerRadius: 39.5, style: .continuous))
     }
 }
 
@@ -106,6 +108,11 @@ struct StoreView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
-        StoreView().environment(\.managedObjectContext, context)
+        ZStack {
+            Color("stackBackgroundColor")
+                .edgesIgnoringSafeArea(.all)
+            
+            StoreView().environment(\.managedObjectContext, context)
+        }
     }
 }

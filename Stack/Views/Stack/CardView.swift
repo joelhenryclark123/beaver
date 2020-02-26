@@ -13,16 +13,9 @@ struct CardView: View {
     var toDo: ToDo
 
     var body: some View {
-        VStack {
+        VStack(spacing: 30) {
             RoundedRectangle(cornerRadius: 38.5, style: .continuous)
-                .shadow(
-                    color: Color(UIColor(red: 0.14, green: 0.696, blue: 1, alpha: 1)),
-                    radius: 16, x: -5, y: -8
-                )
-                .shadow(
-                    color: Color(UIColor(red: 0, green: 0.556, blue: 0.86, alpha: 1)),
-                    radius: 16, x: 8, y: 5
-                )
+                .modifier(SoftBlueShadow())
                 .aspectRatio(1.0, contentMode: .fit)
                 .foregroundColor(Color.white)
                 .overlay(
@@ -31,7 +24,7 @@ struct CardView: View {
                         style: .continuous
                     ).stroke(
                         Color("stackBackgroundColor"),
-                        lineWidth: 3
+                        lineWidth: 10
                     ))
                 .overlay (
                     Text(toDo.title)
@@ -42,9 +35,24 @@ struct CardView: View {
             ).padding(16)
             
             Button(action: { self.saveToDo() }) {
+                RoundedRectangle(cornerRadius: 39.5, style: .continuous)
+                    .modifier(SoftBlueShadow())
+                    .foregroundColor(.white)
+                    .overlay(
+                    RoundedRectangle(
+                        cornerRadius: 38.5,
+                        style: .continuous
+                    ).stroke(
+                        Color("stackBackgroundColor"),
+                        lineWidth: 10
+                    ))
+                    .overlay(
                 Image(systemName: "checkmark")
                 .resizable()
-            }.foregroundColor(.white).frame(width:40, height: 40)
+                .foregroundColor(Color("stackBackgroundColor"))
+                .padding(25)
+                )
+            }.frame(width:100, height: 100)
         }
     }
     
@@ -85,4 +93,19 @@ struct CardView_Previews: PreviewProvider {
             CardView(toDo: toDo)
         }
     }
+}
+
+struct SoftBlueShadow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .shadow(
+                color: Color(UIColor(red: 0.14, green: 0.696, blue: 1, alpha: 1)),
+                radius: 14, x: -5, y: -8
+            )
+            .shadow(
+                color: Color(UIColor(red: 0, green: 0.556, blue: 0.86, alpha: 1)),
+                radius: 14, x: 8, y: 5
+            )
+    }
+    
 }
