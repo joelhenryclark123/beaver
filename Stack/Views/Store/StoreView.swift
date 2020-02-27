@@ -10,19 +10,7 @@ import SwiftUI
 import CoreData
 
 struct StoreView: View {
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest(
-        entity: ToDo.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(
-                key: "createdAt",
-                ascending: true
-            )
-        ],
-        predicate: NSPredicate(
-            format: "(completedAt == nil) AND (isActive == false)"
-        )
-    ) var toDos: FetchedResults<ToDo>
+    @EnvironmentObject var state: AppState
     
     @State var newToDoTitle: String = ""
     let footerHeight: CGFloat = 60
@@ -35,7 +23,7 @@ struct StoreView: View {
                         return
                     } else {
                         let _ = ToDo(
-                            context: self.context,
+                            state: self.state,
                             title: self.newToDoTitle,
                             isActive: false
                         )
@@ -53,11 +41,11 @@ struct StoreView: View {
                     .padding()
                 
                 List{
-                    ForEach(toDos) { toDo in
+                    ForEach(state.storedToDos) { toDo in
                         StoreItem(toDo: toDo)
                     }.onDelete { (offsets) in
                         for index in offsets {
-                            self.toDos[index].delete()
+                            self.state.deleteFromStore(index)
                         }
                     }
                 }
@@ -77,24 +65,12 @@ struct StoreView: View {
 }
 
 struct StoreView_Previews: PreviewProvider {
-    static let context: NSManagedObjectContext = {
-        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        let obj1 = ToDo(context: mc, title: "skee", isActive: false)
-        let obj2 = ToDo(context: mc, title: "yee", isActive: false)
-        let obj3 = ToDo(context: mc, title: "skintback", isActive: false)
-        let obj4 = ToDo(context: mc, title: "this shouldn't be here!", isActive: true)
-
-        return mc
-    }()
-    
     static var previews: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
             StoreView()
-                .environment(\.managedObjectContext, context)
                 .environmentObject(AppState())
         }
     }

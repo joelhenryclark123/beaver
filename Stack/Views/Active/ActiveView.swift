@@ -11,19 +11,7 @@ import CoreData
 
 
 struct ActiveView: View {
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest(
-        entity: ToDo.entity(),
-        sortDescriptors: [
-            NSSortDescriptor(
-                key: "movedAt",
-                ascending: true
-            )
-        ],
-        predicate: NSPredicate(
-            format: "(completedAt == nil) AND (isActive == true)"
-        )
-    ) var toDos: FetchedResults<ToDo>
+    @EnvironmentObject var state: AppState
     
     @State var newToDoTitle: String = ""
     
@@ -42,11 +30,11 @@ struct ActiveView: View {
                         return
                     } else {
                         let _ = ToDo(
-                            context: self.context,
+                            state: self.state,
                             title: self.newToDoTitle,
                             isActive: true
                         )
-                        
+                                                
                         self.newToDoTitle = ""
                     }
                 }
@@ -55,35 +43,9 @@ struct ActiveView: View {
         }
     }
     
-    struct CustomTextField: View {
-        var placeholder: Text
-        @Binding var text: String
-        var editingChanged: (Bool)->() = { _ in }
-        var commit: ()->() = { }
-        
-        var body: some View {
-            ZStack(alignment: .leading) {
-                if text.isEmpty {
-                    placeholder.frame(maxWidth: .infinity)
-                }
-                
-                TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
-                    .foregroundColor(Color.white)
-                    .accentColor(Color.white)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .frame(height: 42)
-                            .foregroundColor(Color.white)
-                            .opacity(0.3)
-                    )
-            }
-            .multilineTextAlignment(.center)
-        }
-    }
-    
     var body: some View {
         Group {
-            if toDos.isEmpty {
+            if state.activeToDo == nil {
                 emptyState
             }
             else {
@@ -103,7 +65,7 @@ struct ActiveView: View {
                     )
                         .overlay (
                             Group {
-                                Text(toDos[0].title)
+                                Text(state.activeToDo!.title)
                                     .frame(maxWidth: .infinity)
                                     .font(.system(size: 40))
                                     .multilineTextAlignment(.center)
@@ -111,7 +73,7 @@ struct ActiveView: View {
                             }.padding(10)
                     )
                     
-                    Button(action: { self.toDos[0].complete() }) {
+                    Button(action: { self.state.completeActive() }) {
                         RoundedRectangle(cornerRadius: 39.5, style: .continuous)
                             .modifier(SoftBlueShadow())
                             .foregroundColor(.white)
@@ -137,21 +99,13 @@ struct ActiveView: View {
 }
 
 struct ActiveView_Previews: PreviewProvider {
-    static let context: NSManagedObjectContext = {
-        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        mc.reset()
-        
-        return mc
-    }()
-    
     static var previews: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
             ActiveView()
-                .environment(\.managedObjectContext, context)
+                .environmentObject(AppState())
         }
     }
 }
@@ -169,4 +123,30 @@ struct SoftBlueShadow: ViewModifier {
         )
     }
     
+}
+
+struct CustomTextField: View {
+    var placeholder: Text
+    @Binding var text: String
+    var editingChanged: (Bool)->() = { _ in }
+    var commit: ()->() = { }
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if text.isEmpty {
+                placeholder.frame(maxWidth: .infinity)
+            }
+            
+            TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
+                .foregroundColor(Color.white)
+                .accentColor(Color.white)
+                .background(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .frame(height: 42)
+                        .foregroundColor(Color.white)
+                        .opacity(0.3)
+                )
+        }
+        .multilineTextAlignment(.center)
+    }
 }

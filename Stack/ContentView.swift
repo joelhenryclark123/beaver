@@ -12,7 +12,6 @@ import CoreData
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     
-    
     //MARK: Body
     var body: some View {
         ZStack {
@@ -80,69 +79,10 @@ struct ContentView: View {
     }
 }
 
+//MARK: - Previews
 struct ContentView_Previews: PreviewProvider {
-    // Import ManagedObjectContext
-    static let context: NSManagedObjectContext = {
-        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        mc.reset()
-        
-        let obj1 = ToDo(
-            context: mc,
-            title: "What if the moon was made of cheese",
-            isActive: false
-        )
-                
-        return mc
-    }()
-    
-    
     static var previews: some View {
         ContentView()
-            .environment(\.managedObjectContext, context)
             .environmentObject(AppState())
-    }
-}
-
-struct Footer: View {
-    @Binding var currentScene: Scene
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
-    
-    let screen = UIScreen.main.bounds
-    
-    var body: some View {
-        HStack {
-            Image(systemName: "lightbulb")
-                .foregroundColor(((currentScene == .store) &&
-                    self.colorScheme == .light) ? Color.white : Color.white)
-                .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
-            
-            
-            Spacer()
-            
-            Button(action: {
-                self.currentScene = .stack
-            }) {
-                Image(systemName: "square.stack.fill")
-                    .foregroundColor((
-                        (currentScene == .store) &&
-                            self.colorScheme == .light) ? Color.white : Color.white)
-            }.scaleEffect((currentScene == .stack) ? 2.0 : 1.5)
-                .animation(.spring())
-            
-            Spacer()
-            
-            Button(action: {
-                self.currentScene = .store
-            }) {
-                Image(systemName: "lightbulb")
-                    .hidden()
-                    .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
-            }
-            .scaleEffect((currentScene == .stack) ? 1.5 : 2.0)
-            .animation(.spring())
-        }
-        .padding(.horizontal, 25)
-        .padding(.bottom, 20)
     }
 }

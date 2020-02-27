@@ -15,16 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        // Import ManagedObjectContext
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        
-        // Import State
-        let state = AppState()
-        
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
-            .environment(\.managedObjectContext, context)
-            .environmentObject(state)
+            .environmentObject(AppState())
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
