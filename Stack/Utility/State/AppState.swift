@@ -46,19 +46,12 @@ final class AppState: ObservableObject {
         self.activeToDo = nil
         self.storedToDos = []
         
-        #if DEBUG
-        self.persistentContainer.viewContext.reset()
-        let _ = ToDo(state: self, title: "Skintback", isActive: true)
-        let _ = ToDo(state: self, title: "Skee", isActive: false)
-        let _ = ToDo(state: self, title: "Yee", isActive: false)
-
-        #endif
         // Populate active and storage
         let toDos = try! (persistentContainer.viewContext.fetch(
             NSFetchRequest<NSFetchRequestResult>.init(entityName: "ToDo")
         )) as! [ToDo]
         for toDo in toDos {
-            if toDo.completedAt != nil {
+            if toDo.completedAt == nil {
                 if toDo.isActive {
                     self.activate(toDo)
                 }
