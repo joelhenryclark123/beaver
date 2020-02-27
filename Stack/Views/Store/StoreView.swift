@@ -20,7 +20,7 @@ struct StoreView: View {
             )
         ],
         predicate: NSPredicate(
-            format: "(completedAt == nil) AND (location = 'Store')"
+            format: "(completedAt == nil) AND (isActive == false)"
         )
     ) var toDos: FetchedResults<ToDo>
     
@@ -28,81 +28,64 @@ struct StoreView: View {
     let footerHeight: CGFloat = 60
     
     var body: some View {
-            NavigationView {
-                VStack {
-                    TextField("New", text: $newToDoTitle, onCommit: {
-                        let newToDo = ToDo(context: self.context)
-                        newToDo.title = self.newToDoTitle
-                        newToDo.completedAt = nil
-                        newToDo.createdAt = Date()
-                        newToDo.location = "Store"
-                        
-                        do {
-                            try self.context.save()
-                            self.newToDoTitle = ""
-                        } catch {
-                            assert(false, "Error saving context")
-                        }
-                    })
-                        .padding(.leading, 10)
-                        .background(
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .frame(height: 42)
-                                .foregroundColor(Color.gray)
-                                .opacity(0.3)
+        NavigationView {
+            VStack {
+                TextField("New", text: $newToDoTitle, onCommit: {
+                    if self.newToDoTitle.isEmpty {
+                        return
+                    } else {
+                        let _ = ToDo(
+                            context: self.context,
+                            title: self.newToDoTitle,
+                            isActive: false
                         )
-                        .padding()
-                    
-                    List{
-                        ForEach(toDos) { toDo in
-                            StoreItem(toDo: toDo)
-                        }.onDelete { (offsets) in
-                            for index in offsets {
-                                let toDo = self.toDos[index]
-                                self.context.delete(toDo)
-                                do {
-                                    try self.context.save()
-                                } catch {
-                                    //TODO: Deal with this
-                                }
-                            }
+                        
+                        self.newToDoTitle = ""
+                    }
+                })
+                    .padding(.leading, 10)
+                    .background(
+                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                            .frame(height: 42)
+                            .foregroundColor(Color.gray)
+                            .opacity(0.3)
+                )
+                    .padding()
+                
+                List{
+                    ForEach(toDos) { toDo in
+                        StoreItem(toDo: toDo)
+                    }.onDelete { (offsets) in
+                        for index in offsets {
+                            self.toDos[index].delete()
                         }
                     }
-                    
-                    Spacer()
-                        .frame(height: footerHeight)
-                }.navigationBarTitle("Ideas")
-            }.navigationViewStyle(StackNavigationViewStyle()
-                ).clipShape(RoundedRectangle(cornerRadius: 39.5, style: .continuous)).padding(8)
+                }
+                
+                Spacer().frame(height: footerHeight)
+            }
+            .navigationBarTitle("Ideas")
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: 39.5,
+                style: .continuous)
+        )
+        .padding(8)
     }
 }
 
 struct StoreView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
-    let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    let obj1 = ToDo(context: mc)
-    obj1.title = "uno"
-    obj1.createdAt = Date()
-    obj1.location = "Store"
-    
-    let obj2 = ToDo(context: mc)
-    obj2.title = "dos"
-    obj2.createdAt = Date()
-    obj2.location = "Stack"
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let obj1 = ToDo(context: mc, title: "skee", isActive: false)
+        let obj2 = ToDo(context: mc, title: "yee", isActive: false)
+        let obj3 = ToDo(context: mc, title: "skintback", isActive: false)
+        let obj4 = ToDo(context: mc, title: "this shouldn't be here!", isActive: true)
 
-    
-    let obj3 = ToDo(context: mc)
-    obj3.title = "tres"
-    obj3.createdAt = Date()
-    obj3.location = "Store"
-
-    
-    mc.insert(obj1)
-    mc.insert(obj2)
-    mc.insert(obj3)
-    
-    return mc
+        return mc
     }()
     
     static var previews: some View {
@@ -110,7 +93,9 @@ struct StoreView_Previews: PreviewProvider {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
-            StoreView().environment(\.managedObjectContext, context)
+            StoreView()
+                .environment(\.managedObjectContext, context)
+                .environmentObject(AppState())
         }
     }
 }

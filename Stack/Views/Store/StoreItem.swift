@@ -11,12 +11,14 @@ import CoreData
 
 struct StoreItem: View {
     @EnvironmentObject var state: AppState
-    @Environment(\.managedObjectContext) var context
     var toDo: ToDo
     
     var body: some View {
         HStack {
-            Button(action: select) {
+            Button(action:  {
+                self.state.currentScene = .stack
+                self.toDo.makeActive()
+            }) {
                 Image(systemName: "plus.circle.fill")
                     .foregroundColor(Color("stackBackgroundColor"))
             }
@@ -25,34 +27,26 @@ struct StoreItem: View {
             Spacer()
             }.frame(maxWidth: .infinity).padding()
     }
-    
-    func select() {
-        state.moveActiveToStore()
-        
-        // Move this to do to the stack
-        self.toDo.location = "Stack"
-        self.toDo.movedAt = Date()
-        do {
-            try self.toDo.managedObjectContext?.save()
-        } catch {
-            fatalError()
-        }
-        
-        // Change Scene To Stack
-        state.currentScene = .stack
-    }
 }
 
 struct StoreItem_Previews: PreviewProvider {
-    static var toDo: ToDo = {
-        let returner = ToDo(context: ContentView_Previews.context)
-        returner.title = "Grind?"
-        returner.createdAt = Date()
-        return returner
+    static let context: NSManagedObjectContext = {
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+        mc.reset()
+        
+        return mc
     }()
     
+
+    
     static var previews: some View {
-        StoreItem(toDo: toDo)
+        StoreItem(
+            toDo: ToDo(
+                context: context,
+                title: "Walk 500 miles",
+                isActive: false)
+            )
             .environmentObject(AppState())
             .previewLayout(.sizeThatFits)
     }

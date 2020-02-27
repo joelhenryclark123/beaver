@@ -12,16 +12,20 @@ import CoreData
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     
+    
     //MARK: Body
     var body: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
-            StoreView().zIndex(1)
+            
+            ActiveView()
+            
+            StoreView()
+                .zIndex(1)
                 .offset(x: state.dragState.scrollTranslation.width + state.currentScene.storeOffset)
                 .shadow(radius: 10)
-            
-            StackView()
+                        
         }.gesture(
             //MARK: Gestures
             DragGesture(minimumDistance: 30, coordinateSpace: .local)
@@ -83,27 +87,12 @@ struct ContentView_Previews: PreviewProvider {
         
         mc.reset()
         
-        let obj1 = ToDo(context: mc)
-        obj1.title = "uno"
-        obj1.createdAt = Date()
-        obj1.location = "Store"
-        
-        //        let obj2 = ToDo(context: mc)
-        //        obj2.title = "dos"
-        //        obj2.createdAt = Date()
-        //        obj2.location = "Stack"
-        //
-        //
-        //        let obj3 = ToDo(context: mc)
-        //        obj3.title = "tres"
-        //        obj3.createdAt = Date()
-        //        obj3.location = "Stack"
-        
-        
-        mc.insert(obj1)
-        //        mc.insert(obj2)
-        //        mc.insert(obj3)
-        
+        let obj1 = ToDo(
+            context: mc,
+            title: "What if the moon was made of cheese",
+            isActive: false
+        )
+                
         return mc
     }()
     
