@@ -17,7 +17,7 @@ final class AppState: ObservableObject {
     @Published var currentScene: Scene = .stack
     @Published var activeToDo: ToDo? = nil
     @Published var storedToDos: [ToDo] = [ToDo]()
-    
+        
     // MARK: Initialization
     init() {
         // Populate active
@@ -101,83 +101,5 @@ final class AppState: ObservableObject {
         )
         
         return fetchRequest
-    }
-}
-
-//MARK: - ToDo operations
-extension AppState {
-    func activate(_ toDo: ToDo) {
-        persistentContainer.viewContext.perform {
-            if let og = self.activeToDo {
-                og.movedAt = nil
-                og.isActive = false
-                self.storedToDos.insert(og, at: 0)
-            }
-            
-            if !toDo.isActive {
-                self.storedToDos.remove(at: self.storedToDos.firstIndex(of: toDo)!)
-                toDo.isActive = true
-            }
-            
-            toDo.movedAt = Date()
-            self.activeToDo = toDo
-            
-            self.saveContext()
-        }
-    }
-    
-    func store(_ toDo: ToDo) {
-        persistentContainer.viewContext.perform {
-            if toDo.isActive {
-                self.activeToDo = nil
-                toDo.isActive = false
-                toDo.movedAt = nil
-            }
-            
-            self.storedToDos.append(toDo)
-            self.saveContext()
-        }
-    }
-    
-    func completeActive() {
-        persistentContainer.viewContext.perform {
-            self.activeToDo?.completedAt = Date()
-            self.activeToDo = nil
-            self.saveContext()
-        }
-    }
-    
-    func deleteFromStore(_ index: Int) {
-        persistentContainer.viewContext.perform {
-            let toDo = self.storedToDos.remove(at: index)
-            self.persistentContainer.viewContext.delete(toDo)
-            self.saveContext()
-        }
-    }
-}
-
-// MARK: ToDo initializer
-extension ToDo {
-    convenience init(
-        state: AppState,
-        title: String,
-        isActive: Bool
-    ) {
-        self.init(context: state.persistentContainer.viewContext)
-        
-        self.title = title
-        self.completedAt = nil
-        self.createdAt = Date()
-        self.isActive = isActive
-        
-        if isActive {
-            self.movedAt = Date()
-            state.activate(self)
-        } else {
-            self.movedAt = nil
-            state.store(self)
-        }
-        
-        state.saveContext()
     }
 }
