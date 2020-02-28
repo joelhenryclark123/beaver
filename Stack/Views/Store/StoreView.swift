@@ -11,6 +11,10 @@ import CoreData
 
 struct StoreView: View {
     @EnvironmentObject var state: AppState
+    @Environment(\.managedObjectContext) var context
+    @FetchRequest(
+        fetchRequest: ToDo.storeFetchRequest
+    ) var toDos: FetchedResults<ToDo>
     
     @State var newToDoTitle: String = ""
     let footerHeight: CGFloat = 60
@@ -23,7 +27,7 @@ struct StoreView: View {
                         return
                     } else {
                         let _ = ToDo(
-                            state: self.state,
+                            context: self.context,
                             title: self.newToDoTitle,
                             isActive: false
                         )
@@ -41,11 +45,11 @@ struct StoreView: View {
                     .padding()
                 
                 List{
-                    ForEach(state.storedToDos) { toDo in
+                    ForEach(toDos) { toDo in
                         StoreItem(toDo: toDo)
                     }.onDelete { (offsets) in
                         for index in offsets {
-                            self.state.deleteFromStore(index)
+                            self.toDos[index].delete()
                         }
                     }
                 }
@@ -65,12 +69,15 @@ struct StoreView: View {
 }
 
 struct StoreView_Previews: PreviewProvider {
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     static var previews: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
             StoreView()
+                .environment(\.managedObjectContext, context)
                 .environmentObject(AppState())
         }
     }

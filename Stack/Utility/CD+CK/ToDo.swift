@@ -16,82 +16,101 @@ public class ToDo: NSManagedObject, Identifiable {
     @NSManaged var isActive: Bool
     @NSManaged var movedAt: Date?
     
-    weak var state: AppState
-    
-    // MARK: - Initialization
     convenience init(
-        state: AppState,
+        context: NSManagedObjectContext,
         title: String,
         isActive: Bool
     ) {
-        self.init(context: state.persistentContainer.viewContext)
-        
-        self.state = state
+        self.init(context: context)
         self.title = title
         self.completedAt = nil
         self.createdAt = Date()
         self.isActive = isActive
-        
-        if isActive {
-            self.movedAt = Date()
-            state.activate(self)
-        } else {
-            self.movedAt = nil
-            state.store(self)
+        self.movedAt = isActive ? Date() : nil
+    }
+    
+    func saveContext() {
+        do {
+            if self.managedObjectContext!.hasChanges {
+                try self.managedObjectContext?.save()
+            }
+        } catch {
+            fatalError()
         }
-        
-        state.saveContext()
     }
 }
 
 //MARK: Operations
-extension AppState {
-    func activate(_ toDo: ToDo) {
-        persistentContainer.viewContext.perform {
-            if let og = self.activeToDo {
-                og.movedAt = nil
-                og.isActive = false
-                self.storedToDos.insert(og, at: 0)
+extension ToDo {
+    func activate() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        
+        context.perform {
+            if let ogActive = try? context.fetch(ToDo.activeFetchRequest).first {
+                ogActive.store()
             }
-            
-            if !toDo.isActive {
-                self.storedToDos.remove(at: self.storedToDos.firstIndex(of: toDo)!)
-                toDo.isActive = true
+            self.isActive = true
+            self.movedAt = Date()
+            self.saveContext()
+        }
+    }
+    
+    func store() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        context.perform {
+            self.isActive = false
+            self.movedAt = nil
+            self.saveContext()
+        }
+    }
+    
+    func complete() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        context.perform {
+            if self.isActive {
+                self.isActive = false
+                self.completedAt = Date()
+            } else {
+                fatalError()
             }
-            
-            toDo.movedAt = Date()
-            self.activeToDo = toDo
             
             self.saveContext()
         }
     }
     
-    func store(_ toDo: ToDo) {
-        persistentContainer.viewContext.perform {
-            if toDo.isActive {
-                self.activeToDo = nil
-                toDo.isActive = false
-                toDo.movedAt = nil
-            }
-            
-            self.storedToDos.append(toDo)
+    func delete() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        context.perform {
+            context.delete(self)
             self.saveContext()
         }
     }
     
-    func completeActive() {
-        persistentContainer.viewContext.perform {
-            self.activeToDo?.completedAt = Date()
-            self.activeToDo = nil
-            self.saveContext()
-        }
+    // MARK: Fetch Requests
+    static var activeFetchRequest: NSFetchRequest<ToDo> {
+        let entity: String = String(describing: ToDo.self)
+        let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "(completedAt == nil) AND (isActive == true)"
+        )
+        fetchRequest.sortDescriptors = []
+        
+        
+        return fetchRequest
     }
     
-    func deleteFromStore(_ index: Int) {
-        persistentContainer.viewContext.perform {
-            let toDo = self.storedToDos.remove(at: index)
-            self.persistentContainer.viewContext.delete(toDo)
-            self.saveContext()
-        }
+    static var storeFetchRequest: NSFetchRequest<ToDo> {
+        let entity: String = String(describing: ToDo.self)
+        let fetchRequest = NSFetchRequest<ToDo>(entityName: entity)
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "(completedAt == nil) AND (isActive == false)"
+        )
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "createdAt", ascending: true)
+        ]
+        
+        return fetchRequest
     }
 }

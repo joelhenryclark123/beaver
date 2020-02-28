@@ -12,6 +12,9 @@ import CoreData
 
 struct ActiveView: View {
     @EnvironmentObject var state: AppState
+    @Environment(\.managedObjectContext) var context
+    
+    @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
     
     @State var newToDoTitle: String = ""
     
@@ -30,7 +33,7 @@ struct ActiveView: View {
                         return
                     } else {
                         let _ = ToDo(
-                            state: self.state,
+                            context: self.context,
                             title: self.newToDoTitle,
                             isActive: true
                         )
@@ -45,7 +48,7 @@ struct ActiveView: View {
     
     var body: some View {
         Group {
-            if state.activeToDo == nil {
+            if toDos.isEmpty {
                 emptyState
             }
             else {
@@ -65,7 +68,7 @@ struct ActiveView: View {
                     )
                         .overlay (
                             Group {
-                                Text(state.activeToDo!.title)
+                                Text(toDos.first!.title)
                                     .frame(maxWidth: .infinity)
                                     .font(.system(size: 40))
                                     .multilineTextAlignment(.center)
@@ -73,7 +76,7 @@ struct ActiveView: View {
                             }.padding(10)
                     )
                     
-                    Button(action: { self.state.completeActive() }) {
+                    Button(action: { self.toDos.first!.complete() }) {
                         RoundedRectangle(cornerRadius: 39.5, style: .continuous)
                             .modifier(SoftBlueShadow())
                             .foregroundColor(.white)
@@ -99,12 +102,15 @@ struct ActiveView: View {
 }
 
 struct ActiveView_Previews: PreviewProvider {
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     static var previews: some View {
         ZStack {
             Color("stackBackgroundColor")
                 .edgesIgnoringSafeArea(.all)
             
             ActiveView()
+                .environment(\.managedObjectContext, context)
                 .environmentObject(AppState())
         }
     }

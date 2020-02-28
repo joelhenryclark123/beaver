@@ -22,7 +22,7 @@
 		E9F51B9F23B83CA60068B86E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9E23B83CA60068B86E /* Preview Assets.xcassets */; };
 		E9F51BA223B83CA60068B86E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F51BA023B83CA60068B86E /* LaunchScreen.storyboard */; };
 		E9F51BB023B845780068B86E /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51BAF23B845780068B86E /* StackTests.swift */; };
-		E9F9F37023BA46EB00EC1EBE /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
+		E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
 		E9F9F37123BA4C9700EC1EBE /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
 /* End PBXBuildFile section */
 
@@ -306,12 +306,12 @@
 				E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */,
 				E9B37231240335FC003B46B0 /* AppState.swift in Sources */,
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
+				E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E9826F262406F56E0028C4E1 /* Scene.swift in Sources */,
-				E9F9F37023BA46EB00EC1EBE /* ToDo.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* ActiveView.swift in Sources */,
 				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,
 			);

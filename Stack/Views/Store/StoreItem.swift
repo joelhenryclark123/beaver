@@ -17,7 +17,7 @@ struct StoreItem: View {
         HStack {
             Button(action:  {
                 self.state.currentScene = .stack
-                self.state.activate(self.toDo)
+                self.toDo.activate()
             }) {
                 Image(systemName: "plus.circle.fill")
                     .foregroundColor(Color("stackBackgroundColor"))
@@ -31,10 +31,12 @@ struct StoreItem: View {
 
 struct StoreItem_Previews: PreviewProvider {
     static let state = AppState()
+    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     static var previews: some View {
         StoreItem(
             toDo: ToDo(
-                state: state,
+                context: context,
                 title: "Walk 100 miles",
                 isActive: false)
             )
