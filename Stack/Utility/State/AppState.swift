@@ -166,11 +166,8 @@ extension ToDo {
         self.init(context: state.persistentContainer.viewContext)
         
         self.title = title
-        
         self.completedAt = nil
-        
         self.createdAt = Date()
-        
         self.isActive = isActive
         
         if isActive {
