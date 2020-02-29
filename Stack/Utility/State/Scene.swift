@@ -18,11 +18,12 @@ enum Scene {
     }
     
     var storeOffset: CGFloat {
+        let peakingHeight: CGFloat = 76 * 2
         switch self {
         case .store:
             return CGFloat.zero
         case .stack:
-            return UIScreen.main.bounds.width
+            return (UIScreen.main.bounds.height - peakingHeight)
         }
     }
 }

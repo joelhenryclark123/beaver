@@ -20,57 +20,58 @@ struct StoreView: View {
     let footerHeight: CGFloat = 60
     
     var body: some View {
-        NavigationView {
-            VStack {
-                TextField("New", text: $newToDoTitle, onCommit: {
-                    if self.newToDoTitle.isEmpty {
-                        return
-                    } else {
-                        let _ = ToDo(
-                            context: self.context,
-                            title: self.newToDoTitle,
-                            isActive: false
-                        )
-                        
-                        self.newToDoTitle = ""
-                    }
-                })
-                    .padding(.leading, 10)
-                    .background(
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .frame(height: 42)
-                            .foregroundColor(Color.gray)
-                            .opacity(0.3)
-                )
-                    .padding()
-                
-                List{
-                    ForEach(toDos) { toDo in
-                        StoreItem(toDo: toDo)
-                    }.onDelete { (offsets) in
-                        for index in offsets {
-                            self.toDos[index].delete()
-                        }
+        VStack {
+            TextField("New", text: $newToDoTitle, onCommit: {
+                if self.newToDoTitle.isEmpty {
+                    return
+                } else {
+                    let _ = ToDo(
+                        context: self.context,
+                        title: self.newToDoTitle,
+                        isActive: false
+                    )
+                    
+                    self.newToDoTitle = ""
+                }
+            })
+                .padding(.leading, 10)
+                .background(
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .frame(height: 32)
+                        .foregroundColor(Color.gray)
+                        .opacity(0.3)
+            ).gesture(TapGesture().onEnded({ (_) in
+                self.state.currentScene = .store
+            }))
+                .padding(.horizontal, 16)
+                .padding(.top, 24)
+            
+            List{
+                ForEach(toDos) { toDo in
+                    StoreItem(toDo: toDo)
+                }.onDelete { (offsets) in
+                    for index in offsets {
+                        self.toDos[index].delete()
                     }
                 }
-                
-                Spacer().frame(height: footerHeight)
             }
-            .navigationBarTitle("Ideas")
+            
+            Spacer().frame(height: footerHeight)
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .background(Color.white)
         .clipShape(
             RoundedRectangle(
                 cornerRadius: 39.5,
                 style: .continuous)
         )
-        .padding(8)
+        .padding(state.currentScene == .store ? 0 : 16)
+        .shadow(radius: 16, y: -8)
     }
 }
 
 struct StoreView_Previews: PreviewProvider {
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     static var previews: some View {
         ZStack {
             Color("stackBackgroundColor")

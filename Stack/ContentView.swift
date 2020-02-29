@@ -22,7 +22,8 @@ struct ContentView: View {
             
             StoreView()
                 .zIndex(1)
-                .offset(x: state.dragState.scrollTranslation.width + state.currentScene.storeOffset)
+                .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
+                .opacity(state.currentScene == .stack ? 0.5 : 1.0)
                 .shadow(radius: 10)
                         
         }.gesture(
@@ -37,24 +38,22 @@ struct ContentView: View {
                     case .inactive:
                         switch self.state.currentScene {
                         case .stack:
-                            if value.translation.width <= -10 {
-                                self.state.dragState = .draggingSideways(translation: value.translation)
+                            if value.translation.height <= -10 {
+                                self.state.dragState = .draggingStore(translation: value.translation)
                             }
                         case .store:
-                            if value.translation.width >= 10 {
-                                self.state.dragState = .draggingSideways(translation: value.translation)
+                            if value.translation.height >= 10 {
+                                self.state.dragState = .draggingStore(translation: value.translation)
                             }
                         }
-                    case .draggingSideways(_):
+                    case .draggingStore(_):
                         switch self.state.currentScene {
                         case .stack:
-                            if value.translation.width <= 0 {
-                                self.state.dragState = .draggingSideways(translation: value.translation)
-                            }
+                            if value.translation.height <= 0 {
+                                self.state.dragState = .draggingStore(translation: value.translation)                            }
                         case .store:
-                            if value.translation.width >= 0 {
-                                self.state.dragState = .draggingSideways(translation: value.translation)
-                            }
+                            if value.translation.height >= 0 {
+                                self.state.dragState = .draggingStore(translation: value.translation)                            }
                         }
                     default:
                         break
@@ -63,11 +62,11 @@ struct ContentView: View {
                 .onEnded({ (value) in
                     switch self.state.currentScene {
                     case .stack:
-                        if value.translation.width <= -20 {
+                        if value.translation.height <= -20 {
                             self.state.currentScene = .store
                         }
                     case .store:
-                        if value.translation.width >= 20 {
+                        if value.translation.height >= 20 {
                             self.state.currentScene = .stack
                         }
                     }

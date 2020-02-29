@@ -11,24 +11,15 @@ import SwiftUI
 
 enum DragState {
     case inactive
-    case draggingSideways(translation: CGSize)
-    case checkingOff(translation: CGSize)
-    
-    var scrollTranslation: CGSize {
+    case draggingStore(translation: CGSize)
+    case movingActive(translation: CGSize)
+        
+    var storeTranslation: CGSize {
         switch self {
-        case .inactive, .checkingOff(_):
-            return .zero
-        case .draggingSideways(let translation):
+        case .draggingStore(translation: let translation):
             return translation
-        }
-    }
-    
-    var checkingTranslation: CGSize {
-        switch self {
-        case .inactive, .draggingSideways(_):
-            return .zero
-        case .checkingOff(let translation):
-            return translation
+        default:
+            return CGSize.zero
         }
     }
 }
