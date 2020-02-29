@@ -13,7 +13,6 @@ import CoreData
 struct ActiveView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
-    
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
     
     @State var newToDoTitle: String = ""
@@ -65,7 +64,7 @@ struct ActiveView: View {
                                 Color("stackBackgroundColor"),
                                 lineWidth: 10
                             )
-                    )
+                        )
                         .overlay (
                             Group {
                                 Text(toDos.first!.title)
@@ -74,7 +73,7 @@ struct ActiveView: View {
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Color("stackBackgroundColor"))
                             }.padding(10)
-                    )
+                    ).scaleEffect()
                     
                     Button(action: { self.toDos.first!.complete() }) {
                         RoundedRectangle(cornerRadius: 39.5, style: .continuous)

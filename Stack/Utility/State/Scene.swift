@@ -10,20 +10,19 @@ import Foundation
 import SwiftUI
 
 enum Scene {
-    case stack
+    case active
+    case draggingActive
     case store
-    
-    var stackOffset: CGFloat {
-        CGFloat.zero
-    }
     
     var storeOffset: CGFloat {
         let peakingHeight: CGFloat = 76 * 2
         switch self {
         case .store:
             return CGFloat.zero
-        case .stack:
+        case .active:
             return (UIScreen.main.bounds.height - peakingHeight)
+        case .draggingActive:
+            return UIScreen.main.bounds.height
         }
     }
 }

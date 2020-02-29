@@ -16,7 +16,7 @@ struct StoreItem: View {
     var body: some View {
         HStack {
             Button(action:  {
-                self.state.currentScene = .stack
+                self.state.currentScene = .active
                 self.toDo.activate()
             }) {
                 Image(systemName: "plus.circle.fill")
