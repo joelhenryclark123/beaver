@@ -13,6 +13,7 @@
 		E98073E723F71C6A00FDAF08 /* ActiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* ActiveView.swift */; };
 		E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F232406F4EE0028C4E1 /* DragState.swift */; };
 		E9826F262406F56E0028C4E1 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F252406F56E0028C4E1 /* Scene.swift */; };
+		E9869033240AC78800A03FA2 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9869032240AC78800A03FA2 /* AddBar.swift */; };
 		E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F64E23F75EB200BE2133 /* StoreView.swift */; };
 		E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F65123F75ECD00BE2133 /* StoreItem.swift */; };
 		E9B37231240335FC003B46B0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
@@ -43,6 +44,7 @@
 		E98073E623F71C6A00FDAF08 /* ActiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveView.swift; sourceTree = "<group>"; };
 		E9826F232406F4EE0028C4E1 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
 		E9826F252406F56E0028C4E1 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		E9869032240AC78800A03FA2 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		E9B2F64E23F75EB200BE2133 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		E9B2F65123F75ECD00BE2133 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -90,10 +92,19 @@
 		E98073E823F723ED00FDAF08 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E9869031240AC77300A03FA2 /* Shared */,
 				E9B2F64D23F75E9000BE2133 /* Active */,
 				E9B2F65023F75EB600BE2133 /* Store */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E9869031240AC77300A03FA2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E9869032240AC78800A03FA2 /* AddBar.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		E9B2F64D23F75E9000BE2133 /* Active */ = {
@@ -308,6 +319,7 @@
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
 				E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
+				E9869033240AC78800A03FA2 /* AddBar.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
