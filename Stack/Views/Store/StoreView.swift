@@ -92,6 +92,7 @@ struct StoreStyle: ViewModifier {
             )
             .shadow(radius: 16, y: -8)
             .padding(state.currentScene == .store ? 0 : 16)
+            .edgesIgnoringSafeArea(.bottom)
         .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
         .opacity(state.currentScene == .active ? 0.5 : 1.0)
     }
