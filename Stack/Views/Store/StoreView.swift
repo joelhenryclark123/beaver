@@ -37,6 +37,8 @@ struct StoreView: View {
             List{
                 ForEach(toDos) { toDo in
                     StoreItem(toDo: toDo)
+                    .background(RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .stroke(Color("stackBackgroundColor"), lineWidth: 2))
                 }.onDelete { (offsets) in
                     for index in offsets {
                         self.toDos[index].delete()

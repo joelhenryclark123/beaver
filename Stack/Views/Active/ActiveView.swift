@@ -111,11 +111,11 @@ struct ActiveView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
         let mc = ContentView_Previews.context
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 100 miles",
+//            isActive: true
+//        )
         
         return mc
     }()

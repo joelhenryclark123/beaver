@@ -14,18 +14,21 @@ struct StoreItem: View {
     var toDo: ToDo
     
     var body: some View {
-        HStack {
-            Button(action:  {
-                self.state.currentScene = .active
-                self.toDo.activate()
-            }) {
-                Image(systemName: "plus.circle.fill")
+            HStack {
+                Button(action: {
+                    self.toDo.activate()
+                    self.state.currentScene = .active
+                }) {
+                Image(systemName: "arrowtriangle.up.square")
+                .resizable()
+                    .frame(width: 24, height: 24)
                     .foregroundColor(Color("stackBackgroundColor"))
-            }
-            Text(toDo.title)
+                }
+                Text(toDo.title)
 
-            Spacer()
-            }.frame(maxWidth: .infinity).padding()
+                Spacer()
+                }.frame(maxWidth: .infinity)
+                .padding()
     }
 }
 
