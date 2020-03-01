@@ -11,6 +11,7 @@ import CoreData
 
 struct ContentView: View {
     @EnvironmentObject var state: AppState
+    @Environment(\.managedObjectContext) var context
     
     //MARK: Body
     var body: some View {
@@ -28,7 +29,13 @@ struct ContentView: View {
 
 //MARK: - Previews
 struct ContentView_Previews: PreviewProvider {
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let context: NSManagedObjectContext = {
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        mc.reset()
+        
+        return mc
+    }()
 
     static var previews: some View {
         ContentView()

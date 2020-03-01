@@ -69,7 +69,7 @@ struct StoreView: View {
 }
 
 struct StoreView_Previews: PreviewProvider {
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let context = ContentView_Previews.context
     static let state: AppState = {
         let returner = AppState()
         returner.currentScene = .store

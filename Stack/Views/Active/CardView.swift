@@ -29,7 +29,7 @@ struct CardView: View {
 }
 
 struct CardView_Previews: PreviewProvider {
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let context = ContentView_Previews.context
     static let state = AppState()
     
     static var previews: some View {

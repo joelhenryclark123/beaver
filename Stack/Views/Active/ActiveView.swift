@@ -64,10 +64,21 @@ struct ActiveView: View {
                                         .resizable()
                                         .frame(width: 64, height: 64)
                                         .foregroundColor(Color.green)
+                                        .background(Circle().foregroundColor(Color.white))
                                         .position(
                                             x: geometry.center.x,
                                             y: geometry.size.height * 0.1
                                         )
+                                Image(systemName: "tray.and.arrow.down.fill")
+                                .resizable()
+                                    .padding()
+                                .frame(width: 64, height: 64)
+                                .foregroundColor(Color.black)
+                                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(Color.white))
+                                .position(
+                                    x: geometry.center.x,
+                                    y: geometry.size.height * 0.9
+                                )
                             }
                         }
                     }.gesture(
@@ -76,12 +87,18 @@ struct ActiveView: View {
                                 self.state.currentScene = .draggingActive
                                 state = value.location
                             }).onEnded({ (value) in
-                                self.state.currentScene = .active
                                 if value.location.y <= (geometry.size.height * 0.1 + 32) &&
                                     value.location.x >= (geometry.center.x - 32) &&
                                     value.location.x <= (geometry.center.x + 32) {
                                     self.toDos.first!.complete()
                                 }
+                                
+                                if value.location.y >= (geometry.size.height * 0.9 - 32) &&
+                                    value.location.x >= (geometry.center.x - 32) &&
+                                    value.location.x <= (geometry.center.x + 32) {
+                                    self.toDos.first!.store()
+                                }
+                                self.state.currentScene = .active
                             })
                     )
                 }
@@ -92,7 +109,7 @@ struct ActiveView: View {
 
 struct ActiveView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
-        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let mc = ContentView_Previews.context
         
         let _ = ToDo(
             context: mc,

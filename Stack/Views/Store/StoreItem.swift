@@ -31,7 +31,7 @@ struct StoreItem: View {
 
 struct StoreItem_Previews: PreviewProvider {
     static let state = AppState()
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    static let context = ContentView_Previews.context
 
     static var previews: some View {
         StoreItem(

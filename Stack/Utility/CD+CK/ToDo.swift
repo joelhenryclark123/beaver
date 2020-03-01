@@ -52,6 +52,7 @@ extension ToDo {
             }
             self.isActive = true
             self.movedAt = Date()
+            self.managedObjectContext?.reset()
             self.saveContext()
         }
     }
