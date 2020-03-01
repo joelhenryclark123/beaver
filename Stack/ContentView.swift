@@ -32,7 +32,10 @@ struct ContentView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        mc.reset()
+        let toDos = try! mc.fetch(ToDo.fetchRequest())
+        for toDo in toDos {
+            (toDo as! ToDo).delete()
+        }
         
         return mc
     }()
