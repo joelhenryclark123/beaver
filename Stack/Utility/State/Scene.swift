@@ -15,7 +15,7 @@ enum Scene {
     case store
     
     var storeOffset: CGFloat {
-        let peakingHeight: CGFloat = 76 * 2
+        let peakingHeight: CGFloat = 76 * 2 + 24
         switch self {
         case .store:
             return CGFloat.zero

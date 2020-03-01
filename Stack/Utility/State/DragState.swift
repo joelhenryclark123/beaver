@@ -12,7 +12,7 @@ import SwiftUI
 enum DragState {
     case inactive
     case draggingStore(translation: CGSize)
-    case draggingActive(translation: CGSize)
+    case draggingActive(dragPoint: CGPoint)
         
     var storeTranslation: CGSize {
         switch self {

@@ -18,10 +18,21 @@ struct StoreView: View {
     // MARK: Body
     var body: some View {
         VStack {
+            RoundedRectangle(cornerRadius: 5).frame(width: 36, height: 5)
+                .padding(.top, 12)
+                .opacity(0.25)
+            
         AddBar()
             .gesture(TapGesture().onEnded({ (_) in
                 self.state.currentScene = .store
-            }))
+            })).padding(.bottom, 12)
+            .padding(.top, self.state.currentScene == .store ? 12 : 12)
+
+            
+            Spacer().frame(
+                height: self.state.currentScene == .store ?
+                0 : 40
+            )
             
             List{
                 ForEach(toDos) { toDo in
@@ -32,8 +43,7 @@ struct StoreView: View {
                     }
                 }
             }
-            
-            Spacer().frame(height: 60)
+            Spacer().frame(height: 24)
         }
         .modifier(StoreStyle())
         .gesture(DragGesture(minimumDistance: 30).onChanged({ (value) in
@@ -54,7 +64,7 @@ struct StoreView: View {
             
             self.state.dragState = .inactive
         }))
-            .animation(.easeInOut)
+            .animation(.easeInOut(duration: 0.2))
     }
 }
 
@@ -84,7 +94,8 @@ struct StoreStyle: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .background(Color.white)
+            .frame(maxWidth: 500)
+            .background(Color("systemBackgroundColor"))
             .clipShape(
                 RoundedRectangle(
                     cornerRadius: 39.5,

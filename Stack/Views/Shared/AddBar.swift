@@ -28,15 +28,13 @@ struct AddBar: View {
             if self.text.isEmpty {
                 return
             } else { self.createToDo() }
-        })
-            .padding(.leading, 10)
+            })
+            .multilineTextAlignment(.center)
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .frame(height: 32)
-                    .foregroundColor(Color.gray)
                     .opacity(0.2)
         ).padding(.horizontal, 16)
-        .padding(.top, 24)
     }
 }
 
