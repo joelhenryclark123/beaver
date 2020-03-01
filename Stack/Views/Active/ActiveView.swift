@@ -71,7 +71,7 @@ struct ActiveView: View {
                             }
                         }
                     }.gesture(
-                        DragGesture()
+                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
                             .updating(self.$dragLocation, body: { (value, state, transaction) in
                                 self.state.currentScene = .draggingActive
                                 state = value.location
