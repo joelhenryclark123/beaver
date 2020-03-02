@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableView.appearance().backgroundColor = UIColor.clear
         UITableView.appearance().separatorColor = UIColor.clear
         UITableViewCell.appearance().backgroundColor = UIColor.clear
+        UITableViewCell.appearance().selectionStyle = .none
         return true
     }
 

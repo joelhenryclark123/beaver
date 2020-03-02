@@ -18,15 +18,13 @@ struct StoreItem: View {
             self.toDo.activate()
             self.state.currentScene = .active
         }) {
-            HStack {
                 Text(toDo.title)
                     .modifier(FocalistFont(font: .mediumText))
                     .foregroundColor(Color("backgroundBlue"))
-
-                Spacer()
-                }.frame(maxWidth: .infinity)
+                
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
+            .frame(maxWidth: .infinity)
                 .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(.white))
         }.modifier(FocalistShadow(option: .light))
     }

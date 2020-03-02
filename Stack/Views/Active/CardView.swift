@@ -47,17 +47,7 @@ struct CardView_Previews: PreviewProvider {
 struct RaisedRectangle: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 38.5, style: .continuous)
-            .modifier(SoftBlueShadow())
             .aspectRatio(1.0, contentMode: .fit)
             .foregroundColor(Color.white)
-            .overlay(
-                RoundedRectangle(
-                    cornerRadius: 38.5,
-                    style: .continuous
-                ).stroke(
-                    Color("stackBackgroundColor"),
-                    lineWidth: 10
-                )
-        )
     }
 }

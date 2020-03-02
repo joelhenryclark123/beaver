@@ -26,27 +26,26 @@ struct StoreView: View {
                 .gesture(TapGesture().onEnded({ (_) in
                     self.state.currentScene = .store
                 })).padding(.bottom, 12)
-                .padding(.top, self.state.currentScene == .store ? 12 : 12)
+                .padding(.top, 12)
+                .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
             
             
             Spacer().frame(
                 height: self.state.currentScene == .store ?
                     12 : 56
             )
-                        
+            
             List {
-                ForEach(self.toDos) { toDo in
-                    StoreItem(toDo: toDo)
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                }.onDelete { (offsets) in
-                    for index in offsets {
-                        self.toDos[index].delete()
-                    }
+            ForEach(self.toDos) { toDo in
+                StoreItem(toDo: toDo)
+                .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
+            }.onDelete { (offsets) in
+                for index in offsets {
+                    self.toDos[index].delete()
+                }
                 }
             }
-            
-            Spacer().frame(height: 24)
+            Spacer().frame(height: 40)
         }
         .modifier(StoreStyle())
         .gesture(DragGesture(minimumDistance: 30).onChanged({ (value) in
@@ -97,13 +96,15 @@ struct StoreStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: 500)
-            .modifier(FocalistMaterial())
-            .clipShape(
+            .background(
                 RoundedRectangle(
                     cornerRadius: 39.5,
-                    style: .continuous)
-        )
-            .padding(state.currentScene == .store ? 0 : 16)
+                    style: .continuous).hidden()
+                    .modifier(FocalistMaterial())
+                    .clipShape(RoundedRectangle(cornerRadius: 39.5,
+                                                 style: .continuous))
+                .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
+            )
             .edgesIgnoringSafeArea(.bottom)
             .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
     }
