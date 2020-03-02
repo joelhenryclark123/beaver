@@ -33,14 +33,19 @@ struct StoreView: View {
                 height: self.state.currentScene == .store ?
                     12 : 56
             )
-            
-            ScrollView {
-                ForEach(toDos) { toDo in
+                        
+            List {
+                ForEach(self.toDos) { toDo in
                     StoreItem(toDo: toDo)
                         .padding(.horizontal, 16)
-                        .padding(.vertical, 4)
-                }.animation(.spring())
+                        .padding(.vertical, 8)
+                }.onDelete { (offsets) in
+                    for index in offsets {
+                        self.toDos[index].delete()
+                    }
+                }
             }
+            
             Spacer().frame(height: 24)
         }
         .modifier(StoreStyle())
@@ -62,7 +67,7 @@ struct StoreView: View {
             
             self.state.dragState = .inactive
         }))
-            .animation(.easeInOut(duration: 0.2))
+            .animation(.spring())
     }
 }
 
