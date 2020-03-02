@@ -9,6 +9,17 @@
 import SwiftUI
 import CoreData
 
+struct MainBackground: View {
+    var body: some View {
+            LinearGradient(
+                gradient: Gradient(colors: [
+                Color("backgroundBlueDark"),
+                Color("backgroundBlueLight"),
+                ]), startPoint: .bottom, endPoint: .top
+            ).edgesIgnoringSafeArea(.all)
+        }
+}
+
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
@@ -16,8 +27,7 @@ struct ContentView: View {
     //MARK: Body
     var body: some View {
         ZStack {
-            Color("stackBackgroundColor")
-                .edgesIgnoringSafeArea(.all)
+            MainBackground()
             
             ActiveView()
             

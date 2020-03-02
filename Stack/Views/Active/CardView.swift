@@ -17,13 +17,14 @@ struct CardView: View {
             .overlay (
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity)
-                    .font(.system(size: 40))
+                    .modifier(FocalistFont(font: .heading3))
                     .multilineTextAlignment(.center)
-                    .foregroundColor(Color("stackBackgroundColor"))
+                    .foregroundColor(Color("backgroundBlue"))
                     .opacity(self.state.currentScene == .active ? 1.0 : 0.0)
-                    .padding(10)
+                    .padding(16)
             )
             .scaleEffect(self.state.currentScene == .active ? 1.0 : 0.25)
+            .modifier(FocalistShadow(option: .light))
             .animation(.easeOut(duration: 0.2))
     }
 }

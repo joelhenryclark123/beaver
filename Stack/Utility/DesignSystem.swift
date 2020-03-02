@@ -33,15 +33,25 @@ struct FocalistFont: ViewModifier {
                 return 12
             }
         }
+        
+        var bold: Bool {
+            switch self {
+            case .heading1, .heading2, .heading3, .heading4:
+                return true
+            default:
+                return false
+            }
+        }
     }
     
     var font: Typography
     
     func body(content: Content) -> some View {
         content
-            .font(Font.system(size: font.fontSize))
+            .font(Font.system(size: font.fontSize, weight: font.bold ? .bold : .regular))
     }
 }
+
 
 struct FocalistShadow: ViewModifier {
     enum Shadow {
@@ -96,10 +106,21 @@ struct FocalistShadow: ViewModifier {
     }
 }
 
-struct focalistMaterial: ViewModifier {
+struct FocalistMaterial: ViewModifier {
     func body(content: Content) -> some View {
-        content
-            .background(Color("materialWhite"))
-            .blur(radius: 100)
+    content
+    .background(Blur(style: .light))
+    }
+}
+
+struct Blur: UIViewRepresentable {
+    var style: UIBlurEffect.Style = .systemMaterial
+
+    func makeUIView(context: Context) -> UIVisualEffectView {
+        return UIVisualEffectView(effect: UIBlurEffect(style: style))
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
+        uiView.effect = UIBlurEffect(style: style)
     }
 }

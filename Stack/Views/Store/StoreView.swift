@@ -20,30 +20,26 @@ struct StoreView: View {
         VStack {
             RoundedRectangle(cornerRadius: 5).frame(width: 36, height: 5)
                 .padding(.top, 12)
-                .opacity(0.25)
+                .foregroundColor(Color("dimWhite"))
             
-        AddBar()
-            .gesture(TapGesture().onEnded({ (_) in
-                self.state.currentScene = .store
-            })).padding(.bottom, 12)
-            .padding(.top, self.state.currentScene == .store ? 12 : 12)
-
+            AddBar()
+                .gesture(TapGesture().onEnded({ (_) in
+                    self.state.currentScene = .store
+                })).padding(.bottom, 12)
+                .padding(.top, self.state.currentScene == .store ? 12 : 12)
+            
             
             Spacer().frame(
                 height: self.state.currentScene == .store ?
-                0 : 40
+                    12 : 56
             )
             
-            List{
+            ScrollView {
                 ForEach(toDos) { toDo in
                     StoreItem(toDo: toDo)
-                    .background(RoundedRectangle(cornerRadius: 5, style: .continuous)
-                    .stroke(Color("stackBackgroundColor"), lineWidth: 2))
-                }.onDelete { (offsets) in
-                    for index in offsets {
-                        self.toDos[index].delete()
-                    }
-                }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 4)
+                }.animation(.spring())
             }
             Spacer().frame(height: 24)
         }
@@ -60,8 +56,8 @@ struct StoreView: View {
                 if value.predictedEndTranslation.height <= -50 {
                     self.state.currentScene = .store
                 }
-                case .draggingActive:
-                    break
+            case .draggingActive:
+                break
             }
             
             self.state.dragState = .inactive
@@ -80,8 +76,7 @@ struct StoreView_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-            Color("stackBackgroundColor")
-                .edgesIgnoringSafeArea(.all)
+            MainBackground()
             
             StoreView()
                 .environment(\.managedObjectContext, context)
@@ -97,16 +92,14 @@ struct StoreStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: 500)
-            .background(Color("systemBackgroundColor"))
+            .modifier(FocalistMaterial())
             .clipShape(
                 RoundedRectangle(
                     cornerRadius: 39.5,
                     style: .continuous)
-            )
-            .shadow(radius: 16, y: -8)
+        )
             .padding(state.currentScene == .store ? 0 : 16)
             .edgesIgnoringSafeArea(.bottom)
-        .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
-        .opacity(state.currentScene == .active ? 0.5 : 1.0)
+            .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
     }
 }

@@ -20,28 +20,18 @@ struct ActiveView: View {
     @State var newToDoTitle: String = ""
     var emptyState: some View {
         VStack(spacing: 0) {
-            Text("Nothing to do!")
-                .font(.system(size: 34))
+            Text("Nothing Active!")
+                .modifier(FocalistFont(font: .heading2))
                 .frame(maxWidth: .infinity)
                 .foregroundColor(Color.white)
             
-            CustomTextField(
-                placeholder: Text("New Item").foregroundColor(.white),
-                text: $newToDoTitle,
-                commit: {
-                    if self.newToDoTitle.isEmpty {
-                        return
-                    } else {
-                        let _ = ToDo(
-                            context: self.context,
-                            title: self.newToDoTitle,
-                            isActive: true
-                        )
-                                                
-                        self.newToDoTitle = ""
-                    }
-                }
-                ).padding().frame(maxWidth: 500)
+            Button(action: {
+                self.state.currentScene = .store
+            }) {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .foregroundColor(Color.white)
+                    .overlay(Text("Choose Task").modifier(FocalistFont(font: .mediumText)).foregroundColor(Color("backgroundBlue")))
+            }.frame(maxWidth: 500, maxHeight: 40).padding()
             Spacer().frame(height: 64)
         }
     }
@@ -122,7 +112,7 @@ struct ActiveView_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-            Color("stackBackgroundColor")
+            Color("backgroundBlue")
                 .edgesIgnoringSafeArea(.all)
             
             ActiveView()

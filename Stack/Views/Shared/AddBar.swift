@@ -30,10 +30,12 @@ struct AddBar: View {
             } else { self.createToDo() }
             })
             .multilineTextAlignment(.center)
+            .foregroundColor(.black)
             .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .frame(height: 32)
-                    .opacity(0.2)
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .frame(height: 40)
+                .foregroundColor(Color("dimWhite"))
+                    .modifier(FocalistShadow(option: .dark))
         ).padding(.horizontal, 16)
     }
 }
@@ -42,7 +44,11 @@ struct AddBar_Previews: PreviewProvider {
     static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     static var previews: some View {
-        AddBar()
-        .environment(\.managedObjectContext, context)
+        ZStack {
+            MainBackground()
+            
+            AddBar()
+                .environment(\.managedObjectContext, context)
+        }
     }
 }
