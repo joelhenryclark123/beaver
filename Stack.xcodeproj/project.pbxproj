@@ -10,6 +10,7 @@
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
 		E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */; };
+		E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E0F64240C99F400A46140 /* DesignSystem.swift */; };
 		E98073E723F71C6A00FDAF08 /* ActiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* ActiveView.swift */; };
 		E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F232406F4EE0028C4E1 /* DragState.swift */; };
 		E9826F262406F56E0028C4E1 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F252406F56E0028C4E1 /* Scene.swift */; };
@@ -43,6 +44,7 @@
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
+		E97E0F64240C99F400A46140 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		E98073E623F71C6A00FDAF08 /* ActiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveView.swift; sourceTree = "<group>"; };
 		E9826F232406F4EE0028C4E1 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
 		E9826F252406F56E0028C4E1 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				E9926335240B1CDC003D7658 /* Extensions */,
 				E9B3722F240335EF003B46B0 /* State */,
 				E9B3722D240335A4003B46B0 /* CD+CK */,
+				E97E0F64240C99F400A46140 /* DesignSystem.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
 				E9869033240AC78800A03FA2 /* AddBar.swift in Sources */,
+				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,

@@ -1,0 +1,105 @@
+//
+//  DesignSystem.swift
+//  Stack
+//
+//  Created by Joel Clark on 3/1/20.
+//  Copyright © 2020 MyCo. All rights reserved.
+//
+
+import SwiftUI
+
+struct FocalistFont: ViewModifier {
+    enum Typography {
+        case heading1, heading2, heading3, heading4
+        case largeText, mediumText, caption, smallText
+        
+        var fontSize: CGFloat {
+            switch self {
+            case .heading1:
+                return 56
+            case .heading2:
+                return 40
+            case .heading3:
+                return 32
+            case .heading4:
+                return 24
+            case .largeText:
+                return 24
+            case .mediumText:
+                return 20
+            case .caption:
+                return 16
+            case .smallText:
+                return 12
+            }
+        }
+    }
+    
+    var font: Typography
+    
+    func body(content: Content) -> some View {
+        content
+            .font(Font.system(size: font.fontSize))
+    }
+}
+
+struct FocalistShadow: ViewModifier {
+    enum Shadow {
+        case dark
+        case light
+        
+        var color: Color {
+            switch self {
+            case .dark:
+                return Color("darkShadow")
+            case .light:
+                return Color("lightShadow")
+            }
+        }
+        
+        var radius: CGFloat {
+            switch self {
+            case .dark:
+                return 8
+            case .light:
+                return 4
+            }
+        }
+        
+        var x: CGFloat {
+            switch self {
+            case .dark, .light:
+                return CGFloat.zero
+            }
+        }
+        
+        var y: CGFloat {
+            switch self {
+            case .dark:
+                return 4
+            case .light:
+                return 2
+            }
+        }
+    }
+    
+    var option: Shadow
+    
+    func body(content: Content) -> some View {
+        content
+        .shadow(
+            color: option.color,
+            radius: option.radius,
+            x: option.x,
+            y: option.y
+        )
+    }
+}
+
+struct focalistMaterial: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .background(Color("materialWhite"))
+            .blur(radius: 100)
+    }
+}
