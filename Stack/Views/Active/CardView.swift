@@ -14,17 +14,17 @@ struct CardView: View {
     var toDo: ToDo
     var body: some View {
         RaisedRectangle()
+            .modifier(FocalistShadow(option: .light))
             .overlay (
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity)
                     .modifier(FocalistFont(font: .heading3))
                     .multilineTextAlignment(.center)
-                    .foregroundColor(Color("backgroundBlue"))
+                    .foregroundColor(.black)
                     .opacity(self.state.currentScene == .active ? 1.0 : 0.0)
                     .padding(16)
             )
             .scaleEffect(self.state.currentScene == .active ? 1.0 : 0.25)
-            .modifier(FocalistShadow(option: .light))
             .animation(.easeOut(duration: 0.2))
     }
 }

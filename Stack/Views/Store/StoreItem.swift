@@ -20,13 +20,13 @@ struct StoreItem: View {
         }) {
                 Text(toDo.title)
                     .modifier(FocalistFont(font: .mediumText))
-                    .foregroundColor(Color("backgroundBlue"))
+                    .foregroundColor(.black)
                 
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-            .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(.white))
-        }.modifier(FocalistShadow(option: .light))
+        }.modifier(FocalistShadow(option: .dark))
     }
 }
 
