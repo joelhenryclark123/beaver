@@ -22,12 +22,12 @@ struct Onboarding: View {
             
             Spacer()
             
-            VStack(spacing: 32) {
+            VStack(spacing: 40) {
                 VStack(spacing: 8) {
-                        Text("Organize")
-                            .modifier(FocalistFont(font: .heading4))
-                        Text("Tasks in your to-do list")
-                            .modifier(FocalistFont(font: .largeText))
+                    Text("Organize")
+                        .modifier(FocalistFont(font: .heading4))
+                    Text("Tasks in your to-do list")
+                        .modifier(FocalistFont(font: .largeText))
                 }
                 VStack(spacing: 8) {
                     Text("Choose")
@@ -35,7 +35,7 @@ struct Onboarding: View {
                     Text("What you want to do")
                         .modifier(FocalistFont(font: .largeText))
                 }
-            }.frame(maxWidth: 480)
+            }
             
             Spacer()
             
@@ -48,9 +48,12 @@ struct Onboarding: View {
                     self.state.finishOnboarding()
                 }
             }
-            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
-            .background(Color.white.edgesIgnoringSafeArea(.all))
+        .background(
+            Color.white.edgesIgnoringSafeArea(.all)
+        )
     }
 }
 
@@ -64,6 +67,6 @@ struct Onboarding_Previews: PreviewProvider {
     static var previews: some View {
         Onboarding()
             .environment(\.managedObjectContext, context)
-        .environmentObject(AppState())
+            .environmentObject(AppState())
     }
 }

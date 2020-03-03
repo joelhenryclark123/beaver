@@ -36,6 +36,7 @@ struct ContentView: View {
             if self.state.hasOnboarded == false {
                 Onboarding()
                     .transition(.move(edge: .bottom))
+                    .frame(maxWidth: .infinity)
                     .zIndex(3)
             }
         }
