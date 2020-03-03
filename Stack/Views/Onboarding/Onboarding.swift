@@ -15,7 +15,6 @@ struct Onboarding: View {
     
     var body: some View {
         VStack {
-            Spacer()
             Text("Monocle")
                 .modifier(FocalistFont(font: .heading1))
             Text("A new way to get things done")
@@ -23,11 +22,29 @@ struct Onboarding: View {
             
             Spacer()
             
+            VStack(spacing: 32) {
+                VStack(spacing: 8) {
+                        Text("Organize")
+                            .modifier(FocalistFont(font: .heading4))
+                        Text("Tasks in your to-do list")
+                            .modifier(FocalistFont(font: .largeText))
+                }
+                VStack(spacing: 8) {
+                    Text("Choose")
+                        .modifier(FocalistFont(font: .heading4))
+                    Text("What you want to do")
+                        .modifier(FocalistFont(font: .largeText))
+                }
+            }.frame(maxWidth: 480)
+            
+            Spacer()
+            
             WideButton(.blue, "Get Started") {
+                let _ = ToDo(context: self.context, title: "Drag this around!", isActive: true)
+                let _ = ToDo(context: self.context, title: "Tap on this to activate it", isActive: false)
+                let _ = ToDo(context: self.context, title: "Swipe left to delete this", isActive: false)
+                
                 withAnimation(.easeIn(duration: 0.2)) {
-                    let _ = ToDo(context: self.context, title: "Drag this around!", isActive: true)
-                    let _ = ToDo(context: self.context, title: "Tap on this to activate it", isActive: false)
-                    let _ = ToDo(context: self.context, title: "Swipe left to delete this", isActive: false)
                     self.state.finishOnboarding()
                 }
             }

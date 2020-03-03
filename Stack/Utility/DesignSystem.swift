@@ -12,6 +12,7 @@ struct FocalistFont: ViewModifier {
     enum Typography {
         case heading1, heading2, heading3, heading4
         case largeText, mediumText, caption, smallText
+        case largeTextSemibold, mediumTextSemibold, captionSemibold, smallTextSemibold
         
         var fontSize: CGFloat {
             switch self {
@@ -23,23 +24,25 @@ struct FocalistFont: ViewModifier {
                 return 32
             case .heading4:
                 return 24
-            case .largeText:
+            case .largeText, .largeTextSemibold:
                 return 24
-            case .mediumText:
+            case .mediumText, .mediumTextSemibold:
                 return 20
-            case .caption:
+            case .caption, .captionSemibold:
                 return 16
-            case .smallText:
+            case .smallText, .smallTextSemibold:
                 return 12
             }
         }
         
-        var bold: Bool {
+        var weight: Font.Weight {
             switch self {
             case .heading1, .heading2, .heading3, .heading4:
-                return true
-            default:
-                return false
+                return .bold
+            case .largeText, .mediumText, .caption, .smallText:
+                return .regular
+            case .largeTextSemibold, .mediumTextSemibold, .captionSemibold, .smallTextSemibold:
+                return .semibold
             }
         }
     }
@@ -48,7 +51,7 @@ struct FocalistFont: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .font(Font.system(size: font.fontSize, weight: font.bold ? .bold : .regular))
+            .font(Font.system(size: font.fontSize, weight: font.weight))
     }
 }
 
