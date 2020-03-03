@@ -16,30 +16,11 @@ struct ActiveView: View {
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
     
     @GestureState var dragLocation: CGPoint? = nil
-
-    @State var newToDoTitle: String = ""
-    var emptyState: some View {
-        VStack(spacing: 0) {
-            Text("Nothing Active!")
-                .modifier(FocalistFont(font: .heading2))
-                .frame(maxWidth: .infinity)
-                .foregroundColor(Color.white)
-            
-            Button(action: {
-                self.state.currentScene = .store
-            }) {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .foregroundColor(Color.white)
-                    .overlay(Text("Choose Task").modifier(FocalistFont(font: .mediumText)).foregroundColor(Color("backgroundBlue")))
-            }.frame(maxWidth: 500, maxHeight: 40).padding()
-            Spacer().frame(height: 64)
-        }
-    }
     
     var body: some View {
         Group {
             if toDos.isEmpty {
-                emptyState
+                EmptyState()
             }
             else {
                 GeometryReader { geometry in
@@ -101,11 +82,11 @@ struct ActiveView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
         let mc = ContentView_Previews.context
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 100 miles",
-//            isActive: true
-//        )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: true
+        )
         
         return mc
     }()
@@ -122,43 +103,30 @@ struct ActiveView_Previews: PreviewProvider {
     }
 }
 
-struct SoftBlueShadow: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .shadow(
-                color: Color(UIColor(red: 0.14, green: 0.696, blue: 1, alpha: 1)),
-                radius: 14, x: -5, y: -8
-        )
-            .shadow(
-                color: Color(UIColor(red: 0, green: 0.556, blue: 0.86, alpha: 1)),
-                radius: 14, x: 8, y: 5
-        )
-    }
-    
-}
-
-struct CustomTextField: View {
-    var placeholder: Text
-    @Binding var text: String
-    var editingChanged: (Bool)->() = { _ in }
-    var commit: ()->() = { }
+struct EmptyState: View {
+    @State var opacity: Double = 0.0
+    @EnvironmentObject var state: AppState
     
     var body: some View {
-        ZStack(alignment: .leading) {
-            if text.isEmpty {
-                placeholder.frame(maxWidth: .infinity)
-            }
-            
-            TextField("", text: $text, onEditingChanged: editingChanged, onCommit: commit)
+        VStack(spacing: 0) {
+            Text("Nothing Active!")
+                .modifier(FocalistFont(font: .heading2))
+                .frame(maxWidth: .infinity)
                 .foregroundColor(Color.white)
-                .accentColor(Color.white)
-                .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .frame(height: 42)
-                        .foregroundColor(Color.white)
-                        .opacity(0.3)
-            )
+            
+            Button(action: {
+                self.state.currentScene = .store
+            }) {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .foregroundColor(Color.white)
+                    .overlay(Text("Choose Task").modifier(FocalistFont(font: .mediumText)).foregroundColor(Color("backgroundBlue")))
+            }.frame(maxWidth: 500, maxHeight: 40).padding()
+            Spacer().frame(height: 64)
+        }.opacity(self.opacity)
+            .onAppear {
+                return withAnimation(.easeOut(duration: 0.2)) {
+                    self.opacity = 1.0
+                }
         }
-        .multilineTextAlignment(.center)
     }
 }
