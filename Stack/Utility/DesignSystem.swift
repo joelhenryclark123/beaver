@@ -57,6 +57,7 @@ struct FocalistShadow: ViewModifier {
     enum Shadow {
         case dark
         case light
+        case blueGlow
         
         var color: Color {
             switch self {
@@ -64,6 +65,9 @@ struct FocalistShadow: ViewModifier {
                 return Color("darkShadow")
             case .light:
                 return Color("lightShadow")
+            case .blueGlow:
+                let color = Color("backgroundBlue").opacity(0.3)
+                return color
             }
         }
         
@@ -73,12 +77,14 @@ struct FocalistShadow: ViewModifier {
                 return 8
             case .light:
                 return 4
+            case .blueGlow:
+                return 12
             }
         }
         
         var x: CGFloat {
             switch self {
-            case .dark, .light:
+            case .dark, .light, .blueGlow:
                 return CGFloat.zero
             }
         }
@@ -89,6 +95,8 @@ struct FocalistShadow: ViewModifier {
                 return 4
             case .light:
                 return 2
+            case .blueGlow:
+                return 0
             }
         }
     }

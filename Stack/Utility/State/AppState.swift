@@ -15,10 +15,19 @@ final class AppState: ObservableObject {
     // MARK: Published Properties
     @Published var dragState: DragState = .inactive
     @Published var currentScene: Scene = .active
-    @Published var onboarded: Bool
+    @Published var hasOnboarded: Bool
     
     init() {
+        #if DEBUG
+        UserDefaults.standard.set(false, forKey: "onboarded")
+        #endif
+        
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
-        self.onboarded = hasOnboarded
+        self.hasOnboarded = hasOnboarded
+    }
+    
+    func finishOnboarding() {
+        self.hasOnboarded = true
+        UserDefaults.standard.set(true, forKey: "onboarded")
     }
 }

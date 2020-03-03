@@ -19,6 +19,8 @@
 		E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F64E23F75EB200BE2133 /* StoreView.swift */; };
 		E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F65123F75ECD00BE2133 /* StoreItem.swift */; };
 		E9B37231240335FC003B46B0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
+		E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB5768240EB83E0083BE7D /* Onboarding.swift */; };
+		E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB576A240EB8E00083BE7D /* WideButton.swift */; };
 		E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9523B83CA00068B86E /* AppDelegate.swift */; };
 		E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9723B83CA00068B86E /* SceneDelegate.swift */; };
 		E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9923B83CA00068B86E /* ContentView.swift */; };
@@ -53,6 +55,8 @@
 		E9B2F64E23F75EB200BE2133 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		E9B2F65123F75ECD00BE2133 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E9BB5768240EB83E0083BE7D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
+		E9BB576A240EB8E00083BE7D /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
 		E9F51B9223B83CA00068B86E /* Stack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51B9523B83CA00068B86E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9723B83CA00068B86E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +106,7 @@
 				E98073E623F71C6A00FDAF08 /* ActiveView.swift */,
 				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
 				E9869031240AC77300A03FA2 /* Components */,
-				E9BB5764240EA5330083BE7D /* Onboarding */,
+				E9BB5767240EB82E0083BE7D /* Onboarding */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,6 +117,7 @@
 				E9869032240AC78800A03FA2 /* AddBar.swift */,
 				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
 				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
+				E9BB576A240EB8E00083BE7D /* WideButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -165,9 +170,10 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
-		E9BB5764240EA5330083BE7D /* Onboarding */ = {
+		E9BB5767240EB82E0083BE7D /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -328,6 +334,7 @@
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
 				E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
+				E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */,
 				E9869033240AC78800A03FA2 /* AddBar.swift in Sources */,
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
@@ -337,6 +344,7 @@
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E9826F262406F56E0028C4E1 /* Scene.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* ActiveView.swift in Sources */,
+				E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */,
 				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

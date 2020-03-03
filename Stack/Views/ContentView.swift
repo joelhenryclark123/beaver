@@ -27,24 +27,18 @@ struct ContentView: View {
     //MARK: Body
     var body: some View {
         ZStack {
-            MainBackground()
+            MainBackground().zIndex(0)
             
-            ActiveView()
+            ActiveView().zIndex(1)
             
-            StoreView()
-
-//            Group {
-//                if self.state.onboarded == false{
-//                    Onboarding()
-//                }
-//            }
+            StoreView().zIndex(2)
+            
+            if self.state.hasOnboarded == false {
+                Onboarding()
+                    .transition(.move(edge: .bottom))
+                    .zIndex(3)
+            }
         }
-    }
-}
-
-struct Onboarding: View {
-    var body: some View {
-        Color.white
     }
 }
 
