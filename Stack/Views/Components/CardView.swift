@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CardView: View {
     @EnvironmentObject var state: AppState
-    
     var toDo: ToDo
     var body: some View {
         RaisedRectangle()

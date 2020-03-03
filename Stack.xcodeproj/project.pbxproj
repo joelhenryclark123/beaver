@@ -99,20 +99,22 @@
 			isa = PBXGroup;
 			children = (
 				E9F51B9923B83CA00068B86E /* ContentView.swift */,
-				E9869031240AC77300A03FA2 /* Shared */,
-				E9B2F64D23F75E9000BE2133 /* Active */,
-				E9B2F65023F75EB600BE2133 /* Store */,
+				E98073E623F71C6A00FDAF08 /* ActiveView.swift */,
+				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
+				E9869031240AC77300A03FA2 /* Components */,
 				E9BB5764240EA5330083BE7D /* Onboarding */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		E9869031240AC77300A03FA2 /* Shared */ = {
+		E9869031240AC77300A03FA2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
 				E9869032240AC78800A03FA2 /* AddBar.swift */,
+				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
+				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
 			);
-			path = Shared;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		E9926335240B1CDC003D7658 /* Extensions */ = {
@@ -121,24 +123,6 @@
 				E9926336240B1D0B003D7658 /* GeometryProxy.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		E9B2F64D23F75E9000BE2133 /* Active */ = {
-			isa = PBXGroup;
-			children = (
-				E98073E623F71C6A00FDAF08 /* ActiveView.swift */,
-				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
-			);
-			path = Active;
-			sourceTree = "<group>";
-		};
-		E9B2F65023F75EB600BE2133 /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
-				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
-			);
-			path = Store;
 			sourceTree = "<group>";
 		};
 		E9B3722D240335A4003B46B0 /* CD+CK */ = {
