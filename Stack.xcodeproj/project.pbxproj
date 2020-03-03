@@ -98,9 +98,11 @@
 		E98073E823F723ED00FDAF08 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E9F51B9923B83CA00068B86E /* ContentView.swift */,
 				E9869031240AC77300A03FA2 /* Shared */,
 				E9B2F64D23F75E9000BE2133 /* Active */,
 				E9B2F65023F75EB600BE2133 /* Store */,
+				E9BB5764240EA5330083BE7D /* Onboarding */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,6 +181,13 @@
 			path = Launch;
 			sourceTree = "<group>";
 		};
+		E9BB5764240EA5330083BE7D /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		E9F51B8923B83CA00068B86E = {
 			isa = PBXGroup;
 			children = (
@@ -204,7 +213,6 @@
 				E9B3723224035523003B46B0 /* Launch */,
 				E98073E823F723ED00FDAF08 /* Views */,
 				E9B3722E240335C7003B46B0 /* Utility */,
-				E9F51B9923B83CA00068B86E /* ContentView.swift */,
 				E9F51BA023B83CA60068B86E /* LaunchScreen.storyboard */,
 				E9F51BA323B83CA60068B86E /* Info.plist */,
 				E9F51B9B23B83CA60068B86E /* Assets.xcassets */,

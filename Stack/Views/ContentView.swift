@@ -32,8 +32,19 @@ struct ContentView: View {
             ActiveView()
             
             StoreView()
-                .zIndex(1)
+
+//            Group {
+//                if self.state.onboarded == false{
+//                    Onboarding()
+//                }
+//            }
         }
+    }
+}
+
+struct Onboarding: View {
+    var body: some View {
+        Color.white
     }
 }
 
