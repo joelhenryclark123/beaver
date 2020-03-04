@@ -39,16 +39,30 @@ public class ToDo: NSManagedObject, Identifiable {
             fatalError()
         }
     }
+    
+    // MARK: Calculated Properties
+    
+    var movedToday: Bool {
+        let calendar = Calendar.current
+        guard let movedAt = self.movedAt else { return false }
+        
+        return calendar.isDateInToday(movedAt)
+    }
+    
+    var isComplete: Bool {
+        if self.completedAt != nil {
+            return true
+        } else { return false }
+    }
 }
 
 //MARK: Operations
 extension ToDo {
-    func activate() {
+    func activeToggle() {
         guard let context = self.managedObjectContext else { fatalError() }
         
         context.perform {
-            self.isActive = true
-            self.movedAt = Date()
+            self.isActive.toggle()
             self.saveContext()
         }
     }
@@ -79,17 +93,19 @@ extension ToDo {
             self.saveContext()
         }
     }
-    
-    var isComplete: Bool {
-        if self.completedAt != nil {
-            return true
-        } else { return false }
-    }
-    
+        
     func delete() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
             context.delete(self)
+            self.saveContext()
+        }
+    }
+    
+    func move() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        context.perform {
+            self.movedAt = Date()
             self.saveContext()
         }
     }
@@ -113,11 +129,25 @@ extension ToDo {
         let fetchRequest = NSFetchRequest<ToDo>(entityName: entity)
         
         fetchRequest.predicate = NSPredicate(
-            format: "(completedAt == nil) AND (isActive == false)"
+            format: "(completedAt == nil) AND (movedAt == nil)"
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
+        
+        return fetchRequest
+    }
+    
+    static var fetchMostRecent: NSFetchRequest<ToDo> {
+        let fetchRequest = ToDo.fetchRequest() as! NSFetchRequest<ToDo>
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "movedAt != nil"
+        )
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "movedAt", ascending: false)
+        ]
+        fetchRequest.fetchBatchSize = 4
         
         return fetchRequest
     }

@@ -10,10 +10,26 @@ import SwiftUI
 import CoreData
 
 struct StoreView: View {
-    @EnvironmentObject var state: AppState
+    @Environment(\.managedObjectContext) var context
     @FetchRequest(
         fetchRequest: ToDo.storeFetchRequest
     ) var toDos: FetchedResults<ToDo>
+    
+    var selection: [ToDo] {
+        let selected = toDos.filter { (toDo) -> Bool in
+            toDo.isActive
+        }
+        
+        return selected
+    }
+    
+    func startDay() {
+        for toDo in toDos {
+            toDo.move()
+        }
+        
+        try! context.save()
+    }
     
     // MARK: Body
     var body: some View {
@@ -21,31 +37,80 @@ struct StoreView: View {
             List {
                 ForEach(self.toDos) { toDo in
                     StoreItem(toDo: toDo)
+                        .transition(.identity)
+                        .animation(.spring())
                 }.onDelete { (offsets) in
                     for index in offsets {
                         self.toDos[index].delete()
                     }
-                }
+                }.transition(.identity).animation(.spring())
             }
             Spacer().frame(height: 40)
+            
+            if selection.count == 4 {
+                WideButton(.green, "Start Day") {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        self.startDay()
+                    }
+                }.padding()
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .transition(.move(edge: .bottom))
+                    .animation(.spring())
+            }
         }
         .modifier(StoreStyle())
     }
 }
 
 struct StoreView_Previews: PreviewProvider {
-    static let context = ContentView_Previews.context
-    static let state: AppState = {
-        let returner = AppState()
-        return returner
-    }()
+    static let context: NSManagedObjectContext = {
+            let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                    
+                    let toDos = try! mc.fetch(ToDo.fetchRequest())
+                    for toDo in toDos {
+                        (toDo as! ToDo).delete()
+                    }
+                    
+    //                let _ = ToDo(
+    //                    context: mc,
+    //                    title: "Walk 100 miles",
+    //                    isActive: true
+    //                )
+    //
+    //                let _ = ToDo(
+    //                    context: mc,
+    //                    title: "Walk 200 miles",
+    //                    isActive: true
+    //                )
+    //
+    //                let _ = ToDo(
+    //                    context: mc,
+    //                    title: "Walk 300 miles",
+    //                    isActive: true
+    //                )
+    //
+    //                let _ = ToDo(
+    //                    context: mc,
+    //                    title: "Walk 400 miles",
+    //                    isActive: true
+    //                )
+                    
+                    return mc
+        }()
     
     static var previews: some View {
         ZStack {
             MainBackground()
             
+            VStack {
+            AddBar()
+                .environment(\.managedObjectContext, context)
+                .padding()
+                
             StoreView()
                 .environment(\.managedObjectContext, context)
+                .frame(maxHeight: .infinity)
+            }
         }
     }
 }

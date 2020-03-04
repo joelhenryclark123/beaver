@@ -23,7 +23,17 @@ struct MainBackground: View {
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var selectedToDos: FetchedResults<ToDo>
+    @FetchRequest(fetchRequest: ToDo.fetchMostRecent) var mostRecent: FetchedResults<ToDo>
+    
+    var upToDate: Bool {
+        if mostRecent.isEmpty { return false }
+        else if mostRecent.allSatisfy({ (toDo) -> Bool in
+            toDo.movedToday
+        }) { return true }
+        else {
+            return false
+        }
+    }
     
     //MARK: Body
     var body: some View {
@@ -31,16 +41,20 @@ struct ContentView: View {
             MainBackground()
                 .zIndex(0)
             
-            AddBar()
-                .frame(maxHeight: .infinity, alignment: .top)
-                .padding()
-            
-            DayView()
-                .zIndex(1)
-                
-            
-//            StoreView().zIndex(2)
-            
+            VStack {
+                AddBar()
+                    .padding()
+                if upToDate {
+                    DayView()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .zIndex(3)
+                } else {
+                    StoreView()
+                        .frame(maxHeight: .infinity)
+                        .zIndex(2)
+                }
+            }
+                            
             if self.state.hasOnboarded == false {
                 Onboarding()
                     .transition(.move(edge: .bottom))
@@ -61,29 +75,29 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 100 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 200 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 300 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 400 miles",
+//            isActive: true
+//        )
         
         return mc
     }()

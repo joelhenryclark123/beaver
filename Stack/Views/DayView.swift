@@ -21,12 +21,13 @@ struct DayView: View {
         for toDo in self.toDos {
             toDo.isActive = false
         }
+        
         try! self.context.save()
     }
         
     var body: some View {
         ZStack {
-            if toDos.first == nil {
+            if toDos.isEmpty {
                 VStack {
                     Text("Done!")
                         .modifier(FocalistFont(font: .heading1))
@@ -36,7 +37,7 @@ struct DayView: View {
                         .foregroundColor(.white)
                 }
             }
-            else {
+            else if toDos.count == 4 {
                 VStack(spacing: 16) {
                     HStack(spacing: 16) {
                         CardView(toDo: self.toDos[0])
@@ -65,9 +66,38 @@ struct DayView: View {
 
 struct ActiveView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
-        let mc = ContentView_Previews.context
-        
-        return mc
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                
+                let toDos = try! mc.fetch(ToDo.fetchRequest())
+                for toDo in toDos {
+                    (toDo as! ToDo).delete()
+                }
+                
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 100 miles",
+//                    isActive: true
+//                )
+//
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 200 miles",
+//                    isActive: true
+//                )
+//
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 300 miles",
+//                    isActive: true
+//                )
+//
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 400 miles",
+//                    isActive: true
+//                )
+                
+                return mc
     }()
     
     static var previews: some View {

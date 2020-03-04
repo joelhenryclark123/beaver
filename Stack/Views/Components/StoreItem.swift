@@ -10,13 +10,23 @@ import SwiftUI
 import CoreData
 
 struct StoreItem: View {
-    @EnvironmentObject var state: AppState
-    var toDo: ToDo
+    @ObservedObject var toDo: ToDo
+    
+    var cardBackground: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .foregroundColor(.white)
+            
+            if toDo.isActive {
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .stroke(Color("accentGreenDim"), lineWidth: 4)
+            }
+        }
+    }
     
     var body: some View {
         Button(action: {
-            self.toDo.activate()
-            
+            self.toDo.activeToggle()
         }) {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
@@ -25,13 +35,12 @@ struct StoreItem: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(.white))
+                .background(cardBackground)
         }.modifier(FocalistShadow(option: .dark))
     }
 }
 
 struct StoreItem_Previews: PreviewProvider {
-    static let state = AppState()
     static let context = ContentView_Previews.context
     
     static var previews: some View {
@@ -41,7 +50,6 @@ struct StoreItem_Previews: PreviewProvider {
                 title: "Walk 100 miles",
                 isActive: false)
         )
-            .environmentObject(state)
             .previewLayout(.sizeThatFits)
     }
 }

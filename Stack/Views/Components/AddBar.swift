@@ -27,7 +27,11 @@ struct AddBar: View {
         TextField("New", text: $text, onCommit: {
             if self.text.isEmpty {
                 return
-            } else { self.createToDo() }
+            } else {
+                withAnimation(.spring()) {
+                self.createToDo()
+                }
+            }
         })
             .multilineTextAlignment(.center)
             .foregroundColor(.black)
