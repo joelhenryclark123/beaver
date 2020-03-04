@@ -11,13 +11,13 @@ import CoreData
 
 struct MainBackground: View {
     var body: some View {
-            LinearGradient(
-                gradient: Gradient(colors: [
+        LinearGradient(
+            gradient: Gradient(colors: [
                 Color("backgroundBlueDark"),
                 Color("backgroundBlueLight"),
-                ]), startPoint: .bottom, endPoint: .top
-            ).edgesIgnoringSafeArea(.all)
-        }
+            ]), startPoint: .bottom, endPoint: .top
+        ).edgesIgnoringSafeArea(.all)
+    }
 }
 
 struct ContentView: View {
@@ -55,7 +55,7 @@ struct ContentView_Previews: PreviewProvider {
         
         return mc
     }()
-
+    
     static var previews: some View {
         ContentView()
             .environment(\.managedObjectContext, context)

@@ -12,7 +12,7 @@ struct AddBar: View {
     @Environment(\.managedObjectContext) var context
     @State var text: String = ""
     var willBeActive: Bool = false
-        
+    
     func createToDo() -> Void {
         let _ = ToDo(
             context: self.context,
@@ -28,13 +28,13 @@ struct AddBar: View {
             if self.text.isEmpty {
                 return
             } else { self.createToDo() }
-            })
+        })
             .multilineTextAlignment(.center)
             .foregroundColor(.black)
             .background(
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .frame(height: 40)
-                .foregroundColor(Color("dimWhite"))
+                    .foregroundColor(Color("dimWhite"))
                     .modifier(FocalistShadow(option: .dark))
         ).padding(.horizontal, 16)
     }

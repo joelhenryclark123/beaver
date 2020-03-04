@@ -31,24 +31,24 @@ struct ActiveView: View {
                         
                         Group {
                             if self.state.currentScene == .draggingActive {
-                                    Image(systemName: "checkmark.circle")
-                                        .resizable()
-                                        .frame(width: 64, height: 64)
-                                        .foregroundColor(Color.green)
-                                        .background(Circle().foregroundColor(Color.white))
-                                        .position(
-                                            x: geometry.center.x,
-                                            y: geometry.size.height * 0.1
-                                        )
+                                Image(systemName: "checkmark.circle")
+                                    .resizable()
+                                    .frame(width: 64, height: 64)
+                                    .foregroundColor(Color.green)
+                                    .background(Circle().foregroundColor(Color.white))
+                                    .position(
+                                        x: geometry.center.x,
+                                        y: geometry.size.height * 0.1
+                                )
                                 Image(systemName: "tray.and.arrow.down.fill")
-                                .resizable()
+                                    .resizable()
                                     .padding()
-                                .frame(width: 64, height: 64)
-                                .foregroundColor(Color.black)
+                                    .frame(width: 64, height: 64)
+                                    .foregroundColor(Color.black)
                                     .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(Color.white))
-                                .position(
-                                    x: geometry.center.x,
-                                    y: geometry.size.height * 0.9
+                                    .position(
+                                        x: geometry.center.x,
+                                        y: geometry.size.height * 0.9
                                 )
                             }
                         }

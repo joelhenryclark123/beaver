@@ -51,10 +51,10 @@ struct WideButton: View {
                 .foregroundColor(version.backgroundColor)
                 .frame(maxWidth: 480, maxHeight: 40)
                 .modifier(FocalistShadow(option: version.shadowOption))
-            .overlay(
-                Text(text)
-                    .modifier(FocalistFont(font: .mediumText))
-                    .foregroundColor(version.fontColor)
+                .overlay(
+                    Text(text)
+                        .modifier(FocalistFont(font: .mediumText))
+                        .foregroundColor(version.fontColor)
             )
         }
     }

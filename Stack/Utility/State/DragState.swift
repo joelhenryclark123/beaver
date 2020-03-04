@@ -13,7 +13,7 @@ enum DragState {
     case inactive
     case draggingStore(translation: CGSize)
     case draggingActive(dragPoint: CGPoint)
-        
+    
     var storeTranslation: CGSize {
         switch self {
         case .draggingStore(translation: let translation):

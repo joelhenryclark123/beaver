@@ -18,13 +18,13 @@ struct StoreItem: View {
             self.toDo.activate()
             self.state.currentScene = .active
         }) {
-                Text(toDo.title)
-                    .modifier(FocalistFont(font: .mediumText))
-                    .foregroundColor(.black)
+            Text(toDo.title)
+                .modifier(FocalistFont(font: .mediumText))
+                .foregroundColor(.black)
                 
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(.white))
         }.modifier(FocalistShadow(option: .dark))
     }
@@ -33,14 +33,14 @@ struct StoreItem: View {
 struct StoreItem_Previews: PreviewProvider {
     static let state = AppState()
     static let context = ContentView_Previews.context
-
+    
     static var previews: some View {
         StoreItem(
             toDo: ToDo(
                 context: context,
                 title: "Walk 100 miles",
                 isActive: false)
-            )
+        )
             .environmentObject(state)
             .previewLayout(.sizeThatFits)
     }

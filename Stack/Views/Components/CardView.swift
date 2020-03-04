@@ -22,7 +22,7 @@ struct CardView: View {
                     .foregroundColor(.black)
                     .opacity(self.state.currentScene == .active ? 1.0 : 0.0)
                     .padding(16)
-            )
+        )
             .scaleEffect(self.state.currentScene == .active ? 1.0 : 0.25)
             .animation(.easeOut(duration: 0.2))
     }
@@ -33,13 +33,13 @@ struct CardView_Previews: PreviewProvider {
     static let state = AppState()
     
     static var previews: some View {
-            CardView(
-                toDo: ToDo(
-                    context: context,
-                    title: "Walk 100 miles",
-                    isActive: false)
-            ).previewLayout(.sizeThatFits)
-                .environmentObject(state)
+        CardView(
+            toDo: ToDo(
+                context: context,
+                title: "Walk 100 miles",
+                isActive: false)
+        ).previewLayout(.sizeThatFits)
+            .environmentObject(state)
     }
 }
 

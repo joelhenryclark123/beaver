@@ -108,28 +108,28 @@ struct FocalistShadow: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-        .shadow(
-            color: option.color,
-            radius: option.radius,
-            x: option.x,
-            y: option.y
+            .shadow(
+                color: option.color,
+                radius: option.radius,
+                x: option.x,
+                y: option.y
         )
     }
 }
 
 struct FocalistMaterial: ViewModifier {
     func body(content: Content) -> some View {
-    content
-        .background(Blur(style: .systemUltraThinMaterialDark))
+        content
+            .background(Blur(style: .systemUltraThinMaterialDark))
     }
     
     struct Blur: UIViewRepresentable {
         var style: UIBlurEffect.Style = .systemMaterial
-
+        
         func makeUIView(context: Context) -> UIVisualEffectView {
             return UIVisualEffectView(effect: UIBlurEffect(style: style))
         }
-
+        
         func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
             uiView.effect = UIBlurEffect(style: style)
         }

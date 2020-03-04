@@ -36,13 +36,13 @@ struct StoreView: View {
             )
             
             List {
-            ForEach(self.toDos) { toDo in
-                StoreItem(toDo: toDo)
-                .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
-            }.onDelete { (offsets) in
-                for index in offsets {
-                    self.toDos[index].delete()
-                }
+                ForEach(self.toDos) { toDo in
+                    StoreItem(toDo: toDo)
+                        .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
+                }.onDelete { (offsets) in
+                    for index in offsets {
+                        self.toDos[index].delete()
+                    }
                 }
             }
             Spacer().frame(height: 40)
@@ -102,9 +102,9 @@ struct StoreStyle: ViewModifier {
                     style: .continuous).hidden()
                     .modifier(FocalistMaterial())
                     .clipShape(RoundedRectangle(cornerRadius: 39.5,
-                                                 style: .continuous))
-                .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
-            )
+                                                style: .continuous))
+                    .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
+        )
             .edgesIgnoringSafeArea(.bottom)
             .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
     }
