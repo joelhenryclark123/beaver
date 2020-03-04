@@ -14,6 +14,7 @@ public class ToDo: NSManagedObject, Identifiable {
     @NSManaged var completedAt: Date?
     @NSManaged var createdAt: Date?
     @NSManaged var isActive: Bool
+    @NSManaged var movedAt: Date?
     
     convenience init(
         context: NSManagedObjectContext,
@@ -25,6 +26,7 @@ public class ToDo: NSManagedObject, Identifiable {
         self.completedAt = nil
         self.createdAt = Date()
         self.isActive = isActive
+        self.movedAt = isActive ? Date() : nil
         saveContext()
     }
     
@@ -46,6 +48,7 @@ extension ToDo {
         
         context.perform {
             self.isActive = true
+            self.movedAt = Date()
             self.saveContext()
         }
     }
@@ -54,6 +57,7 @@ extension ToDo {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
             self.isActive = false
+            self.movedAt = nil
             self.saveContext()
         }
     }

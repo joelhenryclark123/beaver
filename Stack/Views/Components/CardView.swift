@@ -58,7 +58,7 @@ struct CardView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             MainBackground()
-        ActiveView()
+        DayView()
         .environment(\.managedObjectContext, context)
         .environmentObject(AppState())
         }

@@ -28,13 +28,14 @@ struct ContentView: View {
     //MARK: Body
     var body: some View {
         ZStack {
-            MainBackground().zIndex(0)
+            MainBackground()
+                .zIndex(0)
             
             AddBar()
                 .frame(maxHeight: .infinity, alignment: .top)
                 .padding()
             
-            ActiveView()
+            DayView()
                 .zIndex(1)
                 
             

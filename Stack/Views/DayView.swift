@@ -9,20 +9,25 @@
 import SwiftUI
 import CoreData
 
-
-struct ActiveView: View {
+struct DayView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
-    @State var confirmed: Bool = false
     
     func allComplete() -> Bool {
         self.toDos.allSatisfy({ $0.isComplete })
     }
+    
+    func completeDay() -> Void {
+        for toDo in self.toDos {
+            toDo.isActive = false
+        }
+        try! self.context.save()
+    }
         
     var body: some View {
         ZStack {
-            if self.confirmed {
+            if toDos.first == nil {
                 VStack {
                     Text("Done!")
                         .modifier(FocalistFont(font: .heading1))
@@ -47,7 +52,7 @@ struct ActiveView: View {
                 if (self.allComplete()) {
                     WideButton(.white, "Complete") {
                         withAnimation(.easeIn(duration: 0.2)) {
-                        self.confirmed.toggle()
+                            self.completeDay()
                         }
                     }.padding()
                         .frame(maxHeight: .infinity, alignment: .bottom)
@@ -70,7 +75,7 @@ struct ActiveView_Previews: PreviewProvider {
         ZStack {
             MainBackground()
             
-            ActiveView()
+            DayView()
                 .environment(\.managedObjectContext, context)
                 .environmentObject(AppState())
         }
