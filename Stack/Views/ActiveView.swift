@@ -14,30 +14,46 @@ struct ActiveView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
+    @State var confirmed: Bool = false
+    
+    func allComplete() -> Bool {
+        self.toDos.allSatisfy({ $0.isComplete })
+    }
         
     var body: some View {
         ZStack {
-            VStack(spacing: 16) {
-                HStack(spacing: 16) {
-                    CardView(toDo: self.toDos[0])
-                    CardView(toDo: self.toDos[1])
+            if self.confirmed {
+                VStack {
+                    Text("Done!")
+                        .modifier(FocalistFont(font: .heading1))
+                        .foregroundColor(.white)
+                    Text("Come back tomorrow")
+                        .modifier(FocalistFont(font: .mediumText))
+                        .foregroundColor(.white)
                 }
-                HStack(spacing: 16) {
-                    CardView(toDo: self.toDos[2])
-                    CardView(toDo: self.toDos[3])
+            }
+            else {
+                VStack(spacing: 16) {
+                    HStack(spacing: 16) {
+                        CardView(toDo: self.toDos[0])
+                        CardView(toDo: self.toDos[1])
+                    }
+                    HStack(spacing: 16) {
+                        CardView(toDo: self.toDos[2])
+                        CardView(toDo: self.toDos[3])
+                    }
+                }.padding().transition(.opacity)
+                
+                if (self.allComplete()) {
+                    WideButton(.white, "Complete") {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                        self.confirmed.toggle()
+                        }
+                    }.padding()
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                        .transition(.move(edge: .bottom))
+                        .animation(.spring())
                 }
-            }.padding()
-            
-            if (toDos[0].completedAt != nil) &&
-                (toDos[1].completedAt != nil) &&
-                (toDos[2].completedAt != nil) &&
-                (toDos[3].completedAt != nil) {
-            WideButton(.white, "Complete") {
-                print("SUP")
-                }.padding()
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            .transition(.move(edge: .bottom))
-                .animation(.spring())
             }
         }
     }
@@ -46,30 +62,6 @@ struct ActiveView: View {
 struct ActiveView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
         let mc = ContentView_Previews.context
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
         
         return mc
     }()

@@ -13,8 +13,6 @@ import Combine
 
 final class AppState: ObservableObject {
     // MARK: Published Properties
-    @Published var dragState: DragState = .inactive
-    @Published var currentScene: Scene = .active
     @Published var hasOnboarded: Bool
     
     init() {

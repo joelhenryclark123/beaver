@@ -10,18 +10,19 @@ import SwiftUI
 
 struct CardView: View {
     @ObservedObject var toDo: ToDo
+    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 40, style: .continuous)
                 .aspectRatio(1.0, contentMode: .fit)
-                .foregroundColor(toDo.completedAt == nil ?
-                    Color.white : Color("accentGreenDim")
+                .foregroundColor(toDo.isComplete ?
+                    Color("accentGreenDim") : Color.white
             )
                 .modifier(FocalistShadow(option: .dark))
             
             
             Group {
-                if self.toDo.completedAt == nil {
+                if !self.toDo.isComplete {
                     Text(self.toDo.title)
                         .transition(.opacity)
                         .frame(maxWidth: .infinity)
@@ -29,24 +30,24 @@ struct CardView: View {
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                         .padding(8)
-                    .zIndex(3)
+                        .zIndex(3)
                 }
                 else {
                     Image(systemName: "checkmark")
-                    .resizable()
-                    .padding(32)
+                        .resizable()
+                        .padding(32)
                         .transition(.scale)
                         .scaledToFit()
                         .foregroundColor(.white)
                         .zIndex(3)
                 }
-                }
-        }.animation(.easeInOut(duration: 0.2))
-        .onTapGesture {
-            
-            withAnimation(.easeIn(duration: 0.2)) {
-            self.toDo.completeToggle()
             }
+        }.animation(.easeInOut(duration: 0.2))
+            .onTapGesture {
+                
+                withAnimation(.easeIn(duration: 0.2)) {
+                    self.toDo.completeToggle()
+                }
         }
     }
 }

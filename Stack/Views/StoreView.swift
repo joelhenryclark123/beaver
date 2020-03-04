@@ -21,7 +21,6 @@ struct StoreView: View {
             List {
                 ForEach(self.toDos) { toDo in
                     StoreItem(toDo: toDo)
-                        .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
                 }.onDelete { (offsets) in
                     for index in offsets {
                         self.toDos[index].delete()
@@ -31,25 +30,6 @@ struct StoreView: View {
             Spacer().frame(height: 40)
         }
         .modifier(StoreStyle())
-        .gesture(DragGesture(minimumDistance: 30).onChanged({ (value) in
-            self.state.dragState = .draggingStore(translation: value.translation)
-        }).onEnded({ (value) in
-            switch self.state.currentScene {
-            case .store:
-                if value.predictedEndTranslation.height >= 100 {
-                    self.state.currentScene = .active
-                }
-            case .active:
-                if value.predictedEndTranslation.height <= -50 {
-                    self.state.currentScene = .store
-                }
-            case .draggingActive:
-                break
-            }
-            
-            self.state.dragState = .inactive
-        }))
-            .animation(.spring())
     }
 }
 
@@ -57,7 +37,6 @@ struct StoreView_Previews: PreviewProvider {
     static let context = ContentView_Previews.context
     static let state: AppState = {
         let returner = AppState()
-        returner.currentScene = .store
         return returner
     }()
     
@@ -67,7 +46,6 @@ struct StoreView_Previews: PreviewProvider {
             
             StoreView()
                 .environment(\.managedObjectContext, context)
-                .environmentObject(state)
         }
     }
 }
@@ -86,9 +64,7 @@ struct StoreStyle: ViewModifier {
                     .modifier(FocalistMaterial())
                     .clipShape(RoundedRectangle(cornerRadius: 39.5,
                                                 style: .continuous))
-                    .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
         )
             .edgesIgnoringSafeArea(.bottom)
-            .offset(y: state.dragState.storeTranslation.height + state.currentScene.storeOffset)
     }
 }

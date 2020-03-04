@@ -23,6 +23,7 @@ struct MainBackground: View {
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
+    @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var selectedToDos: FetchedResults<ToDo>
     
     //MARK: Body
     var body: some View {
@@ -33,7 +34,9 @@ struct ContentView: View {
                 .frame(maxHeight: .infinity, alignment: .top)
                 .padding()
             
-            ActiveView().zIndex(1)
+            ActiveView()
+                .zIndex(1)
+                
             
 //            StoreView().zIndex(2)
             

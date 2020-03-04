@@ -16,7 +16,7 @@ struct StoreItem: View {
     var body: some View {
         Button(action: {
             self.toDo.activate()
-            self.state.currentScene = .active
+            
         }) {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
