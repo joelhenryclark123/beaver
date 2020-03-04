@@ -34,18 +34,34 @@ struct StoreView: View {
     // MARK: Body
     var body: some View {
         ZStack {
-            List {
-                ForEach(self.toDos) { toDo in
-                    StoreItem(toDo: toDo)
-                        .transition(.identity)
-                        .animation(.spring())
-                }.onDelete { (offsets) in
-                    for index in offsets {
-                        self.toDos[index].delete()
-                    }
-                }.transition(.identity).animation(.spring())
+            VStack {
+                HStack(alignment: .bottom) {
+                    Text("Build Your Day")
+                        .modifier(FocalistFont(font: .heading4))
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    Text("select or add 4 items")
+                        .modifier(FocalistFont(font: .caption))
+                        .foregroundColor(.white)
+                    }.padding(.top)
+                    .padding(.horizontal)
+                
+                List {
+                    ForEach(self.toDos) { toDo in
+                        StoreItem(toDo: toDo)
+                            .transition(.identity)
+                            .animation(.spring())
+                        .padding(0)
+                    }.onDelete { (offsets) in
+                        for index in offsets {
+                            self.toDos[index].delete()
+                        }
+                    }.padding(0)
+                    Spacer().frame(height: 64)
+                }
             }
-            Spacer().frame(height: 40)
             
             if selection.count == 4 {
                 WideButton(.green, "Start Day") {

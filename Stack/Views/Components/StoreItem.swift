@@ -31,7 +31,6 @@ struct StoreItem: View {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
                 .foregroundColor(.black)
-                
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
