@@ -10,7 +10,6 @@ import SwiftUI
 import CoreData
 
 struct DayView: View {
-    @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
     
@@ -77,7 +76,6 @@ struct ActiveView_Previews: PreviewProvider {
             
             DayView()
                 .environment(\.managedObjectContext, context)
-                .environmentObject(AppState())
         }
     }
 }
