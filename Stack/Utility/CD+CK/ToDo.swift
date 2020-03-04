@@ -145,7 +145,7 @@ extension ToDo {
             format: "movedAt != nil"
         )
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "movedAt", ascending: false)
+            NSSortDescriptor(key: "createdAt", ascending: true)
         ]
         fetchRequest.fetchBatchSize = 4
         

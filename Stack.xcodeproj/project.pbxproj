@@ -57,7 +57,7 @@
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E9BB5768240EB83E0083BE7D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E9BB576A240EB8E00083BE7D /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
-		E9F51B9223B83CA00068B86E /* Stack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stack.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9F51B9223B83CA00068B86E /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51B9523B83CA00068B86E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9723B83CA00068B86E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9923B83CA00068B86E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		E9F51B9323B83CA00068B86E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E9F51B9223B83CA00068B86E /* Stack.app */,
+				E9F51B9223B83CA00068B86E /* .app */,
 				E9F51BAD23B845780068B86E /* StackTests.xctest */,
 			);
 			name = Products;
@@ -245,7 +245,7 @@
 			);
 			name = Stack;
 			productName = Stack;
-			productReference = E9F51B9223B83CA00068B86E /* Stack.app */;
+			productReference = E9F51B9223B83CA00068B86E /* .app */;
 			productType = "com.apple.product-type.application";
 		};
 		E9F51BAC23B845780068B86E /* StackTests */ = {
@@ -511,7 +511,6 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MyCo.Stack;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -534,7 +533,6 @@
 				);
 				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MyCo.Stack;
-				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
