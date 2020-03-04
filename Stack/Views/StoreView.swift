@@ -33,7 +33,7 @@ struct StoreView: View {
     
     // MARK: Body
     var body: some View {
-        VStack {
+        ZStack {
             List {
                 ForEach(self.toDos) { toDo in
                     StoreItem(toDo: toDo)

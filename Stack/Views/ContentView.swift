@@ -28,7 +28,14 @@ struct ContentView: View {
     var upToDate: Bool {
         if mostRecent.isEmpty { return false }
         else if mostRecent.allSatisfy({ (toDo) -> Bool in
-            toDo.movedToday
+            if toDo.movedToday {
+                return true
+            } else {
+                self.mostRecent.forEach({
+                    $0.store()
+                })
+                return false
+            }
         }) { return true }
         else {
             return false
@@ -75,29 +82,29 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 100 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 200 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 300 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 400 miles",
-//            isActive: true
-//        )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: true
+        )
+
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 200 miles",
+            isActive: true
+        )
+
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 300 miles",
+            isActive: true
+        )
+
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 400 miles",
+            isActive: true
+        )
         
         return mc
     }()
