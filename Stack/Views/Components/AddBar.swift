@@ -36,7 +36,7 @@ struct AddBar: View {
                     .frame(height: 40)
                     .foregroundColor(Color("dimWhite"))
                     .modifier(FocalistShadow(option: .dark))
-        ).padding(.horizontal, 16)
+        )
     }
 }
 

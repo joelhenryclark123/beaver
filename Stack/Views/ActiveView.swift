@@ -14,65 +14,30 @@ struct ActiveView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
-    
-    @GestureState var dragLocation: CGPoint? = nil
-    
+        
     var body: some View {
-        Group {
-            if toDos.isEmpty {
-                EmptyState()
-            }
-            else {
-                GeometryReader { geometry in
-                    ZStack {
-                        CardView(toDo: self.toDos.first!)
-                            .padding()
-                            .position(self.dragLocation == nil ? geometry.center : self.dragLocation!)
-                        
-                        Group {
-                            if self.state.currentScene == .draggingActive {
-                                Image(systemName: "checkmark.circle")
-                                    .resizable()
-                                    .frame(width: 64, height: 64)
-                                    .foregroundColor(Color.green)
-                                    .background(Circle().foregroundColor(Color.white))
-                                    .position(
-                                        x: geometry.center.x,
-                                        y: geometry.size.height * 0.1
-                                )
-                                Image(systemName: "tray.and.arrow.down.fill")
-                                    .resizable()
-                                    .padding()
-                                    .frame(width: 64, height: 64)
-                                    .foregroundColor(Color.black)
-                                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(Color.white))
-                                    .position(
-                                        x: geometry.center.x,
-                                        y: geometry.size.height * 0.9
-                                )
-                            }
-                        }
-                    }.gesture(
-                        DragGesture(minimumDistance: 0, coordinateSpace: .local)
-                            .updating(self.$dragLocation, body: { (value, state, transaction) in
-                                self.state.currentScene = .draggingActive
-                                state = value.location
-                            }).onEnded({ (value) in
-                                if value.location.y <= (geometry.size.height * 0.1 + 32) &&
-                                    value.location.x >= (geometry.center.x - 32) &&
-                                    value.location.x <= (geometry.center.x + 32) {
-                                    self.toDos.first!.complete()
-                                }
-                                
-                                if value.location.y >= (geometry.size.height * 0.9 - 32) &&
-                                    value.location.x >= (geometry.center.x - 32) &&
-                                    value.location.x <= (geometry.center.x + 32) {
-                                    self.toDos.first!.store()
-                                }
-                                self.state.currentScene = .active
-                            })
-                    )
+        ZStack {
+            VStack(spacing: 16) {
+                HStack(spacing: 16) {
+                    CardView(toDo: self.toDos[0])
+                    CardView(toDo: self.toDos[1])
                 }
+                HStack(spacing: 16) {
+                    CardView(toDo: self.toDos[2])
+                    CardView(toDo: self.toDos[3])
+                }
+            }.padding()
+            
+            if (toDos[0].completedAt != nil) &&
+                (toDos[1].completedAt != nil) &&
+                (toDos[2].completedAt != nil) &&
+                (toDos[3].completedAt != nil) {
+            WideButton(.white, "Complete") {
+                print("SUP")
+                }.padding()
+            .frame(maxHeight: .infinity, alignment: .bottom)
+            .transition(.move(edge: .bottom))
+                .animation(.spring())
             }
         }
     }
@@ -88,45 +53,34 @@ struct ActiveView_Previews: PreviewProvider {
             isActive: true
         )
         
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 200 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 300 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 400 miles",
+            isActive: true
+        )
+        
         return mc
     }()
     
     static var previews: some View {
         ZStack {
-            Color("backgroundBlue")
-                .edgesIgnoringSafeArea(.all)
+            MainBackground()
             
             ActiveView()
                 .environment(\.managedObjectContext, context)
                 .environmentObject(AppState())
-        }
-    }
-}
-
-struct EmptyState: View {
-    @State var opacity: Double = 0.0
-    @EnvironmentObject var state: AppState
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            Text("Nothing Active!")
-                .modifier(FocalistFont(font: .heading2))
-                .frame(maxWidth: .infinity)
-                .foregroundColor(Color.white)
-            
-            Button(action: {
-                self.state.currentScene = .store
-            }) {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .foregroundColor(Color.white)
-                    .overlay(Text("Choose Task").modifier(FocalistFont(font: .mediumText)).foregroundColor(Color("backgroundBlue")))
-            }.frame(maxWidth: 500, maxHeight: 40).padding()
-            Spacer().frame(height: 64)
-        }.opacity(self.opacity)
-            .onAppear {
-                return withAnimation(.easeOut(duration: 0.2)) {
-                    self.opacity = 1.0
-                }
         }
     }
 }

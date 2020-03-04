@@ -12,6 +12,7 @@ struct WideButton: View {
     enum Version {
         case white
         case blue
+        case green
         
         var backgroundColor: Color {
             switch self {
@@ -19,6 +20,8 @@ struct WideButton: View {
                 return Color.white
             case .blue:
                 return Color("backgroundBlue")
+            case .green:
+                return Color("accentGreenDim")
             }
         }
         
@@ -26,7 +29,7 @@ struct WideButton: View {
             switch self {
             case .white:
                 return Color("backgroundBlue")
-            case .blue:
+            case .blue, .green:
                 return Color.white
             }
         }
@@ -37,6 +40,8 @@ struct WideButton: View {
                 return .dark
             case .blue:
                 return .blueGlow
+            case .green:
+                return .dark
             }
         }
     }

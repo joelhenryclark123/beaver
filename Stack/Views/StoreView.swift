@@ -18,23 +18,6 @@ struct StoreView: View {
     // MARK: Body
     var body: some View {
         VStack {
-            RoundedRectangle(cornerRadius: 5).frame(width: 36, height: 5)
-                .padding(.top, 12)
-                .foregroundColor(Color("dimWhite"))
-            
-            AddBar()
-                .gesture(TapGesture().onEnded({ (_) in
-                    self.state.currentScene = .store
-                })).padding(.bottom, 12)
-                .padding(.top, 12)
-                .padding(.horizontal, self.state.currentScene == .store ? 0 : 16)
-            
-            
-            Spacer().frame(
-                height: self.state.currentScene == .store ?
-                    12 : 56
-            )
-            
             List {
                 ForEach(self.toDos) { toDo in
                     StoreItem(toDo: toDo)

@@ -9,44 +9,57 @@
 import SwiftUI
 
 struct CardView: View {
-    @EnvironmentObject var state: AppState
-    var toDo: ToDo
+    @ObservedObject var toDo: ToDo
     var body: some View {
-        RaisedRectangle()
-            .modifier(FocalistShadow(option: .light))
-            .overlay (
-                Text(self.toDo.title)
-                    .frame(maxWidth: .infinity)
-                    .modifier(FocalistFont(font: .heading3))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.black)
-                    .opacity(self.state.currentScene == .active ? 1.0 : 0.0)
-                    .padding(16)
-        )
-            .scaleEffect(self.state.currentScene == .active ? 1.0 : 0.25)
-            .animation(.easeOut(duration: 0.2))
+        ZStack {
+            RoundedRectangle(cornerRadius: 40, style: .continuous)
+                .aspectRatio(1.0, contentMode: .fit)
+                .foregroundColor(toDo.completedAt == nil ?
+                    Color.white : Color("accentGreenDim")
+            )
+                .modifier(FocalistShadow(option: .dark))
+            
+            
+            Group {
+                if self.toDo.completedAt == nil {
+                    Text(self.toDo.title)
+                        .transition(.opacity)
+                        .frame(maxWidth: .infinity)
+                        .modifier(FocalistFont(font: .mediumText))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.black)
+                        .padding(8)
+                    .zIndex(3)
+                }
+                else {
+                    Image(systemName: "checkmark")
+                    .resizable()
+                    .padding(32)
+                        .transition(.scale)
+                        .scaledToFit()
+                        .foregroundColor(.white)
+                        .zIndex(3)
+                }
+                }
+        }.animation(.easeInOut(duration: 0.2))
+        .onTapGesture {
+            
+            withAnimation(.easeIn(duration: 0.2)) {
+            self.toDo.completeToggle()
+            }
+        }
     }
 }
 
 struct CardView_Previews: PreviewProvider {
-    static let context = ContentView_Previews.context
-    static let state = AppState()
+    static let context = ActiveView_Previews.context
     
     static var previews: some View {
-        CardView(
-            toDo: ToDo(
-                context: context,
-                title: "Walk 100 miles",
-                isActive: false)
-        ).previewLayout(.sizeThatFits)
-            .environmentObject(state)
-    }
-}
-
-struct RaisedRectangle: View {
-    var body: some View {
-        RoundedRectangle(cornerRadius: 38.5, style: .continuous)
-            .aspectRatio(1.0, contentMode: .fit)
-            .foregroundColor(Color.white)
+        ZStack {
+            MainBackground()
+        ActiveView()
+        .environment(\.managedObjectContext, context)
+        .environmentObject(AppState())
+        }
     }
 }

@@ -19,7 +19,7 @@ final class AppState: ObservableObject {
     
     init() {
         #if DEBUG
-        UserDefaults.standard.set(false, forKey: "onboarded")
+        UserDefaults.standard.set(true, forKey: "onboarded")
         #endif
         
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")

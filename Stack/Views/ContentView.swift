@@ -29,9 +29,13 @@ struct ContentView: View {
         ZStack {
             MainBackground().zIndex(0)
             
+            AddBar()
+                .frame(maxHeight: .infinity, alignment: .top)
+                .padding()
+            
             ActiveView().zIndex(1)
             
-            StoreView().zIndex(2)
+//            StoreView().zIndex(2)
             
             if self.state.hasOnboarded == false {
                 Onboarding()
@@ -52,6 +56,30 @@ struct ContentView_Previews: PreviewProvider {
         for toDo in toDos {
             (toDo as! ToDo).delete()
         }
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 200 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 300 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 400 miles",
+            isActive: true
+        )
         
         return mc
     }()

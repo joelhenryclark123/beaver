@@ -47,9 +47,6 @@ extension ToDo {
         guard let context = self.managedObjectContext else { fatalError() }
         
         context.perform {
-            if let ogActive = try? context.fetch(ToDo.activeFetchRequest).first {
-                ogActive.store()
-            }
             self.isActive = true
             self.movedAt = Date()
             self.saveContext()
@@ -65,12 +62,16 @@ extension ToDo {
         }
     }
     
-    func complete() {
+    func completeToggle() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
             if self.isActive {
-                self.isActive = false
-                self.completedAt = Date()
+                if self.completedAt == nil {
+                    self.completedAt = Date()
+                } else {
+                    self.completedAt = nil
+                }
+                
             } else {
                 fatalError()
             }
@@ -93,7 +94,7 @@ extension ToDo {
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
         
         fetchRequest.predicate = NSPredicate(
-            format: "(completedAt == nil) AND (isActive == true)"
+            format: "(isActive == true)"
         )
         fetchRequest.sortDescriptors = []
         
