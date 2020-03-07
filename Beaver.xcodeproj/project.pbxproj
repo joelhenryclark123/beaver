@@ -26,7 +26,7 @@
 		E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9923B83CA00068B86E /* ContentView.swift */; };
 		E9F51B9F23B83CA60068B86E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9E23B83CA60068B86E /* Preview Assets.xcassets */; };
 		E9F51BA223B83CA60068B86E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F51BA023B83CA60068B86E /* LaunchScreen.storyboard */; };
-		E9F51BB023B845780068B86E /* StackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51BAF23B845780068B86E /* StackTests.swift */; };
+		E9F51BB023B845780068B86E /* BeaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51BAF23B845780068B86E /* BeaverTests.swift */; };
 		E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
 		E9F9F37123BA4C9700EC1EBE /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
 		E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBEB8C240AEA8200BCB531 /* CardView.swift */; };
@@ -57,7 +57,7 @@
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E9BB5768240EB83E0083BE7D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E9BB576A240EB8E00083BE7D /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
-		E9F51B9223B83CA00068B86E /* .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = .app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9F51B9223B83CA00068B86E /* Beaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51B9523B83CA00068B86E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9723B83CA00068B86E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E9F51B9923B83CA00068B86E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -65,8 +65,8 @@
 		E9F51B9E23B83CA60068B86E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E9F51BA123B83CA60068B86E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9F51BA323B83CA60068B86E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9F51BAD23B845780068B86E /* StackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9F51BAF23B845780068B86E /* StackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTests.swift; sourceTree = "<group>"; };
+		E9F51BAD23B845780068B86E /* BeaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9F51BAF23B845780068B86E /* BeaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaverTests.swift; sourceTree = "<group>"; };
 		E9F51BB123B845780068B86E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		E9FBEB8C240AEA8200BCB531 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -181,8 +181,8 @@
 		E9F51B8923B83CA00068B86E = {
 			isa = PBXGroup;
 			children = (
-				E9F51B9423B83CA00068B86E /* Stack */,
-				E9F51BAE23B845780068B86E /* StackTests */,
+				E9F51B9423B83CA00068B86E /* Beaver */,
+				E9F51BAE23B845780068B86E /* BeaverTests */,
 				E9F51B9323B83CA00068B86E /* Products */,
 				E95D679C23E75FD800AB3320 /* Frameworks */,
 			);
@@ -191,13 +191,13 @@
 		E9F51B9323B83CA00068B86E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E9F51B9223B83CA00068B86E /* .app */,
-				E9F51BAD23B845780068B86E /* StackTests.xctest */,
+				E9F51B9223B83CA00068B86E /* Beaver.app */,
+				E9F51BAD23B845780068B86E /* BeaverTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E9F51B9423B83CA00068B86E /* Stack */ = {
+		E9F51B9423B83CA00068B86E /* Beaver */ = {
 			isa = PBXGroup;
 			children = (
 				E9B3723224035523003B46B0 /* Launch */,
@@ -208,7 +208,7 @@
 				E9F51B9B23B83CA60068B86E /* Assets.xcassets */,
 				E9F51B9D23B83CA60068B86E /* Preview Content */,
 			);
-			path = Stack;
+			path = Beaver;
 			sourceTree = "<group>";
 		};
 		E9F51B9D23B83CA60068B86E /* Preview Content */ = {
@@ -219,21 +219,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		E9F51BAE23B845780068B86E /* StackTests */ = {
+		E9F51BAE23B845780068B86E /* BeaverTests */ = {
 			isa = PBXGroup;
 			children = (
-				E9F51BAF23B845780068B86E /* StackTests.swift */,
+				E9F51BAF23B845780068B86E /* BeaverTests.swift */,
 				E9F51BB123B845780068B86E /* Info.plist */,
 			);
-			path = StackTests;
+			path = BeaverTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E9F51B9123B83CA00068B86E /* Stack */ = {
+		E9F51B9123B83CA00068B86E /* Beaver */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9F51BA623B83CA60068B86E /* Build configuration list for PBXNativeTarget "Stack" */;
+			buildConfigurationList = E9F51BA623B83CA60068B86E /* Build configuration list for PBXNativeTarget "Beaver" */;
 			buildPhases = (
 				E9F51B8E23B83CA00068B86E /* Sources */,
 				E9F51B8F23B83CA00068B86E /* Frameworks */,
@@ -243,14 +243,14 @@
 			);
 			dependencies = (
 			);
-			name = Stack;
+			name = Beaver;
 			productName = Stack;
-			productReference = E9F51B9223B83CA00068B86E /* .app */;
+			productReference = E9F51B9223B83CA00068B86E /* Beaver.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E9F51BAC23B845780068B86E /* StackTests */ = {
+		E9F51BAC23B845780068B86E /* BeaverTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9F51BB423B845780068B86E /* Build configuration list for PBXNativeTarget "StackTests" */;
+			buildConfigurationList = E9F51BB423B845780068B86E /* Build configuration list for PBXNativeTarget "BeaverTests" */;
 			buildPhases = (
 				E9F51BA923B845780068B86E /* Sources */,
 				E9F51BAA23B845780068B86E /* Frameworks */,
@@ -261,9 +261,9 @@
 			dependencies = (
 				E9F51BB323B845780068B86E /* PBXTargetDependency */,
 			);
-			name = StackTests;
+			name = BeaverTests;
 			productName = StackTests;
-			productReference = E9F51BAD23B845780068B86E /* StackTests.xctest */;
+			productReference = E9F51BAD23B845780068B86E /* BeaverTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -285,7 +285,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E9F51B8D23B83CA00068B86E /* Build configuration list for PBXProject "Stack" */;
+			buildConfigurationList = E9F51B8D23B83CA00068B86E /* Build configuration list for PBXProject "Beaver" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -298,8 +298,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E9F51B9123B83CA00068B86E /* Stack */,
-				E9F51BAC23B845780068B86E /* StackTests */,
+				E9F51B9123B83CA00068B86E /* Beaver */,
+				E9F51BAC23B845780068B86E /* BeaverTests */,
 			);
 		};
 /* End PBXProject section */
@@ -353,7 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9F51BB023B845780068B86E /* StackTests.swift in Sources */,
+				E9F51BB023B845780068B86E /* BeaverTests.swift in Sources */,
 				E9F9F37123BA4C9700EC1EBE /* ToDo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,7 +363,7 @@
 /* Begin PBXTargetDependency section */
 		E9F51BB323B845780068B86E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E9F51B9123B83CA00068B86E /* Stack */;
+			target = E9F51B9123B83CA00068B86E /* Beaver */;
 			targetProxy = E9F51BB223B845780068B86E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -498,19 +498,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Stack/Utility/CD+CK/Stack.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Stack/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Stack/Info.plist;
+				INFOPLIST_FILE = Beaver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = MyCo.Stack;
+				PRODUCT_BUNDLE_IDENTIFIER = App.Beaver;
+				PRODUCT_NAME = Beaver;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -520,19 +521,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Stack/Utility/CD+CK/Stack.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Stack/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Stack/Info.plist;
+				INFOPLIST_FILE = Beaver/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = MyCo.Stack;
+				PRODUCT_BUNDLE_IDENTIFIER = App.Beaver;
+				PRODUCT_NAME = Beaver;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -544,17 +546,17 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FYM4933UYP;
-				INFOPLIST_FILE = StackTests/Info.plist;
+				INFOPLIST_FILE = BeaverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = MyCo.StackTests;
+				PRODUCT_BUNDLE_IDENTIFIER = App.Beaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stack.app/Stack";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Beaver.app/Beaver";
 			};
 			name = Debug;
 		};
@@ -564,24 +566,24 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FYM4933UYP;
-				INFOPLIST_FILE = StackTests/Info.plist;
+				INFOPLIST_FILE = BeaverTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = MyCo.StackTests;
+				PRODUCT_BUNDLE_IDENTIFIER = App.Beaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Stack.app/Stack";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Beaver.app/Beaver";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E9F51B8D23B83CA00068B86E /* Build configuration list for PBXProject "Stack" */ = {
+		E9F51B8D23B83CA00068B86E /* Build configuration list for PBXProject "Beaver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9F51BA423B83CA60068B86E /* Debug */,
@@ -590,7 +592,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9F51BA623B83CA60068B86E /* Build configuration list for PBXNativeTarget "Stack" */ = {
+		E9F51BA623B83CA60068B86E /* Build configuration list for PBXNativeTarget "Beaver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9F51BA723B83CA60068B86E /* Debug */,
@@ -599,7 +601,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9F51BB423B845780068B86E /* Build configuration list for PBXNativeTarget "StackTests" */ = {
+		E9F51BB423B845780068B86E /* Build configuration list for PBXNativeTarget "BeaverTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9F51BB523B845780068B86E /* Debug */,

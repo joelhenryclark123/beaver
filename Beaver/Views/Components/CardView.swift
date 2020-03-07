@@ -25,7 +25,6 @@ struct CardView: View {
                 if !self.toDo.isComplete {
                     Text(self.toDo.title)
                         .transition(.opacity)
-                        .frame(maxWidth: .infinity)
                         .modifier(FocalistFont(font: .mediumText))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)

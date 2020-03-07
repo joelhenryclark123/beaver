@@ -13,7 +13,7 @@ struct DayView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
     
-    func allComplete() -> Bool {
+    var allComplete: Bool {
         self.toDos.allSatisfy({ $0.isComplete })
     }
     
@@ -49,7 +49,7 @@ struct DayView: View {
                     }
                 }.padding().transition(.opacity)
                 
-                if (self.allComplete()) {
+                if (self.allComplete) {
                     WideButton(.white, "Complete") {
                         withAnimation(.easeIn(duration: 0.2)) {
                             self.completeDay()
@@ -73,29 +73,29 @@ struct ActiveView_Previews: PreviewProvider {
                     (toDo as! ToDo).delete()
                 }
                 
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 100 miles",
-//                    isActive: true
-//                )
-//
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 200 miles",
-//                    isActive: true
-//                )
-//
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 300 miles",
-//                    isActive: true
-//                )
-//
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 400 miles",
-//                    isActive: true
-//                )
+                let _ = ToDo(
+                    context: mc,
+                    title: "Walk 100 miles",
+                    isActive: true
+                )
+
+                let _ = ToDo(
+                    context: mc,
+                    title: "Walk 200 miles",
+                    isActive: true
+                )
+
+                let _ = ToDo(
+                    context: mc,
+                    title: "Walk 300 miles",
+                    isActive: true
+                )
+
+                let _ = ToDo(
+                    context: mc,
+                    title: "Walk 400 miles",
+                    isActive: true
+                )
                 
                 return mc
     }()
