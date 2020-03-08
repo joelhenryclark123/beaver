@@ -74,6 +74,7 @@ struct ContentView: View {
             }
         }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
             self.context.refreshAllObjects()
+            
         }
     }
 }

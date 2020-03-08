@@ -60,12 +60,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error setting query generation in app delegate")
         }
         
-        #if DEBUG
-        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
-        for toDo in toDos {
-            (toDo as! ToDo).delete()
-        }
-        #endif
+//        #if DEBUG
+//        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
+//        for toDo in toDos {
+//            (toDo as! ToDo).delete()
+//        }
+//        #endif
 
 
         return container
