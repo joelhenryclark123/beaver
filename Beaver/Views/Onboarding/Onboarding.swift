@@ -43,10 +43,6 @@ struct Onboarding: View {
             Spacer()
             
             WideButton(.blue, "Get Started") {
-                let _ = ToDo(context: self.context, title: "Drag this around!", isActive: true)
-                let _ = ToDo(context: self.context, title: "Tap on this to activate it", isActive: false)
-                let _ = ToDo(context: self.context, title: "Swipe left to delete this", isActive: false)
-                
                 withAnimation(.easeIn(duration: 0.2)) {
                     self.state.finishOnboarding()
                 }

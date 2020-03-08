@@ -68,7 +68,8 @@ struct ContentView: View {
                             
             if self.state.hasOnboarded == false {
                 Onboarding()
-                    .transition(.move(edge: .bottom))
+                    .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
+                    .animation(.spring())
                     .frame(maxWidth: .infinity)
                     .zIndex(3)
             }
