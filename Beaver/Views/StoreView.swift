@@ -73,6 +73,7 @@ struct StoreView: View {
                         self.startDay()
                     }
                 }.padding(.horizontal)
+                    .padding(.bottom, 16)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .transition(.move(edge: .bottom))
                     .animation(.spring())
