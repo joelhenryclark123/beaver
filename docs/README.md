@@ -1,3 +1,5 @@
+For support, email jhcweb@gmail.com
+
 # Privacy Policy
 
 This applies to all information collected or submitted to Beaver App on any platform
