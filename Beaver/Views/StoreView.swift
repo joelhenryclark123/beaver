@@ -61,21 +61,20 @@ struct StoreView: View {
                     }.padding(0)
                     Spacer().frame(height: 64)
                 }
-            }
+            }.modifier(StoreStyle())
+
             
             if selection.count == 4 {
                 WideButton(.green, "Start Day") {
                     withAnimation(.easeIn(duration: 0.2)) {
                         self.startDay()
                     }
-                }.padding()
+                }.padding(.horizontal)
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .transition(.move(edge: .bottom))
                     .animation(.spring())
             }
         }
-        .modifier(StoreStyle())
-        .transition(.move(edge: .bottom))
     }
 }
 

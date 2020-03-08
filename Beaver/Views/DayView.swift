@@ -54,7 +54,7 @@ struct DayView: View {
                         withAnimation(.easeIn(duration: 0.2)) {
                             self.completeDay()
                         }
-                    }.padding()
+                    }.padding(.horizontal)
                         .frame(maxHeight: .infinity, alignment: .bottom)
                         .transition(.move(edge: .bottom))
                         .animation(.spring())

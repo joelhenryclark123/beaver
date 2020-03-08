@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import Combine
 
 struct MainBackground: View {
     var body: some View {
@@ -53,11 +54,14 @@ struct ContentView: View {
                     .padding()
                 if upToDate {
                     DayView()
+                        .transition(AnyTransition.scale.animation(.spring()))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .zIndex(2)
                 } else {
                     StoreView()
                         .frame(maxHeight: .infinity)
+                        .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
+                        .animation(.spring())
                         .zIndex(3)
                 }
             }
@@ -68,6 +72,8 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .zIndex(3)
             }
+        }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
+            self.context.refreshAllObjects()
         }
     }
 }

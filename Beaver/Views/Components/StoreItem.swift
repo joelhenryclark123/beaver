@@ -26,9 +26,7 @@ struct StoreItem: View {
     
     var body: some View {
         Button(action: {
-            self.toDo.isActive = true
-            print("tapd")
-            print(self.toDo.description)
+            self.toDo.activeToggle()
         }) {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
