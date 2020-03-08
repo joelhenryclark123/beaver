@@ -48,6 +48,10 @@ GoogleService-Info.plist
 
 # Fastlane
 fastlane/
+*.dSYM.*
 
 # Pods
 Pods/
+
+# Icons
+Icons/
