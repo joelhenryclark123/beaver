@@ -48,3 +48,6 @@ GoogleService-Info.plist
 
 # Fastlane
 fastlane/
+
+# Pods
+Pods/
