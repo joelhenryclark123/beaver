@@ -39,3 +39,9 @@ playground.xcworkspace
 
 # Carthage
 Carthage/Build
+
+# Firebase
+GoogleService-Info.plist
+
+# Package Manager
+*.lock
