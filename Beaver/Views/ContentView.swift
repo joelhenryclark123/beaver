@@ -23,6 +23,7 @@ struct MainBackground: View {
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
+    @FetchRequest(fetchRequest: ToDo.dayFetchRequest) var toDos: FetchedResults<ToDo>
     
     //MARK: Body
     var body: some View {
@@ -36,11 +37,11 @@ struct ContentView: View {
                 if state.upToDate {
                     DayView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .zIndex(3)
+                        .zIndex(2)
                 } else {
                     StoreView()
                         .frame(maxHeight: .infinity)
-                        .zIndex(2)
+                        .zIndex(3)
                 }
             }
                             

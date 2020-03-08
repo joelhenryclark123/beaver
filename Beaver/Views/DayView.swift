@@ -11,7 +11,7 @@ import CoreData
 
 struct DayView: View {
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.activeFetchRequest) var toDos: FetchedResults<ToDo>
+    @FetchRequest(fetchRequest: ToDo.dayFetchRequest) var toDos: FetchedResults<ToDo>
     
     var allComplete: Bool {
         self.toDos.allSatisfy({ $0.isComplete })

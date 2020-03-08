@@ -14,6 +14,7 @@ struct StoreView: View {
     @FetchRequest(
         fetchRequest: ToDo.storeFetchRequest
     ) var toDos: FetchedResults<ToDo>
+    @EnvironmentObject var state: AppState
     
     var selection: [ToDo] {
         let selected = toDos.filter { (toDo) -> Bool in
@@ -29,6 +30,8 @@ struct StoreView: View {
         }
         
         try! context.save()
+        state.refresh()
+        state.upToDate = true
     }
     
     // MARK: Body
@@ -75,6 +78,7 @@ struct StoreView: View {
             }
         }
         .modifier(StoreStyle())
+        .transition(.move(edge: .bottom))
     }
 }
 
@@ -125,6 +129,7 @@ struct StoreView_Previews: PreviewProvider {
                 
             StoreView()
                 .environment(\.managedObjectContext, context)
+                .environmentObject(AppState())
                 .frame(maxHeight: .infinity)
             }
         }

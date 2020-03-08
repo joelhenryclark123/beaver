@@ -34,16 +34,15 @@ final class AppState: ObservableObject {
     
     func refresh() {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let recent = try? mc.fetch(ToDo.fetchMostRecent)
+        let recent = try? mc.fetch(ToDo.mostRecentRequest)
         
         guard let toDos = recent else { fatalError() }
         
-        self.upToDate = toDos.allSatisfy({ (toDo) -> Bool in
-                if toDo.movedToday { return true }
-                else {
-                    toDos.forEach({ $0.store() })
-                    return false
-                }
-        })
+        if (toDos.allSatisfy({ $0.movedToday }) && toDos.count == 4) {
+            self.upToDate = true
+        } else {
+            toDos.forEach({ $0.store() })
+            self.upToDate = false
+        }
     }
 }
