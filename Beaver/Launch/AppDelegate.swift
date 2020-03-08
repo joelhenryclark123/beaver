@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITableView.appearance().separatorColor = UIColor.clear
         UITableViewCell.appearance().backgroundColor = UIColor.clear
         UITableViewCell.appearance().selectionStyle = .none
+        
+        FirebaseApp.configure()
         
         return true
     }
@@ -60,12 +63,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error setting query generation in app delegate")
         }
         
-        #if DEBUG
-        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
-        for toDo in toDos {
-            (toDo as! ToDo).delete()
-        }
-        #endif
+//        #if DEBUG
+//        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
+//        for toDo in toDos {
+//            (toDo as! ToDo).delete()
+//        }
+//        #endif
 
 
         return container

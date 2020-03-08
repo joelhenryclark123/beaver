@@ -24,7 +24,7 @@ struct AddBar: View {
     }
     
     var body: some View {
-        TextField("New", text: $text, onCommit: {
+        TextField("Do later", text: $text, onCommit: {
             if self.text.isEmpty {
                 return
             } else {
