@@ -50,7 +50,7 @@ struct ContentView: View {
                 .zIndex(0)
             
             VStack {
-                AddBar()
+                AddBar(upToDate: upToDate)
                     .padding()
                 if upToDate {
                     DayView()

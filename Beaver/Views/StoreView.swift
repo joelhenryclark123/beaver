@@ -31,9 +31,7 @@ struct StoreView: View {
         
         try! context.save()
         
-        Analytics.logEvent("startedDay", parameters: [
-            "timestamp": Date()
-        ])
+        Analytics.logEvent("startedDay", parameters: nil)
     }
     
     // MARK: Body
@@ -124,7 +122,7 @@ struct StoreView_Previews: PreviewProvider {
             MainBackground()
             
             VStack {
-            AddBar()
+            AddBar(upToDate: false)
                 .environment(\.managedObjectContext, context)
                 .padding()
                 

@@ -26,9 +26,7 @@ struct DayView: View {
         
         try! self.context.save()
         
-        Analytics.logEvent("completedDay", parameters: [
-            "timestamp": Date()
-        ])
+        Analytics.logEvent("completedDay", parameters: nil)
     }
         
     var body: some View {

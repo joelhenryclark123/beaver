@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct AddBar: View {
     @Environment(\.managedObjectContext) var context
     @State var text: String = ""
     var willBeActive: Bool = false
+    var upToDate: Bool
     
     func createToDo() -> Void {
         let _ = ToDo(
@@ -21,10 +23,14 @@ struct AddBar: View {
         )
         
         self.text = ""
+        
+        Analytics.logEvent("createdToDo", parameters: nil)
     }
     
     var body: some View {
-        TextField("Do later", text: $text, onCommit: {
+        TextField(
+            upToDate ? "Do Later" : "Add",
+            text: $text, onCommit: {
             if self.text.isEmpty {
                 return
             } else {
@@ -51,7 +57,7 @@ struct AddBar_Previews: PreviewProvider {
         ZStack {
             MainBackground()
             
-            AddBar()
+            AddBar(upToDate: false)
                 .environment(\.managedObjectContext, context)
         }
     }
