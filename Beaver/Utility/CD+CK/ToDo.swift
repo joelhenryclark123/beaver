@@ -115,7 +115,7 @@ extension ToDo {
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
         
         fetchRequest.predicate = NSPredicate(
-            format: "(isActive == true) AND (movedAt != nil)"
+            format: "(isActive == true)"
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
@@ -140,14 +140,13 @@ extension ToDo {
     }
     
     static var mostRecentRequest: NSFetchRequest<ToDo> {
-        let entity: String = String(describing: ToDo.self)
-        let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
+        let fetchRequest = ToDo.fetchRequest() as! NSFetchRequest<ToDo>
         
         fetchRequest.predicate = NSPredicate(
-            format: "(movedAt != nil)"
+            format: "movedAt != nil"
         )
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "movedAt", ascending: false)
+            NSSortDescriptor(key: "createdAt", ascending: true)
         ]
         fetchRequest.fetchBatchSize = 4
         

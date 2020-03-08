@@ -23,7 +23,24 @@ struct MainBackground: View {
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.dayFetchRequest) var toDos: FetchedResults<ToDo>
+    @FetchRequest(fetchRequest: ToDo.mostRecentRequest) var mostRecent: FetchedResults<ToDo>
+    
+    var upToDate: Bool {
+        if mostRecent.isEmpty { return false }
+        if mostRecent.allSatisfy({ (toDo) -> Bool in
+            if toDo.movedToday {
+                return true
+            } else {
+                self.mostRecent.forEach({
+                    $0.store()
+                })
+                return false
+            }
+        }) { return true }
+        else {
+            return false
+        }
+    }
     
     //MARK: Body
     var body: some View {
@@ -34,7 +51,7 @@ struct ContentView: View {
             VStack {
                 AddBar()
                     .padding()
-                if state.upToDate {
+                if upToDate {
                     DayView()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .zIndex(2)
