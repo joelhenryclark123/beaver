@@ -51,7 +51,7 @@ struct Onboarding: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
         .background(
-            Color.white.edgesIgnoringSafeArea(.all)
+            Color("systemBackgroundColor").edgesIgnoringSafeArea(.all)
         )
     }
 }
