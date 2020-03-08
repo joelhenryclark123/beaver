@@ -14,25 +14,28 @@ struct Onboarding: View {
     @EnvironmentObject var state: AppState
     
     var body: some View {
-        VStack {
-            Text("Monocle")
+        VStack(spacing: 16) {
+            
+            VStack {
+            Text("Beaver")
                 .modifier(FocalistFont(font: .heading1))
             Text("A new way to get things done")
                 .modifier(FocalistFont(font: .mediumText))
+            }
             
             Spacer()
-            
-            VStack(spacing: 40) {
-                VStack(spacing: 8) {
-                    Text("Organize")
+
+            VStack(spacing: 16) {
+                HStack(spacing: 8) {
+                    Text("Store")
                         .modifier(FocalistFont(font: .heading4))
-                    Text("Tasks in your to-do list")
+                    Text("tasks in your to-do list")
                         .modifier(FocalistFont(font: .largeText))
                 }
-                VStack(spacing: 8) {
+                HStack(spacing: 8) {
                     Text("Choose")
                         .modifier(FocalistFont(font: .heading4))
-                    Text("What you want to do")
+                    Text("what you want to do")
                         .modifier(FocalistFont(font: .largeText))
                 }
             }
