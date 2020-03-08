@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             print("setting query generation...")
             try container.viewContext.setQueryGenerationFrom(.current)
+            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
             container.viewContext.automaticallyMergesChangesFromParent = true
             print("query generation set!")
         } catch {

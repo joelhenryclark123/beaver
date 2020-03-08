@@ -29,6 +29,9 @@ struct CardView: View {
                         .padding(8)
                         .zIndex(3)
                     }})
+                .onReceive(toDo.publisher(for: \.title)) { (output) in
+                    print("sup")
+            }
             
             
             Group {
