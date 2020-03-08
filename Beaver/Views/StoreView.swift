@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import FirebaseAnalytics
 
 struct StoreView: View {
     @Environment(\.managedObjectContext) var context
@@ -29,6 +30,10 @@ struct StoreView: View {
         }
         
         try! context.save()
+        
+        Analytics.logEvent("startedDay", parameters: [
+            "timestamp": Date()
+        ])
     }
     
     // MARK: Body
