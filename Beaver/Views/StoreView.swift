@@ -38,35 +38,59 @@ struct StoreView: View {
     var body: some View {
         ZStack {
             VStack {
+                if !toDos.isEmpty {
                 HStack(alignment: .bottom) {
-                    Text("Build Your Day")
-                        .modifier(FocalistFont(font: .heading4))
-                        .foregroundColor(.white)
+                    VStack(alignment: .leading) {
+                        Text("Build Your Day")
+                            .modifier(FocalistFont(font: .largeText))
+                            .foregroundColor(.white)
+                        
+                        Text("Choose 4 To-Dos")
+                            .modifier(FocalistFont(font: .caption))
+                            .foregroundColor(.white)
+                        }.padding(.top)
+                        .padding(.horizontal)
                     
                     Spacer()
                     
-                    Text("select or add 4 items")
-                        .modifier(FocalistFont(font: .caption))
+                    EditButton()
+                        .padding(.trailing)
                         .foregroundColor(.white)
-                    }.padding(.top)
-                    .padding(.horizontal)
+                    }
+                }
                 
-                List {
-                    ForEach(self.toDos) { toDo in
-                        StoreItem(toDo: toDo)
-                            .transition(.identity)
-                            .animation(.spring())
-                        .padding(0)
-                    }.onDelete { (offsets) in
-                        for index in offsets {
-                            self.toDos[index].delete()
+                if toDos.isEmpty {
+                    VStack {
+                        Spacer()
+                        
+                        VStack {
+                            Text("Empty!")
+                                .modifier(FocalistFont(font: .heading1))
+                                .foregroundColor(.white)
+                            Text("Tap the add bar above to get started")
+                                .modifier(FocalistFont(font: .mediumText))
+                                .foregroundColor(.white)
                         }
-                    }.padding(0)
-                    Spacer().frame(height: 64)
+                        
+                        Spacer()
+                    }
+                } else {
+                    List {
+                        ForEach(self.toDos) { toDo in
+                            StoreItem(toDo: toDo)
+                                .transition(.identity)
+                                .animation(.spring())
+                            .padding(0)
+                        }.onDelete { (offsets) in
+                            for index in offsets {
+                                self.toDos[index].delete()
+                            }
+                        }.padding(0)
+                        Spacer().frame(height: 64)
+                    }
                 }
             }.modifier(StoreStyle())
 
-            
             if selection.count == 4 {
                 WideButton(.green, "Start Day") {
                     withAnimation(.easeIn(duration: 0.2)) {
@@ -141,6 +165,7 @@ struct StoreStyle: ViewModifier {
     
     func body(content: Content) -> some View {
         content
+            .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(
                     cornerRadius: 39.5,
