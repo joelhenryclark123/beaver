@@ -137,7 +137,6 @@ struct StoreStyle: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .frame(maxWidth: 500)
             .background(
                 RoundedRectangle(
                     cornerRadius: 39.5,

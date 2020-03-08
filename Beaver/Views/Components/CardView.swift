@@ -17,21 +17,22 @@ struct CardView: View {
                 .aspectRatio(1.0, contentMode: .fit)
                 .foregroundColor(toDo.isComplete ?
                     Color("accentGreenDim") : Color.white
-            )
+                )
                 .modifier(FocalistShadow(option: .dark))
-            
-            
-            Group {
-                if !self.toDo.isComplete {
+                .overlay(Group {if !self.toDo.isComplete {
                     Text(self.toDo.title)
                         .transition(.opacity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .modifier(FocalistFont(font: .mediumText))
                         .multilineTextAlignment(.center)
                         .foregroundColor(.black)
                         .padding(8)
                         .zIndex(3)
-                }
-                else {
+                    }})
+            
+            
+            Group {
+                if self.toDo.isComplete {
                     Image(systemName: "checkmark")
                         .resizable()
                         .padding(32)
