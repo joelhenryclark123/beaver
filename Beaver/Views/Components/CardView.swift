@@ -12,9 +12,6 @@ struct CardView: View {
     @ObservedObject var toDo: ToDo
     
     var body: some View {
-        Button(action: {
-            self.toDo.completeToggle()
-        }) {
             ZStack {
                 RoundedRectangle(cornerRadius: 40, style: .continuous)
                     .foregroundColor(toDo.isComplete ? Color("accentGreenDim") : Color.white)
@@ -23,6 +20,7 @@ struct CardView: View {
                 if !self.toDo.isComplete {
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .transition(.opacity)
                     .modifier(FocalistFont(font: .mediumText))
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
@@ -34,14 +32,18 @@ struct CardView: View {
                         .padding(32)
                         .scaledToFit()
                         .foregroundColor(.white)
+                        .transition(.scale)
                         .zIndex(4)
                 }
                 
                 #if DEBUG
                 Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
                 #endif
+            }.onTapGesture {
+                withAnimation(.easeIn(duration: 0.2)) {
+                    self.toDo.completeToggle()
+                }
             }.aspectRatio(1.0, contentMode: .fit)
-        }
     }
 }
 
