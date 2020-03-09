@@ -70,7 +70,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error setting query generation in app delegate")
         }
         
-        // Deactivate old to dos
+        #if DEBUG
+                let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
+                for toDo in toDos {
+                    container.viewContext.delete(toDo as! NSManagedObject)
+                }
+                let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+                let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+                let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+                let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+                let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+
+
+                try! container.viewContext.save()
+
+        #endif
+        
+        // Clean to dos
         let today = try! container.viewContext.fetch(ToDo.todayListFetch)
         if today.count != 4 {
             today.forEach({ $0.moveToStore() })
@@ -81,22 +97,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         storeToDos.forEach { (toDo) in
             if (!toDo.onTodaysList) { toDo.moveToStore() }
         }
-        
-//        #if DEBUG
-//        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
-//        for toDo in toDos {
-//            container.viewContext.delete(toDo as! NSManagedObject)
-//        }
-////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//
-//
-//        try! container.viewContext.save()
-//
-//        #endif
                 
         return container
     }()

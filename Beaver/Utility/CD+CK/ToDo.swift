@@ -63,7 +63,7 @@ extension ToDo {
     func moveToStore() {
         guard let context = self.managedObjectContext else { fatalError() }
         
-        context.performAndWait {
+        context.perform {
             self.isActive = false
             self.movedAt = nil
             self.saveContext()
@@ -72,7 +72,7 @@ extension ToDo {
     
     func completeToggle() {
         guard let context = self.managedObjectContext else { fatalError() }
-        context.performAndWait {
+        context.perform {
             if self.isActive {
                 if self.completedAt == nil {
                     self.completedAt = Date()
