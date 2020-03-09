@@ -45,7 +45,7 @@ struct AddBar: View {
             TextField(
                 "",
                 text: $text,
-                onEditingChanged: { _ in self.showingPlaceholder = false },
+                onEditingChanged: { _ in self.showingPlaceholder.toggle() },
                 onCommit: {
                     if self.text.isEmpty {
                         return
@@ -54,7 +54,6 @@ struct AddBar: View {
                             self.createToDo()
                         }
                     }
-                    self.showingPlaceholder = true
             })
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black)

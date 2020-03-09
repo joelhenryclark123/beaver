@@ -12,35 +12,35 @@ struct CardView: View {
     @ObservedObject var toDo: ToDo
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 40, style: .continuous)
-                .foregroundColor(toDo.isComplete ? Color("accentGreenDim") : Color.white)
-                .modifier(FocalistShadow(option: .dark))
-            
-            if !self.toDo.isComplete {
-            Text(self.toDo.title)
-                .transition(.opacity)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .modifier(FocalistFont(font: .mediumText))
-                .multilineTextAlignment(.center)
-                .foregroundColor(.black)
-                .padding(8)
-                .zIndex(3)
-            }
+        Button(action: {
+            self.toDo.completeToggle()
+        }) {
+            ZStack {
+                RoundedRectangle(cornerRadius: 40, style: .continuous)
+                    .foregroundColor(toDo.isComplete ? Color("accentGreenDim") : Color.white)
+                    .modifier(FocalistShadow(option: .dark))
                 
-            if self.toDo.isComplete {
-                Image(systemName: "checkmark")
-                    .resizable()
-                    .padding(32)
-                    .transition(.scale)
-                    .scaledToFit()
-                    .foregroundColor(.white)
-                    .zIndex(4)
-            }
-        }.aspectRatio(1.0, contentMode: .fit)
-            .animation(.easeIn(duration: 0.2))
-.onTapGesture {
-                self.toDo.completeToggle()
+                if !self.toDo.isComplete {
+                Text(self.toDo.title)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .modifier(FocalistFont(font: .mediumText))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+                    .padding(8)
+                    .zIndex(3)
+                } else {
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .padding(32)
+                        .scaledToFit()
+                        .foregroundColor(.white)
+                        .zIndex(4)
+                }
+                
+                #if DEBUG
+                Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
+                #endif
+            }.aspectRatio(1.0, contentMode: .fit)
         }
     }
 }

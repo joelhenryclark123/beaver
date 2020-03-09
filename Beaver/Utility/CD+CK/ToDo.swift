@@ -31,13 +31,7 @@ public class ToDo: NSManagedObject, Identifiable {
     }
     
     func saveContext() {
-        do {
-            if self.managedObjectContext!.hasChanges {
-                try self.managedObjectContext?.save()
-            }
-        } catch {
-            fatalError()
-        }
+        try? self.managedObjectContext?.save()
     }
     
     // MARK: Calculated Properties
@@ -69,7 +63,7 @@ extension ToDo {
     func moveToStore() {
         guard let context = self.managedObjectContext else { fatalError() }
         
-        context.perform {
+        context.performAndWait {
             self.isActive = false
             self.movedAt = nil
         }
@@ -77,7 +71,7 @@ extension ToDo {
     
     func completeToggle() {
         guard let context = self.managedObjectContext else { fatalError() }
-        context.perform {
+        context.performAndWait {
             if self.isActive {
                 if self.completedAt == nil {
                     self.completedAt = Date()
@@ -97,7 +91,6 @@ extension ToDo {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
             context.delete(self)
-            self.saveContext()
         }
     }
     
@@ -111,9 +104,10 @@ extension ToDo {
     
     func totallyFinish() {
         guard let context = self.managedObjectContext else { fatalError() }
-        assert(self.completedAt != nil && self.isActive && self.movedAt != nil)
         context.perform {
+            if (self.completedAt == nil) { self.completedAt = Date() }
             self.isActive = false
+            self.saveContext()
         }
     }
     
@@ -127,7 +121,7 @@ extension ToDo {
         let beginningOfDay = calendar.startOfDay(for: Date())
         
         fetchRequest.predicate = NSPredicate(
-            format: "(movedAt >= %@)", beginningOfDay as NSDate
+            format: "(movedAt > %@)", beginningOfDay as NSDate
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
@@ -142,7 +136,7 @@ extension ToDo {
         let fetchRequest = NSFetchRequest<ToDo>(entityName: entity)
         
         fetchRequest.predicate = NSPredicate(
-            format: "(completedAt == nil) AND (movedAt == nil)"
+            format: "(completedAt == nil)"
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)

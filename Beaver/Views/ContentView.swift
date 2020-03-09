@@ -22,8 +22,14 @@ struct MainBackground: View {
 }
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var moc
     @EnvironmentObject var state: AppState
     @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
+    
+    var showingStore: Bool {
+        if toDos.count == 4 { return false }
+        else { return true }
+    }
     
     //MARK: Body
     var body: some View {
@@ -32,22 +38,33 @@ struct ContentView: View {
                 .zIndex(0)
 
             VStack {
-                AddBar(upToDate: true)
+                AddBar(upToDate: toDos.count == 4)
                     .padding()
-                                
-                if toDos.isEmpty {
-                        StoreView()
-                            .frame(maxHeight: .infinity)
-                            .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
-                            .animation(.spring())
-                            .zIndex(3)
-                } else {
+
+                    #if DEBUG
+                    Text("Active to do count: \(String(toDos.count))")
+                    #endif
+                if !showingStore {
                     DayView()
                         .transition(AnyTransition.scale.animation(.spring()))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .zIndex(2)
                 }
+                if showingStore {
+                    StoreView()
+                        .frame(maxHeight: .infinity)
+                        .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
+                        .animation(.spring())
+                        .zIndex(3)
+                }
+            }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
+                self.moc.refreshAllObjects()
             }
+//            .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (output) in
+//                if self.toDos.count > 4 {
+//                    self.toDos.forEach({ $0.moveToStore() })
+//                }
+//            }
 
             if self.state.hasOnboarded == false {
                 Onboarding()

@@ -15,20 +15,15 @@ struct DayView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
     
-    var allComplete: Bool {
-        self.toDos.allSatisfy({ $0.isComplete })
-    }
-    
     func completeDay() -> Void {
-        for toDo in self.toDos {
-            toDo.totallyFinish()
-        }
-        try! context.save()
+        self.toDos.forEach({ $0.totallyFinish() })
         Analytics.logEvent("completedDay", parameters: nil)
     }
     
     var dayComplete: Bool {
-        self.toDos.allSatisfy({ $0.completedAt != nil && $0.isActive == false})
+        self.toDos.allSatisfy(
+            {$0.completedAt != nil && $0.isActive == false}
+        )
     }
     
     var emptyState: some View {
@@ -37,16 +32,37 @@ struct DayView: View {
                 .modifier(FocalistFont(font: .heading1))
                 .foregroundColor(.white)
             Text("Come back tomorrow")
-                .modifier(FocalistFont(font: .mediumText))
+                .modifier(FocalistFont(font: .mediumTextSemibold))
                 .foregroundColor(.white)
+            Text("(or save a task for later with the add bar)")
+                .modifier(FocalistFont(font: .smallText))
+                .foregroundColor(Color("dimWhite"))
         }
     }
         
     var body: some View {
-        ZStack {
-            if dayComplete { emptyState }
-            else if toDos.count == 4 {
+        let showingButton: Bool = self.toDos.allSatisfy({ $0.completedAt != nil && $0.isActive == true })
+
+        return ZStack {
+            if (showingButton) {
+                WideButton(.white, "Complete") {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        self.completeDay()
+                    }
+                }.padding(.horizontal)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .transition(.move(edge: .bottom))
+                    .animation(.spring())
+                .zIndex(3)
+            }
+            Group {
+            if dayComplete {
+                emptyState.zIndex(1)
+            } else {
                 VStack(spacing: 16) {
+                    #if DEBUG
+                    Text("showingButton: \(String(showingButton))")
+                    #endif
                     HStack(spacing: 16) {
                         CardView(toDo: self.toDos[0])
                         CardView(toDo: self.toDos[1])
@@ -55,19 +71,11 @@ struct DayView: View {
                         CardView(toDo: self.toDos[2])
                         CardView(toDo: self.toDos[3])
                     }
-                }.padding().transition(.opacity)
-
-                if (self.allComplete) {
-                    WideButton(.white, "Complete") {
-                        withAnimation(.easeIn(duration: 0.2)) {
-                            self.completeDay()
-                        }
-                    }.padding(.horizontal)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                        .transition(.move(edge: .bottom))
-                        .animation(.spring())
                 }
-            }
+                .padding()
+                .zIndex(2)
+                }
+            }.transition(AnyTransition.opacity.animation(.easeIn(duration: 0.2)))
         }
     }
 }

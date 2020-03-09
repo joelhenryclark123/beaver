@@ -25,60 +25,60 @@ struct StoreView: View {
     }
     
     func startDay() {
-        for toDo in selection {
-            toDo.moveToDay()
+        for toDo in toDos {
+            if toDo.isActive { toDo.moveToDay() }
+            else { toDo.moveToStore() }
         }
-        try! context.save()
+        
+        try? context.save()
         Analytics.logEvent("startedDay", parameters: nil)
+    }
+    
+    var emptyState: some View {
+        VStack {
+            Spacer()
+            
+            VStack {
+                Text("Empty!")
+                    .modifier(FocalistFont(font: .heading1))
+                    .foregroundColor(.white)
+                Text("Tap the add bar above to get started")
+                    .modifier(FocalistFont(font: .mediumText))
+                    .foregroundColor(.white)
+            }
+            
+            Spacer()
+        }
     }
     
     // MARK: Body
     var body: some View {
         ZStack {
             VStack {
-                if !toDos.isEmpty {
-                HStack(alignment: .bottom) {
-                    VStack(alignment: .leading) {
-                        Text("Build Your Day")
-                            .modifier(FocalistFont(font: .largeText))
-                            .foregroundColor(.white)
+                if toDos.isEmpty { emptyState }
+                else {
+                    HStack(alignment: .bottom) {
+                        VStack(alignment: .leading) {
+                            Text("Build Your Day")
+                                .modifier(FocalistFont(font: .largeText))
+                                .foregroundColor(.white)
+                            
+                            Text("Choose 4 To-Dos")
+                                .modifier(FocalistFont(font: .caption))
+                                .foregroundColor(.white)
+                        }.padding(.top).padding(.horizontal)
                         
-                        Text("Choose 4 To-Dos")
-                            .modifier(FocalistFont(font: .caption))
-                            .foregroundColor(.white)
-                        }.padding(.top)
-                        .padding(.horizontal)
-                    
-                    Spacer()
-                    
-                    EditButton()
-                        .padding(.trailing)
-                        .foregroundColor(.white)
-                    }
-                }
-                
-                if toDos.isEmpty {
-                    VStack {
                         Spacer()
                         
-                        VStack {
-                            Text("Empty!")
-                                .modifier(FocalistFont(font: .heading1))
-                                .foregroundColor(.white)
-                            Text("Tap the add bar above to get started")
-                                .modifier(FocalistFont(font: .mediumText))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Spacer()
+                        EditButton()
+                            .padding(.trailing)
+                            .foregroundColor(.white)
                     }
-                } else {
+                    
                     List {
                         ForEach(self.toDos) { toDo in
                             StoreItem(toDo: toDo)
-                                .transition(.identity)
-                                .animation(.spring())
-                            .padding(0)
+                                .padding(0)
                         }.onDelete { (offsets) in
                             for index in offsets {
                                 self.toDos[index].delete()

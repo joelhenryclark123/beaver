@@ -72,18 +72,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
         let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
         for toDo in toDos {
-            (toDo as! ToDo).delete()
+            container.viewContext.delete(toDo as! NSManagedObject)
         }
         let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+
 
         try! container.viewContext.save()
 
         #endif
-
-
+                
         return container
     }()
 
