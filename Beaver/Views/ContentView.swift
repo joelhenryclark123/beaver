@@ -57,16 +57,11 @@ struct ContentView: View {
                         .zIndex(3)
                 }
             }
-//            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
-//                let toDos = self.toDos
-//                toDos.forEach( { $0.moveToStore() })
-//                self.moc.refreshAllObjects()
-//            }
-//            .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (output) in
-//                if self.toDos.count > 4 {
-//                    self.toDos.forEach({ $0.moveToStore() })
-//                }
-//            }
+            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
+                let toDos = self.toDos
+                toDos.forEach( { $0.moveToStore() })
+                self.moc.refreshAllObjects()
+            }
 
             if self.state.hasOnboarded == false {
                 Onboarding()

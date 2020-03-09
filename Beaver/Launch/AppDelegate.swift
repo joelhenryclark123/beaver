@@ -71,6 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // Deactivate old to dos
+        let today = try! container.viewContext.fetch(ToDo.todayListFetch)
+        if today.count != 4 {
+            today.forEach({ $0.moveToStore() })
+        }
+        
         let storeToDos = try! container.viewContext.fetch(ToDo.storeFetch)
         let calendar = Calendar.current
         storeToDos.forEach { (toDo) in
