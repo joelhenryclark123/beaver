@@ -75,9 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             container.viewContext.delete(toDo as! NSManagedObject)
         }
         let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
 //        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
 
 

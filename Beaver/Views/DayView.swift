@@ -13,7 +13,7 @@ import FirebaseAnalytics
 
 struct DayView: View {
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
+    var toDos: FetchedResults<ToDo>
     
     func completeDay() -> Void {
         self.toDos.forEach({ $0.totallyFinish() })

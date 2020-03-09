@@ -45,7 +45,7 @@ struct ContentView: View {
                     Text("Active to do count: \(String(toDos.count))")
                     #endif
                 if !showingStore {
-                    DayView()
+                    DayView(toDos: toDos)
                         .transition(AnyTransition.scale.animation(.spring()))
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .zIndex(2)

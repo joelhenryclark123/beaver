@@ -63,7 +63,7 @@ struct StoreView: View {
                                 .modifier(FocalistFont(font: .largeText))
                                 .foregroundColor(.white)
                             
-                            Text("Choose 4 To-Dos")
+                            Text("Tap four To Dos to start your day")
                                 .modifier(FocalistFont(font: .caption))
                                 .foregroundColor(.white)
                         }.padding(.top).padding(.horizontal)

@@ -66,6 +66,7 @@ extension ToDo {
         context.performAndWait {
             self.isActive = false
             self.movedAt = nil
+            self.saveContext()
         }
     }
     

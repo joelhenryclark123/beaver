@@ -37,7 +37,7 @@ struct AddBar: View {
                 .zIndex(1)
             
             if showingPlaceholder {
-                Text(upToDate ? "Do Later" : "Add")
+                Text(upToDate ? "Do Later" : "Add a To Do")
                     .foregroundColor(.gray)
                 .zIndex(2)
             }
