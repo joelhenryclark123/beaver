@@ -34,9 +34,7 @@ struct ContentView: View {
             VStack {
                 AddBar(upToDate: true)
                     .padding()
-                
-                Text(String(toDos.count))
-                
+                                
                 if toDos.isEmpty {
                         StoreView()
                             .frame(maxHeight: .infinity)

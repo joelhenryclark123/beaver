@@ -27,17 +27,6 @@ struct CardView: View {
                 .padding(8)
                 .zIndex(3)
             }
-            
-//            if !self.toDo.isComplete {
-//                Text(self.toDo.title)
-//                    .transition(.opacity)
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-//                    .modifier(FocalistFont(font: .mediumText))
-//                    .multilineTextAlignment(.center)
-//                    .foregroundColor(.black)
-//                    .padding(8)
-//                    .zIndex(3)
-//            }
                 
             if self.toDo.isComplete {
                 Image(systemName: "checkmark")
@@ -46,13 +35,12 @@ struct CardView: View {
                     .transition(.scale)
                     .scaledToFit()
                     .foregroundColor(.white)
-                    .zIndex(3)
+                    .zIndex(4)
             }
         }.aspectRatio(1.0, contentMode: .fit)
+            .animation(.easeIn(duration: 0.2))
 .onTapGesture {
-            withAnimation(.easeIn(duration: 0.2)) {
                 self.toDo.completeToggle()
-            }
         }
     }
 }

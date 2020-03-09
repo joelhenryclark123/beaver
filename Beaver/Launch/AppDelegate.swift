@@ -74,10 +74,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for toDo in toDos {
             (toDo as! ToDo).delete()
         }
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
 
         try! container.viewContext.save()
 
