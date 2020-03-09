@@ -59,7 +59,6 @@ struct DayView: View {
                             self.completeDay()
                         }
                     }.padding(.horizontal)
-                        .padding(.bottom, 16)
                         .frame(maxHeight: .infinity, alignment: .bottom)
                         .transition(.move(edge: .bottom))
                         .animation(.spring())
