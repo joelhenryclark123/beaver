@@ -11,6 +11,7 @@ import FirebaseAnalytics
 
 struct AddBar: View {
     @Environment(\.managedObjectContext) var context
+    @State var showingPlaceholder: Bool = true
     @State var text: String = ""
     var willBeActive: Bool = false
     var upToDate: Bool
@@ -28,25 +29,37 @@ struct AddBar: View {
     }
     
     var body: some View {
-        TextField(
-            upToDate ? "Do Later" : "Add",
-            text: $text, onCommit: {
-            if self.text.isEmpty {
-                return
-            } else {
-                withAnimation(.spring()) {
-                self.createToDo()
-                }
+        ZStack {
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+            .frame(height: 40)
+            .foregroundColor(Color("dimWhite"))
+            .modifier(FocalistShadow(option: .dark))
+                .zIndex(1)
+            
+            if showingPlaceholder {
+                Text(upToDate ? "Do Later" : "Add")
+                    .foregroundColor(.gray)
+                .zIndex(2)
             }
-        })
-            .multilineTextAlignment(.center)
-            .foregroundColor(.black)
-            .background(
-                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .frame(height: 40)
-                    .foregroundColor(Color("dimWhite"))
-                    .modifier(FocalistShadow(option: .dark))
-        )
+            
+            TextField(
+                "",
+                text: $text,
+                onEditingChanged: { _ in self.showingPlaceholder = false },
+                onCommit: {
+                    if self.text.isEmpty {
+                        return
+                    } else {
+                        withAnimation(.spring()) {
+                            self.createToDo()
+                        }
+                    }
+                    self.showingPlaceholder = true
+            })
+                .multilineTextAlignment(.center)
+                .foregroundColor(.black)
+            .zIndex(3)
+        }
     }
 }
 

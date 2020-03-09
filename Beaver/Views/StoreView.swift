@@ -13,7 +13,7 @@ import FirebaseAnalytics
 struct StoreView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(
-        fetchRequest: ToDo.storeFetchRequest
+        fetchRequest: ToDo.storeFetch
     ) var toDos: FetchedResults<ToDo>
     
     var selection: [ToDo] {
@@ -25,12 +25,10 @@ struct StoreView: View {
     }
     
     func startDay() {
-        for toDo in toDos {
-            toDo.move()
+        for toDo in selection {
+            toDo.moveToDay()
         }
-        
         try! context.save()
-        
         Analytics.logEvent("startedDay", parameters: nil)
     }
     

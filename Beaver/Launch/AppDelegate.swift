@@ -57,8 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             print("setting query generation...")
             try container.viewContext.setQueryGenerationFrom(.current)
-            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
             container.viewContext.automaticallyMergesChangesFromParent = true
+            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+            
+            if container.viewContext.hasChanges {
+                try! container.viewContext.save()
+            }
+            
             print("query generation set!")
         } catch {
             print("Error setting query generation in app delegate")
@@ -69,7 +74,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for toDo in toDos {
             (toDo as! ToDo).delete()
         }
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).move()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+
+        try! container.viewContext.save()
+
         #endif
 
 

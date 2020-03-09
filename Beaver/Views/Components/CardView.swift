@@ -14,56 +14,58 @@ struct CardView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 40, style: .continuous)
-                .aspectRatio(1.0, contentMode: .fit)
-                .foregroundColor(toDo.isComplete ?
-                    Color("accentGreenDim") : Color.white
-                )
+                .foregroundColor(toDo.isComplete ? Color("accentGreenDim") : Color.white)
                 .modifier(FocalistShadow(option: .dark))
-                .overlay(Group {if !self.toDo.isComplete {
-                    Text(self.toDo.title)
-                        .transition(.opacity)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .modifier(FocalistFont(font: .mediumText))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .zIndex(3)
-                    }})
-                .onReceive(toDo.publisher(for: \.title)) { (output) in
-                    print("sup")
+            
+            if !self.toDo.isComplete {
+            Text(self.toDo.title)
+                .transition(.opacity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .modifier(FocalistFont(font: .mediumText))
+                .multilineTextAlignment(.center)
+                .foregroundColor(.black)
+                .padding(8)
+                .zIndex(3)
             }
             
-            
-            Group {
-                if self.toDo.isComplete {
-                    Image(systemName: "checkmark")
-                        .resizable()
-                        .padding(32)
-                        .transition(.scale)
-                        .scaledToFit()
-                        .foregroundColor(.white)
-                        .zIndex(3)
-                }
-            }
-        }.animation(.easeInOut(duration: 0.2))
-            .onTapGesture {
+//            if !self.toDo.isComplete {
+//                Text(self.toDo.title)
+//                    .transition(.opacity)
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    .modifier(FocalistFont(font: .mediumText))
+//                    .multilineTextAlignment(.center)
+//                    .foregroundColor(.black)
+//                    .padding(8)
+//                    .zIndex(3)
+//            }
                 
-                withAnimation(.easeIn(duration: 0.2)) {
-                    self.toDo.completeToggle()
-                }
+            if self.toDo.isComplete {
+                Image(systemName: "checkmark")
+                    .resizable()
+                    .padding(32)
+                    .transition(.scale)
+                    .scaledToFit()
+                    .foregroundColor(.white)
+                    .zIndex(3)
+            }
+        }.aspectRatio(1.0, contentMode: .fit)
+.onTapGesture {
+            withAnimation(.easeIn(duration: 0.2)) {
+                self.toDo.completeToggle()
+            }
         }
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static let context = ActiveView_Previews.context
-    
-    static var previews: some View {
-        ZStack {
-            MainBackground()
-        DayView()
-        .environment(\.managedObjectContext, context)
-        .environmentObject(AppState())
-        }
-    }
-}
+//struct CardView_Previews: PreviewProvider {
+//    static let context = ActiveView_Previews.context
+//    
+//    static var previews: some View {
+//        ZStack {
+//            MainBackground()
+//        DayView()
+//        .environment(\.managedObjectContext, context)
+//        .environmentObject(AppState())
+//        }
+//    }
+//}

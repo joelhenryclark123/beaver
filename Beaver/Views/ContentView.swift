@@ -23,20 +23,7 @@ struct MainBackground: View {
 
 struct ContentView: View {
     @EnvironmentObject var state: AppState
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.mostRecentRequest) var mostRecent: FetchedResults<ToDo>
-    
-    var upToDate: Bool {
-        if (
-            mostRecent.count == 4 &&
-            mostRecent.allSatisfy({ $0.movedToday })
-            ) {
-            return true
-        } else {
-            mostRecent.forEach({ $0.store() })
-            return false
-        }
-    }
+    @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
     
     //MARK: Body
     var body: some View {
@@ -45,19 +32,22 @@ struct ContentView: View {
                 .zIndex(0)
 
             VStack {
-                AddBar(upToDate: upToDate)
+                AddBar(upToDate: true)
                     .padding()
-                if upToDate {
-                        DayView()
-                            .transition(AnyTransition.scale.animation(.spring()))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .zIndex(2)
-                } else {
+                
+                Text(String(toDos.count))
+                
+                if toDos.isEmpty {
                         StoreView()
                             .frame(maxHeight: .infinity)
                             .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
                             .animation(.spring())
                             .zIndex(3)
+                } else {
+                    DayView()
+                        .transition(AnyTransition.scale.animation(.spring()))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .zIndex(2)
                 }
             }
 
@@ -68,9 +58,6 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .zIndex(3)
             }
-        }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
-            self.context.refreshAllObjects()
-
         }
     }
 }

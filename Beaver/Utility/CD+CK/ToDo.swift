@@ -41,7 +41,7 @@ public class ToDo: NSManagedObject, Identifiable {
     }
     
     // MARK: Calculated Properties
-    var movedToday: Bool {
+    var onTodaysList: Bool {
         let calendar = Calendar.current
         guard let movedAt = self.movedAt else { return false }
         
@@ -66,12 +66,12 @@ extension ToDo {
         }
     }
     
-    func store() {
+    func moveToStore() {
         guard let context = self.managedObjectContext else { fatalError() }
+        
         context.perform {
             self.isActive = false
             self.movedAt = nil
-            self.saveContext()
         }
     }
     
@@ -101,31 +101,43 @@ extension ToDo {
         }
     }
     
-    func move() {
+    func moveToDay() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
             self.movedAt = Date()
-            self.saveContext()
+            self.isActive = true
+        }
+    }
+    
+    func totallyFinish() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        assert(self.completedAt != nil && self.isActive && self.movedAt != nil)
+        context.perform {
+            self.isActive = false
         }
     }
     
     // MARK: Fetch Requests
-    static var dayFetchRequest: NSFetchRequest<ToDo> {
+    static var todayListFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
         
+        let calendar = Calendar.current
+        
+        let beginningOfDay = calendar.startOfDay(for: Date())
+        
         fetchRequest.predicate = NSPredicate(
-            format: "(isActive == true)"
+            format: "(movedAt >= %@)", beginningOfDay as NSDate
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
         fetchRequest.fetchBatchSize = 4
-        
+
         return fetchRequest
     }
     
-    static var storeFetchRequest: NSFetchRequest<ToDo> {
+    static var storeFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest = NSFetchRequest<ToDo>(entityName: entity)
         
@@ -135,20 +147,6 @@ extension ToDo {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
-        
-        return fetchRequest
-    }
-    
-    static var mostRecentRequest: NSFetchRequest<ToDo> {
-        let fetchRequest = ToDo.fetchRequest() as! NSFetchRequest<ToDo>
-        
-        fetchRequest.predicate = NSPredicate(
-            format: "movedAt != nil"
-        )
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "createdAt", ascending: true)
-        ]
-        fetchRequest.fetchBatchSize = 4
         
         return fetchRequest
     }

@@ -13,7 +13,7 @@ import FirebaseAnalytics
 
 struct DayView: View {
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.mostRecentRequest) var toDos: FetchedResults<ToDo>
+    @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
     
     var allComplete: Bool {
         self.toDos.allSatisfy({ $0.isComplete })
@@ -21,26 +21,30 @@ struct DayView: View {
     
     func completeDay() -> Void {
         for toDo in self.toDos {
-            toDo.isActive = false
+            toDo.totallyFinish()
         }
-        
-        try! self.context.save()
-        
+        try! context.save()
         Analytics.logEvent("completedDay", parameters: nil)
+    }
+    
+    var dayComplete: Bool {
+        self.toDos.allSatisfy({ $0.completedAt != nil && $0.isActive == false})
+    }
+    
+    var emptyState: some View {
+        VStack {
+            Text("Done!")
+                .modifier(FocalistFont(font: .heading1))
+                .foregroundColor(.white)
+            Text("Come back tomorrow")
+                .modifier(FocalistFont(font: .mediumText))
+                .foregroundColor(.white)
+        }
     }
         
     var body: some View {
         ZStack {
-            if toDos.isEmpty {
-                VStack {
-                    Text("Done!")
-                        .modifier(FocalistFont(font: .heading1))
-                        .foregroundColor(.white)
-                    Text("Come back tomorrow")
-                        .modifier(FocalistFont(font: .mediumText))
-                        .foregroundColor(.white)
-                }
-            }
+            if dayComplete { emptyState }
             else if toDos.count == 4 {
                 VStack(spacing: 16) {
                     HStack(spacing: 16) {
@@ -52,7 +56,7 @@ struct DayView: View {
                         CardView(toDo: self.toDos[3])
                     }
                 }.padding().transition(.opacity)
-                
+
                 if (self.allComplete) {
                     WideButton(.white, "Complete") {
                         withAnimation(.easeIn(duration: 0.2)) {
@@ -68,48 +72,48 @@ struct DayView: View {
     }
 }
 
-struct ActiveView_Previews: PreviewProvider {
-    static let context: NSManagedObjectContext = {
-        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-                
-                let toDos = try! mc.fetch(ToDo.fetchRequest())
-                for toDo in toDos {
-                    (toDo as! ToDo).delete()
-                }
-                
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 100 miles",
-                    isActive: true
-                )
-
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 200 miles",
-                    isActive: true
-                )
-
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 300 miles",
-                    isActive: true
-                )
-
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 400 miles",
-                    isActive: true
-                )
-                
-                return mc
-    }()
-    
-    static var previews: some View {
-        ZStack {
-            MainBackground()
-            
-            DayView()
-                .environment(\.managedObjectContext, context)
-        }
-    }
-}
+//struct ActiveView_Previews: PreviewProvider {
+//    static let context: NSManagedObjectContext = {
+//        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//                
+//                let toDos = try! mc.fetch(ToDo.fetchRequest())
+//                for toDo in toDos {
+//                    (toDo as! ToDo).delete()
+//                }
+//                
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 100 miles",
+//                    isActive: true
+//                )
+//
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 200 miles",
+//                    isActive: true
+//                )
+//
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 300 miles",
+//                    isActive: true
+//                )
+//
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 400 miles",
+//                    isActive: true
+//                )
+//                
+//                return mc
+//    }()
+//    
+//    static var previews: some View {
+//        ZStack {
+//            MainBackground()
+//            
+//            DayView()
+//                .environment(\.managedObjectContext, context)
+//        }
+//    }
+//}
