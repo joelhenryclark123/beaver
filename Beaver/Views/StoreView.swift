@@ -25,10 +25,7 @@ struct StoreView: View {
     }
     
     func startDay() {
-        for toDo in toDos {
-            if toDo.isActive { toDo.moveToDay() }
-            else { toDo.moveToStore() }
-        }
+        for toDo in selection { toDo.moveToDay() }
         
         try? context.save()
         Analytics.logEvent("startedDay", parameters: nil)
