@@ -13,7 +13,7 @@ import FirebaseAnalytics
 
 struct DayView: View {
     @Environment(\.managedObjectContext) var context
-    @FetchRequest(fetchRequest: ToDo.dayFetchRequest) var toDos: FetchedResults<ToDo>
+    @FetchRequest(fetchRequest: ToDo.mostRecentRequest) var toDos: FetchedResults<ToDo>
     
     var allComplete: Bool {
         self.toDos.allSatisfy({ $0.isComplete })

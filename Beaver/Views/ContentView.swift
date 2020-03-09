@@ -27,18 +27,13 @@ struct ContentView: View {
     @FetchRequest(fetchRequest: ToDo.mostRecentRequest) var mostRecent: FetchedResults<ToDo>
     
     var upToDate: Bool {
-        if mostRecent.isEmpty { return false }
-        if mostRecent.allSatisfy({ (toDo) -> Bool in
-            if toDo.movedToday {
-                return true
-            } else {
-                self.mostRecent.forEach({
-                    $0.store()
-                })
-                return false
-            }
-        }) { return true }
-        else {
+        if (
+            mostRecent.count == 4 &&
+            mostRecent.allSatisfy({ $0.movedToday })
+            ) {
+            return true
+        } else {
+            mostRecent.forEach({ $0.store() })
             return false
         }
     }
@@ -48,24 +43,24 @@ struct ContentView: View {
         ZStack {
             MainBackground()
                 .zIndex(0)
-            
+
             VStack {
                 AddBar(upToDate: upToDate)
                     .padding()
                 if upToDate {
-                    DayView()
-                        .transition(AnyTransition.scale.animation(.spring()))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .zIndex(2)
+                        DayView()
+                            .transition(AnyTransition.scale.animation(.spring()))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .zIndex(2)
                 } else {
-                    StoreView()
-                        .frame(maxHeight: .infinity)
-                        .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
-                        .animation(.spring())
-                        .zIndex(3)
+                        StoreView()
+                            .frame(maxHeight: .infinity)
+                            .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
+                            .animation(.spring())
+                            .zIndex(3)
                 }
             }
-                            
+
             if self.state.hasOnboarded == false {
                 Onboarding()
                     .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
@@ -75,7 +70,7 @@ struct ContentView: View {
             }
         }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
             self.context.refreshAllObjects()
-            
+
         }
     }
 }
