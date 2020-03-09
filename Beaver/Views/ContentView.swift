@@ -49,17 +49,19 @@ struct ContentView: View {
                         .transition(AnyTransition.scale.animation(.spring()))
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                         .zIndex(2)
-                }
-                if showingStore {
+                } else {
                     StoreView()
                         .frame(maxHeight: .infinity)
                         .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
                         .animation(.spring())
                         .zIndex(3)
                 }
-            }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
-                self.moc.refreshAllObjects()
             }
+//            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
+//                let toDos = self.toDos
+//                toDos.forEach( { $0.moveToStore() })
+//                self.moc.refreshAllObjects()
+//            }
 //            .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)) { (output) in
 //                if self.toDos.count > 4 {
 //                    self.toDos.forEach({ $0.moveToStore() })

@@ -37,11 +37,6 @@ struct StoreItem: View {
                 .background(cardBackground)
         }.modifier(FocalistShadow(option: .dark))
     }
-    
-    init(toDo: ToDo) {
-        toDo.moveToStore()
-        self.toDo = toDo
-    }
 }
 
 struct StoreItem_Previews: PreviewProvider {

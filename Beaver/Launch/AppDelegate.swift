@@ -44,7 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         print("loading persistent container...")
-
+        
+        // Load Stores
         let container = NSPersistentCloudKitContainer(name: "Stack")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -53,12 +54,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             print("No errors loading persistent container!")
         })
-
+        
+        // Set query gen
         do {
             print("setting query generation...")
             try container.viewContext.setQueryGenerationFrom(.current)
             container.viewContext.automaticallyMergesChangesFromParent = true
-            container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
             
             if container.viewContext.hasChanges {
                 try! container.viewContext.save()
@@ -69,21 +70,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Error setting query generation in app delegate")
         }
         
-        #if DEBUG
-        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
-        for toDo in toDos {
-            container.viewContext.delete(toDo as! NSManagedObject)
+        // Deactivate old to dos
+        let storeToDos = try! container.viewContext.fetch(ToDo.storeFetch)
+        let calendar = Calendar.current
+        storeToDos.forEach { (toDo) in
+            if (!toDo.onTodaysList) { toDo.moveToStore() }
         }
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-//        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
-
-
-        try! container.viewContext.save()
-
-        #endif
+        
+//        #if DEBUG
+//        let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
+//        for toDo in toDos {
+//            container.viewContext.delete(toDo as! NSManagedObject)
+//        }
+////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+////        let _ = ToDo(context: container.viewContext, title: "sup", isActive: true).moveToDay()
+//
+//
+//        try! container.viewContext.save()
+//
+//        #endif
                 
         return container
     }()
