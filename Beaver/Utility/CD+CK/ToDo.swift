@@ -123,7 +123,7 @@ extension ToDo {
         let beginningOfDay = calendar.startOfDay(for: Date())
         
         fetchRequest.predicate = NSPredicate(
-            format: "(movedAt > %@) AND (isActive == true)", beginningOfDay as NSDate
+            format: "(movedAt > %@)", beginningOfDay as NSDate
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
