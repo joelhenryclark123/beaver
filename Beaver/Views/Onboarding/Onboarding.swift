@@ -58,7 +58,7 @@ struct Onboarding: View {
 
 struct Onboarding_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
-        let mc = ContentView_Previews.context
+        let mc = ContentView_Previews.demoContext
         
         return mc
     }()

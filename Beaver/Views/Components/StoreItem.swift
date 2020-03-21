@@ -36,7 +36,7 @@ struct StoreItem: View {
 }
 
 struct StoreItem_Previews: PreviewProvider {
-    static let context = ContentView_Previews.context
+    static let context = ContentView_Previews.demoContext
     
     static var previews: some View {
         StoreItem(
