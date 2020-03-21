@@ -36,37 +36,38 @@ struct ContentView: View {
         ZStack {
             MainBackground()
                 .zIndex(0)
-
-            VStack {
-                AddBar(upToDate: toDos.count == 4)
-                    .padding()
-
-                    #if DEBUG
-                    Text("Active to do count: \(String(toDos.count))")
-                    #endif
-                if !showingStore {
-                    DayView(toDos: toDos)
-                        .transition(AnyTransition.scale.animation(.spring()))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                        .zIndex(2)
-                } else {
-                    StoreView()
-                        .frame(maxHeight: .infinity)
-                        .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
-                        .animation(.spring())
-                        .zIndex(3)
-                }
-            }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { (_) in
-                self.toDos.forEach( { $0.moveToStore() } )
-            }
-
+            
             if self.state.hasOnboarded == false {
                 Onboarding()
                     .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
                     .animation(.spring())
                     .frame(maxWidth: .infinity)
-                    .zIndex(3)
+                    .zIndex(4)
+            } else {
+                VStack {
+                    AddBar(upToDate: toDos.count == 4)
+                        .zIndex(1)
+                        .padding()
+                    
+                    #if DEBUG
+                    Text("Active to do count: \(String(toDos.count))")
+                    #endif
+                    if !showingStore {
+                        DayView(toDos: toDos)
+                            .transition(AnyTransition.scale.animation(.spring()))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                            .zIndex(2)
+                    } else {
+                        StoreView()
+                            .frame(maxHeight: .infinity)
+                            .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
+                            .animation(.spring())
+                            .zIndex(3)
+                    }
+                }
             }
+        }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { (_) in
+            self.toDos.forEach( { $0.moveToStore() } )
         }
     }
 }
@@ -86,19 +87,19 @@ struct ContentView_Previews: PreviewProvider {
             title: "Walk 100 miles",
             isActive: true
         )
-
+        
         let _ = ToDo(
             context: mc,
             title: "Walk 200 miles",
             isActive: true
         )
-
+        
         let _ = ToDo(
             context: mc,
             title: "Walk 300 miles",
             isActive: true
         )
-
+        
         let _ = ToDo(
             context: mc,
             title: "Walk 400 miles",
