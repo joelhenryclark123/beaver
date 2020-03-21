@@ -164,10 +164,10 @@
 		E9B3722E240335C7003B46B0 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				E97E0F64240C99F400A46140 /* DesignSystem.swift */,
 				E9926335240B1CDC003D7658 /* Extensions */,
 				E9B3722F240335EF003B46B0 /* State */,
 				E9B3722D240335A4003B46B0 /* CD+CK */,
-				E97E0F64240C99F400A46140 /* DesignSystem.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
