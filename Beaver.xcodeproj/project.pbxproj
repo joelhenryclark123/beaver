@@ -15,8 +15,6 @@
 		E972A79C24153F82001A18FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E972A79B24153F82001A18FD /* GoogleService-Info.plist */; };
 		E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E0F64240C99F400A46140 /* DesignSystem.swift */; };
 		E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* DayView.swift */; };
-		E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F232406F4EE0028C4E1 /* DragState.swift */; };
-		E9826F262406F56E0028C4E1 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9826F252406F56E0028C4E1 /* Scene.swift */; };
 		E9869033240AC78800A03FA2 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9869032240AC78800A03FA2 /* AddBar.swift */; };
 		E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9926336240B1D0B003D7658 /* GeometryProxy.swift */; };
 		E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F64E23F75EB200BE2133 /* StoreView.swift */; };
@@ -58,8 +56,6 @@
 		E972A79B24153F82001A18FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E97E0F64240C99F400A46140 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		E98073E623F71C6A00FDAF08 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
-		E9826F232406F4EE0028C4E1 /* DragState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragState.swift; sourceTree = "<group>"; };
-		E9826F252406F56E0028C4E1 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		E9869032240AC78800A03FA2 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		E9926336240B1D0B003D7658 /* GeometryProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxy.swift; sourceTree = "<group>"; };
 		E9B2F64E23F75EB200BE2133 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
@@ -180,8 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				E9B37230240335FC003B46B0 /* AppState.swift */,
-				E9826F252406F56E0028C4E1 /* Scene.swift */,
-				E9826F232406F4EE0028C4E1 /* DragState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -435,9 +429,7 @@
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
-				E9826F242406F4EE0028C4E1 /* DragState.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
-				E9826F262406F56E0028C4E1 /* Scene.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */,
 				E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */,
 				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,

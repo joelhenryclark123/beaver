@@ -52,17 +52,18 @@ struct ContentView: View {
                     #if DEBUG
                     Text("Active to do count: \(String(toDos.count))")
                     #endif
-                    if !showingStore {
-                        DayView(toDos: toDos)
-                            .transition(AnyTransition.scale.animation(.spring()))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            .zIndex(2)
-                    } else {
+                    
+                    if showingStore {
                         StoreView()
                             .frame(maxHeight: .infinity)
                             .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
                             .animation(.spring())
                             .zIndex(3)
+                    } else {
+                        DayView(toDos: toDos)
+                            .transition(AnyTransition.scale.animation(.spring()))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                            .zIndex(2)
                     }
                 }
             }
@@ -74,7 +75,7 @@ struct ContentView: View {
 
 //MARK: - Previews
 struct ContentView_Previews: PreviewProvider {
-    static let context: NSManagedObjectContext = {
+    static let demoContext: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
         let toDos = try! mc.fetch(ToDo.fetchRequest())
@@ -111,7 +112,7 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         ContentView()
-            .environment(\.managedObjectContext, context)
+            .environment(\.managedObjectContext, demoContext)
             .environmentObject(AppState())
     }
 }

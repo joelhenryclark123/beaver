@@ -12,7 +12,6 @@ import FirebaseAnalytics
 
 
 struct DayView: View {
-    @Environment(\.managedObjectContext) var context
     var toDos: FetchedResults<ToDo>
     
     func completeDay() -> Void {
@@ -80,48 +79,14 @@ struct DayView: View {
     }
 }
 
-//struct ActiveView_Previews: PreviewProvider {
-//    static let context: NSManagedObjectContext = {
-//        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-//                
-//                let toDos = try! mc.fetch(ToDo.fetchRequest())
-//                for toDo in toDos {
-//                    (toDo as! ToDo).delete()
-//                }
-//                
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 100 miles",
-//                    isActive: true
-//                )
+//struct DayView_Previews: PreviewProvider {
+//    static let context = ContentView_Previews.demoContext
 //
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 200 miles",
-//                    isActive: true
-//                )
-//
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 300 miles",
-//                    isActive: true
-//                )
-//
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 400 miles",
-//                    isActive: true
-//                )
-//                
-//                return mc
-//    }()
-//    
 //    static var previews: some View {
 //        ZStack {
 //            MainBackground()
-//            
-//            DayView()
-//                .environment(\.managedObjectContext, context)
+//
+//            DayView(toDos: context.fetch(ToDo.todayListFetch))
 //        }
 //    }
 //}
