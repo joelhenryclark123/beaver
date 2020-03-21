@@ -36,13 +36,20 @@ struct StoreView: View {
             VStack {
                 Text("Empty!")
                     .modifier(FocalistFont(font: .heading1))
-                    .foregroundColor(.white)
                 Text("Tap the add bar above to get started")
                     .modifier(FocalistFont(font: .mediumText))
-                    .foregroundColor(.white)
-            }
+            }.foregroundColor(.white)
             
             Spacer()
+        }
+    }
+    
+    var instruction: String {
+        let count = toDos.count
+        if count < 4 {
+            return "Add \(4 - count) more To-Dos!"
+        } else {
+            return "Tap four To-Dos to get started!"
         }
     }
     
@@ -55,20 +62,21 @@ struct StoreView: View {
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading) {
                             Text("Build Your Day")
-                                .modifier(FocalistFont(font: .largeText))
-                                .foregroundColor(.white)
+                        .modifier(FocalistFont(font: .largeText))
                             
-                            Text("Tap four To Dos to start your day")
+                            Text(instruction)
                                 .modifier(FocalistFont(font: .caption))
-                                .foregroundColor(.white)
-                        }.padding(.top).padding(.horizontal)
-                        
-                        Spacer()
-                        
+                                .animation(nil)
+                        }.frame(
+                            maxWidth: .infinity,
+                            alignment: .leading
+                            )
+                            .padding(.top)
+                            .padding(.horizontal)
+                                                
                         EditButton()
                             .padding(.trailing)
-                            .foregroundColor(.white)
-                    }
+                    }.foregroundColor(.black)
                     
                     List {
                         ForEach(self.toDos) { toDo in

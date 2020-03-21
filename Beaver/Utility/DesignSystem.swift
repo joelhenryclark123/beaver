@@ -120,7 +120,7 @@ struct FocalistShadow: ViewModifier {
 struct FocalistMaterial: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .background(Blur(style: .systemUltraThinMaterialDark))
+            .background(Blur(style: .light))
     }
     
     struct Blur: UIViewRepresentable {
