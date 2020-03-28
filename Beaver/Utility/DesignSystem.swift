@@ -132,3 +132,19 @@ struct FocalistMaterial: ViewModifier {
         }
     }
 }
+
+enum FocalistColor: String {
+    case backgroundBlue = "backgroundBlue"
+    case otherBlue = "otherBlue"
+    case accentGreen = "accentGreen"
+    case accentPink = "accentPink"
+    case accentOrange = "accentOrange"
+    case accentYellow = "accentYellow"
+}
+
+func buildGradient(color: FocalistColor) -> Gradient {
+    Gradient(colors: [
+        Color(color.rawValue + "light"),
+        Color(color.rawValue + "dark")
+    ])
+}
