@@ -23,7 +23,7 @@ struct MainBackground: View {
 struct ContentView: View {
     @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
     @EnvironmentObject var state: AppState
-
+    
     var showingStore: Bool {
         if toDos.count == 4 { return false }
         else { return true }
@@ -36,9 +36,9 @@ struct ContentView: View {
                 .zIndex(0)
             
             AddBar(upToDate: toDos.count == 4)
-            .frame(maxHeight: .infinity, alignment: .top)
-            .zIndex(1)
-            .padding()
+                .frame(maxHeight: .infinity, alignment: .top)
+                .zIndex(1)
+                .padding()
             
             if self.state.hasOnboarded == false {
                 Onboarding()
@@ -60,7 +60,7 @@ struct ContentView: View {
                             .padding(.top, 88)
                             .zIndex(3)
                     }
-                    
+                        
                     else {
                         DayView(toDos: toDos)
                             .transition(AnyTransition.scale.animation(.spring()))
@@ -86,29 +86,29 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 100 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 200 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 300 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 400 miles",
-//            isActive: true
-//        )
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 100 miles",
+        //            isActive: true
+        //        )
+        //
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 200 miles",
+        //            isActive: true
+        //        )
+        //
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 300 miles",
+        //            isActive: true
+        //        )
+        //
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 400 miles",
+        //            isActive: true
+        //        )
         
         return mc
     }()
