@@ -11,23 +11,28 @@ import CoreData
 
 struct StoreItem: View {
     @ObservedObject var toDo: ToDo
+    let cornerRadius: CGFloat = 12
     
     var cardBackground: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .foregroundColor(.white)
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .foregroundColor(
+                    toDo.isActive ? Color("accentWhite") : Color("materialWhite")
+                )
             
-            if toDo.isActive {
-                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                    .stroke(Color("accentGreenDim"), lineWidth: 4)
+            if !(toDo.isActive) {
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(Color("accentWhite"), lineWidth: 2)
             }
-        }.modifier(FocalistShadow(option: .dark))
+        }
+        .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
+        .animation(.easeIn)
     }
     
     var body: some View {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
-                .foregroundColor(.black)
+                .foregroundColor(toDo.isActive ? Color("blackText") : Color("accentWhite"))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -35,6 +40,7 @@ struct StoreItem: View {
     }
 }
 
+// MARK: - Previews
 struct StoreItem_Previews: PreviewProvider {
     static let context = ContentView_Previews.demoContext
     
