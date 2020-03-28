@@ -21,10 +21,9 @@ struct MainBackground: View {
 }
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) var moc
-    @EnvironmentObject var state: AppState
     @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
-    
+    @EnvironmentObject var state: AppState
+
     var showingStore: Bool {
         if toDos.count == 4 { return false }
         else { return true }
@@ -36,6 +35,11 @@ struct ContentView: View {
             MainBackground()
                 .zIndex(0)
             
+            AddBar(upToDate: toDos.count == 4)
+            .frame(maxHeight: .infinity, alignment: .top)
+            .zIndex(1)
+            .padding()
+            
             if self.state.hasOnboarded == false {
                 Onboarding()
                     .transition(
@@ -43,23 +47,17 @@ struct ContentView: View {
                             .combined(with: .offset(x: 0, y: 100)
                     ))
                     .animation(.spring())
-                    .frame(maxWidth: .infinity)
                     .zIndex(4)
-            } else {
+            }
+                
+            else {
                 VStack {
-                    AddBar(upToDate: toDos.count == 4)
-                        .zIndex(1)
-                        .padding()
-                    
-                    #if DEBUG
-                    Text("Active to do count: \(String(toDos.count))")
-                    #endif
-                    
                     if showingStore {
                         StoreView()
                             .frame(maxHeight: .infinity)
                             .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
                             .animation(.spring())
+                            .padding(.top, 88)
                             .zIndex(3)
                     } else {
                         DayView(toDos: toDos)
@@ -67,7 +65,7 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                             .zIndex(2)
                     }
-                }
+                }.zIndex(3)
             }
         }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { (_) in
             self.toDos.forEach( { $0.moveToStore() } )
@@ -85,29 +83,29 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 100 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 200 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 300 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 400 miles",
+//            isActive: true
+//        )
         
         return mc
     }()
