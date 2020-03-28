@@ -10,11 +10,17 @@ import SwiftUI
 
 struct DoneView: View {
     var body: some View {
-        VStack {
-            Text("Done!")
+        VStack(spacing: 8) {
+            Image(systemName: "checkmark")
+                .resizable()
+                .frame(maxWidth: 120, maxHeight: 120)
+                .scaledToFit()
+                .foregroundColor(Color("accentWhite"))
+
+            Text("Done")
                 .modifier(FocalistFont(font: .heading1))
                 .foregroundColor(.white)
-            Text("Come back tomorrow")
+            Text("Come back tomorrow!")
                 .modifier(FocalistFont(font: .mediumTextSemibold))
                 .foregroundColor(.white)
             Text("(or save a task for later with the add bar)")
