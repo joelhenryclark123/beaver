@@ -55,30 +55,14 @@ struct StoreView: View {
     
     // MARK: Body
     var body: some View {
-        return ZStack {
+        ZStack {
             VStack {
                 if toDos.isEmpty { emptyState }
-                else {
-                    HStack(alignment: .bottom) {
-                        VStack(alignment: .leading) {
-                            Text("Build Your Day")
-                        .modifier(FocalistFont(font: .largeText))
-                            
-                            Text(instruction)
-                                .modifier(FocalistFont(font: .caption))
-                                .animation(nil)
-                        }.frame(
-                            maxWidth: .infinity,
-                            alignment: .leading
-                            )
-                            .padding(.top)
-                            .padding(.horizontal)
-                                                
-                        EditButton()
-                            .padding(.trailing)
-                    }.foregroundColor(.black)
                     
+                else {
                     List {
+                        Spacer().frame(height: 84)
+                        
                         ForEach(self.toDos) { toDo in
                             Button(action: {
                                 toDo.activeToggle()
@@ -119,11 +103,11 @@ struct StoreView_Previews: PreviewProvider {
                         (toDo as! ToDo).delete()
                     }
                     
-    //                let _ = ToDo(
-    //                    context: mc,
-    //                    title: "Walk 100 miles",
-    //                    isActive: true
-    //                )
+                    let _ = ToDo(
+                        context: mc,
+                        title: "Walk 100 miles",
+                        isActive: false
+                    )
     //
     //                let _ = ToDo(
     //                    context: mc,
@@ -150,14 +134,16 @@ struct StoreView_Previews: PreviewProvider {
         ZStack {
             MainBackground()
             
-            VStack {
-            AddBar(upToDate: false)
-                .environment(\.managedObjectContext, context)
-                .padding()
+            ZStack {
                 
-            StoreView()
-                .environment(\.managedObjectContext, context)
-                .frame(maxHeight: .infinity)
+                StoreView()
+                    .environment(\.managedObjectContext, context)
+                    .frame(maxHeight: .infinity)
+                
+                AddBar(upToDate: false)
+                    .environment(\.managedObjectContext, context)
+                    .frame(maxHeight: .infinity, alignment: .top)
+                    .padding()
             }
         }
     }
@@ -170,14 +156,5 @@ struct StoreStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .frame(maxWidth: .infinity)
-            .background(
-                RoundedRectangle(
-                    cornerRadius: 39.5,
-                    style: .continuous).hidden()
-                    .modifier(FocalistMaterial())
-                    .clipShape(RoundedRectangle(cornerRadius: 39.5,
-                                                style: .continuous))
-        )
-            .edgesIgnoringSafeArea(.bottom)
     }
 }
