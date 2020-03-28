@@ -10,15 +10,30 @@ import SwiftUI
 
 struct CardView: View {
     @ObservedObject var toDo: ToDo
+    static let cornerRadius: CGFloat = 48
+    
+    var background: some View {
+        Group {
+            if toDo.isComplete {
+                LinearGradient(
+                    gradient: buildGradient(color: .accentGreen),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            } else {
+                Color("accentWhite")
+            }
+        }
+        .aspectRatio(1.0, contentMode: .fit)
+        .modifier(FocalistShadow(option: .dark))
+        .clipShape(RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular))
+    }
     
     var body: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: 40, style: .continuous)
-                    .foregroundColor(toDo.isComplete ? Color("accentGreenDim") : Color.white)
-                    .modifier(FocalistShadow(option: .dark))
-                
-                
-                if !self.toDo.isComplete {
+        ZStack {
+            background
+            
+            if !self.toDo.isComplete {
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .transition(.opacity)
@@ -27,25 +42,27 @@ struct CardView: View {
                     .foregroundColor(.black)
                     .padding(8)
                     .zIndex(3)
-                } else {
-                    Image(systemName: "checkmark")
-                        .resizable()
-                        .padding(32)
-                        .scaledToFit()
-                        .foregroundColor(.white)
-                        .transition(.scale)
-                        .zIndex(4)
-                }
-                
-                #if DEBUG
-                Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
-                #endif
-            }.animation(.easeIn(duration: 0.2))
-            .onTapGesture {
-                withAnimation(.easeIn(duration: 0.2)) {
-                    self.toDo.completeToggle()
-                }
-            }.aspectRatio(1.0, contentMode: .fit)
+            } else {
+                Image(systemName: "checkmark")
+                    .resizable()
+                    .padding(32)
+                    .scaledToFit()
+                    .foregroundColor(.white)
+                    .transition(.scale)
+                    .zIndex(4)
+            }
+            
+            #if DEBUG
+            Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
+            #endif
+        }
+        .animation(.easeIn(duration: 0.2))
+        .onTapGesture {
+            withAnimation(.easeIn(duration: 0.2)) {
+                self.toDo.completeToggle()
+            }
+        }
+        .aspectRatio(1.0, contentMode: .fit)
     }
 }
 
