@@ -15,17 +15,22 @@ struct CardView: View {
     var background: some View {
         Group {
             if toDo.isComplete {
-                LinearGradient(
-                    gradient: buildGradient(color: .accentGreen),
-                    startPoint: .top,
-                    endPoint: .bottom
+                Color("accentGreen")
+                    .modifier(FocalistShadow(option: .dark))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular)
+                            .stroke(LinearGradient(
+                                gradient: buildGradient(color: .accentGreen),
+                                startPoint: .top,
+                                endPoint: .bottom
+                            ), lineWidth: 8)
                 )
             } else {
                 Color("accentWhite")
+                    .modifier(FocalistShadow(option: .dark))
             }
         }
         .aspectRatio(1.0, contentMode: .fit)
-        .modifier(FocalistShadow(option: .dark))
         .clipShape(RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular))
     }
     
@@ -47,7 +52,7 @@ struct CardView: View {
                     .resizable()
                     .padding(32)
                     .scaledToFit()
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("accentWhite"))
                     .transition(.scale)
                     .zIndex(4)
             }
