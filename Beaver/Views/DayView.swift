@@ -13,73 +13,48 @@ import FirebaseAnalytics
 
 struct DayView: View {
     var toDos: FetchedResults<ToDo>
-    
+        
     func completeDay() -> Void {
         self.toDos.forEach({ $0.totallyFinish() })
         Analytics.logEvent("completedDay", parameters: nil)
     }
     
-    var dayComplete: Bool {
-        self.toDos.allSatisfy(
-            {$0.completedAt != nil && $0.isActive == false}
-        )
-    }
-    
-    var emptyState: some View {
-        VStack {
-            Text("Done!")
-                .modifier(FocalistFont(font: .heading1))
-                .foregroundColor(.white)
-            Text("Come back tomorrow")
-                .modifier(FocalistFont(font: .mediumTextSemibold))
-                .foregroundColor(.white)
-            Text("(or save a task for later with the add bar)")
-                .modifier(FocalistFont(font: .smallText))
-                .foregroundColor(Color("dimWhite"))
-        }
-    }
-        
     var body: some View {
         let showingButton: Bool = self.toDos.allSatisfy({ $0.completedAt != nil && $0.isActive == true })
-
+        
         return ZStack {
             if (showingButton) {
                 WideButton(.accentOrange, "Complete") {
-                    withAnimation(.easeIn(duration: 0.2)) {
                         self.completeDay()
-                    }
                 }
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring())
                 .zIndex(3)
             }
-            Group {
-            if dayComplete {
-                emptyState.zIndex(1)
-            } else {
-                VStack(spacing: 8) {
-                    #if DEBUG
-                    Text("showingButton: \(String(showingButton))")
-                    #endif
-                    HStack(spacing: 8) {
-                        CardView(toDo: self.toDos[0])
-                        CardView(toDo: self.toDos[1])
-                    }
-                    HStack(spacing: 8) {
-                        CardView(toDo: self.toDos[2])
-                        CardView(toDo: self.toDos[3])
-                    }
+            
+            VStack(spacing: 8) {
+                #if DEBUG
+                Text("showingButton: \(String(showingButton))")
+                #endif
+                HStack(spacing: 8) {
+                    CardView(toDo: self.toDos[0])
+                    CardView(toDo: self.toDos[1])
                 }
-                .padding()
-                .zIndex(2)
+                HStack(spacing: 8) {
+                    CardView(toDo: self.toDos[2])
+                    CardView(toDo: self.toDos[3])
                 }
-            }.transition(AnyTransition.opacity.animation(.easeIn(duration: 0.2)))
+            }
+            .padding()
+            .zIndex(2)
         }
+
+//        .transition(.opacity)
+//        .animation(.spring())
     }
 }
 
+
 struct DayView_Previews: PreviewProvider {
+    
     static var previews: some View {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }

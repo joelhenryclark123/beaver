@@ -14,7 +14,7 @@ import Combine
 final class AppState: ObservableObject {
     // MARK: Published Properties
     @Published var hasOnboarded: Bool
-        
+    
     init() {
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "onboarded")

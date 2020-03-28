@@ -13,7 +13,6 @@ struct AddBar: View {
     @Environment(\.managedObjectContext) var context
     @State var showingPlaceholder: Bool = true
     @State var text: String = ""
-    var upToDate: Bool
     var color: FocalistColor = .backgroundBlue
     let height: CGFloat = 48
     let cornerRadius: CGFloat = 24
@@ -43,12 +42,6 @@ struct AddBar: View {
                 .frame(height: height)
                 .zIndex(1.5)
             
-//            if showingPlaceholder {
-//                Text(upToDate ? "Do Later" : "Add a To Do")
-//                    .foregroundColor(.gray)
-//                    .zIndex(2)
-//            }
-            
             TextField(
                 "",
                 text: $text,
@@ -74,9 +67,9 @@ struct AddBar_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-            MainBackground()
+            MainBackground(color: .backgroundBlue)
             
-            AddBar(upToDate: false)
+            AddBar()
                 .environment(\.managedObjectContext, context)
         }
     }

@@ -17,6 +17,7 @@
 		E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* DayView.swift */; };
 		E9869033240AC78800A03FA2 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9869032240AC78800A03FA2 /* AddBar.swift */; };
 		E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9926336240B1D0B003D7658 /* GeometryProxy.swift */; };
+		E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A39B8C242FD33D00D182E5 /* DoneView.swift */; };
 		E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F64E23F75EB200BE2133 /* StoreView.swift */; };
 		E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F65123F75ECD00BE2133 /* StoreItem.swift */; };
 		E9B37231240335FC003B46B0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
@@ -58,6 +59,7 @@
 		E98073E623F71C6A00FDAF08 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		E9869032240AC78800A03FA2 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		E9926336240B1D0B003D7658 /* GeometryProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxy.swift; sourceTree = "<group>"; };
+		E9A39B8C242FD33D00D182E5 /* DoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneView.swift; sourceTree = "<group>"; };
 		E9B2F64E23F75EB200BE2133 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		E9B2F65123F75ECD00BE2133 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				E9F51B9923B83CA00068B86E /* ContentView.swift */,
 				E98073E623F71C6A00FDAF08 /* DayView.swift */,
+				E9A39B8C242FD33D00D182E5 /* DoneView.swift */,
 				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
 				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
 				E9869031240AC77300A03FA2 /* Components */,
@@ -420,6 +423,7 @@
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */,
+				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */,
@@ -580,7 +584,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -604,7 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;

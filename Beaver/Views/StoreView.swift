@@ -80,16 +80,7 @@ struct StoreView: View {
                 }
             }.modifier(StoreStyle())
 
-            if selectionCount == 4 {
-                WideButton(.accentYellow, "Start Day") {
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        self.startDay()
-                    }
-                }
-                .frame(maxHeight: .infinity, alignment: .bottom)
-                .transition(.move(edge: .bottom))
-                .animation(.spring())
-            }
+            if selectionCount == 4 { WideButton(.accentYellow, "Start Day") { self.startDay() } }
         }
     }
 }
@@ -132,7 +123,7 @@ struct StoreView_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-            MainBackground()
+            MainBackground(color: .accentPink)
             
             ZStack {
                 
@@ -140,7 +131,7 @@ struct StoreView_Previews: PreviewProvider {
                     .environment(\.managedObjectContext, context)
                     .frame(maxHeight: .infinity)
                 
-                AddBar(upToDate: false)
+                AddBar(color: .accentPink)
                     .environment(\.managedObjectContext, context)
                     .frame(maxHeight: .infinity, alignment: .top)
                     .padding()

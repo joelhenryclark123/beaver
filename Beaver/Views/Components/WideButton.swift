@@ -34,7 +34,10 @@ struct WideButton: View {
                         ), lineWidth: 4)
             )
         }
+        .frame(maxHeight: .infinity, alignment: .bottom)
         .padding(.horizontal)
+        .transition(.move(edge: .bottom))
+        .animation(.spring())
     }
     
     init(_ version: FocalistColor, _ text: String, action: @escaping () -> Void) {

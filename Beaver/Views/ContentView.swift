@@ -11,11 +11,16 @@ import CoreData
 import Combine
 
 struct MainBackground: View {
+    var color: FocalistColor
+    
     var body: some View {
+        Rectangle()
+            .fill(
         LinearGradient(
-            gradient: buildGradient(color: .backgroundBlue),
+            gradient: buildGradient(color: color),
             startPoint: .top,
             endPoint: .bottom
+        )
         ).edgesIgnoringSafeArea(.all)
     }
 }
@@ -24,20 +29,39 @@ struct ContentView: View {
     @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
     @EnvironmentObject var state: AppState
     
-    var showingStore: Bool {
-        if toDos.count == 4 { return false }
-        else { return true }
+    enum Scene {
+        case beginning
+        case middle
+        case end
+        
+        var color: FocalistColor {
+            switch self {
+            case .beginning:
+                return .accentPink
+            case .middle:
+                return .backgroundBlue
+            case .end:
+                return .accentGreen
+            }
+        }
+    }
+    
+    var scene: Scene {
+        if toDos.count < 4 { return .beginning }
+        else if !(toDos.allSatisfy({ $0.isArchived })) { return .middle }
+        else { return .end }
     }
     
     //MARK: Body
     var body: some View {
         ZStack {
-            MainBackground()
+            MainBackground(color: scene.color)
+                .transition(AnyTransition.opacity.animation(.linear))
                 .zIndex(0)
             
-            AddBar(upToDate: toDos.count == 4)
+            AddBar(color: scene.color)
                 .frame(maxHeight: .infinity, alignment: .top)
-                .zIndex(1)
+                .zIndex(2)
                 .padding()
             
             if self.state.hasOnboarded == false {
@@ -47,27 +71,26 @@ struct ContentView: View {
                             .combined(with: .offset(x: 0, y: 100)
                     ))
                     .animation(.spring())
-                    .zIndex(4)
+                    .zIndex(3)
             }
-                
-            else {
-                VStack {
-                    if showingStore {
-                        StoreView()
-                            .frame(maxHeight: .infinity)
-                            .transition(AnyTransition.move(edge: .bottom).combined(with: .offset(x: 0, y: 100)))
-                            .animation(.spring())
-                            .padding(.top, 88)
-                            .zIndex(3)
-                    }
-                        
-                    else {
-                        DayView(toDos: toDos)
-                            .transition(AnyTransition.scale.animation(.spring()))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                            .zIndex(2)
-                    }
-                }.zIndex(3)
+            
+            if self.scene == .beginning {
+                StoreView()
+                .frame(maxHeight: .infinity)
+                    .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity).animation(.spring()))
+                    .zIndex(1.3)
+            }
+            
+            if self.scene == .middle {
+                DayView(toDos: toDos)
+                .transition(AnyTransition.scale.animation(.spring()))
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .zIndex(1.2)
+            }
+            
+            if self.scene == .end {
+                DoneView()
+                    .zIndex(1.1)
             }
         }
         .onReceive(
@@ -103,12 +126,12 @@ struct ContentView_Previews: PreviewProvider {
                     title: "Walk 300 miles",
                     isActive: true
                 )
-        
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 400 miles",
-                    isActive: true
-                )
+//        
+//                let _ = ToDo(
+//                    context: mc,
+//                    title: "Walk 400 miles",
+//                    isActive: true
+//                )
         
         return mc
     }()

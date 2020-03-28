@@ -43,9 +43,11 @@ public class ToDo: NSManagedObject, Identifiable {
     }
     
     var isComplete: Bool {
-        if self.completedAt != nil {
-            return true
-        } else { return false }
+        if self.completedAt != nil { return true } else { return false }
+    }
+    
+    var isArchived: Bool {
+        self.isComplete && (self.isActive == false)
     }
 }
 
