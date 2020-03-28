@@ -58,15 +58,15 @@ struct DayView: View {
             if dayComplete {
                 emptyState.zIndex(1)
             } else {
-                VStack(spacing: 16) {
+                VStack(spacing: 8) {
                     #if DEBUG
                     Text("showingButton: \(String(showingButton))")
                     #endif
-                    HStack(spacing: 16) {
+                    HStack(spacing: 8) {
                         CardView(toDo: self.toDos[0])
                         CardView(toDo: self.toDos[1])
                     }
-                    HStack(spacing: 16) {
+                    HStack(spacing: 8) {
                         CardView(toDo: self.toDos[2])
                         CardView(toDo: self.toDos[3])
                     }
@@ -78,15 +78,3 @@ struct DayView: View {
         }
     }
 }
-
-//struct DayView_Previews: PreviewProvider {
-//    static let context = ContentView_Previews.demoContext
-//
-//    static var previews: some View {
-//        ZStack {
-//            MainBackground()
-//
-//            DayView(toDos: context.fetch(ToDo.todayListFetch))
-//        }
-//    }
-//}
