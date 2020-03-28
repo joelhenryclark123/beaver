@@ -58,48 +58,45 @@ struct FocalistFont: ViewModifier {
 
 struct FocalistShadow: ViewModifier {
     enum Shadow {
+        case heavy
         case dark
         case light
-        case blueGlow
         
         var color: Color {
             switch self {
+            case .heavy:
+                return Color("heavyShadow")
             case .dark:
                 return Color("darkShadow")
             case .light:
                 return Color("lightShadow")
-            case .blueGlow:
-                let color = Color("backgroundBlue").opacity(0.3)
-                return color
             }
         }
         
         var radius: CGFloat {
             switch self {
+            case .heavy:
+                return 12
             case .dark:
                 return 8
             case .light:
                 return 4
-            case .blueGlow:
-                return 12
             }
         }
         
         var x: CGFloat {
             switch self {
-            case .dark, .light, .blueGlow:
+            case .heavy, .dark, .light:
                 return CGFloat.zero
             }
         }
         
         var y: CGFloat {
             switch self {
-            case .dark:
+            case .heavy, .dark:
                 return 4
             case .light:
                 return 2
-            case .blueGlow:
-                return 0
             }
         }
     }
