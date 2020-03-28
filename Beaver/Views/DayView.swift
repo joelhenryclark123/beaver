@@ -12,22 +12,21 @@ import FirebaseAnalytics
 
 
 struct DayView: View {
-    var toDos: FetchedResults<ToDo>
-        
+    @EnvironmentObject var state: AppState
     func completeDay() -> Void {
-        self.toDos.forEach({ $0.totallyFinish() })
+        self.state.activeList.forEach({ $0.totallyFinish() })
         Analytics.logEvent("completedDay", parameters: nil)
     }
     
     var body: some View {
-        let showingButton: Bool = self.toDos.allSatisfy({ $0.completedAt != nil && $0.isActive == true })
+        let showingButton: Bool = self.state.activeList.allSatisfy({ $0.completedAt != nil && $0.isActive == true })
         
         return ZStack {
             if (showingButton) {
                 WideButton(.accentOrange, "Complete") {
                         self.completeDay()
                 }
-                .zIndex(3)
+                .zIndex(1)
             }
             
             VStack(spacing: 8) {
@@ -35,20 +34,17 @@ struct DayView: View {
                 Text("showingButton: \(String(showingButton))")
                 #endif
                 HStack(spacing: 8) {
-                    CardView(toDo: self.toDos[0])
-                    CardView(toDo: self.toDos[1])
+                    CardView(toDo: self.state.activeList[0])
+                    CardView(toDo: self.state.activeList[1])
                 }
                 HStack(spacing: 8) {
-                    CardView(toDo: self.toDos[2])
-                    CardView(toDo: self.toDos[3])
+                    CardView(toDo: self.state.activeList[2])
+                    CardView(toDo: self.state.activeList[3])
                 }
             }
             .padding()
-            .zIndex(2)
+            .zIndex(0)
         }
-
-//        .transition(.opacity)
-//        .animation(.spring())
     }
 }
 

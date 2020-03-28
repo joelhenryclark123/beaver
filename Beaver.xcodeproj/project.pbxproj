@@ -15,6 +15,7 @@
 		E95EA62F2426B0B3006D6446 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */; };
 		E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E0F64240C99F400A46140 /* DesignSystem.swift */; };
 		E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* DayView.swift */; };
+		E982485F242FFE2F00840A78 /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982485E242FFE2F00840A78 /* Transitions.swift */; };
 		E9869033240AC78800A03FA2 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9869032240AC78800A03FA2 /* AddBar.swift */; };
 		E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9926336240B1D0B003D7658 /* GeometryProxy.swift */; };
 		E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A39B8C242FD33D00D182E5 /* DoneView.swift */; };
@@ -57,6 +58,7 @@
 		E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E97E0F64240C99F400A46140 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		E98073E623F71C6A00FDAF08 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
+		E982485E242FFE2F00840A78 /* Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transitions.swift; sourceTree = "<group>"; };
 		E9869032240AC78800A03FA2 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		E9926336240B1D0B003D7658 /* GeometryProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxy.swift; sourceTree = "<group>"; };
 		E9A39B8C242FD33D00D182E5 /* DoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				E9926336240B1D0B003D7658 /* GeometryProxy.swift */,
+				E982485E242FFE2F00840A78 /* Transitions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */,
+				E982485F242FFE2F00840A78 /* Transitions.swift in Sources */,
 				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,

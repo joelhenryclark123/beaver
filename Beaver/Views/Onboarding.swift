@@ -66,6 +66,6 @@ struct Onboarding_Previews: PreviewProvider {
     static var previews: some View {
         Onboarding()
             .environment(\.managedObjectContext, context)
-            .environmentObject(AppState())
+            .environmentObject(AppState(moc: context))
     }
 }

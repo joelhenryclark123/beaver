@@ -14,6 +14,9 @@ struct StoreItem: View {
     let cornerRadius: CGFloat = 12
     
     var cardBackground: some View {
+        Button(action: {
+            self.toDo.activeToggle()
+        }) {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .foregroundColor(
@@ -27,6 +30,7 @@ struct StoreItem: View {
         }
         .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
         .animation(.easeIn)
+        }
     }
     
     var body: some View {

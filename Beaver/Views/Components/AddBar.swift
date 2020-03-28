@@ -67,7 +67,7 @@ struct AddBar_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-            MainBackground(color: .backgroundBlue)
+            MainBackground()
             
             AddBar()
                 .environment(\.managedObjectContext, context)

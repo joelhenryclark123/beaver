@@ -12,11 +12,11 @@ import SwiftUI
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    var state = AppState()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let state = AppState(moc: context)
         
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()

@@ -56,31 +56,35 @@ struct StoreView: View {
     // MARK: Body
     var body: some View {
         ZStack {
-            VStack {
-                if toDos.isEmpty { emptyState }
+            if toDos.isEmpty {
+                emptyState
+                    .transition(.identity)
+                    .zIndex(0)
+            }
+            else {
+                List {
+                    Spacer().frame(height: 84)
                     
-                else {
-                    List {
-                        Spacer().frame(height: 84)
-                        
-                        ForEach(self.toDos) { toDo in
-                            Button(action: {
-                                toDo.activeToggle()
-                            }) {
-                            StoreItem(toDo: toDo)
-                                .padding(0)
-                            }
-                        }.onDelete { (offsets) in
-                            for index in offsets {
-                                self.toDos[index].delete()
-                            }
-                        }.padding(0)
-                        Spacer().frame(height: 64)
+                    ForEach(self.toDos) { toDo in
+                        StoreItem(toDo: toDo)
+                        .transition(.identity)
+                    }.onDelete { (offsets) in
+                        for index in offsets {
+                            self.toDos[index].delete()
+                        }
                     }
+                    
+                    Spacer().frame(height: 64)
                 }
-            }.modifier(StoreStyle())
+                .zIndex(1)
+            }
 
-            if selectionCount == 4 { WideButton(.accentYellow, "Start Day") { self.startDay() } }
+            if selectionCount == 4 {
+                WideButton(.accentYellow, "Start Day") {
+                    self.startDay()
+                }.zIndex(2)
+            }
+            
         }
     }
 }
@@ -123,7 +127,7 @@ struct StoreView_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-            MainBackground(color: .accentPink)
+            MainBackground()
             
             ZStack {
                 
@@ -137,15 +141,5 @@ struct StoreView_Previews: PreviewProvider {
                     .padding()
             }
         }
-    }
-}
-
-// MARK: Style
-struct StoreStyle: ViewModifier {
-    @EnvironmentObject var state: AppState
-    
-    func body(content: Content) -> some View {
-        content
-            .frame(maxWidth: .infinity)
     }
 }

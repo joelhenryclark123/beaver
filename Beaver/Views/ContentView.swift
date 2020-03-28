@@ -11,57 +11,33 @@ import CoreData
 import Combine
 
 struct MainBackground: View {
-    var color: FocalistColor
+    @EnvironmentObject var state: AppState
     
     var body: some View {
         Rectangle()
             .fill(
-        LinearGradient(
-            gradient: buildGradient(color: color),
-            startPoint: .top,
-            endPoint: .bottom
-        )
+                LinearGradient(
+                    gradient: buildGradient(color: state.scene.color),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
         ).edgesIgnoringSafeArea(.all)
     }
 }
 
 struct ContentView: View {
-    @FetchRequest(fetchRequest: ToDo.todayListFetch) var toDos: FetchedResults<ToDo>
     @EnvironmentObject var state: AppState
-    
-    enum Scene {
-        case beginning
-        case middle
-        case end
-        
-        var color: FocalistColor {
-            switch self {
-            case .beginning:
-                return .accentPink
-            case .middle:
-                return .backgroundBlue
-            case .end:
-                return .accentGreen
-            }
-        }
-    }
-    
-    var scene: Scene {
-        if toDos.count < 4 { return .beginning }
-        else if !(toDos.allSatisfy({ $0.isArchived })) { return .middle }
-        else { return .end }
-    }
     
     //MARK: Body
     var body: some View {
         ZStack {
-            MainBackground(color: scene.color)
+            MainBackground()
                 .transition(AnyTransition.opacity.animation(.linear))
                 .zIndex(0)
             
-            AddBar(color: scene.color)
+            AddBar(color: state.scene.color)
                 .frame(maxHeight: .infinity, alignment: .top)
-                .zIndex(2)
+                .zIndex(5)
                 .padding()
             
             if self.state.hasOnboarded == false {
@@ -71,31 +47,32 @@ struct ContentView: View {
                             .combined(with: .offset(x: 0, y: 100)
                     ))
                     .animation(.spring())
+                    .zIndex(6)
+            }
+            
+            if self.state.scene == .beginning {
+                StoreView()
+                .transition(.storeTransition)
+                .animation(.spring())
+                .zIndex(4)
+            }
+            
+            if self.state.scene == .middle {
+                DayView()
+                    .transition(.dayTransition)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .zIndex(3)
             }
             
-            if self.scene == .beginning {
-                StoreView()
-                .frame(maxHeight: .infinity)
-                    .transition(AnyTransition.move(edge: .bottom).combined(with: .opacity).animation(.spring()))
-                    .zIndex(1.3)
-            }
-            
-            if self.scene == .middle {
-                DayView(toDos: toDos)
-                .transition(AnyTransition.scale.animation(.spring()))
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                    .zIndex(1.2)
-            }
-            
-            if self.scene == .end {
+            if self.state.scene == .end {
                 DoneView()
-                    .zIndex(1.1)
+                    .transition(AnyTransition.opacity.animation(.spring()))
+                    .zIndex(2)
             }
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
-                .receive(on: RunLoop.main)) { (_) in self.toDos.forEach( { $0.moveToStore() } ) }
+                .receive(on: RunLoop.main)) { (_) in self.state.activeList.forEach( { $0.moveToStore() } ) }
     }
 }
 
@@ -109,29 +86,29 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 100 miles",
-                    isActive: true
-                )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 100 miles",
+//            isActive: true
+//        )
         
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 200 miles",
-                    isActive: true
-                )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 200 miles",
+            isActive: true
+        )
         
-                let _ = ToDo(
-                    context: mc,
-                    title: "Walk 300 miles",
-                    isActive: true
-                )
-//        
-//                let _ = ToDo(
-//                    context: mc,
-//                    title: "Walk 400 miles",
-//                    isActive: true
-//                )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 300 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 400 miles",
+            isActive: true
+        )
         
         return mc
     }()
@@ -139,6 +116,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environment(\.managedObjectContext, demoContext)
-            .environmentObject(AppState())
+            .environmentObject(AppState(moc: demoContext))
     }
 }
