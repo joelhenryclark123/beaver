@@ -39,7 +39,7 @@ struct WideButton: View {
             case .white:
                 return .dark
             case .blue:
-                return .blueGlow
+                return .dark
             case .green:
                 return .dark
             }
