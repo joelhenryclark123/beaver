@@ -59,7 +59,9 @@ struct ContentView: View {
                             .animation(.spring())
                             .padding(.top, 88)
                             .zIndex(3)
-                    } else {
+                    }
+                    
+                    else {
                         DayView(toDos: toDos)
                             .transition(AnyTransition.scale.animation(.spring()))
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
