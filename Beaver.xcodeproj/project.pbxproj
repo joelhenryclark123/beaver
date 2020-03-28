@@ -13,7 +13,6 @@
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
 		E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */; };
 		E95EA62F2426B0B3006D6446 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */; };
-		E972A79C24153F82001A18FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E972A79B24153F82001A18FD /* GoogleService-Info.plist */; };
 		E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E0F64240C99F400A46140 /* DesignSystem.swift */; };
 		E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* DayView.swift */; };
 		E9869033240AC78800A03FA2 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9869032240AC78800A03FA2 /* AddBar.swift */; };
@@ -127,9 +126,9 @@
 			children = (
 				E9F51B9923B83CA00068B86E /* ContentView.swift */,
 				E98073E623F71C6A00FDAF08 /* DayView.swift */,
+				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
 				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
 				E9869031240AC77300A03FA2 /* Components */,
-				E9BB5767240EB82E0083BE7D /* Onboarding */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -189,14 +188,6 @@
 				E9F51B9723B83CA00068B86E /* SceneDelegate.swift */,
 			);
 			path = Launch;
-			sourceTree = "<group>";
-		};
-		E9BB5767240EB82E0083BE7D /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
-			);
-			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		E9F51B8923B83CA00068B86E = {
@@ -300,7 +291,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = MyCo;
 				TargetAttributes = {
 					E9F51B9123B83CA00068B86E = {
@@ -339,7 +330,6 @@
 				E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */,
 				E9F51BA223B83CA60068B86E /* LaunchScreen.storyboard in Resources */,
 				E95EA62F2426B0B3006D6446 /* GoogleService-Info.plist in Resources */,
-				E972A79C24153F82001A18FD /* GoogleService-Info.plist in Resources */,
 				E9F51B9F23B83CA60068B86E /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

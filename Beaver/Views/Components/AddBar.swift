@@ -14,6 +14,9 @@ struct AddBar: View {
     @State var showingPlaceholder: Bool = true
     @State var text: String = ""
     var upToDate: Bool
+    var color: FocalistColor = .backgroundBlue
+    let height: CGFloat = 48
+    let cornerRadius: CGFloat = 24
     
     func createToDo() -> Void {
         let _ = ToDo(
@@ -29,16 +32,21 @@ struct AddBar: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-            .frame(height: 40)
-            .foregroundColor(Color("dimWhite"))
-            .modifier(FocalistShadow(option: .dark))
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .frame(height: height)
+                .foregroundColor(Color("dimWhite"))
+                .modifier(FocalistShadow(option: .heavy))
                 .zIndex(1)
+            
+            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                .stroke(Color(color.rawValue), lineWidth: 4)
+                .frame(height: height)
+                .zIndex(1.5)
             
             if showingPlaceholder {
                 Text(upToDate ? "Do Later" : "Add a To Do")
                     .foregroundColor(.gray)
-                .zIndex(2)
+                    .zIndex(2)
             }
             
             TextField(

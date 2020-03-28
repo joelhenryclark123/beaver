@@ -13,10 +13,9 @@ import Combine
 struct MainBackground: View {
     var body: some View {
         LinearGradient(
-            gradient: Gradient(colors: [
-                Color("backgroundBlueDark"),
-                Color("backgroundBlueLight"),
-            ]), startPoint: .bottom, endPoint: .top
+            gradient: buildGradient(color: .backgroundBlue),
+            startPoint: .top,
+            endPoint: .bottom
         ).edgesIgnoringSafeArea(.all)
     }
 }
@@ -83,29 +82,29 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 100 miles",
-//            isActive: true
-//        )
-//        
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 200 miles",
-//            isActive: true
-//        )
-//        
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 300 miles",
-//            isActive: true
-//        )
-//        
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 400 miles",
-//            isActive: true
-//        )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 200 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 300 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 400 miles",
+            isActive: true
+        )
         
         return mc
     }()

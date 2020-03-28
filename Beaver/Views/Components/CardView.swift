@@ -17,6 +17,7 @@ struct CardView: View {
                     .foregroundColor(toDo.isComplete ? Color("accentGreenDim") : Color.white)
                     .modifier(FocalistShadow(option: .dark))
                 
+                
                 if !self.toDo.isComplete {
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

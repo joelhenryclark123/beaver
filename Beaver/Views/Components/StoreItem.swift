@@ -19,7 +19,7 @@ struct StoreItem: View {
                 .foregroundColor(
                     toDo.isActive ? Color("accentWhite") : Color("materialWhite")
                 )
-            
+                        
             if !(toDo.isActive) {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .stroke(Color("accentWhite"), lineWidth: 2)
