@@ -54,7 +54,6 @@
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
 		E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		E972A79B24153F82001A18FD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E97E0F64240C99F400A46140 /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
 		E98073E623F71C6A00FDAF08 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		E9869032240AC78800A03FA2 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
@@ -218,7 +217,6 @@
 				E9B3722E240335C7003B46B0 /* Utility */,
 				E9F51BA023B83CA60068B86E /* LaunchScreen.storyboard */,
 				E9F51BA323B83CA60068B86E /* Info.plist */,
-				E972A79B24153F82001A18FD /* GoogleService-Info.plist */,
 				E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */,
 				E9F51B9B23B83CA60068B86E /* Assets.xcassets */,
 				E9F51B9D23B83CA60068B86E /* Preview Content */,
