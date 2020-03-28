@@ -43,11 +43,11 @@ struct AddBar: View {
                 .frame(height: height)
                 .zIndex(1.5)
             
-            if showingPlaceholder {
-                Text(upToDate ? "Do Later" : "Add a To Do")
-                    .foregroundColor(.gray)
-                    .zIndex(2)
-            }
+//            if showingPlaceholder {
+//                Text(upToDate ? "Do Later" : "Add a To Do")
+//                    .foregroundColor(.gray)
+//                    .zIndex(2)
+//            }
             
             TextField(
                 "",
