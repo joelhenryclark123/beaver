@@ -44,11 +44,11 @@ struct DayView: View {
 
         return ZStack {
             if (showingButton) {
-                WideButton(.white, "Complete") {
+                WideButton(.accentOrange, "Complete") {
                     withAnimation(.easeIn(duration: 0.2)) {
                         self.completeDay()
                     }
-                }.padding(.horizontal)
+                }
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .transition(.move(edge: .bottom))
                     .animation(.spring())

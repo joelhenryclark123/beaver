@@ -81,14 +81,14 @@ struct StoreView: View {
             }.modifier(StoreStyle())
 
             if selectionCount == 4 {
-                WideButton(.green, "Start Day") {
+                WideButton(.accentYellow, "Start Day") {
                     withAnimation(.easeIn(duration: 0.2)) {
                         self.startDay()
                     }
-                }.padding(.horizontal)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .transition(.move(edge: .bottom))
-                    .animation(.spring())
+                }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .transition(.move(edge: .bottom))
+                .animation(.spring())
             }
         }
     }

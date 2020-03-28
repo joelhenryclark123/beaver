@@ -9,63 +9,36 @@
 import SwiftUI
 
 struct WideButton: View {
-    enum Version {
-        case white
-        case blue
-        case green
-        
-        var backgroundColor: Color {
-            switch self {
-            case .white:
-                return Color.white
-            case .blue:
-                return Color("backgroundBlue")
-            case .green:
-                return Color("accentGreenDim")
-            }
-        }
-        
-        var fontColor: Color {
-            switch self {
-            case .white:
-                return Color("backgroundBlue")
-            case .blue, .green:
-                return Color.white
-            }
-        }
-        
-        var shadowOption: FocalistShadow.Shadow {
-            switch self {
-            case .white:
-                return .dark
-            case .blue:
-                return .dark
-            case .green:
-                return .dark
-            }
-        }
-    }
-    
-    var version: Version
+    static let cornerRadius: CGFloat = 12
+    var color: FocalistColor
     var text: String
     var action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .foregroundColor(version.backgroundColor)
-                .frame(maxWidth: 480, maxHeight: 40)
-                .modifier(FocalistShadow(option: version.shadowOption))
+            Text(text)
+                .modifier(FocalistFont(font: .largeTextSemibold))
+                .foregroundColor(Color("accentWhite"))
+                .frame(maxWidth: 480)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 16)
+                .background(Color(color.rawValue))
+                .clipShape(RoundedRectangle(cornerRadius: WideButton.cornerRadius, style: .circular))
+                .modifier(FocalistShadow(option: .dark))
                 .overlay(
-                    Text(text)
-                        .modifier(FocalistFont(font: .mediumText))
-                        .foregroundColor(version.fontColor)
+                    RoundedRectangle(cornerRadius: WideButton.cornerRadius, style: .circular)
+                        .stroke(LinearGradient(
+                            gradient: buildGradient(color: color),
+                            startPoint: .top,
+                            endPoint: .bottom
+                        ), lineWidth: 4)
             )
         }
+        .padding(.horizontal)
     }
     
-    init(_ version: Version, _ text: String, action: @escaping () -> Void) {
-        self.version = version
+    init(_ version: FocalistColor, _ text: String, action: @escaping () -> Void) {
+        self.color = version
         self.text = text
         self.action = action
     }
@@ -73,8 +46,9 @@ struct WideButton: View {
 
 struct WideButton_Previews: PreviewProvider {
     static var previews: some View {
-        WideButton(.blue, "Get Started") {
+        WideButton(.accentOrange, "Start Day") {
             print("sup")
         }
+        .frame(maxHeight: .infinity, alignment: .bottom)
     }
 }

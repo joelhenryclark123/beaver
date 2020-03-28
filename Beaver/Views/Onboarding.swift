@@ -42,7 +42,7 @@ struct Onboarding: View {
             
             Spacer()
             
-            WideButton(.blue, "Get Started") {
+            WideButton(.backgroundBlue, "Get Started") {
                 withAnimation(.easeIn(duration: 0.2)) {
                     self.state.finishOnboarding()
                 }
