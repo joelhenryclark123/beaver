@@ -144,7 +144,7 @@ enum FocalistColor: String {
 
 func buildGradient(color: FocalistColor) -> Gradient {
     Gradient(colors: [
-        Color(color.rawValue + "light"),
-        Color(color.rawValue + "dark")
+        Color(color.rawValue + "Light"),
+        Color(color.rawValue + "Dark")
     ])
 }
