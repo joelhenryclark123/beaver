@@ -67,9 +67,10 @@ struct ContentView: View {
                     }
                 }.zIndex(3)
             }
-        }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { (_) in
-            self.toDos.forEach( { $0.moveToStore() } )
         }
+        .onReceive(
+            NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
+                .receive(on: RunLoop.main)) { (_) in self.toDos.forEach( { $0.moveToStore() } ) }
     }
 }
 
