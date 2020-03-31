@@ -56,11 +56,8 @@ struct ContentView: View {
                         .animation(.spring())
                         .zIndex(3)
                 }
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { (_) in
-                let toDos = self.toDos
-                toDos.forEach( { $0.moveToStore() })
-                self.moc.refreshAllObjects()
+            }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { (_) in
+                self.toDos.forEach( { $0.moveToStore() })
             }
 
             if self.state.hasOnboarded == false {
