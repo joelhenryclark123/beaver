@@ -39,7 +39,8 @@ struct CardView: View {
                 #if DEBUG
                 Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
                 #endif
-            }.onTapGesture {
+            }.animation(.easeIn(duration: 0.2))
+            .onTapGesture {
                 withAnimation(.easeIn(duration: 0.2)) {
                     self.toDo.completeToggle()
                 }
