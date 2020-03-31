@@ -65,7 +65,7 @@ struct StoreView: View {
             }
             else {
                 List {
-                    Spacer().frame(height: 72)
+                    Spacer().frame(height: 60)
                     
                     Text(instruction)
                         .foregroundColor(Color("dimWhite"))
