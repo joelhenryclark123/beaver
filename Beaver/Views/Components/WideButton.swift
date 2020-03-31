@@ -24,7 +24,7 @@ struct WideButton: View {
                 .padding(.vertical, 16)
                 .background(Color(color.rawValue))
                 .clipShape(RoundedRectangle(cornerRadius: WideButton.cornerRadius, style: .circular))
-                .modifier(FocalistShadow(option: .dark))
+                .modifier(FocalistShadow(option: .heavy))
                 .overlay(
                     RoundedRectangle(cornerRadius: WideButton.cornerRadius, style: .circular)
                         .stroke(LinearGradient(
