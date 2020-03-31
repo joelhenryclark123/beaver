@@ -52,9 +52,9 @@ struct ContentView: View {
             
             if self.state.scene == .beginning {
                 StoreView()
-                .transition(.storeTransition)
-                .animation(.spring())
-                .zIndex(4)
+                    .transition(.storeTransition)
+                    .animation(.spring())
+                    .zIndex(4)
             }
             
             if self.state.scene == .middle {
@@ -86,11 +86,11 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 100 miles",
-//            isActive: true
-//        )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: true
+        )
         
         let _ = ToDo(
             context: mc,
@@ -98,11 +98,12 @@ struct ContentView_Previews: PreviewProvider {
             isActive: true
         )
         
-        let _ = ToDo(
+        let completed = ToDo(
             context: mc,
             title: "Walk 300 miles",
             isActive: true
         )
+        completed.completeToggle()
         
         let _ = ToDo(
             context: mc,

@@ -34,7 +34,8 @@ struct AddBar: View {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .frame(height: height)
                 .foregroundColor(Color("dimWhite"))
-                .modifier(FocalistShadow(option: .heavy))
+                .blendMode(.luminosity)
+                .modifier(FocalistShadow(option: .dark))
                 .zIndex(1)
             
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
@@ -57,6 +58,7 @@ struct AddBar: View {
             })
                 .multilineTextAlignment(.center)
                 .foregroundColor(.black)
+                .accentColor(Color(color.rawValue))
             .zIndex(3)
         }
     }

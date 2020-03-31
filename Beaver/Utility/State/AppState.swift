@@ -70,14 +70,11 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func updateScene() -> Void {
-        if self.activeList.count < 4 {
-            self.scene = .beginning
-        }
-        else if self.activeList.count == 4 {
+        if self.activeList.count == 4 {
             if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
             else { self.scene = .middle }
         }
-        else { fatalError() }
+        else { self.scene = .beginning }
     }
 }
 

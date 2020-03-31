@@ -12,26 +12,36 @@ struct CardView: View {
     @ObservedObject var toDo: ToDo
     static let cornerRadius: CGFloat = 48
     
+    static var checkedBackground: some View {
+        LinearGradient(
+            gradient: Gradient(colors: [
+                Color("materialWhite"),
+                Color("almostClear")
+            ]),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .blendMode(.hue)
+    }
+    
     var background: some View {
         Group {
             if toDo.isComplete {
-                Color("accentGreen")
-                    .modifier(FocalistShadow(option: .dark))
+                CardView.checkedBackground
                     .overlay(
                         RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular)
-                            .stroke(LinearGradient(
-                                gradient: buildGradient(color: .accentGreen),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            ), lineWidth: 8)
+                            .stroke(Color("dimWhite"), lineWidth: 8)
                 )
-            } else {
+            }
+            else {
                 Color("accentWhite")
-                    .modifier(FocalistShadow(option: .dark))
+                    .modifier(FocalistShadow(option: .light))
             }
         }
         .aspectRatio(1.0, contentMode: .fit)
-        .clipShape(RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular))
+        .clipShape(
+            RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular)
+        )
     }
     
     var body: some View {
@@ -52,7 +62,7 @@ struct CardView: View {
                     .resizable()
                     .padding(32)
                     .scaledToFit()
-                    .foregroundColor(Color("accentWhite"))
+                    .foregroundColor(Color("dimWhite"))
                     .transition(.scale)
                     .zIndex(4)
             }
@@ -71,15 +81,8 @@ struct CardView: View {
     }
 }
 
-//struct CardView_Previews: PreviewProvider {
-//    static let context = ActiveView_Previews.context
-//    
-//    static var previews: some View {
-//        ZStack {
-//            MainBackground()
-//        DayView()
-//        .environment(\.managedObjectContext, context)
-//        .environmentObject(AppState())
-//        }
-//    }
-//}
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView_Previews.previews
+    }
+}
