@@ -33,9 +33,7 @@ struct DayView: View {
 //                #if DEBUG
 //                Text("showingButton: \(String(showingButton))")
 //                #endif
-                Spacer()
-                    .frame(height: 60)
-                
+                Spacer().frame(height: 60)
                 HStack(spacing: 8) {
                     CardView(toDo: self.state.activeList[0])
                     CardView(toDo: self.state.activeList[1])
@@ -44,6 +42,7 @@ struct DayView: View {
                     CardView(toDo: self.state.activeList[2])
                     CardView(toDo: self.state.activeList[3])
                 }
+                Spacer().frame(height: 60)
             }
             .padding()
             .zIndex(0)
