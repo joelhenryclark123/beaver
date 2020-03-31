@@ -33,6 +33,9 @@ struct DayView: View {
 //                #if DEBUG
 //                Text("showingButton: \(String(showingButton))")
 //                #endif
+                Spacer()
+                    .frame(height: 60)
+                
                 HStack(spacing: 8) {
                     CardView(toDo: self.state.activeList[0])
                     CardView(toDo: self.state.activeList[1])

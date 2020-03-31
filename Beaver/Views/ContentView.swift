@@ -36,9 +36,7 @@ struct ContentView: View {
                 .zIndex(0)
             
             AddBar(color: state.scene.color)
-                .frame(maxHeight: .infinity, alignment: .top)
                 .zIndex(6)
-                .padding()
 
             if self.state.hasOnboarded == false {
                 Onboarding()

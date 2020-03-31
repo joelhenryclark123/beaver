@@ -60,8 +60,12 @@ struct AddBar: View {
                 .foregroundColor(.black)
                 .accentColor(Color(color.rawValue))
             .zIndex(3)
+            .padding(.horizontal, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding(.horizontal)
+        .padding(.top, 4)
+
     }
 }
 
