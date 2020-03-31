@@ -80,7 +80,7 @@ struct StoreView: View {
             }
 
             if selectionCount == 4 {
-                WideButton(.accentYellow, "Start Day") {
+                WideButton(.backgroundBlue, "Start Day") {
                     self.startDay()
                 }.zIndex(2)
             }

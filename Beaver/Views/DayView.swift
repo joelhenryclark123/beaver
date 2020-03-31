@@ -23,7 +23,7 @@ struct DayView: View {
         
         return ZStack {
             if (showingButton) {
-                WideButton(.accentOrange, "Complete") {
+                WideButton(.accentGreen, "Complete") {
                         self.completeDay()
                 }
                 .zIndex(1)
