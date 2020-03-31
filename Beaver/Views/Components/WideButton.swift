@@ -15,10 +15,19 @@ struct WideButton: View {
     var action: () -> Void
     
     var body: some View {
-        Button(action: action) {
+        var textColor: Color {
+            switch color {
+            case .accentYellow:
+                return Color("blackText")
+            default:
+                return Color("accentWhite")
+            }
+        }
+        
+        return Button(action: action) {
             Text(text)
                 .modifier(FocalistFont(font: .largeTextSemibold))
-                .foregroundColor(Color("accentWhite"))
+                .foregroundColor(textColor)
                 .frame(maxWidth: 480)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 16)

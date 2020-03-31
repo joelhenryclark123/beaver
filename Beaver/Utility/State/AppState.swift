@@ -20,7 +20,7 @@ final class AppState: NSObject, ObservableObject {
     
     init(moc: NSManagedObjectContext) {
         #if DEBUG
-        UserDefaults.standard.set(true, forKey: "onboarded")
+        UserDefaults.standard.set(false, forKey: "onboarded")
         #endif
         
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
@@ -36,6 +36,7 @@ final class AppState: NSObject, ObservableObject {
         )
         
         self.scene = .beginning
+        
         super.init()
                 
         self.fetchedResultsController.delegate = self
@@ -49,16 +50,20 @@ final class AppState: NSObject, ObservableObject {
     
     func finishOnboarding() {
         self.hasOnboarded = true
+        self.scene = .beginning
         UserDefaults.standard.set(true, forKey: "onboarded")
     }
     
     enum Scene {
+        case onboarding
         case beginning
         case middle
         case end
         
         var color: FocalistColor {
             switch self {
+            case .onboarding:
+                return .accentOrange
             case .beginning:
                 return .accentPink
             case .middle:
@@ -70,7 +75,8 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func updateScene() -> Void {
-        if self.activeList.count == 4 {
+        if self.hasOnboarded == false { self.scene = .onboarding }
+        else if self.activeList.count == 4 {
             if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
             else { self.scene = .middle }
         }
@@ -83,5 +89,14 @@ extension AppState: NSFetchedResultsControllerDelegate {
         guard let active = controller.fetchedObjects as? [ToDo] else { return }
         self.activeList = active
         updateScene()
+    }
+}
+
+struct AppState_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            ContentView_Previews.previews
+        }
+        
     }
 }

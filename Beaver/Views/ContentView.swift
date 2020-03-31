@@ -37,9 +37,9 @@ struct ContentView: View {
             
             AddBar(color: state.scene.color)
                 .frame(maxHeight: .infinity, alignment: .top)
-                .zIndex(5)
+                .zIndex(6)
                 .padding()
-            
+
             if self.state.hasOnboarded == false {
                 Onboarding()
                     .transition(
@@ -47,9 +47,9 @@ struct ContentView: View {
                             .combined(with: .offset(x: 0, y: 100)
                     ))
                     .animation(.spring())
-                    .zIndex(6)
+                    .zIndex(5)
             }
-            
+            else {
             if self.state.scene == .beginning {
                 StoreView()
                     .transition(.storeTransition)
@@ -69,6 +69,7 @@ struct ContentView: View {
                     .transition(AnyTransition.opacity.animation(.spring()))
                     .zIndex(2)
             }
+            }
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
@@ -86,30 +87,30 @@ struct ContentView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 100 miles",
+//            isActive: true
+//        )
+//        
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 200 miles",
+//            isActive: true
+//        )
+//        
+//        let completed = ToDo(
+//            context: mc,
+//            title: "Walk 300 miles",
+//            isActive: true
+//        )
+//        completed.completeToggle()
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let completed = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-        completed.completeToggle()
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 400 miles",
+//            isActive: true
+//        )
         
         return mc
     }()

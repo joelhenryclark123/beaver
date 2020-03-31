@@ -61,6 +61,7 @@ struct AddBar: View {
                 .accentColor(Color(color.rawValue))
             .zIndex(3)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
     }
 }
 

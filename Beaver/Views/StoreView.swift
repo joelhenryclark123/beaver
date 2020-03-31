@@ -48,8 +48,10 @@ struct StoreView: View {
         let count = toDos.count
         if count < 4 {
             return "Add \(4 - count) more To-Dos!"
-        } else {
+        } else if selectionCount < 4 {
             return "Tap four To-Dos to get started!"
+        } else {
+            return "Skee Yee!"
         }
     }
     
@@ -63,7 +65,11 @@ struct StoreView: View {
             }
             else {
                 List {
-                    Spacer().frame(height: 84)
+                    Spacer().frame(height: 72)
+                    
+                    Text(instruction)
+                        .foregroundColor(Color("dimWhite"))
+                        .animation(nil)
                     
                     ForEach(self.toDos) { toDo in
                         StoreItem(toDo: toDo)

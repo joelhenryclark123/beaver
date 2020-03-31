@@ -67,9 +67,9 @@ struct CardView: View {
                     .zIndex(4)
             }
             
-            #if DEBUG
-            Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
-            #endif
+//            #if DEBUG
+//            Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
+//            #endif
         }
         .animation(.easeIn(duration: 0.2))
         .onTapGesture {

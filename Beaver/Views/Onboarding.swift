@@ -14,45 +14,22 @@ struct Onboarding: View {
     @EnvironmentObject var state: AppState
     
     var body: some View {
-        VStack(spacing: 16) {
-            
+        ZStack {
             VStack {
             Text("Beaver")
                 .modifier(FocalistFont(font: .heading1))
-            Text("A new way to get things done")
-                .modifier(FocalistFont(font: .mediumText))
+                Text("Tap the top bar at any time to add an item to your list!")
+                .modifier(FocalistFont(font: .largeText))
             }
+            .multilineTextAlignment(.center)
+            .foregroundColor(Color("accentWhite"))
             
-            Spacer()
-
-            VStack(spacing: 16) {
-                HStack(spacing: 8) {
-                    Text("Store")
-                        .modifier(FocalistFont(font: .heading4))
-                    Text("tasks in your to-do list")
-                        .modifier(FocalistFont(font: .largeText))
-                }
-                HStack(spacing: 8) {
-                    Text("Choose")
-                        .modifier(FocalistFont(font: .heading4))
-                    Text("what you want to do")
-                        .modifier(FocalistFont(font: .largeText))
-                }
-            }
-            
-            Spacer()
-            
-            WideButton(.backgroundBlue, "Get Started") {
-                withAnimation(.easeIn(duration: 0.2)) {
-                    self.state.finishOnboarding()
-                }
+            WideButton(.accentYellow, "Get Started") {
+                self.state.finishOnboarding()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
-        .background(
-            Color("systemBackgroundColor").edgesIgnoringSafeArea(.all)
-        )
     }
 }
 

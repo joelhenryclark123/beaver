@@ -30,9 +30,9 @@ struct DayView: View {
             }
             
             VStack(spacing: 8) {
-                #if DEBUG
-                Text("showingButton: \(String(showingButton))")
-                #endif
+//                #if DEBUG
+//                Text("showingButton: \(String(showingButton))")
+//                #endif
                 HStack(spacing: 8) {
                     CardView(toDo: self.state.activeList[0])
                     CardView(toDo: self.state.activeList[1])
