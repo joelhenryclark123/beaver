@@ -9,6 +9,5 @@
 import XCTest
 
 class BeaverTests: XCTestCase {
-
-
+    
 }
