@@ -15,7 +15,11 @@ struct DayView: View {
     @EnvironmentObject var state: AppState
     func completeDay() -> Void {
         self.state.activeList.forEach({ $0.totallyFinish() })
+        
+        #if DEBUG
+        #else
         Analytics.logEvent("completedDay", parameters: nil)
+        #endif
     }
     
     var body: some View {

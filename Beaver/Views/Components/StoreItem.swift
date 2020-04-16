@@ -36,7 +36,6 @@ struct StoreItem: View {
     var body: some View {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
-                .multilineTextAlignment(.center)
                 .foregroundColor(toDo.isActive ? Color("blackText") : Color("accentWhite"))
                 .padding(.horizontal, 16)
                 .padding(.vertical, 8)

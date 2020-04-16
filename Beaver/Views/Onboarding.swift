@@ -23,13 +23,13 @@ struct Onboarding: View {
             }
             .multilineTextAlignment(.center)
             .foregroundColor(Color("accentWhite"))
+            .padding(.horizontal)
             
             WideButton(.accentYellow, "Get Started") {
                 self.state.finishOnboarding()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding()
     }
 }
 

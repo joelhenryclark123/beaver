@@ -44,7 +44,7 @@ struct WideButton: View {
             )
         }
         .frame(maxHeight: .infinity, alignment: .bottom)
-        .padding(.horizontal)
+        .padding(.horizontal, 32)
         .transition(.move(edge: .bottom))
         .animation(.spring())
     }

@@ -26,14 +26,19 @@ struct AddBar: View {
         
         self.text = ""
         
+        #if DEBUG
+        #else
         Analytics.logEvent("createdToDo", parameters: nil)
+        #endif
     }
     
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .frame(height: height)
-                .foregroundColor(Color("dimWhite"))
+                .foregroundColor(
+                    showingPlaceholder ? Color("dimWhite") : Color("accentWhite")
+                )
                 .blendMode(.luminosity)
                 .modifier(FocalistShadow(option: .dark))
                 .zIndex(1)
@@ -56,15 +61,16 @@ struct AddBar: View {
                         }
                     }
             })
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
                 .foregroundColor(.black)
+                .modifier(FocalistFont(font: .largeTextSemibold))
                 .accentColor(Color(color.rawValue))
             .zIndex(3)
             .padding(.horizontal, 16)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal)
-        .padding(.top, 4)
+        .padding(.top, 8)
 
     }
 }
@@ -75,6 +81,7 @@ struct AddBar_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             MainBackground()
+                .environmentObject(AppState(moc: context))
             
             AddBar()
                 .environment(\.managedObjectContext, context)

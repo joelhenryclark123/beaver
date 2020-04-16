@@ -26,7 +26,7 @@ public class ToDo: NSManagedObject, Identifiable {
         self.completedAt = nil
         self.createdAt = Date()
         self.isActive = isActive
-        self.movedAt = isActive ? Date() : nil
+        self.movedAt = nil
         saveContext()
     }
     
