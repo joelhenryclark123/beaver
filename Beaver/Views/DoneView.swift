@@ -15,23 +15,24 @@ struct DoneView: View {
                 .resizable()
                 .frame(maxWidth: 120, maxHeight: 120)
                 .scaledToFit()
-                .foregroundColor(Color("accentWhite"))
 
             Text("Done")
                 .modifier(FocalistFont(font: .heading1))
-                .foregroundColor(.white)
             Text("Come back tomorrow!")
                 .modifier(FocalistFont(font: .mediumTextSemibold))
-                .foregroundColor(.white)
-            Text("(or save a task for later with the add bar)")
-                .modifier(FocalistFont(font: .smallText))
-                .foregroundColor(Color("dimWhite"))
-        }
+            
+        }.foregroundColor(Color("accentWhite"))
+
     }
 }
 
 struct DoneView_Previews: PreviewProvider {
     static var previews: some View {
+        ZStack {
+        LinearGradient(
+            gradient: buildGradient(color: .accentGreen), startPoint: .top, endPoint: .bottom
+        ).edgesIgnoringSafeArea(.all)
         DoneView()
+        }
     }
 }
