@@ -21,13 +21,10 @@ struct StoreItem: View {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .stroke(Color("accentGreenDim"), lineWidth: 4)
             }
-        }
+        }.modifier(FocalistShadow(option: .dark))
     }
     
     var body: some View {
-        Button(action: {
-            self.toDo.activeToggle()
-        }) {
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
                 .foregroundColor(.black)
@@ -35,7 +32,6 @@ struct StoreItem: View {
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(cardBackground)
-        }.modifier(FocalistShadow(option: .dark))
     }
 }
 

@@ -100,6 +100,7 @@ extension ToDo {
         context.perform {
             self.movedAt = Date()
             self.isActive = true
+            self.saveContext()
         }
     }
     
@@ -135,7 +136,7 @@ extension ToDo {
     static var storeFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest = NSFetchRequest<ToDo>(entityName: entity)
-        
+                
         fetchRequest.predicate = NSPredicate(
             format: "(completedAt == nil)"
         )

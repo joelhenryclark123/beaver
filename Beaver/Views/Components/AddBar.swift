@@ -13,14 +13,13 @@ struct AddBar: View {
     @Environment(\.managedObjectContext) var context
     @State var showingPlaceholder: Bool = true
     @State var text: String = ""
-    var willBeActive: Bool = false
     var upToDate: Bool
     
     func createToDo() -> Void {
         let _ = ToDo(
             context: self.context,
             title: self.text,
-            isActive: self.willBeActive
+            isActive: false
         )
         
         self.text = ""

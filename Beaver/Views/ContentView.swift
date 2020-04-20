@@ -57,7 +57,7 @@ struct ContentView: View {
                         .zIndex(3)
                 }
             }.onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged).receive(on: RunLoop.main)) { (_) in
-                self.toDos.forEach( { $0.moveToStore() })
+                self.toDos.forEach( { $0.moveToStore() } )
             }
 
             if self.state.hasOnboarded == false {

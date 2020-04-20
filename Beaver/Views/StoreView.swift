@@ -9,24 +9,22 @@
 import SwiftUI
 import CoreData
 import FirebaseAnalytics
+import Combine
 
 struct StoreView: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(
         fetchRequest: ToDo.storeFetch
     ) var toDos: FetchedResults<ToDo>
-    
-    var selection: [ToDo] {
-        let selected = toDos.filter { (toDo) -> Bool in
-            toDo.isActive
-        }
+    @State var refreshing: Bool = false
         
-        return selected
+    var selectionCount: Int {
+        let selected = toDos.filter { $0.isActive }
+        return selected.count
     }
     
     func startDay() {
-        for toDo in selection { toDo.moveToDay() }
-        
+        for toDo in toDos { if toDo.isActive { toDo.moveToDay() } }
         try? context.save()
         Analytics.logEvent("startedDay", parameters: nil)
     }
@@ -50,7 +48,7 @@ struct StoreView: View {
     
     // MARK: Body
     var body: some View {
-        ZStack {
+        return ZStack {
             VStack {
                 if toDos.isEmpty { emptyState }
                 else {
@@ -74,8 +72,12 @@ struct StoreView: View {
                     
                     List {
                         ForEach(self.toDos) { toDo in
+                            Button(action: {
+                                toDo.activeToggle()
+                            }) {
                             StoreItem(toDo: toDo)
                                 .padding(0)
+                            }
                         }.onDelete { (offsets) in
                             for index in offsets {
                                 self.toDos[index].delete()
@@ -86,7 +88,7 @@ struct StoreView: View {
                 }
             }.modifier(StoreStyle())
 
-            if selection.count == 4 {
+            if selectionCount == 4 {
                 WideButton(.green, "Start Day") {
                     withAnimation(.easeIn(duration: 0.2)) {
                         self.startDay()
