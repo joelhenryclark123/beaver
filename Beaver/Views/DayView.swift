@@ -13,6 +13,7 @@ import FirebaseAnalytics
 
 struct DayView: View {
     @EnvironmentObject var state: AppState
+    
     func completeDay() -> Void {
         self.state.activeList.forEach({ $0.totallyFinish() })
         
@@ -23,7 +24,9 @@ struct DayView: View {
     }
     
     var body: some View {
-        let showingButton: Bool = self.state.activeList.allSatisfy({ $0.completedAt != nil && $0.isActive == true })
+        let showingButton: Bool = self.state.activeList.allSatisfy({
+            $0.completedAt != nil && $0.isActive == true
+        })
         
         return ZStack {
             if (showingButton) {
@@ -34,9 +37,6 @@ struct DayView: View {
             }
             
             VStack(spacing: 8) {
-//                #if DEBUG
-//                Text("showingButton: \(String(showingButton))")
-//                #endif
                 Spacer().frame(height: 60)
                 HStack(spacing: 8) {
                     CardView(toDo: self.state.activeList[0])

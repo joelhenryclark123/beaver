@@ -14,14 +14,13 @@ struct MainBackground: View {
     @EnvironmentObject var state: AppState
     
     var body: some View {
-        Rectangle()
-            .fill(
-                LinearGradient(
-                    gradient: buildGradient(color: state.scene.color),
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-        ).edgesIgnoringSafeArea(.all)
+        LinearGradient(
+            gradient: buildGradient(color: state.scene.color),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        .edgesIgnoringSafeArea(.all)
+        .transition(AnyTransition.opacity.animation(.linear))
     }
 }
 
@@ -32,7 +31,6 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             MainBackground()
-                .transition(AnyTransition.opacity.animation(.linear))
                 .zIndex(0)
             
             AddBar(color: state.scene.color)
@@ -71,7 +69,11 @@ struct ContentView: View {
         }
         .onReceive(
             NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
-                .receive(on: RunLoop.main)) { (_) in self.state.activeList.forEach( { $0.moveToStore() } ) }
+                .receive(on: RunLoop.main)) { (_) in self.endDay() }
+    }
+    
+    func endDay() {
+        self.state.activeList.forEach({ $0.moveToStore() })
     }
 }
 

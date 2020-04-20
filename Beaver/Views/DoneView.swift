@@ -18,6 +18,7 @@ struct DoneView: View {
 
             Text("Done")
                 .modifier(FocalistFont(font: .heading1))
+            
             Text("Come back tomorrow!")
                 .modifier(FocalistFont(font: .mediumTextSemibold))
             
@@ -32,6 +33,7 @@ struct DoneView_Previews: PreviewProvider {
         LinearGradient(
             gradient: buildGradient(color: .accentGreen), startPoint: .top, endPoint: .bottom
         ).edgesIgnoringSafeArea(.all)
+            
         DoneView()
         }
     }
