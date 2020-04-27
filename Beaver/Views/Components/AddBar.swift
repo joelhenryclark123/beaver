@@ -54,7 +54,7 @@ struct AddBar: View {
                     (version == Version.unselected) ? Color("dimWhite") : Color("accentWhite")
                 )
                 .blendMode(.luminosity)
-                .modifier(FocalistShadow(option: .dark))
+                .modifier(FocalistShadow(option: self.version == .selected ? .heavy : .dark))
                 .zIndex(0)
             
             HStack {
