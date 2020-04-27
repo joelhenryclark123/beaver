@@ -11,11 +11,25 @@ import FirebaseAnalytics
 
 struct AddBar: View {
     @Environment(\.managedObjectContext) var context
-    @State var showingPlaceholder: Bool = true
+    @State var version: Version = .unselected
     @State var text: String = ""
     var color: FocalistColor = .backgroundBlue
     let height: CGFloat = 48
     let cornerRadius: CGFloat = 24
+    
+    enum Version {
+        case unselected
+        case selected
+        
+        mutating func toggle() {
+            switch self {
+            case .unselected:
+                self = .selected
+            case .selected:
+                self = .unselected
+            }
+        }
+    }
     
     func createToDo() -> Void {
         let _ = ToDo(
@@ -37,41 +51,52 @@ struct AddBar: View {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                 .frame(height: height)
                 .foregroundColor(
-                    showingPlaceholder ? Color("dimWhite") : Color("accentWhite")
+                    (version == Version.unselected) ? Color("dimWhite") : Color("accentWhite")
                 )
                 .blendMode(.luminosity)
                 .modifier(FocalistShadow(option: .dark))
-                .zIndex(1)
+                .zIndex(0)
             
-            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .stroke(Color(color.rawValue), lineWidth: 4)
-                .frame(height: height)
-                .zIndex(1.5)
-            
-            TextField(
-                "",
-                text: $text,
-                onEditingChanged: { _ in self.showingPlaceholder.toggle() },
-                onCommit: {
-                    if self.text.isEmpty {
-                        return
-                    } else {
-                        withAnimation(.spring()) {
-                            self.createToDo()
+            HStack {
+                TextField(
+                    "",
+                    text: $text,
+                    onEditingChanged: { _ in self.version.toggle() },
+                    onCommit: {
+                        if self.text.isEmpty {
+                            return
+                        } else {
+                            withAnimation(.spring()) {
+                                self.createToDo()
+                            }
                         }
-                    }
-            })
-                .multilineTextAlignment(.leading)
-                .foregroundColor(.black)
-                .modifier(FocalistFont(font: .largeTextSemibold))
-                .accentColor(Color(color.rawValue))
-            .zIndex(3)
-            .padding(.horizontal, 16)
+                    })
+                    .multilineTextAlignment(.leading)
+                    .foregroundColor(.black)
+                    .modifier(FocalistFont(font: .largeTextSemibold))
+                    .accentColor(Color(color.rawValue))
+                .zIndex(3)
+                    .padding(.leading, 16)
+                
+                if self.version == .selected {
+                    attachmentsButton
+                }
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal)
         .padding(.top, 8)
-
+    }
+    
+    var attachmentsButton: some View {
+        let size: CGFloat = 28
+        
+        return Image(systemName: "paperclip.circle")
+        .resizable()
+            .frame(width: size, height: size)
+        .foregroundColor(Color("accentOrangeLight"))
+            .padding(.trailing, 16)
+            .padding(.vertical, 10)
     }
 }
 
