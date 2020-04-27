@@ -25,7 +25,7 @@ struct StoreItem: View {
                         
             if !(toDo.isActive) {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(Color("accentWhite"), lineWidth: 2)
+                    .stroke(Color("accentWhite"), lineWidth: 1)
             }
         }
         .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
