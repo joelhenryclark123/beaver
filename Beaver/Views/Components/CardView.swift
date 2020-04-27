@@ -22,7 +22,7 @@ struct CardView: View {
                 CardView.checkedBackground
             }
             else {
-                Color("dimWhite")
+                Color("accentWhite")
                     .modifier(FocalistShadow(option: .light))
             }
         }
