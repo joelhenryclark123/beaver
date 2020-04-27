@@ -19,9 +19,9 @@ final class AppState: NSObject, ObservableObject {
     @Published var scene: Scene
     
     init(moc: NSManagedObjectContext) {
-        #if DEBUG
-        UserDefaults.standard.set(false, forKey: "onboarded")
-        #endif
+//        #if DEBUG
+//        UserDefaults.standard.set(false, forKey: "onboarded")
+//        #endif
         
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
         self.hasOnboarded = hasOnboarded
