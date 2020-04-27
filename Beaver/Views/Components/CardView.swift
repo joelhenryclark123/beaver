@@ -13,28 +13,16 @@ struct CardView: View {
     static let cornerRadius: CGFloat = 48
     
     static var checkedBackground: some View {
-        LinearGradient(
-            gradient: Gradient(colors: [
-                Color("materialWhite"),
-                Color("almostClear")
-            ]),
-            startPoint: .top,
-            endPoint: .bottom
-        )
-        .blendMode(.hue)
+        Color("otherBlue")
     }
     
     var background: some View {
         Group {
             if toDo.isComplete {
                 CardView.checkedBackground
-                    .overlay(
-                        RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular)
-                            .stroke(Color("dimWhite"), lineWidth: 8)
-                )
             }
             else {
-                Color("accentWhite")
+                Color("dimWhite")
                     .modifier(FocalistShadow(option: .light))
             }
         }
