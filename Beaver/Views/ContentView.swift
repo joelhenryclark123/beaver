@@ -10,20 +10,6 @@ import SwiftUI
 import CoreData
 import Combine
 
-struct MainBackground: View {
-    @EnvironmentObject var state: AppState
-    
-    var body: some View {
-        LinearGradient(
-            gradient: buildGradient(color: state.scene.color),
-            startPoint: .top,
-            endPoint: .bottom
-        )
-        .edgesIgnoringSafeArea(.all)
-        .transition(AnyTransition.opacity.animation(.linear))
-    }
-}
-
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     

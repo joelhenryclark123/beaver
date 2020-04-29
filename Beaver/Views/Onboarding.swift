@@ -16,10 +16,10 @@ struct Onboarding: View {
     var body: some View {
         ZStack {
             VStack {
-            Text("Beaver")
-                .modifier(FocalistFont(font: .heading1))
+                Text("Beaver")
+                    .modifier(FocalistFont(font: .heading1))
                 Text("Tap the top bar at any time to add an item to your list!")
-                .modifier(FocalistFont(font: .largeText))
+                    .modifier(FocalistFont(font: .largeText))
             }
             .multilineTextAlignment(.center)
             .foregroundColor(Color("accentWhite"))

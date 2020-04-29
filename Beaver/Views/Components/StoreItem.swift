@@ -14,33 +14,31 @@ struct StoreItem: View {
     let cornerRadius: CGFloat = 12
     
     var cardBackground: some View {
-        Button(action: {
-            self.toDo.activeToggle()
-        }) {
-        ZStack {
-            RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                .foregroundColor(
-                    toDo.isActive ? Color("accentWhite") : Color("materialWhite")
-                )
-                        
-            if !(toDo.isActive) {
+        Button(action: { self.toDo.activeToggle() }) {
+            ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .stroke(Color("accentWhite"), lineWidth: 1)
+                    .foregroundColor(
+                        toDo.isActive ? Color("accentWhite") : Color("materialWhite")
+                )
+                
+                if !(toDo.isActive) {
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .stroke(Color("accentWhite"), lineWidth: 1)
+                }
             }
-        }
-        .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
-        .animation(.easeIn)
+            .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
+            .animation(.easeIn)
         }
     }
     
     var body: some View {
-            Text(toDo.title)
-                .modifier(FocalistFont(font: .mediumText))
-                .foregroundColor(toDo.isActive ? Color("blackText") : Color("accentWhite"))
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(cardBackground)
+        Text(toDo.title)
+            .modifier(FocalistFont(font: .mediumText))
+            .foregroundColor(toDo.isActive ? Color("blackText") : Color("accentWhite"))
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(cardBackground)
     }
 }
 

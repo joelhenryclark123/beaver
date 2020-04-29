@@ -35,17 +35,14 @@ struct StoreView: View {
     
     var emptyState: some View {
         VStack {
-            Spacer()
-            
             VStack {
                 Text("Empty!")
                     .modifier(FocalistFont(font: .heading1))
                 Text("Tap the add bar above to get started")
                     .modifier(FocalistFont(font: .mediumText))
             }.foregroundColor(.white)
-            
-            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
     
     var instruction: String {

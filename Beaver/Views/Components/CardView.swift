@@ -12,21 +12,16 @@ struct CardView: View {
     @ObservedObject var toDo: ToDo
     static let cornerRadius: CGFloat = 48
     
-    static var checkedBackground: some View {
-        Color("otherBlue")
-    }
-    
     var background: some View {
         Group {
             if toDo.isComplete {
-                CardView.checkedBackground
+                Color("otherBlue")
             }
             else {
                 Color("accentWhite")
                     .modifier(FocalistShadow(option: .light))
             }
         }
-        .aspectRatio(1.0, contentMode: .fit)
         .clipShape(
             RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular)
         )

@@ -13,9 +13,12 @@ struct AddBar: View {
     @Environment(\.managedObjectContext) var context
     @State var version: Version = .unselected
     @State var text: String = ""
-    var color: FocalistColor = .backgroundBlue
+    @State var color: FocalistColor = .backgroundBlue
+    
     let height: CGFloat = 48
     let cornerRadius: CGFloat = 24
+    let horizontalPadding: CGFloat = 16
+    let verticalPadding: CGFloat = 10
     
     enum Version {
         case unselected
@@ -52,34 +55,27 @@ struct AddBar: View {
                 .frame(height: height)
                 .foregroundColor(
                     (version == Version.unselected) ? Color("dimWhite") : Color("accentWhite")
-                )
-                .blendMode(.luminosity)
+            )
+                .blendMode(.colorDodge)
                 .modifier(FocalistShadow(option: self.version == .selected ? .heavy : .dark))
                 .zIndex(0)
             
             HStack {
-                TextField(
-                    "",
-                    text: $text,
-                    onEditingChanged: { _ in self.version.toggle() },
-                    onCommit: {
-                        if self.text.isEmpty {
-                            return
-                        } else {
-                            withAnimation(.spring()) {
-                                self.createToDo()
-                            }
-                        }
-                    })
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(.black)
-                    .modifier(FocalistFont(font: .largeTextSemibold))
-                    .accentColor(Color(color.rawValue))
+                TextField("", text: $text, onEditingChanged: { _ in self.version.toggle() }) {
+                    if self.text.isEmpty { return }
+                    else { self.createToDo() }
+                }
+                .multilineTextAlignment(.leading)
+                .foregroundColor(.black)
+                .modifier(FocalistFont(font: .largeTextSemibold))
+                .accentColor(Color(color.rawValue))
                 .zIndex(3)
-                    .padding(.leading, 16)
+                .padding(.leading, horizontalPadding)
                 
                 if self.version == .selected {
                     attachmentsButton
+                        .transition(.opacity)
+                        .animation(.linear)
                 }
             }
         }
@@ -92,11 +88,11 @@ struct AddBar: View {
         let size: CGFloat = 28
         
         return Image(systemName: "paperclip.circle")
-        .resizable()
+            .resizable()
             .frame(width: size, height: size)
-        .foregroundColor(Color("accentOrangeLight"))
-            .padding(.trailing, 16)
-            .padding(.vertical, 10)
+            .foregroundColor(Color("accentOrangeLight"))
+            .padding(.trailing, horizontalPadding)
+            .padding(.vertical, verticalPadding)
     }
 }
 
