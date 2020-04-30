@@ -36,9 +36,16 @@ struct DayView: View {
                 .zIndex(1)
             }
             
-            taskGrid
-            .padding()
-            .zIndex(0)
+            if self.state.scene == .focusing {
+                CardView(toDo: self.state.focusedToDo!)
+                    .padding()
+                    .zIndex(0)
+            }
+            else {
+                taskGrid
+                    .padding()
+                    .zIndex(0)
+            }
         }
     }
     

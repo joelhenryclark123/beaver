@@ -22,9 +22,9 @@ struct MainBackground: View {
     }
 }
 
-struct MainBackground_Previews: PreviewProvider {
-    static var previews: some View {
-        MainBackground()
-        .environmentObject(AppState())
-    }
-}
+//struct MainBackground_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainBackground()
+//        .environmentObject(AppState())
+//    }
+//}
