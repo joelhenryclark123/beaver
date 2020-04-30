@@ -17,6 +17,7 @@ final class AppState: NSObject, ObservableObject {
     @Published var hasOnboarded: Bool
     @Published var activeList: [ToDo]
     @Published var scene: Scene
+    @Published var focusedToDo: ToDo?
     
     init(moc: NSManagedObjectContext) {
 //        #if DEBUG
@@ -45,6 +46,7 @@ final class AppState: NSObject, ObservableObject {
             try self.fetchedResultsController.performFetch()
             self.activeList = self.fetchedResultsController.fetchedObjects ?? []
         } catch { fatalError() }
+        
         updateScene()
     }
     
@@ -58,6 +60,7 @@ final class AppState: NSObject, ObservableObject {
         case onboarding
         case beginning
         case middle
+        case focusing
         case end
         
         var color: FocalistColor {
@@ -68,6 +71,8 @@ final class AppState: NSObject, ObservableObject {
                 return .accentPink
             case .middle:
                 return .backgroundBlue
+            case .focusing:
+                return .otherBlue
             case .end:
                 return .accentGreen
             }
@@ -78,6 +83,7 @@ final class AppState: NSObject, ObservableObject {
         if self.hasOnboarded == false { self.scene = .onboarding }
         else if self.activeList.count == 4 {
             if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
+            else if self.focusedToDo != nil { self.scene = .focusing }
             else { self.scene = .middle }
         }
         else { self.scene = .beginning }
@@ -87,6 +93,7 @@ final class AppState: NSObject, ObservableObject {
 extension AppState: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         guard let active = controller.fetchedObjects as? [ToDo] else { return }
+        self.focusedToDo = active.first(where: { $0.focusing })
         self.activeList = active
         updateScene()
     }
