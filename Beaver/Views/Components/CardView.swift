@@ -60,6 +60,9 @@ struct CardView: View {
                 self.toDo.completeToggle()
             }
         }
+        .onLongPressGesture(minimumDuration: 1.0, maximumDistance: 30) {
+            self.toDo.focus()
+        }
         .aspectRatio(1.0, contentMode: .fit)
     }
 }
