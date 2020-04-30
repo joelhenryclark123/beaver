@@ -15,6 +15,7 @@ public class ToDo: NSManagedObject, Identifiable {
     @NSManaged var createdAt: Date?
     @NSManaged var isActive: Bool
     @NSManaged var movedAt: Date?
+    @NSManaged var focusing: Bool
     
     convenience init(
         context: NSManagedObjectContext,
@@ -27,6 +28,7 @@ public class ToDo: NSManagedObject, Identifiable {
         self.createdAt = Date()
         self.isActive = isActive
         self.movedAt = nil
+        self.focusing = false
         saveContext()
     }
     
@@ -82,12 +84,28 @@ extension ToDo {
                     self.completedAt = nil
                 }
                 
+                self.focusing = false
             } else {
                 fatalError()
             }
             
             self.saveContext()
         }
+    }
+    
+    func focus() {
+        guard let context = self.managedObjectContext else { fatalError() }
+        context.perform {
+            if let toDos = try? ToDo.focusFetch.execute() {
+                toDos.forEach({ $0.unfocus() })
+            }
+            self.focusing = true
+        }
+    }
+    
+    func unfocus() {
+        guard self.focusing else { return }
+        self.focusing = false
     }
         
     func delete() {
@@ -111,11 +129,12 @@ extension ToDo {
         context.perform {
             if (self.completedAt == nil) { self.completedAt = Date() }
             self.isActive = false
+            self.focusing = false
             self.saveContext()
         }
     }
     
-    // MARK: Fetch Requests
+    // MARK:- Fetch Requests
     static var todayListFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
@@ -145,6 +164,17 @@ extension ToDo {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
+        
+        return fetchRequest
+    }
+    
+    static var focusFetch: NSFetchRequest<ToDo> {
+        let entity: String = String(describing: ToDo.self)
+        let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "focusing == true"
+        )
         
         return fetchRequest
     }
