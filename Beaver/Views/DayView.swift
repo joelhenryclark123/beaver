@@ -36,20 +36,24 @@ struct DayView: View {
                 .zIndex(1)
             }
             
-            VStack(spacing: 8) {
-                Spacer().frame(height: 60)
-                HStack(spacing: 8) {
-                    CardView(toDo: self.state.activeList[0])
-                    CardView(toDo: self.state.activeList[1])
-                }
-                HStack(spacing: 8) {
-                    CardView(toDo: self.state.activeList[2])
-                    CardView(toDo: self.state.activeList[3])
-                }
-                Spacer().frame(height: 60)
-            }
+            taskGrid
             .padding()
             .zIndex(0)
+        }
+    }
+    
+    var taskGrid: some View {
+        VStack(spacing: 8) {
+            Spacer().frame(height: 60)
+            HStack(spacing: 8) {
+                CardView(toDo: self.state.activeList[0])
+                CardView(toDo: self.state.activeList[1])
+            }
+            HStack(spacing: 8) {
+                CardView(toDo: self.state.activeList[2])
+                CardView(toDo: self.state.activeList[3])
+            }
+            Spacer().frame(height: 60)
         }
     }
 }
