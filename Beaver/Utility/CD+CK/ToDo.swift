@@ -106,6 +106,7 @@ extension ToDo {
                 toDos.forEach({ $0.unfocus() })
             }
             self.focusing = true
+            self.saveContext()
         }
     }
     
@@ -114,6 +115,7 @@ extension ToDo {
         context.perform {
             guard self.focusing else { return }
             self.focusing = false
+            self.saveContext()
         }
     }
         

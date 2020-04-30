@@ -45,6 +45,8 @@ final class AppState: NSObject, ObservableObject {
         do {
             try self.fetchedResultsController.performFetch()
             self.activeList = self.fetchedResultsController.fetchedObjects ?? []
+            self.focusedToDo = self.activeList.first(where: { $0.focusing })
+
         } catch { fatalError() }
         
         updateScene()
