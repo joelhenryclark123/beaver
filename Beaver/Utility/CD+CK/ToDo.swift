@@ -93,6 +93,12 @@ extension ToDo {
         }
     }
     
+    func toggleFocus() {
+        if self.focusing {
+            self.unfocus()
+        } else { self.focus() }
+    }
+    
     func focus() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
@@ -104,8 +110,11 @@ extension ToDo {
     }
     
     func unfocus() {
-        guard self.focusing else { return }
-        self.focusing = false
+        guard let context = self.managedObjectContext else { fatalError() }
+        context.perform {
+            guard self.focusing else { return }
+            self.focusing = false
+        }
     }
         
     func delete() {

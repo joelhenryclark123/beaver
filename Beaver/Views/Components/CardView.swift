@@ -61,7 +61,7 @@ struct CardView: View {
             }
         }
         .onLongPressGesture(minimumDuration: 1.0, maximumDistance: 30) {
-            self.toDo.focus()
+            self.toDo.toggleFocus()
         }
         .aspectRatio(1.0, contentMode: .fit)
     }
