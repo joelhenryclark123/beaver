@@ -36,7 +36,7 @@ struct DayView: View {
                 .zIndex(1)
             }
             
-            if self.state.scene == .focusing {
+            if self.state.focusedToDo != nil {
                 CardView(toDo: self.state.focusedToDo!)
                     .padding()
                     .zIndex(0)

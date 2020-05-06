@@ -10,10 +10,9 @@ import SwiftUI
 import FirebaseAnalytics
 
 struct AddBar: View {
-    @Environment(\.managedObjectContext) var context
+    @EnvironmentObject var state: AppState
     @State var version: Version = .unselected
     @State var text: String = ""
-    @State var color: FocalistColor = .backgroundBlue
     
     let height: CGFloat = 48
     let cornerRadius: CGFloat = 24
@@ -36,7 +35,7 @@ struct AddBar: View {
     
     func createToDo() -> Void {
         let _ = ToDo(
-            context: self.context,
+            context: self.state.context,
             title: self.text,
             isActive: false
         )
@@ -68,14 +67,12 @@ struct AddBar: View {
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.black)
                 .modifier(FocalistFont(font: .largeTextSemibold))
-                .accentColor(Color(color.rawValue))
+                .accentColor(Color(state.scene.color.rawValue))
                 .zIndex(3)
                 .padding(.leading, horizontalPadding)
                 
                 if self.version == .selected {
                     attachmentsButton
-                        .transition(.opacity)
-                        .animation(.linear)
                 }
             }
         }
@@ -87,25 +84,17 @@ struct AddBar: View {
     var attachmentsButton: some View {
         let size: CGFloat = 28
         
-        return Image(systemName: "paperclip.circle")
-            .resizable()
-            .frame(width: size, height: size)
-            .foregroundColor(Color("accentOrangeLight"))
-            .padding(.trailing, horizontalPadding)
-            .padding(.vertical, verticalPadding)
-    }
-}
-
-struct AddBar_Previews: PreviewProvider {
-    static let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
-    static var previews: some View {
-        ZStack {
-            MainBackground()
-                .environmentObject(AppState(moc: context))
-            
-            AddBar()
-                .environment(\.managedObjectContext, context)
+        return Button(action: {
+            withAnimation(.spring()) {
+                self.state.toggleAttaching()
+            }
+        }) {
+            Image(systemName: self.state.scene == .attaching ? "paperclip.circle.fill" : "paperclip.circle")
+                .resizable()
+                .frame(width: size, height: size)
+                .foregroundColor(Color("accentOrangeLight"))
+                .padding(.trailing, horizontalPadding)
+                .padding(.vertical, verticalPadding)
         }
     }
 }

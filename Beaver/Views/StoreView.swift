@@ -142,7 +142,7 @@ struct StoreView_Previews: PreviewProvider {
                     .environment(\.managedObjectContext, context)
                     .frame(maxHeight: .infinity)
                 
-                AddBar(color: .accentPink)
+                AddBar()
                     .environment(\.managedObjectContext, context)
                     .frame(maxHeight: .infinity, alignment: .top)
                     .padding()

@@ -19,7 +19,7 @@ struct ContentView: View {
             MainBackground()
                 .zIndex(0)
             
-            AddBar(color: state.scene.color)
+            AddBar()
                 .zIndex(6)
 
             if self.state.hasOnboarded == false {
@@ -38,19 +38,22 @@ struct ContentView: View {
                     .animation(.spring())
                     .zIndex(4)
             }
-            
+
             if ((self.state.scene == .middle) || (self.state.scene == .focusing)) {
                 DayView()
                     .transition(.dayTransition)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                     .zIndex(3)
             }
-            
+
             if self.state.scene == .end {
                 DoneView()
                     .transition(AnyTransition.opacity.animation(.spring()))
                     .zIndex(2)
             }
+                if self.state.scene == .attaching {
+                    EmptyView()
+                }
             }
         }
         .onReceive(
@@ -68,33 +71,33 @@ struct ContentView_Previews: PreviewProvider {
     static let demoContext: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-//        let toDos = try! mc.fetch(ToDo.fetchRequest())
-//        for toDo in toDos {
-//            (toDo as! ToDo).delete()
-//        }
+        //        let toDos = try! mc.fetch(ToDo.fetchRequest())
+        //        for toDo in toDos {
+        //            (toDo as! ToDo).delete()
+        //        }
         
-//        let list: [ToDo] = [
-//            ToDo(
-//                context: mc,
-//                title: "Walk 100 miles",
-//                isActive: true
-//            ),
-//            ToDo(
-//                context: mc,
-//                title: "Walk 200 miles",
-//                isActive: true
-//            ),
-//            ToDo(
-//                context: mc,
-//                title: "Walk 300 miles",
-//                isActive: true
-//            ),
-//            ToDo(
-//                context: mc,
-//                title: "Walk 400 miles",
-//                isActive: true
-//            ),
-//        ]
+        //        let list: [ToDo] = [
+        //            ToDo(
+        //                context: mc,
+        //                title: "Walk 100 miles",
+        //                isActive: true
+        //            ),
+        //            ToDo(
+        //                context: mc,
+        //                title: "Walk 200 miles",
+        //                isActive: true
+        //            ),
+        //            ToDo(
+        //                context: mc,
+        //                title: "Walk 300 miles",
+        //                isActive: true
+        //            ),
+        //            ToDo(
+        //                context: mc,
+        //                title: "Walk 400 miles",
+        //                isActive: true
+        //            ),
+        //        ]
         
         return mc
     }()

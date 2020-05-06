@@ -20,6 +20,5 @@ extension AnyTransition {
     static var storeTransition: AnyTransition {
         AnyTransition
             .move(edge: .bottom)
-            .animation(.spring())
     }
 }

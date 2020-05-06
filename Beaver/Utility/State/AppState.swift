@@ -12,9 +12,11 @@ import CoreData
 import Combine
 
 final class AppState: NSObject, ObservableObject {
+    let context: NSManagedObjectContext
     var fetchedResultsController: NSFetchedResultsController<ToDo>
     
     @Published var hasOnboarded: Bool
+    @Published var attaching: Bool = false
     @Published var activeList: [ToDo]
     @Published var scene: Scene
     @Published var focusedToDo: ToDo?
@@ -37,6 +39,7 @@ final class AppState: NSObject, ObservableObject {
         )
         
         self.scene = .beginning
+        self.context = moc
         
         super.init()
                 
@@ -85,13 +88,21 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func updateScene() -> Void {
-        if self.hasOnboarded == false { self.scene = .onboarding }
-        else if self.activeList.count == 4 {
-            if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
-            else if self.focusedToDo != nil { self.scene = .focusing }
-            else { self.scene = .middle }
+        DispatchQueue.main.async {
+            if self.attaching { self.scene = .attaching }
+            else if self.hasOnboarded == false { self.scene = .onboarding }
+            else if self.activeList.count == 4 {
+                if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
+                else if self.focusedToDo != nil { self.scene = .focusing }
+                else { self.scene = .middle }
+            }
+            else { self.scene = .beginning }
         }
-        else { self.scene = .beginning }
+    }
+    
+    func toggleAttaching() -> Void {
+        self.attaching.toggle()
+        updateScene()
     }
 }
 

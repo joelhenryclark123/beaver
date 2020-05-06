@@ -18,7 +18,6 @@ struct MainBackground: View {
             endPoint: .bottom
         )
         .edgesIgnoringSafeArea(.all)
-        .transition(AnyTransition.opacity.animation(.linear))
     }
 }
 
