@@ -64,6 +64,7 @@ final class AppState: NSObject, ObservableObject {
         case middle
         case focusing
         case end
+        case attaching
         
         var color: FocalistColor {
             switch self {
@@ -75,6 +76,8 @@ final class AppState: NSObject, ObservableObject {
                 return .backgroundBlue
             case .focusing:
                 return .otherBlue
+            case .attaching:
+                return .accentOrange
             case .end:
                 return .accentGreen
             }
