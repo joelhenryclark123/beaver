@@ -68,35 +68,33 @@ struct ContentView_Previews: PreviewProvider {
     static let demoContext: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        let toDos = try! mc.fetch(ToDo.fetchRequest())
-        for toDo in toDos {
-            (toDo as! ToDo).delete()
-        }
+//        let toDos = try! mc.fetch(ToDo.fetchRequest())
+//        for toDo in toDos {
+//            (toDo as! ToDo).delete()
+//        }
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let completed = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-//        completed.completeToggle()
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
+//        let list: [ToDo] = [
+//            ToDo(
+//                context: mc,
+//                title: "Walk 100 miles",
+//                isActive: true
+//            ),
+//            ToDo(
+//                context: mc,
+//                title: "Walk 200 miles",
+//                isActive: true
+//            ),
+//            ToDo(
+//                context: mc,
+//                title: "Walk 300 miles",
+//                isActive: true
+//            ),
+//            ToDo(
+//                context: mc,
+//                title: "Walk 400 miles",
+//                isActive: true
+//            ),
+//        ]
         
         return mc
     }()

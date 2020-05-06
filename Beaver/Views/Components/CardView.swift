@@ -16,6 +16,11 @@ struct CardView: View {
         Group {
             if toDo.isComplete {
                 Color("otherBlue")
+                .overlay(
+                    RoundedRectangle(cornerRadius: CardView.cornerRadius)
+                        .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
+                        .modifier(FocalistShadow(option: .light))
+                )
             }
             else {
                 Color("accentWhite")
