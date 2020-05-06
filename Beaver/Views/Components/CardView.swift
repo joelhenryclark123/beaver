@@ -51,7 +51,6 @@ struct CardView: View {
                     .padding(32)
                     .scaledToFit()
                     .foregroundColor(Color("dimWhite"))
-                    .modifier(FocalistShadow(option: .light))
                     .transition(.scale)
                     .zIndex(4)
             }
