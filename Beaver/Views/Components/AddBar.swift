@@ -55,7 +55,6 @@ struct AddBar: View {
                 .foregroundColor(
                     (version == Version.unselected) ? Color("dimWhite") : Color("accentWhite")
             )
-                .blendMode(.colorDodge)
                 .modifier(FocalistShadow(option: self.version == .selected ? .heavy : .dark))
                 .zIndex(0)
             
