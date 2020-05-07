@@ -45,14 +45,14 @@ struct DayView: View {
                 taskGrid
                     .padding()
                     .zIndex(0)
-                
-                VStack {
-                    Spacer()
-                    Text("Long press on an item to go into focus mode")
-                        .foregroundColor(Color("dimWhite"))
-                        .modifier(FocalistFont(font: .smallTextSemibold))
-//                    Spacer().frame(height: 100)
-                }
+            }
+            
+            VStack {
+                Spacer()
+                Text("Tap to complete\nLong press for focus")
+                    .foregroundColor(Color("dimWhite"))
+                    .modifier(FocalistFont(font: .smallTextSemibold))
+                    .multilineTextAlignment(.center)
             }
         }
     }

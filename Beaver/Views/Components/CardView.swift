@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CardView: View {
     @ObservedObject var toDo: ToDo
+    @GestureState var pressing: Bool = false
     static let cornerRadius: CGFloat = 48
     
     var background: some View {
@@ -36,6 +37,13 @@ struct CardView: View {
         ZStack {
             background
             
+//            #if DEBUG
+//            VStack{
+//                Spacer()
+//                Text("focused: \(String(self.toDo.focusing))")
+//            }
+//            #endif
+            
             if !self.toDo.isComplete {
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -54,26 +62,50 @@ struct CardView: View {
                     .transition(.scale)
                     .zIndex(4)
             }
-            
-//            #if DEBUG
-//            Text(String(toDo.isComplete)).frame(maxHeight: .infinity, alignment: .bottom)
-//            #endif
         }
+        .scaleEffect(self.pressing ? 0.9 : 1.0)
         .animation(.easeIn(duration: 0.2))
-        .onTapGesture {
-            withAnimation(.easeIn(duration: 0.2)) {
-                self.toDo.completeToggle()
-            }
-        }
-        .onLongPressGesture(minimumDuration: 1.0, maximumDistance: 30) {
-            self.toDo.toggleFocus()
-        }
+        .gesture(hold)
         .aspectRatio(1.0, contentMode: .fit)
+    }
+    
+    var hold: some Gesture {
+        // Get some haptics going
+        let generator = UINotificationFeedbackGenerator()
+        
+        return SimultaneousGesture(
+            LongPressGesture(minimumDuration: 1.0, maximumDistance: 15)
+                .updating($pressing, body: { (bool, state, tx) in
+                    state = bool
+                }).onEnded({ (value) in
+                    self.toDo.toggleFocus()
+                    generator.notificationOccurred(.success)
+                }),
+            TapGesture()
+                .onEnded({
+                    self.toDo.completeToggle()
+                    generator.notificationOccurred(.success)
+                })
+        )
     }
 }
 
 struct CardView_Previews: PreviewProvider {
+    static let toDo = ToDo(context: PreviewHelper.moc, title: "Sup", isActive: true)
+    
     static var previews: some View {
-        ContentView_Previews.previews
+        ZStack {
+            LinearGradient(
+                gradient: buildGradient(color: .otherBlue),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+                .edgesIgnoringSafeArea(.all)
+            
+            PreviewHelper.demoAddBar
+            
+            CardView(toDo: toDo)
+            .padding()
+        }
     }
 }
