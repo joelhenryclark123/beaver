@@ -79,12 +79,13 @@ struct CardView: View {
                     state = bool
                 }).onEnded({ (value) in
                     self.toDo.toggleFocus()
-                    generator.notificationOccurred(.success)
                 }),
             TapGesture()
                 .onEnded({
                     self.toDo.completeToggle()
-                    generator.notificationOccurred(.success)
+                    if self.toDo.isComplete {
+                        generator.notificationOccurred(.success)
+                    }
                 })
         )
     }
