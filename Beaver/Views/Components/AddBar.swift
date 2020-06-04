@@ -70,9 +70,9 @@ struct AddBar: View {
                 .zIndex(3)
                 .padding(.leading, horizontalPadding)
                 
-                if self.version == .selected {
-                    attachmentsButton
-                }
+//                if self.version == .selected {
+//                    attachmentsButton
+//                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
