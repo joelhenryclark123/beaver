@@ -22,7 +22,7 @@ struct ContentView: View {
             AddBar()
                 .zIndex(6)
 
-            if self.state.hasOnboarded == false {
+            if self.state.scene == .onboarding {
                 Onboarding()
                     .transition(
                         AnyTransition.move(edge: .bottom)
@@ -71,33 +71,37 @@ struct ContentView_Previews: PreviewProvider {
     static let demoContext: NSManagedObjectContext = {
         let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        //        let toDos = try! mc.fetch(ToDo.fetchRequest())
-        //        for toDo in toDos {
-        //            (toDo as! ToDo).delete()
-        //        }
+                let toDos = try! mc.fetch(ToDo.fetchRequest())
+                for toDo in toDos {
+                    (toDo as! ToDo).delete()
+                }
         
-        //        let list: [ToDo] = [
-        //            ToDo(
-        //                context: mc,
-        //                title: "Walk 100 miles",
-        //                isActive: true
-        //            ),
-        //            ToDo(
-        //                context: mc,
-        //                title: "Walk 200 miles",
-        //                isActive: true
-        //            ),
-        //            ToDo(
-        //                context: mc,
-        //                title: "Walk 300 miles",
-        //                isActive: true
-        //            ),
-        //            ToDo(
-        //                context: mc,
-        //                title: "Walk 400 miles",
-        //                isActive: true
-        //            ),
-        //        ]
+                let list: [ToDo] = [
+                    ToDo(
+                        context: mc,
+                        title: "Walk 100 miles",
+                        isActive: false
+                    ),
+                    ToDo(
+                        context: mc,
+                        title: "Walk 200 miles",
+                        isActive: false
+                    ),
+                    ToDo(
+                        context: mc,
+                        title: "Walk 300 miles",
+                        isActive: false
+                    ),
+                    ToDo(
+                        context: mc,
+                        title: "Walk 400 miles",
+                        isActive: false
+                    ),ToDo(
+                        context: mc,
+                        title: "Walk 500 miles",
+                        isActive: false
+                    )
+                ]
         
         return mc
     }()

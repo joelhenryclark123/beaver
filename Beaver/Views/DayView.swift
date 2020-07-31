@@ -58,18 +58,23 @@ struct DayView: View {
     }
     
     var taskGrid: some View {
-        VStack(spacing: 8) {
-            Spacer().frame(height: 60)
-            HStack(spacing: 8) {
-                CardView(toDo: self.state.activeList[0])
-                CardView(toDo: self.state.activeList[1])
-            }
-            HStack(spacing: 8) {
-                CardView(toDo: self.state.activeList[2])
-                CardView(toDo: self.state.activeList[3])
-            }
-            Spacer().frame(height: 60)
-        }
+        let columns: [GridItem] = [
+            .init(.flexible()),
+            .init(.flexible())
+        ]
+        
+        return ScrollView{
+            VStack {
+                Spacer().frame(height: 60)
+                
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(self.state.activeList, id: \.self) { toDo in
+                        CardView(toDo: toDo)
+                    }
+                }
+                
+                Spacer().frame(height: 60)
+            }}
     }
 }
 

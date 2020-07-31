@@ -45,16 +45,7 @@ struct StoreView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
     
-    var instruction: String {
-        let count = toDos.count
-        if count < 4 {
-            return "Add \(4 - count) more To-Dos!"
-        } else if selectionCount < 4 {
-            return "Tap four To-Dos to get started!"
-        } else {
-            return "Skee Yee!"
-        }
-    }
+    var instruction: String = "Tap some things to get started!"
     
     // MARK: Body
     var body: some View {
@@ -86,7 +77,7 @@ struct StoreView: View {
                 .zIndex(1)
             }
 
-            if selectionCount == 4 {
+            if selectionCount >= 1 {
                 WideButton(.backgroundBlue, "Start Day") {
                     self.startDay()
                 }.zIndex(2)

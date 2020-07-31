@@ -91,7 +91,7 @@ final class AppState: NSObject, ObservableObject {
         DispatchQueue.main.async {
             if self.attaching { self.scene = .attaching }
             else if self.hasOnboarded == false { self.scene = .onboarding }
-            else if self.activeList.count == 4 {
+            else if self.activeList.count >= 1 {
                 if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
                 else if self.focusedToDo != nil { self.scene = .focusing }
                 else { self.scene = .middle }
@@ -115,11 +115,11 @@ extension AppState: NSFetchedResultsControllerDelegate {
     }
 }
 
+// MARK: - Previews
 struct AppState_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
             ContentView_Previews.previews
         }
-        
     }
 }
