@@ -55,14 +55,17 @@ struct StoreView: View {
                     .transition(.identity)
                     .zIndex(0)
             }
+            
             else {
                 List {
                     Spacer().frame(height: 60)
-                    
+                        .listRowBackground(EmptyView())
+
                     Text(instruction)
+                        .listRowBackground(EmptyView())
                         .foregroundColor(Color("dimWhite"))
                         .animation(nil)
-                    
+
                     ForEach(self.toDos) { toDo in
                         StoreItem(toDo: toDo)
                         .transition(.identity)
@@ -70,9 +73,12 @@ struct StoreView: View {
                         for index in offsets {
                             self.toDos[index].delete()
                         }
-                    }
-                    
-                    Spacer().frame(height: 64)
+                    }.listRowBackground(EmptyView())
+
+
+                    Spacer()
+                        .frame(height: 64)
+                        .listRowBackground(EmptyView())
                 }
                 .zIndex(1)
             }
@@ -101,42 +107,43 @@ struct StoreView_Previews: PreviewProvider {
                         title: "Walk 100 miles",
                         isActive: false
                     )
-    //
-    //                let _ = ToDo(
-    //                    context: mc,
-    //                    title: "Walk 200 miles",
-    //                    isActive: true
-    //                )
-    //
-    //                let _ = ToDo(
-    //                    context: mc,
-    //                    title: "Walk 300 miles",
-    //                    isActive: true
-    //                )
-    //
-    //                let _ = ToDo(
-    //                    context: mc,
-    //                    title: "Walk 400 miles",
-    //                    isActive: true
-    //                )
+        
+                    let _ = ToDo(
+                        context: mc,
+                        title: "Walk 200 miles",
+                        isActive: true
+                    )
+    
+                    let _ = ToDo(
+                        context: mc,
+                        title: "Walk 300 miles",
+                        isActive: true
+                    )
+    
+                    let _ = ToDo(
+                        context: mc,
+                        title: "Walk 400 miles",
+                        isActive: true
+                    )
                     
                     return mc
         }()
     
+    static let state = AppState(moc: context)
+    
     static var previews: some View {
         ZStack {
             MainBackground()
-            
+                .environmentObject(state)
+
             ZStack {
-                
                 StoreView()
                     .environment(\.managedObjectContext, context)
                     .frame(maxHeight: .infinity)
                 
                 AddBar()
-                    .environment(\.managedObjectContext, context)
+                    .environmentObject(state)
                     .frame(maxHeight: .infinity, alignment: .top)
-                    .padding()
             }
         }
     }
