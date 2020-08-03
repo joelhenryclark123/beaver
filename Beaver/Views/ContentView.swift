@@ -96,9 +96,20 @@ struct ContentView_Previews: PreviewProvider {
                         context: mc,
                         title: "Walk 400 miles",
                         isActive: false
-                    ),ToDo(
+                    ),
+                    ToDo(
                         context: mc,
                         title: "Walk 500 miles",
+                        isActive: false
+                    ),
+                    ToDo(
+                        context: mc,
+                        title: "Walk 600 miles",
+                        isActive: false
+                    ),
+                    ToDo(
+                        context: mc,
+                        title: "Walk 700 miles",
                         isActive: false
                     )
                 ]

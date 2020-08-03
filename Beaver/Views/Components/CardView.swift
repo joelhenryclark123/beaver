@@ -65,7 +65,12 @@ struct CardView: View {
         }
         .scaleEffect(self.pressing ? 0.9 : 1.0)
         .animation(.easeIn(duration: 0.2))
-        .gesture(hold)
+        .onTapGesture(count: 1) {
+            toDo.completeToggle()
+        }
+        .onLongPressGesture {
+            toDo.toggleFocus()
+        }
         .aspectRatio(1.0, contentMode: .fit)
     }
     
@@ -74,20 +79,30 @@ struct CardView: View {
         let generator = UINotificationFeedbackGenerator()
         
         return SimultaneousGesture(
-            LongPressGesture(minimumDuration: 1.0, maximumDistance: 15)
+            LongPressGesture(minimumDuration: 0.75, maximumDistance: 1)
                 .updating($pressing, body: { (bool, state, tx) in
                     state = bool
                 }).onEnded({ (value) in
                     self.toDo.toggleFocus()
                 }),
-            TapGesture()
+            TapGesture(count: 2)
                 .onEnded({
-                    self.toDo.completeToggle()
-                    if self.toDo.isComplete {
+                    if !self.toDo.isComplete {
                         generator.notificationOccurred(.success)
                     }
+
+                    self.toDo.completeToggle()
                 })
         )
+                
+//        return TapGesture(count: 2)
+//            .onEnded({
+//                if !self.toDo.isComplete {
+//                    generator.notificationOccurred(.success)
+//                }
+//
+//                self.toDo.completeToggle()
+//            })
     }
 }
 

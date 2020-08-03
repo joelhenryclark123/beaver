@@ -31,24 +31,27 @@ struct DayView: View {
         return ZStack {
             if (showingButton) {
                 WideButton(.accentGreen, "Complete") {
-                        self.completeDay()
+                    self.completeDay()
                 }
                 .zIndex(1)
             }
             
-            if self.state.focusedToDo != nil {
-                CardView(toDo: self.state.focusedToDo!)
-                    .padding()
-                    .zIndex(0)
-            }
-            else {
-                taskGrid
-                    .padding()
-                    .zIndex(0)
-            }
-            
             VStack {
-                Spacer()
+                if self.state.focusedToDo != nil {
+                    Spacer()
+                    CardView(toDo: self.state.focusedToDo!)
+                        .padding()
+                        .zIndex(0)
+                    Spacer()
+                }
+                else {
+                    Spacer()
+                    taskGrid
+                        .padding()
+                        .zIndex(0)
+                    Spacer()
+                }
+                
                 Text("Tap to complete\nLong press for focus")
                     .foregroundColor(Color("dimWhite"))
                     .modifier(FocalistFont(font: .smallTextSemibold))
@@ -74,14 +77,57 @@ struct DayView: View {
                 }
                 
                 Spacer().frame(height: 60)
-            }}
+            }
+        }
     }
 }
 
 
 struct DayView_Previews: PreviewProvider {
+    static let demoContext: NSManagedObjectContext = {
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let toDos = try! mc.fetch(ToDo.fetchRequest())
+        for toDo in toDos {
+            (toDo as! ToDo).delete()
+        }
+        
+        let list: [ToDo] = [
+            ToDo(
+                context: mc,
+                title: "Walk 100 miles",
+                isActive: false
+            ),
+            ToDo(
+                context: mc,
+                title: "Walk 200 miles",
+                isActive: false
+            ),
+            ToDo(
+                context: mc,
+                title: "Walk 300 miles",
+                isActive: false
+            ),
+            ToDo(
+                context: mc,
+                title: "Walk 400 miles",
+                isActive: false
+            )
+        ]
+        list.forEach({ $0.moveToDay() })
+        
+        return mc
+    }()
+    
+    static let state = AppState(moc: demoContext)
     
     static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+        ZStack {
+        MainBackground()
+            .environmentObject(state)
+        
+        DayView()
+            .environmentObject(state)
+        }
     }
 }

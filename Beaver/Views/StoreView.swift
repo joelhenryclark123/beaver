@@ -45,7 +45,7 @@ struct StoreView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
     
-    var instruction: String = "Tap some things to get started!"
+    var instruction: String = "Tap the things you want to do today!"
     
     // MARK: Body
     var body: some View {
