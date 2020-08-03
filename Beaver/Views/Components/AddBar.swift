@@ -97,3 +97,10 @@ struct AddBar: View {
         }
     }
 }
+
+struct AddBar_Previews: PreviewProvider {
+    static var previews: some View {
+        AddBar()
+            .environmentObject(StoreView_Previews.state)
+    }
+}
