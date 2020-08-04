@@ -45,6 +45,16 @@ final class AppState: NSObject, ObservableObject {
                 
         self.fetchedResultsController.delegate = self
         
+        setupList()
+    }
+    
+    func finishOnboarding() {
+        self.hasOnboarded = true
+        self.scene = .beginning
+        UserDefaults.standard.set(true, forKey: "onboarded")
+    }
+    
+    func setupList() {
         do {
             try self.fetchedResultsController.performFetch()
             self.activeList = self.fetchedResultsController.fetchedObjects ?? []
@@ -53,12 +63,6 @@ final class AppState: NSObject, ObservableObject {
         } catch { fatalError() }
         
         updateScene()
-    }
-    
-    func finishOnboarding() {
-        self.hasOnboarded = true
-        self.scene = .beginning
-        UserDefaults.standard.set(true, forKey: "onboarded")
     }
     
     enum Scene {
@@ -102,6 +106,14 @@ final class AppState: NSObject, ObservableObject {
     
     func toggleAttaching() -> Void {
         self.attaching.toggle()
+        updateScene()
+    }
+    
+    func editDay() -> Void {
+        for toDo in activeList {
+            toDo.moveToStore()
+        }
+        
         updateScene()
     }
 }

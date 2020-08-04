@@ -13,6 +13,7 @@ import FirebaseAnalytics
 
 struct DayView: View {
     @EnvironmentObject var state: AppState
+    @State var showingAlert: Bool = false
     
     func completeDay() -> Void {
         self.state.activeList.forEach({ $0.totallyFinish() })
@@ -57,6 +58,19 @@ struct DayView: View {
                     .modifier(FocalistFont(font: .smallTextSemibold))
                     .multilineTextAlignment(.center)
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in
+            self.showingAlert = true
+        })
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Do you want to change your list?"),
+                primaryButton: .default(Text("Yup!"), action: {
+                    self.showingAlert = false
+                    self.state.editDay()
+                }), secondaryButton: .cancel(Text("Nope."), action: {
+                    self.showingAlert = false
+                }))
         }
     }
     
@@ -129,5 +143,17 @@ struct DayView_Previews: PreviewProvider {
         DayView()
             .environmentObject(state)
         }
+    }
+}
+
+// MARK: - Shake gesture support
+extension NSNotification.Name {
+    public static let deviceDidShakeNotification = NSNotification.Name("MyDeviceDidShakeNotification")
+}
+
+extension UIWindow {
+    open override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+        NotificationCenter.default.post(name: .deviceDidShakeNotification, object: event)
     }
 }

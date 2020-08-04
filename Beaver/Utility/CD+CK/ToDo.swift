@@ -45,7 +45,7 @@ public class ToDo: NSManagedObject, Identifiable {
     }
     
     var isComplete: Bool {
-        if self.completedAt != nil { return true } else { return false }
+        self.completedAt != nil
     }
     
     var isArchived: Bool {
@@ -70,6 +70,7 @@ extension ToDo {
         context.perform {
             self.isActive = false
             self.movedAt = nil
+            self.focusing = false
             self.saveContext()
         }
     }
@@ -160,7 +161,6 @@ extension ToDo {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
-        fetchRequest.fetchBatchSize = 4
 
         return fetchRequest
     }
