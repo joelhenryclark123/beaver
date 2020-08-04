@@ -66,10 +66,10 @@ struct CardView: View {
         .scaleEffect(self.pressing ? 0.9 : 1.0)
         .animation(.easeIn(duration: 0.2))
         .onTapGesture(count: 1) {
-            toDo.completeToggle()
+            self.toDo.completeToggle()
         }
         .onLongPressGesture {
-            toDo.toggleFocus()
+            self.toDo.toggleFocus()
         }
         .aspectRatio(1.0, contentMode: .fit)
     }
