@@ -12,6 +12,7 @@ import FirebaseAnalytics
 import Combine
 
 struct StoreView: View {
+    // MARK: - Properties
     @Environment(\.managedObjectContext) var context
     @FetchRequest(
         fetchRequest: ToDo.storeFetch
@@ -23,7 +24,10 @@ struct StoreView: View {
         return selected.count
     }
     
-    func startDay() {
+    var instruction: String = "Tap the things you want to do today!"
+    
+    // MARK: - Functions
+    private func startDay() {
         for toDo in toDos { if toDo.isActive { toDo.moveToDay() } }
         try? context.save()
         
@@ -33,21 +37,7 @@ struct StoreView: View {
         #endif
     }
     
-    var emptyState: some View {
-        VStack {
-            VStack {
-                Text("Empty!")
-                    .modifier(FocalistFont(font: .heading1))
-                Text("Tap the add bar above to get started")
-                    .modifier(FocalistFont(font: .mediumText))
-            }.foregroundColor(.white)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-    }
-    
-    var instruction: String = "Tap the things you want to do today!"
-    
-    // MARK: Body
+    // MARK: - Views
     var body: some View {
         ZStack {
             if toDos.isEmpty {
@@ -90,6 +80,18 @@ struct StoreView: View {
             }
             
         }
+    }
+    
+    var emptyState: some View {
+        VStack {
+            VStack {
+                Text("Empty!")
+                    .modifier(FocalistFont(font: .heading1))
+                Text("Tap the add bar above to get started")
+                    .modifier(FocalistFont(font: .mediumText))
+            }.foregroundColor(.white)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 
