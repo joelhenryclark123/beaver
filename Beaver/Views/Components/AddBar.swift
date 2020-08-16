@@ -69,32 +69,11 @@ struct AddBar: View {
                 .accentColor(Color(state.scene.color.rawValue))
                 .zIndex(3)
                 .padding(.leading, horizontalPadding)
-                
-//                if self.version == .selected {
-//                    attachmentsButton
-//                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal)
         .padding(.top, 8)
-    }
-    
-    var attachmentsButton: some View {
-        let size: CGFloat = 28
-        
-        return Button(action: {
-            withAnimation(.spring()) {
-                self.state.toggleAttaching()
-            }
-        }) {
-            Image(systemName: self.state.scene == .attaching ? "paperclip.circle.fill" : "paperclip.circle")
-                .resizable()
-                .frame(width: size, height: size)
-                .foregroundColor(Color("accentOrangeLight"))
-                .padding(.trailing, horizontalPadding)
-                .padding(.vertical, verticalPadding)
-        }
     }
 }
 

@@ -12,34 +12,33 @@ import CoreData
 import Combine
 
 final class AppState: NSObject, ObservableObject {
-    let context: NSManagedObjectContext
-    var fetchedResultsController: NSFetchedResultsController<ToDo>
-    
+    // MARK: - All Properties
     @Published var hasOnboarded: Bool
-    @Published var attaching: Bool = false
     @Published var activeList: [ToDo]
     @Published var scene: Scene
     @Published var focusedToDo: ToDo?
     
-    init(moc: NSManagedObjectContext) {
-//        #if DEBUG
-//        UserDefaults.standard.set(false, forKey: "onboarded")
-//        #endif
+    var context: NSManagedObjectContext
+    var fetchedResultsController: NSFetchedResultsController<ToDo>
+    
+    // MARK: - Initialization
+    init(moc: NSManagedObjectContext?) {
+        #if DEBUG
+        UserDefaults.standard.set(true, forKey: "onboarded")
+        #endif
         
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
         self.hasOnboarded = hasOnboarded
         
-        self.activeList = []
-        
+        self.context = moc ?? (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         self.fetchedResultsController = NSFetchedResultsController<ToDo>.init(
             fetchRequest: ToDo.todayListFetch,
-            managedObjectContext: moc,
+            managedObjectContext: context,
             sectionNameKeyPath: nil,
             cacheName: nil
         )
-        
+        self.activeList = []
         self.scene = .beginning
-        self.context = moc
         
         super.init()
                 
@@ -48,13 +47,7 @@ final class AppState: NSObject, ObservableObject {
         setupList()
     }
     
-    func finishOnboarding() {
-        self.hasOnboarded = true
-        self.scene = .beginning
-        UserDefaults.standard.set(true, forKey: "onboarded")
-    }
-    
-    func setupList() {
+    private func setupList() {
         do {
             try self.fetchedResultsController.performFetch()
             self.activeList = self.fetchedResultsController.fetchedObjects ?? []
@@ -65,6 +58,31 @@ final class AppState: NSObject, ObservableObject {
         updateScene()
     }
     
+    // MARK: - Functions
+    func finishOnboarding() {
+        self.hasOnboarded = true
+        self.scene = .beginning
+        UserDefaults.standard.set(true, forKey: "onboarded")
+    }
+    
+    func editDay() -> Void {
+        for toDo in activeList {
+            toDo.moveToStore()
+        }
+        
+        updateScene()
+    }
+    
+    func completeDay() -> Void {
+        activeList.forEach({ $0.totallyFinish() })
+        
+        #if DEBUG
+        #else
+        Analytics.logEvent("completedDay", parameters: nil)
+        #endif
+    }
+    
+    // MARK: - Scene Management
     enum Scene {
         case onboarding
         case beginning
@@ -93,8 +111,7 @@ final class AppState: NSObject, ObservableObject {
     
     func updateScene() -> Void {
         DispatchQueue.main.async {
-            if self.attaching { self.scene = .attaching }
-            else if self.hasOnboarded == false { self.scene = .onboarding }
+            if self.hasOnboarded == false { self.scene = .onboarding }
             else if self.activeList.count >= 1 {
                 if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
                 else if self.focusedToDo != nil { self.scene = .focusing }
@@ -102,19 +119,6 @@ final class AppState: NSObject, ObservableObject {
             }
             else { self.scene = .beginning }
         }
-    }
-    
-    func toggleAttaching() -> Void {
-        self.attaching.toggle()
-        updateScene()
-    }
-    
-    func editDay() -> Void {
-        for toDo in activeList {
-            toDo.moveToStore()
-        }
-        
-        updateScene()
     }
 }
 

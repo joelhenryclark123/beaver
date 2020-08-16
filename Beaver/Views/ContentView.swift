@@ -51,9 +51,6 @@ struct ContentView: View {
                     .transition(AnyTransition.opacity.animation(.spring()))
                     .zIndex(2)
             }
-                if self.state.scene == .attaching {
-                    EmptyView()
-                }
             }
         }
         .onReceive(

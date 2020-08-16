@@ -25,6 +25,7 @@
 		E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F64E23F75EB200BE2133 /* StoreView.swift */; };
 		E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B2F65123F75ECD00BE2133 /* StoreItem.swift */; };
 		E9B37231240335FC003B46B0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
+		E9B9364924E9D2ED00F77602 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9364824E9D2ED00F77602 /* ToDo+CoreDataProperties.swift */; };
 		E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB5768240EB83E0083BE7D /* Onboarding.swift */; };
 		E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB576A240EB8E00083BE7D /* WideButton.swift */; };
 		E9E5D7AE24648BA10059BDFD /* PreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */; };
@@ -34,8 +35,8 @@
 		E9F51B9F23B83CA60068B86E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9E23B83CA60068B86E /* Preview Assets.xcassets */; };
 		E9F51BA223B83CA60068B86E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9F51BA023B83CA60068B86E /* LaunchScreen.storyboard */; };
 		E9F51BB023B845780068B86E /* BeaverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51BAF23B845780068B86E /* BeaverTests.swift */; };
-		E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
-		E9F9F37123BA4C9700EC1EBE /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */; };
+		E9F7A3352409B2A50037B9A4 /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo+CoreDataClass.swift */; };
+		E9F9F37123BA4C9700EC1EBE /* ToDo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9F36F23BA46EB00EC1EBE /* ToDo+CoreDataClass.swift */; };
 		E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9FBEB8C240AEA8200BCB531 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		E9B2F64E23F75EB200BE2133 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		E9B2F65123F75ECD00BE2133 /* StoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreItem.swift; sourceTree = "<group>"; };
 		E9B37230240335FC003B46B0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E9B9364824E9D2ED00F77602 /* ToDo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E9BB5768240EB83E0083BE7D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E9BB576A240EB8E00083BE7D /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
 		E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelper.swift; sourceTree = "<group>"; };
@@ -85,7 +87,7 @@
 		E9F51BAD23B845780068B86E /* BeaverTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeaverTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51BAF23B845780068B86E /* BeaverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaverTests.swift; sourceTree = "<group>"; };
 		E9F51BB123B845780068B86E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		E9F9F36F23BA46EB00EC1EBE /* ToDo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E9FBEB8C240AEA8200BCB531 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,7 +172,8 @@
 			children = (
 				E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */,
 				E95D679B23E75F8600AB3320 /* Stack.entitlements */,
-				E9F9F36F23BA46EB00EC1EBE /* ToDo.swift */,
+				E9F9F36F23BA46EB00EC1EBE /* ToDo+CoreDataClass.swift */,
+				E9B9364824E9D2ED00F77602 /* ToDo+CoreDataProperties.swift */,
 			);
 			path = "CD+CK";
 			sourceTree = "<group>";
@@ -429,8 +432,9 @@
 				E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */,
 				E9B37231240335FC003B46B0 /* AppState.swift in Sources */,
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
-				E9F7A3352409B2A50037B9A4 /* ToDo.swift in Sources */,
+				E9F7A3352409B2A50037B9A4 /* ToDo+CoreDataClass.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
+				E9B9364924E9D2ED00F77602 /* ToDo+CoreDataProperties.swift in Sources */,
 				E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */,
 				E9869033240AC78800A03FA2 /* AddBar.swift in Sources */,
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
@@ -453,7 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9F51BB023B845780068B86E /* BeaverTests.swift in Sources */,
-				E9F9F37123BA4C9700EC1EBE /* ToDo.swift in Sources */,
+				E9F9F37123BA4C9700EC1EBE /* ToDo+CoreDataClass.swift in Sources */,
 				E97EDDEA244237DD00B28063 /* AppStateTests.swift in Sources */,
 				E97EDDEB2442384C00B28063 /* AppState.swift in Sources */,
 			);

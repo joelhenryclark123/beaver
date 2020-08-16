@@ -15,15 +15,6 @@ struct DayView: View {
     @EnvironmentObject var state: AppState
     @State var showingAlert: Bool = false
     
-    func completeDay() -> Void {
-        self.state.activeList.forEach({ $0.totallyFinish() })
-        
-        #if DEBUG
-        #else
-        Analytics.logEvent("completedDay", parameters: nil)
-        #endif
-    }
-    
     var body: some View {
         let showingButton: Bool = self.state.activeList.allSatisfy({
             $0.completedAt != nil && $0.isActive == true
@@ -32,28 +23,23 @@ struct DayView: View {
         return ZStack {
             if (showingButton) {
                 WideButton(.accentGreen, "Complete") {
-                    self.completeDay()
+                    self.state.completeDay()
                 }
                 .zIndex(1)
             }
             
             VStack {
                 if self.state.focusedToDo != nil {
-                    Spacer()
                     CardView(toDo: self.state.focusedToDo!)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding()
                         .zIndex(0)
-                    Spacer()
-                }
-                else {
-                    Spacer()
+                } else {
                     taskGrid
                         .padding()
                         .zIndex(0)
-                    Spacer()
                 }
-                
-                Text("Tap to complete\nLong press for focus")
+                Text("Tap to complete\nLong press for focus\nShake to edit")
                     .foregroundColor(Color("dimWhite"))
                     .modifier(FocalistFont(font: .smallTextSemibold))
                     .multilineTextAlignment(.center)
@@ -80,7 +66,7 @@ struct DayView: View {
             .init(.flexible())
         ]
         
-        return ScrollView{
+        return ScrollView {
             VStack {
                 Spacer().frame(height: 60)
                 
@@ -92,7 +78,7 @@ struct DayView: View {
                 
                 Spacer().frame(height: 60)
             }
-        }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
