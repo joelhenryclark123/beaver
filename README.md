@@ -4,6 +4,8 @@
 This project is inspired by the [Paradox of Choice](https://en.wikipedia.org/wiki/The_Paradox_of_Choice "Wikipedia"), [Getting Things Done Step 1](https://gettingthingsdone.com/insights/step-1-capture/), and user feedback!
 
 ## How it works
+
+//TODO: overview graphic
 There are three important screens in the app (managed with AppState's scene property, injected into ContentView's environment via AppDelegate):
 1. [The Pink screen](#the-pink-screen)
 2. [The Blue screen](#the-blue-screen)
@@ -29,6 +31,7 @@ Just shake your device, and you can rebuild your day! Already completed tasks wi
 
 ### [The Green Screen](Beaver/Views/DoneView.swift)
 Once you finish everything for the day, do **whatever you want**!
+
 // TODO: picture of the green screen
 
 ## Technologies
@@ -42,4 +45,4 @@ Once you finish everything for the day, do **whatever you want**!
 
 ## Important directories
 - [Views](Beaver/Views)
-- [Utility Files] (Beaver/Utility) 
+- [Utility Files](Beaver/Utility) 
