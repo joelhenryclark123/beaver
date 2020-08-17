@@ -6,6 +6,7 @@ This project is inspired by the [Paradox of Choice](https://en.wikipedia.org/wik
 ## How it works
 
 //TODO: overview graphic
+
 There are three important screens in the app (managed with AppState's scene property, injected into ContentView's environment via AppDelegate):
 1. [The Pink screen](#the-pink-screen)
 2. [The Blue screen](#the-blue-screen)
