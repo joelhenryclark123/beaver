@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import CoreData
 import Combine
+import FirebaseAnalytics
 
 final class AppState: NSObject, ObservableObject {
     // MARK: - All Properties
@@ -22,7 +23,7 @@ final class AppState: NSObject, ObservableObject {
     var fetchedResultsController: NSFetchedResultsController<ToDo>
     
     // MARK: - Initialization
-    init(moc: NSManagedObjectContext?) {
+    init(moc: NSManagedObjectContext) {
         #if DEBUG
         UserDefaults.standard.set(true, forKey: "onboarded")
         #endif
@@ -30,7 +31,7 @@ final class AppState: NSObject, ObservableObject {
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
         self.hasOnboarded = hasOnboarded
         
-        self.context = moc ?? (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        self.context = moc
         self.fetchedResultsController = NSFetchedResultsController<ToDo>.init(
             fetchRequest: ToDo.todayListFetch,
             managedObjectContext: context,
@@ -128,14 +129,5 @@ extension AppState: NSFetchedResultsControllerDelegate {
         self.focusedToDo = active.first(where: { $0.focusing })
         self.activeList = active
         updateScene()
-    }
-}
-
-// MARK: - Previews
-struct AppState_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack {
-            ContentView_Previews.previews
-        }
     }
 }

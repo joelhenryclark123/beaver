@@ -82,17 +82,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         #endif
         
-        // Clean to dos
-        let today = try! container.viewContext.fetch(ToDo.todayListFetch)
-        if today.count != 4 {
-            today.forEach({ $0.moveToStore() })
-        }
-        
-        let storeToDos = try! container.viewContext.fetch(ToDo.storeFetch)
-        let calendar = Calendar.current
-        storeToDos.forEach { (toDo) in
-            if (!toDo.onTodaysList) { toDo.moveToStore() }
-        }
+//        // Clean to dos
+//        let today = try! container.viewContext.fetch(ToDo.todayListFetch)
+//        if today.count != 4 {
+//            today.forEach({ $0.moveToStore() })
+//        }
+//        
+//        let storeToDos = try! container.viewContext.fetch(ToDo.storeFetch)
+//        let calendar = Calendar.current
+//        storeToDos.forEach { (toDo) in
+//            if (!toDo.onTodaysList) { toDo.moveToStore() }
+//        }
                 
         return container
     }()
