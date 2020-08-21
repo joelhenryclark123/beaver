@@ -11,6 +11,7 @@
 		2AC01C01CCCC03EC18329EF7 /* Pods_BeaverWidgetsExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A66C7620CB89BBC32295C873 /* Pods_BeaverWidgetsExtension.framework */; };
 		A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
+		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
 		E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */; };
 		E95EA62F2426B0B3006D6446 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */; };
@@ -91,6 +92,7 @@
 		760882B16F980BDFA4403F63 /* Pods-BeaverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaverTests.debug.xcconfig"; path = "Target Support Files/Pods-BeaverTests/Pods-BeaverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A66C7620CB89BBC32295C873 /* Pods_BeaverWidgetsExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaverWidgetsExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
 				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
 				E9BB576A240EB8E00083BE7D /* WideButton.swift */,
+				E959B15324F01E73007CA0CE /* TaskGrid.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				E982485F242FFE2F00840A78 /* Transitions.swift in Sources */,
 				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
+				E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */,
 				E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */,

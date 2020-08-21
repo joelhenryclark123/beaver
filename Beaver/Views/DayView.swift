@@ -35,7 +35,8 @@ struct DayView: View {
                         .padding()
                         .zIndex(0)
                 } else {
-                    taskGrid
+                    Spacer().frame(height: 60)
+                    TaskGrid(list: state.activeList)
                         .padding()
                         .zIndex(0)
                 }
@@ -58,27 +59,6 @@ struct DayView: View {
                     self.showingAlert = false
                 }))
         }
-    }
-    
-    var taskGrid: some View {
-        let columns: [GridItem] = [
-            .init(.flexible()),
-            .init(.flexible())
-        ]
-        
-        return ScrollView {
-            VStack {
-                Spacer().frame(height: 60)
-                
-                LazyVGrid(columns: columns, spacing: 8) {
-                    ForEach(self.state.activeList, id: \.self) { toDo in
-                        CardView(toDo: toDo)
-                    }
-                }
-                
-                Spacer().frame(height: 60)
-            }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

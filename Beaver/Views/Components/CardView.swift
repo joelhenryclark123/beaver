@@ -9,23 +9,37 @@
 import SwiftUI
 
 struct CardView: View {
+    @EnvironmentObject var state: AppState
     @ObservedObject var toDo: ToDo
     @GestureState var pressing: Bool = false
     static let cornerRadius: CGFloat = 48
     
+    func handleTap() {
+        if self.state.scene == .beginning {
+            self.toDo.activeToggle()
+        } else if self.state.scene == .middle {
+            self.toDo.completeToggle()
+        }
+    }
+    
     var background: some View {
         Group {
-            if toDo.isComplete {
-                Color("otherBlue")
-                .overlay(
-                    RoundedRectangle(cornerRadius: CardView.cornerRadius)
-                        .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
+            if self.state.scene == .beginning {
+                if toDo.isActive {
+                    Color("accentWhite")
                         .modifier(FocalistShadow(option: .light))
-                )
-            }
-            else {
-                Color("accentWhite")
-                    .modifier(FocalistShadow(option: .light))
+                } else {
+                    Color("lightShadow")
+                }
+            } else if self.state.scene == .middle {
+                if toDo.isComplete {
+                    Color("otherBlue")
+                        .overlay(
+                            RoundedRectangle(cornerRadius: CardView.cornerRadius)
+                                .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
+                                .modifier(FocalistShadow(option: .light))
+                        )
+                }
             }
         }
         .clipShape(
@@ -50,7 +64,7 @@ struct CardView: View {
                     .transition(.opacity)
                     .modifier(FocalistFont(font: .mediumText))
                     .multilineTextAlignment(.center)
-                    .foregroundColor(.black)
+                    .foregroundColor(self.toDo.isActive ? .black : Color("accentWhite"))
                     .padding(8)
                     .zIndex(3)
             } else {
@@ -65,12 +79,8 @@ struct CardView: View {
         }
         .scaleEffect(self.pressing ? 0.9 : 1.0)
         .animation(.easeIn(duration: 0.2))
-        .onTapGesture(count: 1) {
-            self.toDo.completeToggle()
-        }
-        .onLongPressGesture {
-            self.toDo.toggleFocus()
-        }
+        .onTapGesture(count: 1) { handleTap() }
+        .onLongPressGesture { self.toDo.toggleFocus() }
         .aspectRatio(1.0, contentMode: .fit)
     }
     
@@ -94,34 +104,25 @@ struct CardView: View {
                     self.toDo.completeToggle()
                 })
         )
-                
-//        return TapGesture(count: 2)
-//            .onEnded({
-//                if !self.toDo.isComplete {
-//                    generator.notificationOccurred(.success)
-//                }
-//
-//                self.toDo.completeToggle()
-//            })
     }
 }
 
-struct CardView_Previews: PreviewProvider {
-    static let toDo = ToDo(context: PreviewHelper.moc, title: "Sup", isActive: true)
-    
-    static var previews: some View {
-        ZStack {
-            LinearGradient(
-                gradient: buildGradient(color: .otherBlue),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-                .edgesIgnoringSafeArea(.all)
-            
-            PreviewHelper.demoAddBar
-            
-            CardView(toDo: toDo)
-            .padding()
-        }
-    }
-}
+//struct CardView_Previews: PreviewProvider {
+//    static let toDo = ToDo(context: PreviewHelper.moc, title: "Sup", isActive: true)
+//
+//    static var previews: some View {
+//        ZStack {
+//            LinearGradient(
+//                gradient: buildGradient(color: .otherBlue),
+//                startPoint: .top,
+//                endPoint: .bottom
+//            )
+//                .edgesIgnoringSafeArea(.all)
+//
+//            PreviewHelper.demoAddBar
+//
+//            CardView(toDo: toDo)
+//            .padding()
+//        }
+//    }
+//}
