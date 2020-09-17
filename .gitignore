@@ -44,7 +44,6 @@ Carthage/Build
 GoogleService-Info.plist
 
 # Package Manager
-*.lock
 
 # Fastlane
 fastlane/
