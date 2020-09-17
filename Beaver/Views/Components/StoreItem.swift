@@ -18,16 +18,10 @@ struct StoreItem: View {
             ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .foregroundColor(
-                        toDo.isActive ? Color("accentWhite") : Color("materialWhite")
+                        toDo.isActive ? Color("accentWhite") : Color("lightShadow")
                 )
-                
-                if !(toDo.isActive) {
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .stroke(Color("accentWhite"), lineWidth: 1)
-                }
             }
             .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
-            .animation(.easeIn)
         }
     }
     
@@ -39,6 +33,8 @@ struct StoreItem: View {
             .padding(.vertical, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(cardBackground)
+            .animation(.easeIn(duration: 0.15))
+            .transition(.identity)
     }
 }
 
@@ -47,6 +43,8 @@ struct StoreItem_Previews: PreviewProvider {
     static let context = ContentView_Previews.demoContext
     
     static var previews: some View {
+        ZStack {
+            LinearGradient(gradient: buildGradient(color: .accentPink), startPoint: .top, endPoint: .bottom)
         StoreItem(
             toDo: ToDo(
                 context: context,
@@ -54,5 +52,6 @@ struct StoreItem_Previews: PreviewProvider {
                 isActive: false)
         )
             .previewLayout(.sizeThatFits)
+        }
     }
 }

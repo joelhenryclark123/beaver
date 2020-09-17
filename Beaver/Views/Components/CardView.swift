@@ -50,14 +50,6 @@ struct CardView: View {
     var body: some View {
         ZStack {
             background
-            
-//            #if DEBUG
-//            VStack{
-//                Spacer()
-//                Text("focused: \(String(self.toDo.focusing))")
-//            }
-//            #endif
-            
             if !self.toDo.isComplete {
                 Text(self.toDo.title)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

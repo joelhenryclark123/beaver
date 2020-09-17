@@ -47,22 +47,30 @@ struct StoreView: View {
             }
             
             else {
-                VStack {
-                    Spacer().frame(height: 60)
+                List {
+                    Spacer().frame(height: 0)
                         .listRowBackground(EmptyView())
 
                     Text(instruction)
                         .listRowBackground(EmptyView())
                         .foregroundColor(Color("dimWhite"))
                         .animation(nil)
-                    
-                    TaskGrid(toDos: toDos)
+
+                    ForEach(self.toDos) { toDo in
+                        StoreItem(toDo: toDo)
+                        .transition(.identity)
+                    }.onDelete { (offsets) in
+                        for index in offsets {
+                            self.toDos[index].delete()
+                        }
+                    }.listRowBackground(EmptyView())
+
 
                     Spacer()
-                        .frame(height: 64)
+                        .frame(height: 10)
                         .listRowBackground(EmptyView())
                 }
-                .padding()
+                .listStyle(SidebarListStyle())
                 .zIndex(1)
             }
 

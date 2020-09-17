@@ -77,9 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     container.viewContext.delete(toDo as! NSManagedObject)
                 }
 
-
                 try! container.viewContext.save()
-
         #endif
         
 //        // Clean to dos

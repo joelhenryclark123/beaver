@@ -107,7 +107,6 @@ extension ToDo {
     func unfocus() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
-            guard self.focusing else { return }
             self.focusing = false
             self.saveContext()
         }
