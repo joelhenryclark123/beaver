@@ -16,7 +16,7 @@ At the beginning of your day, you see the pink screen! It's the only time you'll
 
 ![Demo Screen](gh-assets/pinkScreenDemo.gif)
 
-Just tap on the things you want to do today, and get started onto...
+Just tap on the things you want to do today. Then, you go to...
 
 ### [The Blue Screen](Beaver/Views/DayView.swift)
 Once you pick what you want to do, everything else disappears for the day! Now, you're on the blue screen.
