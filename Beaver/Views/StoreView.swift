@@ -18,11 +18,6 @@ struct StoreView: View {
         fetchRequest: ToDo.storeFetch
     ) var toDos: FetchedResults<ToDo>
     @State var refreshing: Bool = false
-        
-    var selectionCount: Int {
-        let selected = toDos.filter { $0.isActive }
-        return selected.count
-    }
     
     var instruction: String = "Tap the things you want to do today!"
     
@@ -39,6 +34,10 @@ struct StoreView: View {
     
     // MARK: - Views
     var body: some View {
+        let showingButton: Bool = toDos.contains(where: {
+            $0.isActive
+        })
+        
         ZStack {
             if toDos.isEmpty {
                 emptyState
@@ -74,7 +73,7 @@ struct StoreView: View {
                 .zIndex(1)
             }
 
-            if selectionCount >= 1 {
+            if showingButton {
                 WideButton(.backgroundBlue, "Start Day") {
                     self.startDay()
                 }.zIndex(2)

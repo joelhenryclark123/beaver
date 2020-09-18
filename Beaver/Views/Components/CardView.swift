@@ -24,22 +24,17 @@ struct CardView: View {
     
     var background: some View {
         Group {
-            if self.state.scene == .beginning {
-                if toDo.isActive {
-                    Color("accentWhite")
+            if toDo.isComplete {
+                Color("otherBlue")
+                .overlay(
+                    RoundedRectangle(cornerRadius: CardView.cornerRadius)
+                        .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
                         .modifier(FocalistShadow(option: .light))
-                } else {
-                    Color("lightShadow")
-                }
-            } else if self.state.scene == .middle {
-                if toDo.isComplete {
-                    Color("otherBlue")
-                        .overlay(
-                            RoundedRectangle(cornerRadius: CardView.cornerRadius)
-                                .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
-                                .modifier(FocalistShadow(option: .light))
-                        )
-                }
+                )
+            }
+            else {
+                Color("accentWhite")
+                    .modifier(FocalistShadow(option: .light))
             }
         }
         .clipShape(
@@ -56,7 +51,7 @@ struct CardView: View {
                     .transition(.opacity)
                     .modifier(FocalistFont(font: .mediumText))
                     .multilineTextAlignment(.center)
-                    .foregroundColor(self.toDo.isActive ? .black : Color("accentWhite"))
+                    .foregroundColor(.black)
                     .padding(8)
                     .zIndex(3)
             } else {
