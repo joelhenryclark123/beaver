@@ -14,27 +14,27 @@ struct StoreItem: View {
     let cornerRadius: CGFloat = 12
     
     var cardBackground: some View {
-        Button(action: { self.toDo.activeToggle() }) {
-            ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .foregroundColor(
-                        toDo.isActive ? Color("accentWhite") : Color("lightShadow")
-                )
-            }
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            .foregroundColor(
+                toDo.isActive ? Color("accentWhite") : Color("lightShadow")
+            )
             .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light))
-        }
+            .onTapGesture(perform: {
+                self.toDo.activeToggle()
+            })
+
     }
     
     var body: some View {
         Text(toDo.title)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .modifier(FocalistFont(font: .mediumText))
             .foregroundColor(toDo.isActive ? Color("blackText") : Color("accentWhite"))
             .padding(.horizontal, 16)
             .padding(.vertical, 8)
-            .frame(maxWidth: .infinity, alignment: .leading)
             .background(cardBackground)
-            .animation(.easeIn(duration: 0.15))
-            .transition(.identity)
+            .transition(.opacity)
+            .animation(.easeIn(duration: 0.2))
     }
 }
 

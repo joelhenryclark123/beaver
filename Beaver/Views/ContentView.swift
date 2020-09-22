@@ -21,7 +21,7 @@ struct ContentView: View {
             
             AddBar()
                 .zIndex(6)
-
+            
             if self.state.scene == .onboarding {
                 Onboarding()
                     .transition(

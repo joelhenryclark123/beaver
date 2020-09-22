@@ -17,7 +17,6 @@ struct StoreView: View {
     @FetchRequest(
         fetchRequest: ToDo.storeFetch
     ) var toDos: FetchedResults<ToDo>
-    @State var refreshing: Bool = false
     
     var instruction: String = "Tap the things you want to do today!"
     
@@ -34,52 +33,49 @@ struct StoreView: View {
     
     // MARK: - Views
     var body: some View {
-        let showingButton: Bool = toDos.contains(where: {
-            $0.isActive
-        })
-        
         ZStack {
+            if toDos.contains(where: { $0.isActive }) {
+                WideButton(.backgroundBlue, "Start Day") {
+                    self.startDay()
+                }
+                .zIndex(2)
+            }
+            
             if toDos.isEmpty {
                 emptyState
                     .transition(.identity)
                     .zIndex(0)
-            }
-            
-            else {
-                List {
-                    Spacer().frame(height: 0)
-                        .listRowBackground(EmptyView())
-
-                    Text(instruction)
-                        .listRowBackground(EmptyView())
-                        .foregroundColor(Color("dimWhite"))
-                        .animation(nil)
-
-                    ForEach(self.toDos) { toDo in
-                        StoreItem(toDo: toDo)
-                        .transition(.identity)
-                    }.onDelete { (offsets) in
-                        for index in offsets {
-                            self.toDos[index].delete()
-                        }
-                    }.listRowBackground(EmptyView())
-
-
-                    Spacer()
-                        .frame(height: 10)
-                        .listRowBackground(EmptyView())
+            } else {
+                VStack {
+                    toDoListView
                 }
-                .listStyle(SidebarListStyle())
-                .zIndex(1)
             }
-
-            if showingButton {
-                WideButton(.backgroundBlue, "Start Day") {
-                    self.startDay()
-                }.zIndex(2)
-            }
-            
         }
+    }
+        
+    var toDoListView: some View {
+        List {
+            Text(instruction)
+                .foregroundColor(Color("dimWhite"))
+            
+            ForEach(self.toDos) { toDo in
+                StoreItem(toDo: toDo)
+            }.onDelete { (offsets) in
+                for index in offsets {
+                    self.toDos[index].delete()
+                }
+            }
+            .listRowBackground(EmptyView())
+            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+
+            Spacer()
+                .frame(height: 10)
+                .listRowBackground(EmptyView())
+        }
+        .listStyle(SidebarListStyle())
+        .padding(.top, 25)
+        .animation(.easeIn(duration: 0.2))
+        .zIndex(1)
     }
     
     var emptyState: some View {
@@ -97,39 +93,39 @@ struct StoreView: View {
 
 struct StoreView_Previews: PreviewProvider {
     static let context: NSManagedObjectContext = {
-            let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-                    
-                    let toDos = try! mc.fetch(ToDo.fetchRequest())
-                    for toDo in toDos {
-                        (toDo as! ToDo).delete()
-                    }
-                    
-                    let _ = ToDo(
-                        context: mc,
-                        title: "Walk 100 miles",
-                        isActive: false
-                    )
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-                    let _ = ToDo(
-                        context: mc,
-                        title: "Walk 200 miles",
-                        isActive: true
-                    )
-    
-                    let _ = ToDo(
-                        context: mc,
-                        title: "Walk 300 miles",
-                        isActive: true
-                    )
-    
-                    let _ = ToDo(
-                        context: mc,
-                        title: "Walk 400 miles",
-                        isActive: true
-                    )
-                    
-                    return mc
-        }()
+        let toDos = try! mc.fetch(ToDo.fetchRequest())
+        for toDo in toDos {
+            (toDo as! ToDo).delete()
+        }
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: false
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 200 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 300 miles",
+            isActive: true
+        )
+        
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 400 miles",
+            isActive: true
+        )
+        
+        return mc
+    }()
     
     static let state = AppState(moc: context)
     
@@ -137,7 +133,7 @@ struct StoreView_Previews: PreviewProvider {
         ZStack {
             MainBackground()
                 .environmentObject(state)
-
+            
             ZStack {
                 StoreView()
                     .environment(\.managedObjectContext, context)

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct WideButton: View {
-    static let cornerRadius: CGFloat = 12
+    static let cornerRadius: CGFloat = 24
     var color: FocalistColor
     var text: String
     var action: () -> Void
