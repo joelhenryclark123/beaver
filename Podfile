@@ -15,10 +15,5 @@ target 'Beaver' do
 
 end
 
-target 'BeaverWidgetsExtension' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-end
-
 # add the Firebase pod for Google Analytics
 pod 'Firebase/Analytics'

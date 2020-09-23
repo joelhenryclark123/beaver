@@ -18,7 +18,7 @@ struct StoreView: View {
         fetchRequest: ToDo.storeFetch
     ) var toDos: FetchedResults<ToDo>
     
-    var instruction: String = "Tap the things you want to do today!"
+    var instruction: String = "Pick what you want to do today!"
     
     // MARK: - Functions
     private func startDay() {
@@ -56,6 +56,7 @@ struct StoreView: View {
     var toDoListView: some View {
         List {
             Text(instruction)
+                .listRowBackground(EmptyView())
                 .foregroundColor(Color("dimWhite"))
             
             ForEach(self.toDos) { toDo in
@@ -66,7 +67,7 @@ struct StoreView: View {
                 }
             }
             .listRowBackground(EmptyView())
-            .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0))
+            .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
 
             Spacer()
                 .frame(height: 10)

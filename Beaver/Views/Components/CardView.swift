@@ -17,8 +17,14 @@ struct CardView: View {
     func handleTap() {
         if self.state.scene == .beginning {
             self.toDo.activeToggle()
-        } else if self.state.scene == .middle {
+        } else {
             self.toDo.completeToggle()
+        }
+    }
+    
+    func handleLongPress() {
+        if !self.toDo.isComplete {
+            self.toDo.toggleFocus()
         }
     }
     
@@ -67,7 +73,7 @@ struct CardView: View {
         .scaleEffect(self.pressing ? 0.9 : 1.0)
         .animation(.easeIn(duration: 0.2))
         .onTapGesture(count: 1) { handleTap() }
-        .onLongPressGesture { self.toDo.toggleFocus() }
+        .onLongPressGesture { handleLongPress() }
         .aspectRatio(1.0, contentMode: .fit)
     }
     
