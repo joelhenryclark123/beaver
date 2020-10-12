@@ -23,7 +23,7 @@ struct TaskGrid: View {
                 ForEach(list, id: \.self) { toDo in
                     CardView(toDo: toDo)
                 }
-            }
+            }.padding()
         }
     }
     

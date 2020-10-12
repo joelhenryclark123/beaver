@@ -29,17 +29,18 @@ struct DayView: View {
             }
             
             VStack {
+                Spacer().frame(height: 60)
+
                 if self.state.focusedToDo != nil {
                     CardView(toDo: self.state.focusedToDo!)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding()
                         .zIndex(0)
                 } else {
-                    Spacer().frame(height: 60)
                     TaskGrid(list: state.activeList)
-                        .padding()
                         .zIndex(0)
                 }
+                
                 Text("Tap to complete\nLong press for focus\nShake to edit")
                     .foregroundColor(Color("dimWhite"))
                     .modifier(FocalistFont(font: .smallTextSemibold))
@@ -105,7 +106,7 @@ struct DayView_Previews: PreviewProvider {
         ZStack {
         MainBackground()
             .environmentObject(state)
-        
+
         DayView()
             .environmentObject(state)
         }
