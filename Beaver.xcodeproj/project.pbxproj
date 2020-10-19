@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		26BEF83390C150A46873268A /* Pods_BeaverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD8E68299840AC96490F724 /* Pods_BeaverTests.framework */; };
 		A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */; };
+		E9225D24253E1E020094E960 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9225D23253E1E020094E960 /* API.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
@@ -76,6 +77,7 @@
 		760882B16F980BDFA4403F63 /* Pods-BeaverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaverTests.debug.xcconfig"; path = "Target Support Files/Pods-BeaverTests/Pods-BeaverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A66C7620CB89BBC32295C873 /* Pods_BeaverWidgetsExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaverWidgetsExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9225D23253E1E020094E960 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -216,6 +218,7 @@
 			children = (
 				E97E0F64240C99F400A46140 /* DesignSystem.swift */,
 				E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */,
+				E9225D23253E1E020094E960 /* API.swift */,
 				E9926335240B1CDC003D7658 /* Extensions */,
 				E9B3722F240335EF003B46B0 /* State */,
 				E9B3722D240335A4003B46B0 /* CD+CK */,
@@ -496,6 +499,7 @@
 				E9B9365F24E9E2BB00F77602 /* BeaverWidgets.intentdefinition in Sources */,
 				E982485F242FFE2F00840A78 /* Transitions.swift in Sources */,
 				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
+				E9225D24253E1E020094E960 /* API.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
 				E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,

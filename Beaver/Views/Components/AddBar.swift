@@ -63,12 +63,15 @@ struct AddBar: View {
                     if self.text.isEmpty { return }
                     else { self.createToDo() }
                 }
+                .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(.black)
                 .modifier(FocalistFont(font: .largeTextSemibold))
                 .accentColor(Color(state.scene.color.rawValue))
                 .zIndex(3)
                 .padding(.leading, horizontalPadding)
+                
+                QRButton()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -83,3 +86,20 @@ struct AddBar_Previews: PreviewProvider {
             .environmentObject(StoreView_Previews.state)
     }
 }
+
+struct QRButton: View {
+    @EnvironmentObject var state: AppState
+    
+    func handleClick() {
+        API().getToDo(url: URL(string: "https://jsonplaceholder.typicode.com/todos")!) { (toDos) in
+            for toDo in toDos {
+                let _ = ToDo(context: state.context, title: toDo.title, isActive: false)
+            }
+        }
+    }
+    
+    var body: some View {
+        Button("QR") { handleClick() }
+    }
+}
+
