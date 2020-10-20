@@ -8,6 +8,7 @@
 
 import SwiftUI
 import FirebaseAnalytics
+import CodeScanner
 
 struct AddBar: View {
     @EnvironmentObject var state: AppState
@@ -72,6 +73,7 @@ struct AddBar: View {
                 .padding(.leading, horizontalPadding)
                 
                 QRButton()
+                    .padding(.trailing, horizontalPadding)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -89,17 +91,46 @@ struct AddBar_Previews: PreviewProvider {
 
 struct QRButton: View {
     @EnvironmentObject var state: AppState
+    @State private var showingScanner = false
+    
+    var body: some View {
+        Button(action: { handleClick() }) {
+            Image(systemName: "qrcode.viewfinder")
+                .accentColor(Color(state.scene.color.rawValue))
+        }
+        .sheet(isPresented: $showingScanner) {
+            CodeScannerView(codeTypes: [.qr], simulatedData: "https://jsonplaceholder.typicode.com/todos", completion: self.handleScan)
+        }
+    }
     
     func handleClick() {
-        API().getToDo(url: URL(string: "https://jsonplaceholder.typicode.com/todos")!) { (toDos) in
+        self.showingScanner = true
+    }
+    
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+        self.showingScanner = false
+        
+        switch result {
+        case .success(let code):
+            readCSV(code)
+        case .failure(let error):
+            print("Scan error")
+        }
+    }
+    
+    func callAPI(_ url: URL) {
+        API().getToDo(url: url) { (toDos) in
             for toDo in toDos {
                 let _ = ToDo(context: state.context, title: toDo.title, isActive: false)
             }
         }
     }
     
-    var body: some View {
-        Button("QR") { handleClick() }
+    func readCSV(_ csv: String) {
+        csv.components(separatedBy: ", ").forEach({
+            if $0.isEmpty { return }
+            let _ = ToDo(context: state.context, title: $0, isActive: false)
+        })
     }
 }
 

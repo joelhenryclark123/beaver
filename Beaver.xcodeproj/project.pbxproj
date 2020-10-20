@@ -10,12 +10,12 @@
 		26BEF83390C150A46873268A /* Pods_BeaverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD8E68299840AC96490F724 /* Pods_BeaverTests.framework */; };
 		A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */; };
 		E9225D24253E1E020094E960 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9225D23253E1E020094E960 /* API.swift */; };
+		E9225D2B253E2B210094E960 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = E9225D2A253E2B210094E960 /* CodeScanner */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
 		E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */; };
 		E95EA62F2426B0B3006D6446 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */; };
-		E9714056251A6FEE00621B9E /* SwiftUIListSeparator in Frameworks */ = {isa = PBXBuildFile; productRef = E9714055251A6FEE00621B9E /* SwiftUIListSeparator */; };
 		E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97E0F64240C99F400A46140 /* DesignSystem.swift */; };
 		E97EDDEA244237DD00B28063 /* AppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97EDDE9244237DD00B28063 /* AppStateTests.swift */; };
 		E97EDDEB2442384C00B28063 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
@@ -124,9 +124,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9225D2B253E2B210094E960 /* CodeScanner in Frameworks */,
 				E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */,
 				A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */,
-				E9714056251A6FEE00621B9E /* SwiftUIListSeparator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +328,7 @@
 			);
 			name = Beaver;
 			packageProductDependencies = (
-				E9714055251A6FEE00621B9E /* SwiftUIListSeparator */,
+				E9225D2A253E2B210094E960 /* CodeScanner */,
 			);
 			productName = Stack;
 			productReference = E9F51B9223B83CA00068B86E /* Beaver.app */;
@@ -382,7 +382,7 @@
 			);
 			mainGroup = E9F51B8923B83CA00068B86E;
 			packageReferences = (
-				E9714054251A6FEE00621B9E /* XCRemoteSwiftPackageReference "SwiftUIListSeparator" */,
+				E9225D29253E2B210094E960 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = E9F51B9323B83CA00068B86E /* Products */;
 			projectDirPath = "";
@@ -667,7 +667,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -692,7 +692,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -784,21 +784,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E9714054251A6FEE00621B9E /* XCRemoteSwiftPackageReference "SwiftUIListSeparator" */ = {
+		E9225D29253E2B210094E960 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SchmidtyApps/SwiftUIListSeparator";
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.0.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E9714055251A6FEE00621B9E /* SwiftUIListSeparator */ = {
+		E9225D2A253E2B210094E960 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E9714054251A6FEE00621B9E /* XCRemoteSwiftPackageReference "SwiftUIListSeparator" */;
-			productName = SwiftUIListSeparator;
+			package = E9225D29253E2B210094E960 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 
