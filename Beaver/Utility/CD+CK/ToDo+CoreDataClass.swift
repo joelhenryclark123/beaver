@@ -13,15 +13,27 @@ public class ToDo: NSManagedObject, Identifiable {
     convenience init(
         context: NSManagedObjectContext,
         title: String,
-        isActive: Bool
+        isActive: Bool = false,
+        inboxDate: Date? = nil
     ) {
         self.init(context: context)
+        
+        let currentDate = Date()
+        
         self.title = title
         self.completedAt = nil
-        self.createdAt = Date()
+        self.createdAt = currentDate
         self.isActive = isActive
         self.movedAt = nil
         self.focusing = false
+        
+        // Set inbox date
+        if inboxDate == nil {
+            self.inboxDate = currentDate
+        } else {
+            self.inboxDate = (inboxDate! < currentDate) ? currentDate : inboxDate!.convertToMMddyyyy()
+        }
+        
         saveContext()
     }
     
@@ -160,11 +172,17 @@ extension ToDo {
     static var storeFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest = NSFetchRequest<ToDo>(entityName: entity)
+        
+        let calendar = Calendar.current
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: Date())!
+        let beginningOfTomorrow = calendar.startOfDay(for: tomorrow)
                 
         fetchRequest.predicate = NSPredicate(
-            format: "(completedAt == nil)"
+            format: "(completedAt == nil) && (inboxDate < %@)", beginningOfTomorrow as NSDate
         )
+        
         fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "inboxDate", ascending: true),
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
         
@@ -180,5 +198,13 @@ extension ToDo {
         )
         
         return fetchRequest
+    }
+}
+
+extension Date {
+    func convertToMMddyyyy() -> Date {
+        let calendar = Calendar.current
+        let beginningOfDay = calendar.startOfDay(for: self)
+        return beginningOfDay
     }
 }

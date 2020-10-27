@@ -112,8 +112,8 @@ struct QRButton: View {
         
         switch result {
         case .success(let code):
-            readCSV(code)
-        case .failure(let error):
+            callAPI(URL(string: code)!)
+        case .failure(let _):
             print("Scan error")
         }
     }
@@ -121,16 +121,16 @@ struct QRButton: View {
     func callAPI(_ url: URL) {
         API().getToDo(url: url) { (toDos) in
             for toDo in toDos {
-                let _ = ToDo(context: state.context, title: toDo.title, isActive: false)
+                toDo.convertToCD(context: self.state.context)
             }
         }
     }
     
-    func readCSV(_ csv: String) {
-        csv.components(separatedBy: ", ").forEach({
-            if $0.isEmpty { return }
-            let _ = ToDo(context: state.context, title: $0, isActive: false)
-        })
-    }
+//    func readCSV(_ csv: String) {
+//        csv.components(separatedBy: ", ").forEach({
+//            if $0.isEmpty { return }
+//            let _ = ToDo(context: state.context, title: $0, isActive: false)
+//        })
+//    }
 }
 

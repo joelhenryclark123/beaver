@@ -2,7 +2,7 @@
 //  ToDo+CoreDataProperties.swift
 //  
 //
-//  Created by Joel Clark on 8/16/20.
+//  Created by Joel Clark on 10/26/20.
 //
 //
 
@@ -22,5 +22,5 @@ extension ToDo {
     @NSManaged public var isActive: Bool
     @NSManaged public var movedAt: Date?
     @NSManaged public var title: String
-
+    @NSManaged public var inboxDate: Date?
 }
