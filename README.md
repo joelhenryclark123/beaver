@@ -2,7 +2,7 @@
 # Beaver
 *A manageable to do list*
 
-This project is inspired by the [Paradox of Choice](https://en.wikipedia.org/wiki/The_Paradox_of_Choice "Wikipedia"), [Getting Things Done Step 1](https://gettingthingsdone.com/insights/step-1-capture/), and user feedback!
+This project is inspired by the [Paradox of Choice](https://en.wikipedia.org/wiki/The_Paradox_of_Choice "Wikipedia") and [Getting Things Done Step 1](https://gettingthingsdone.com/insights/step-1-capture/)!
 
 ## How it works
 
