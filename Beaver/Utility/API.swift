@@ -25,7 +25,7 @@ struct APItoDo: Codable {
                      inboxDate: APItoDo.dateFormatter.date(from: self.inboxDate)
         )
         
-        print("DATECHECK: \(toDo.inboxDate)")
+        print("DATECHECK: \(String(describing: toDo.inboxDate))")
     }
 }
 
@@ -35,7 +35,7 @@ class API {
             guard err == nil else { fatalError(err?.localizedDescription ?? "error in API Call for todo") }
             
             guard let toDos = try? JSONDecoder().decode([APItoDo].self, from: data!) else {
-                print(String(data: data!, encoding: String.Encoding.utf8))
+                print(String(data: data!, encoding: String.Encoding.utf8) as Any)
                 return
             }
             
