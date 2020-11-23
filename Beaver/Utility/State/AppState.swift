@@ -13,12 +13,13 @@ import Combine
 import FirebaseAnalytics
 
 final class AppState: NSObject, ObservableObject {
-    // MARK: - All Properties
+    // MARK: - Published Properties
     @Published var hasOnboarded: Bool
     @Published var activeList: [ToDo]
     @Published var scene: Scene
     @Published var focusedToDo: ToDo?
     
+    // MARK: - Other Properties
     var context: NSManagedObjectContext
     var fetchedResultsController: NSFetchedResultsController<ToDo>
     
@@ -28,9 +29,11 @@ final class AppState: NSObject, ObservableObject {
         UserDefaults.standard.set(true, forKey: "onboarded")
         #endif
         
+        // Have you onboarded?
         let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
         self.hasOnboarded = hasOnboarded
         
+        // Load To Dos / Context
         self.context = moc
         self.fetchedResultsController = NSFetchedResultsController<ToDo>.init(
             fetchRequest: ToDo.todayListFetch,
@@ -38,13 +41,15 @@ final class AppState: NSObject, ObservableObject {
             sectionNameKeyPath: nil,
             cacheName: nil
         )
+        
         self.activeList = []
+        
+        // Init scene
         self.scene = .beginning
         
         super.init()
                 
         self.fetchedResultsController.delegate = self
-        
         setupList()
     }
     
@@ -53,7 +58,6 @@ final class AppState: NSObject, ObservableObject {
             try self.fetchedResultsController.performFetch()
             self.activeList = self.fetchedResultsController.fetchedObjects ?? []
             self.focusedToDo = self.activeList.first(where: { $0.focusing })
-
         } catch { fatalError() }
         
         updateScene()
@@ -83,34 +87,7 @@ final class AppState: NSObject, ObservableObject {
         #endif
     }
     
-    // MARK: - Scene Management
-    enum Scene {
-        case onboarding
-        case beginning
-        case middle
-        case focusing
-        case end
-        case attaching
-        
-        var color: FocalistColor {
-            switch self {
-            case .onboarding:
-                return .accentOrange
-            case .beginning:
-                return .accentPink
-            case .middle:
-                return .backgroundBlue
-            case .focusing:
-                return .otherBlue
-            case .attaching:
-                return .accentOrange
-            case .end:
-                return .accentGreen
-            }
-        }
-    }
-    
-    func updateScene() -> Void {
+    private func updateScene() -> Void {
         DispatchQueue.main.async {
             if self.hasOnboarded == false { self.scene = .onboarding }
             else if self.activeList.count >= 1 {
@@ -123,6 +100,7 @@ final class AppState: NSObject, ObservableObject {
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
 extension AppState: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         guard let active = controller.fetchedObjects as? [ToDo] else { return }
