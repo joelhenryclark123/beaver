@@ -13,35 +13,22 @@ import Combine
 
 struct StoreView: View {
     // MARK: - Properties
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest(
-        fetchRequest: ToDo.storeFetch
-    ) var toDos: FetchedResults<ToDo>
+    @EnvironmentObject var state: AppState
+    @State var nudging: Bool = false
     
     var instruction: String = "Pick what you want to do today!"
-    
-    // MARK: - Functions
-    private func startDay() {
-        for toDo in toDos { if toDo.isActive { toDo.moveToDay() } }
-        try? context.save()
-        
-        #if DEBUG
-        #else
-        Analytics.logEvent("startedDay", parameters: nil)
-        #endif
-    }
     
     // MARK: - Views
     var body: some View {
         ZStack {
-            if toDos.contains(where: { $0.isActive }) {
+            if nudging {
                 WideButton(.backgroundBlue, "Start Day") {
-                    self.startDay()
+                    self.state.startDay()
                 }
                 .zIndex(2)
             }
             
-            if toDos.isEmpty {
+            if state.storeList.isEmpty {
                 emptyState
                     .transition(.identity)
                     .zIndex(0)
@@ -50,7 +37,13 @@ struct StoreView: View {
                     toDoListView
                 }
             }
-        }
+        }.onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange), perform: { _ in
+            if state.storeList.contains(where: { $0.isActive }) {
+                self.nudging = true
+            } else {
+                self.nudging = false
+            }
+        })
     }
         
     var toDoListView: some View {
@@ -59,11 +52,11 @@ struct StoreView: View {
                 .listRowBackground(EmptyView())
                 .foregroundColor(Color("dimWhite"))
             
-            ForEach(self.toDos) { toDo in
+            ForEach(self.state.storeList) { toDo in
                 StoreItem(toDo: toDo)
             }.onDelete { (offsets) in
                 for index in offsets {
-                    self.toDos[index].delete()
+                    state.deleteFromStore(index: index)
                 }
             }
             .listRowBackground(EmptyView())
@@ -101,29 +94,29 @@ struct StoreView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 100 miles",
-            isActive: false
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 100 miles",
+//            isActive: false
+//        )
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 200 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 300 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 400 miles",
+//            isActive: true
+//        )
         
         return mc
     }()
@@ -137,7 +130,7 @@ struct StoreView_Previews: PreviewProvider {
             
             ZStack {
                 StoreView()
-                    .environment(\.managedObjectContext, context)
+                    .environmentObject(state)
                     .frame(maxHeight: .infinity)
                 
                 AddBar()

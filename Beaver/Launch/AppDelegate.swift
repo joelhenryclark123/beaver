@@ -72,37 +72,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         #if DEBUG
-            let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
-            for toDo in toDos {
-                container.viewContext.delete(toDo as! NSManagedObject)
-            }
-
-            try! container.viewContext.save()
-        
-        let context = container.viewContext
-                
-        let list: [ToDo] = [
-            ToDo(
-                context: context,
-                title: "Walk 500 miles",
-                isActive: false
-            ),
-            ToDo(
-                context: context,
-                title: "Walk 500 more",
-                isActive: false
-            ),
-            ToDo(
-                context: context,
-                title: "Get a bus home",
-                isActive: false
-            ),
-            ToDo(
-                context: context,
-                title: "Sleep all day",
-                isActive: false
-            )
-        ]
+//            let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
+//            for toDo in toDos {
+//                container.viewContext.delete(toDo as! NSManagedObject)
+//            }
+//
+//            try! container.viewContext.save()
+//        
+//        let context = container.viewContext
+//                
+//        let list: [ToDo] = [
+//            ToDo(
+//                context: context,
+//                title: "Walk 500 miles",
+//                isActive: false
+//            ),
+//            ToDo(
+//                context: context,
+//                title: "Walk 500 more",
+//                isActive: false
+//            ),
+//            ToDo(
+//                context: context,
+//                title: "Get a bus home",
+//                isActive: false
+//            ),
+//            ToDo(
+//                context: context,
+//                title: "Sleep all day",
+//                isActive: false
+//            )
+//        ]
         
         #endif
         

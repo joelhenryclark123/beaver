@@ -34,21 +34,6 @@ struct AddBar: View {
         }
     }
     
-    func createToDo() -> Void {
-        let _ = ToDo(
-            context: self.state.context,
-            title: self.text,
-            isActive: false
-        )
-        
-        self.text = ""
-        
-        #if DEBUG
-        #else
-        Analytics.logEvent("createdToDo", parameters: nil)
-        #endif
-    }
-    
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
@@ -61,8 +46,12 @@ struct AddBar: View {
             
             HStack {
                 TextField("", text: $text, onEditingChanged: { _ in self.version.toggle() }) {
-                    if self.text.isEmpty { return }
-                    else { self.createToDo() }
+                    if self.text.isEmpty {
+                        return
+                    } else {
+                        self.state.createToDo(title: text, active: false)
+                        self.text = ""
+                    }
                 }
                 .frame(maxWidth: .infinity)
                 .multilineTextAlignment(.leading)
