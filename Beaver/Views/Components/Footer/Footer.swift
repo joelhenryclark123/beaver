@@ -10,35 +10,54 @@ import SwiftUI
 
 struct Footer: View {
     @EnvironmentObject var state: AppState
-    @State var nudge: Bool
+    @State var nudge: Bool = false
     
     var body: some View {
         HStack {
             // Left Item
             if state.scene == .middle {
-                NudgeButton(nudging: false, icon: .previous, action: { })
+                NudgeButton(nudging: .constant(false), icon: .previous, action: { state.editDay() })
             } else {
-                NudgeButton(nudging: false, icon: .previous, action: { }).hidden()
+                NudgeButton(nudging: .constant(false), icon: .previous, action: { }).hidden()
             }
-            
+                        
             Spacer()
             
-            AddButton(color: Color(state.scene.color.rawValue), action: { })
+//            Text(nudge ? "yes" : "no")
+            
+            AddButton(action: { })
             
             Spacer()
             
             // Right Item
             switch state.scene {
             case .beginning:
-                NudgeButton(nudging: nudge, icon: .next, action: { })
+                NudgeButton(nudging: $nudge, icon: .next, action: { state.startDay() })
             case .middle:
-                NudgeButton(nudging: nudge, icon: .check, action: { })
+                NudgeButton(nudging: $nudge, icon: .check, action: { state.completeDay() })
             default:
-                NudgeButton(nudging: nudge, icon: .previous, action: { }).hidden()
+                NudgeButton(nudging: $nudge, icon: .previous, action: { }).hidden()
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange).receive(on: DispatchQueue.main)) { _ in
+            setNudge()
+        }.onAppear{
+            setNudge()
         }
     }
     
+    func setNudge() {
+        DispatchQueue.main.async {
+            switch state.scene {
+            case .beginning:
+                self.nudge = state.storeList.contains(where: { $0.isActive })
+            case .middle:
+                self.nudge = state.activeList.allSatisfy({ $0.isComplete })
+            default:
+                return
+            }
+        }
+    }
 }
 
 struct Footer_Previews: PreviewProvider {
@@ -49,7 +68,7 @@ struct Footer_Previews: PreviewProvider {
             
             VStack {
                 Spacer()
-                Footer(nudge: false)
+                Footer()
                     .environmentObject(AppState(moc: ContentView_Previews.demoContext))
                     .padding()
             }

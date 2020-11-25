@@ -11,7 +11,7 @@
 import SwiftUI
 
 struct AddButton: View {
-    @State var color: Color
+    @EnvironmentObject var state: AppState
     var action: () -> Void
     let dimensions = CGSize(width: 64, height: 64)
     
@@ -26,7 +26,7 @@ struct AddButton: View {
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(color)
+                    .foregroundColor(Color(state.scene.color.rawValue))
                     .modifier(FocalistShadow(option: .dark))
                 
                 // Inner Shadow
@@ -42,18 +42,18 @@ struct AddButton: View {
         
     }
 }
-
-struct AddButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            LinearGradient(gradient: buildGradient(color: .backgroundBlue), startPoint: .top, endPoint: .bottom)
-                .edgesIgnoringSafeArea(.all)
-            
-            AddButton(color: Color(FocalistColor.backgroundBlue.rawValue)) {
-                print("hello!")
-            }
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            .padding()
-        }
-    }
-}
+//
+//struct AddButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZStack {
+//            LinearGradient(gradient: buildGradient(color: .backgroundBlue), startPoint: .top, endPoint: .bottom)
+//                .edgesIgnoringSafeArea(.all)
+//            
+//            AddButton(color: Color(FocalistColor.backgroundBlue.rawValue)) {
+//                print("hello!")
+//            }
+//            .frame(maxHeight: .infinity, alignment: .bottom)
+//            .padding()
+//        }
+//    }
+//}

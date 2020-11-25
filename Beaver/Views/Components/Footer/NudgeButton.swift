@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct NudgeButton: View {
-    @State var nudging: Bool
+    @Binding var nudging: Bool
     @State var icon: Icon
     
     var action: () -> Void
@@ -71,7 +71,7 @@ struct NudgeButton_Previews: PreviewProvider {
             LinearGradient(gradient: buildGradient(color: .backgroundBlue), startPoint: .top, endPoint: .bottom)
                 .edgesIgnoringSafeArea(.all)
             
-            NudgeButton(nudging: false, icon: .check) {
+            NudgeButton(nudging: .constant(false), icon: .check) {
                 print("hello")
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)

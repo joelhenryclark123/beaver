@@ -16,18 +16,11 @@ struct StoreView: View {
     @EnvironmentObject var state: AppState
     @State var nudging: Bool = false
     
-    var instruction: String = "Pick what you want to do today!"
+    var instruction: String = "Pick today's tasks"
     
     // MARK: - Views
     var body: some View {
         ZStack {
-            if nudging {
-                WideButton(.backgroundBlue, "Start Day") {
-                    self.state.startDay()
-                }
-                .zIndex(2)
-            }
-            
             if state.storeList.isEmpty {
                 emptyState
                     .transition(.identity)
@@ -37,20 +30,20 @@ struct StoreView: View {
                     toDoListView
                 }
             }
-        }.onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextObjectsDidChange), perform: { _ in
-            if state.storeList.contains(where: { $0.isActive }) {
-                self.nudging = true
-            } else {
-                self.nudging = false
-            }
-        })
+        }
     }
         
     var toDoListView: some View {
         List {
-            Text(instruction)
-                .listRowBackground(EmptyView())
-                .foregroundColor(Color("dimWhite"))
+            VStack(alignment: .leading) {
+                Text("Queue")
+                    .font(.largeTitle).bold()
+                    .foregroundColor(Color("accentWhite"))
+
+                Text(instruction)
+                    .foregroundColor(Color("dimWhite"))
+                
+            }.listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
             
             ForEach(self.state.storeList) { toDo in
                 StoreItem(toDo: toDo)
@@ -61,13 +54,8 @@ struct StoreView: View {
             }
             .listRowBackground(EmptyView())
             .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
-
-            Spacer()
-                .frame(height: 10)
-                .listRowBackground(EmptyView())
         }
         .listStyle(SidebarListStyle())
-        .padding(.top, 25)
         .animation(.easeIn(duration: 0.2))
         .zIndex(1)
     }
@@ -94,11 +82,11 @@ struct StoreView_Previews: PreviewProvider {
             (toDo as! ToDo).delete()
         }
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 100 miles",
-//            isActive: false
-//        )
+        let _ = ToDo(
+            context: mc,
+            title: "Walk 100 miles",
+            isActive: false
+        )
         
 //        let _ = ToDo(
 //            context: mc,
@@ -133,9 +121,9 @@ struct StoreView_Previews: PreviewProvider {
                     .environmentObject(state)
                     .frame(maxHeight: .infinity)
                 
-                AddBar()
-                    .environmentObject(state)
-                    .frame(maxHeight: .infinity, alignment: .top)
+//                AddBar()
+//                    .environmentObject(state)
+//                    .frame(maxHeight: .infinity, alignment: .top)
             }
         }
     }

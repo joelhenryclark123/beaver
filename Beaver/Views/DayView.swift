@@ -16,35 +16,15 @@ struct DayView: View {
     @State var showingAlert: Bool = false
     
     var body: some View {
-        let showingButton: Bool = self.state.activeList.allSatisfy({
-            $0.completedAt != nil && $0.isActive == true
-        })
-        
-        return ZStack {
-            if (showingButton) {
-                WideButton(.accentGreen, "Complete") {
-                    self.state.completeDay()
-                }
-                .zIndex(1)
-            }
-            
-            VStack {
-                Spacer().frame(height: 60)
-
-                if self.state.focusedToDo != nil {
-                    CardView(toDo: self.state.focusedToDo!)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .padding()
-                        .zIndex(0)
-                } else {
-                    TaskGrid(list: state.activeList)
-                        .zIndex(0)
-                }
-                
-                Text("Tap to complete\nLong press for focus\nShake to edit")
-                    .foregroundColor(Color("dimWhite"))
-                    .modifier(FocalistFont(font: .smallTextSemibold))
-                    .multilineTextAlignment(.center)
+        ZStack {
+            if self.state.focusedToDo != nil {
+                CardView(toDo: self.state.focusedToDo!)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .zIndex(0)
+            } else {
+                TaskGrid(list: state.activeList)
+                    .zIndex(0)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in
