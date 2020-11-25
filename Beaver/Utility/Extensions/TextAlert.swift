@@ -11,7 +11,7 @@ import UIKit
 
 extension UIAlertController {
     convenience init(alert: TextAlert) {
-        self.init(title: alert.title, message: nil, preferredStyle: .alert)
+        self.init(title: alert.title, message: alert.message, preferredStyle: .alert)
         addTextField { $0.placeholder = alert.placeholder }
         addAction(UIAlertAction(title: alert.cancel, style: .cancel) { _ in
             alert.action(nil)
@@ -63,6 +63,7 @@ struct AlertWrapper<Content: View>: UIViewControllerRepresentable {
 
 public struct TextAlert {
     public var title: String
+    public var message: String? = nil
     public var placeholder: String = ""
     public var accept: String = "OK"
     public var cancel: String = "Cancel"
