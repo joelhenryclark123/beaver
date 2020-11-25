@@ -11,6 +11,7 @@ import SwiftUI
 struct Footer: View {
     @EnvironmentObject var state: AppState
     @State var nudge: Bool = false
+    @Binding var adding: Bool
     
     var body: some View {
         HStack {
@@ -22,10 +23,8 @@ struct Footer: View {
             }
                         
             Spacer()
-            
-//            Text(nudge ? "yes" : "no")
-            
-            AddButton(action: { })
+                        
+            AddButton(action: { adding.toggle() })
             
             Spacer()
             
@@ -46,7 +45,7 @@ struct Footer: View {
         }
     }
     
-    func setNudge() {
+    private func setNudge() {
         DispatchQueue.main.async {
             switch state.scene {
             case .beginning:
@@ -68,7 +67,7 @@ struct Footer_Previews: PreviewProvider {
             
             VStack {
                 Spacer()
-                Footer()
+                Footer(adding: .constant(false))
                     .environmentObject(AppState(moc: ContentView_Previews.demoContext))
                     .padding()
             }

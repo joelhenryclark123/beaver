@@ -34,6 +34,8 @@ struct NudgeButton: View {
             }
         }
         .frame(width: dimensions.width, height: dimensions.height)
+        .transition(.opacity)
+        .animation(.easeIn(duration: 0.2))
     }
     
     enum Icon {

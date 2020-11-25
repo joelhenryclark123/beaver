@@ -12,6 +12,11 @@ import Combine
 
 struct ContentView: View {
     @EnvironmentObject var state: AppState
+    @State var adding: Bool = false
+    
+    @State var textAlert: TextAlert = TextAlert(title: "New To Do", accept: "Add", action: { string in
+        return
+    })
     
     //MARK: Body
     var body: some View {
@@ -22,10 +27,7 @@ struct ContentView: View {
             VStack {
                 if self.state.scene == .onboarding {
                     Onboarding()
-                        .transition(
-                            AnyTransition.move(edge: .bottom)
-                                .combined(with: .offset(x: 0, y: 100)
-                                ))
+                        .transition(.storeTransition)
                         .animation(.spring())
                         .zIndex(5)
                 }
@@ -52,7 +54,7 @@ struct ContentView: View {
                     }
                 }
 
-                Footer()
+                Footer(adding: $adding)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
             }
@@ -60,6 +62,17 @@ struct ContentView: View {
         .onReceive(
             NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
                 .receive(on: RunLoop.main)) { (_) in self.endDay() }
+        .onAppear(perform: {
+            textAlert.action = { (string: String?) in
+                DispatchQueue.main.async {
+                    if let string = string {
+                        self.state.createToDo(title: string, active: false)
+                    }
+                }
+            }
+        })
+        .alert(isPresented: $adding, textAlert)
+        .edgesIgnoringSafeArea(.all)
     }
     
     func endDay() {

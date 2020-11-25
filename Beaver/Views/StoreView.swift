@@ -65,7 +65,7 @@ struct StoreView: View {
             VStack {
                 Text("Empty!")
                     .modifier(FocalistFont(font: .heading1))
-                Text("Tap the add bar above to get started")
+                Text("Tap the add button to get started")
                     .modifier(FocalistFont(font: .mediumText))
             }.foregroundColor(.white)
         }

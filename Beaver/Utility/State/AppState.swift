@@ -81,7 +81,7 @@ final class AppState: NSObject, ObservableObject {
         )
         
         active ? activeList.append(toDo) : storeList.append(toDo)
-        
+                
         #if DEBUG
         #else
         Analytics.logEvent("createdToDo", parameters: nil)
@@ -103,7 +103,9 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func completeDay() -> Void {
-        activeList.forEach({ $0.totallyFinish() })
+        if activeList.allSatisfy({ $0.isComplete }) {
+            activeList.forEach({ $0.totallyFinish() })
+        }
         
         #if DEBUG
         #else

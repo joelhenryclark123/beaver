@@ -20,5 +20,6 @@ extension AnyTransition {
     static var storeTransition: AnyTransition {
         AnyTransition
             .move(edge: .bottom)
+            .combined(with: .offset(x: 0, y: 100))
     }
 }

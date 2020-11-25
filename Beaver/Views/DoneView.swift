@@ -11,6 +11,8 @@ import SwiftUI
 struct DoneView: View {
     var body: some View {
         VStack(spacing: 8) {
+            Spacer()
+            
             Image(systemName: "checkmark")
                 .resizable()
                 .frame(maxWidth: 120, maxHeight: 120)
@@ -21,6 +23,8 @@ struct DoneView: View {
             
             Text("Come back tomorrow!")
                 .modifier(FocalistFont(font: .mediumTextSemibold))
+            
+            Spacer()
             
         }
         .foregroundColor(Color("accentWhite"))
