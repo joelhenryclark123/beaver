@@ -57,7 +57,7 @@ struct NudgeButton: View {
         var highlightColor: Color {
             switch self {
             case .check:
-                return Color(FocalistColor.accentGreen.rawValue)
+                return Color(FocalistColor.accentGreen.rawValue + "Dark")
             case .next:
                 return Color(FocalistColor.backgroundBlue.rawValue + "Dark")
             default:

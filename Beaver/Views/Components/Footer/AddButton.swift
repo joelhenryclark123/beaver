@@ -26,8 +26,7 @@ struct AddButton: View {
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(Color(state.scene.color.rawValue))
-                    .modifier(FocalistShadow(option: .dark))
+                    .foregroundColor(Color(state.scene.color.rawValue + "Dark"))
                 
                 // Inner Shadow
                 Circle()
