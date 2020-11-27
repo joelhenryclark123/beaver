@@ -12,7 +12,11 @@ import UIKit
 extension UIAlertController {
     convenience init(alert: TextAlert) {
         self.init(title: alert.title, message: alert.message, preferredStyle: .alert)
-        addTextField { $0.placeholder = alert.placeholder }
+        addTextField {
+            $0.placeholder = alert.placeholder
+            $0.autocapitalizationType = .sentences
+            $0.returnKeyType = .done
+        }
         addAction(UIAlertAction(title: alert.cancel, style: .cancel) { _ in
             alert.action(nil)
         })

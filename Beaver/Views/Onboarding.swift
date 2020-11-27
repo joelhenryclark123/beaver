@@ -13,23 +13,39 @@ struct Onboarding: View {
     @Environment(\.managedObjectContext) var context
     @EnvironmentObject var state: AppState
     
+    @State var secondsLeft: Int = 30
+    
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
         ZStack {
             VStack {
-                Text("Beaver")
+                Text("Welcome")
                     .modifier(FocalistFont(font: .heading1))
-                Text("Tap the top bar at any time to add an item to your list!")
+                
+                Text("Add your tasks!")
                     .modifier(FocalistFont(font: .largeText))
+                
+                if secondsLeft > 0 {
+                    Text("\(secondsLeft) seconds")
+                        .padding(.top, 16)
+                }
+                
             }
             .multilineTextAlignment(.center)
-            .foregroundColor(Color("accentWhite"))
             .padding(.horizontal)
+            .foregroundColor(Color("accentWhite"))
             
-            WideButton(.accentYellow, "Get Started") {
-                self.state.finishOnboarding()
+            if secondsLeft <= 0 {
+                WideButton(.accentYellow, "Get Started") {
+                    self.state.finishOnboarding()
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onReceive(timer, perform: { _ in
+            secondsLeft -= 1
+        })
     }
 }
 

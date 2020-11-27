@@ -3,14 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		26BEF83390C150A46873268A /* Pods_BeaverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD8E68299840AC96490F724 /* Pods_BeaverTests.framework */; };
 		A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */; };
 		E9225D24253E1E020094E960 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9225D23253E1E020094E960 /* API.swift */; };
-		E9225D2B253E2B210094E960 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = E9225D2A253E2B210094E960 /* CodeScanner */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
@@ -25,7 +24,6 @@
 		E97EDDEB2442384C00B28063 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B37230240335FC003B46B0 /* AppState.swift */; };
 		E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98073E623F71C6A00FDAF08 /* DayView.swift */; };
 		E982485F242FFE2F00840A78 /* Transitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E982485E242FFE2F00840A78 /* Transitions.swift */; };
-		E9869033240AC78800A03FA2 /* AddBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9869032240AC78800A03FA2 /* AddBar.swift */; };
 		E98DB1E7245A183C00D8FD3D /* MainBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98DB1E6245A183C00D8FD3D /* MainBackground.swift */; };
 		E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9926336240B1D0B003D7658 /* GeometryProxy.swift */; };
 		E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A39B8C242FD33D00D182E5 /* DoneView.swift */; };
@@ -96,7 +94,6 @@
 		E97EDDE9244237DD00B28063 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
 		E98073E623F71C6A00FDAF08 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
 		E982485E242FFE2F00840A78 /* Transitions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transitions.swift; sourceTree = "<group>"; };
-		E9869032240AC78800A03FA2 /* AddBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBar.swift; sourceTree = "<group>"; };
 		E98DB1E6245A183C00D8FD3D /* MainBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBackground.swift; sourceTree = "<group>"; };
 		E9926336240B1D0B003D7658 /* GeometryProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxy.swift; sourceTree = "<group>"; };
 		E9A39B8C242FD33D00D182E5 /* DoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneView.swift; sourceTree = "<group>"; };
@@ -134,7 +131,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9225D2B253E2B210094E960 /* CodeScanner in Frameworks */,
 				E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */,
 				A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */,
 			);
@@ -204,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				E98DB1E6245A183C00D8FD3D /* MainBackground.swift */,
-				E9869032240AC78800A03FA2 /* AddBar.swift */,
 				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
 				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
 				E9BB576A240EB8E00083BE7D /* WideButton.swift */,
@@ -351,7 +346,6 @@
 			);
 			name = Beaver;
 			packageProductDependencies = (
-				E9225D2A253E2B210094E960 /* CodeScanner */,
 			);
 			productName = Stack;
 			productReference = E9F51B9223B83CA00068B86E /* Beaver.app */;
@@ -405,7 +399,6 @@
 			);
 			mainGroup = E9F51B8923B83CA00068B86E;
 			packageReferences = (
-				E9225D29253E2B210094E960 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = E9F51B9323B83CA00068B86E /* Products */;
 			projectDirPath = "";
@@ -516,7 +509,6 @@
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
 				E9B9364924E9D2ED00F77602 /* ToDo+CoreDataProperties.swift in Sources */,
 				E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */,
-				E9869033240AC78800A03FA2 /* AddBar.swift in Sources */,
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E98DB1E7245A183C00D8FD3D /* MainBackground.swift in Sources */,
 				E97A8283256D9A1100C6860F /* AddButton.swift in Sources */,
@@ -695,7 +687,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -720,7 +712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -810,25 +802,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E9225D29253E2B210094E960 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twostraws/CodeScanner";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.6;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E9225D2A253E2B210094E960 /* CodeScanner */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E9225D29253E2B210094E960 /* XCRemoteSwiftPackageReference "CodeScanner" */;
-			productName = CodeScanner;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */ = {
