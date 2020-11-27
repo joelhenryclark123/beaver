@@ -128,6 +128,7 @@ extension ToDo {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
             context.delete(self)
+            self.saveContext()
         }
     }
     

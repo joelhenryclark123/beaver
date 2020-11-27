@@ -11,7 +11,7 @@ import CoreData
 
 struct StoreItem: View {
     @ObservedObject var toDo: ToDo
-    let cornerRadius: CGFloat = 12
+    let cornerRadius: CGFloat = 18
     
     var cardBackground: some View {
         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)

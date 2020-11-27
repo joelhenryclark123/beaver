@@ -14,14 +14,16 @@ import FirebaseAnalytics
 
 final class AppState: NSObject, ObservableObject {
     // MARK: - Published Properties
-    @Published var hasOnboarded: Bool
-    @Published var activeList: [ToDo]
-    @Published var scene: Scene
+    @Published var hasOnboarded: Bool = UserDefaults.standard.bool(forKey: "onboarded")
+    @Published var storeList: [ToDo] = []
+    @Published var activeList: [ToDo] = []
+    @Published var scene: Scene = .beginning
     @Published var focusedToDo: ToDo?
     
     // MARK: - Other Properties
     var context: NSManagedObjectContext
-    var fetchedResultsController: NSFetchedResultsController<ToDo>
+    var activeFetchedResultsController: NSFetchedResultsController<ToDo>
+    var storeFetchedResultsController: NSFetchedResultsController<ToDo>
     
     // MARK: - Initialization
     init(moc: NSManagedObjectContext) {
@@ -29,41 +31,63 @@ final class AppState: NSObject, ObservableObject {
         UserDefaults.standard.set(true, forKey: "onboarded")
         #endif
         
-        // Have you onboarded?
-        let hasOnboarded = UserDefaults.standard.bool(forKey: "onboarded")
-        self.hasOnboarded = hasOnboarded
-        
         // Load To Dos / Context
         self.context = moc
-        self.fetchedResultsController = NSFetchedResultsController<ToDo>.init(
+        
+        self.activeFetchedResultsController = NSFetchedResultsController<ToDo>.init(
             fetchRequest: ToDo.todayListFetch,
             managedObjectContext: context,
             sectionNameKeyPath: nil,
             cacheName: nil
         )
         
-        self.activeList = []
-        
-        // Init scene
-        self.scene = .beginning
+        self.storeFetchedResultsController = NSFetchedResultsController<ToDo>.init(
+            fetchRequest: ToDo.storeFetch,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil
+        )
         
         super.init()
                 
-        self.fetchedResultsController.delegate = self
+        self.activeFetchedResultsController.delegate = self
+        
         setupList()
     }
     
     private func setupList() {
+        // Active List
         do {
-            try self.fetchedResultsController.performFetch()
-            self.activeList = self.fetchedResultsController.fetchedObjects ?? []
+            try self.activeFetchedResultsController.performFetch()
+            self.activeList = self.activeFetchedResultsController.fetchedObjects ?? []
             self.focusedToDo = self.activeList.first(where: { $0.focusing })
+        } catch { fatalError() }
+        
+        // Store List
+        do {
+            try self.storeFetchedResultsController.performFetch()
+            self.storeList = self.storeFetchedResultsController.fetchedObjects ?? []
         } catch { fatalError() }
         
         updateScene()
     }
-    
+        
     // MARK: - Functions
+    func createToDo(title: String, active: Bool) -> Void {
+        let toDo = ToDo(
+            context: self.context,
+            title: title,
+            isActive: active
+        )
+        
+        active ? activeList.append(toDo) : storeList.append(toDo)
+                
+        #if DEBUG
+        #else
+        Analytics.logEvent("createdToDo", parameters: nil)
+        #endif
+    }
+    
     func finishOnboarding() {
         self.hasOnboarded = true
         self.scene = .beginning
@@ -79,12 +103,28 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func completeDay() -> Void {
-        activeList.forEach({ $0.totallyFinish() })
+        if activeList.allSatisfy({ $0.isComplete }) {
+            activeList.forEach({ $0.totallyFinish() })
+        }
         
         #if DEBUG
         #else
         Analytics.logEvent("completedDay", parameters: nil)
         #endif
+    }
+    
+    func startDay() {
+        for toDo in storeList { if toDo.isActive { toDo.moveToDay() } }
+        try? context.save()
+        
+        #if DEBUG
+        #else
+        Analytics.logEvent("startedDay", parameters: nil)
+        #endif
+    }
+    
+    func deleteFromStore(index: Int) {
+        storeList.remove(at: index).delete()
     }
     
     private func updateScene() -> Void {

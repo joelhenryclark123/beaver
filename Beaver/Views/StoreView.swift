@@ -13,35 +13,15 @@ import Combine
 
 struct StoreView: View {
     // MARK: - Properties
-    @Environment(\.managedObjectContext) var context
-    @FetchRequest(
-        fetchRequest: ToDo.storeFetch
-    ) var toDos: FetchedResults<ToDo>
+    @EnvironmentObject var state: AppState
+    @State var nudging: Bool = false
     
-    var instruction: String = "Pick what you want to do today!"
-    
-    // MARK: - Functions
-    private func startDay() {
-        for toDo in toDos { if toDo.isActive { toDo.moveToDay() } }
-        try? context.save()
-        
-        #if DEBUG
-        #else
-        Analytics.logEvent("startedDay", parameters: nil)
-        #endif
-    }
+    var instruction: String = "Pick today's tasks"
     
     // MARK: - Views
     var body: some View {
         ZStack {
-            if toDos.contains(where: { $0.isActive }) {
-                WideButton(.backgroundBlue, "Start Day") {
-                    self.startDay()
-                }
-                .zIndex(2)
-            }
-            
-            if toDos.isEmpty {
+            if state.storeList.isEmpty {
                 emptyState
                     .transition(.identity)
                     .zIndex(0)
@@ -55,26 +35,27 @@ struct StoreView: View {
         
     var toDoListView: some View {
         List {
-            Text(instruction)
-                .listRowBackground(EmptyView())
-                .foregroundColor(Color("dimWhite"))
+            VStack(alignment: .leading) {
+                Text("Queue")
+                    .font(.largeTitle).bold()
+                    .foregroundColor(Color("accentWhite"))
+
+                Text(instruction)
+                    .foregroundColor(Color("dimWhite"))
+                
+            }.listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
             
-            ForEach(self.toDos) { toDo in
+            ForEach(self.state.storeList) { toDo in
                 StoreItem(toDo: toDo)
             }.onDelete { (offsets) in
                 for index in offsets {
-                    self.toDos[index].delete()
+                    state.deleteFromStore(index: index)
                 }
             }
             .listRowBackground(EmptyView())
             .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
-
-            Spacer()
-                .frame(height: 10)
-                .listRowBackground(EmptyView())
         }
         .listStyle(SidebarListStyle())
-        .padding(.top, 25)
         .animation(.easeIn(duration: 0.2))
         .zIndex(1)
     }
@@ -84,7 +65,7 @@ struct StoreView: View {
             VStack {
                 Text("Empty!")
                     .modifier(FocalistFont(font: .heading1))
-                Text("Tap the add bar above to get started")
+                Text("Tap the add button to get started")
                     .modifier(FocalistFont(font: .mediumText))
             }.foregroundColor(.white)
         }
@@ -107,23 +88,23 @@ struct StoreView_Previews: PreviewProvider {
             isActive: false
         )
         
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 200 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 300 miles",
-            isActive: true
-        )
-        
-        let _ = ToDo(
-            context: mc,
-            title: "Walk 400 miles",
-            isActive: true
-        )
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 200 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 300 miles",
+//            isActive: true
+//        )
+//
+//        let _ = ToDo(
+//            context: mc,
+//            title: "Walk 400 miles",
+//            isActive: true
+//        )
         
         return mc
     }()
@@ -137,12 +118,12 @@ struct StoreView_Previews: PreviewProvider {
             
             ZStack {
                 StoreView()
-                    .environment(\.managedObjectContext, context)
+                    .environmentObject(state)
                     .frame(maxHeight: .infinity)
                 
-                AddBar()
-                    .environmentObject(state)
-                    .frame(maxHeight: .infinity, alignment: .top)
+//                AddBar()
+//                    .environmentObject(state)
+//                    .frame(maxHeight: .infinity, alignment: .top)
             }
         }
     }
