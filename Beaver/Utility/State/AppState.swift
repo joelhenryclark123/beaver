@@ -55,7 +55,7 @@ final class AppState: NSObject, ObservableObject {
         setupList()
     }
     
-    private func setupList() {
+    private func setupList(toScene: Scene? = nil) {
         // Active List
         do {
             try self.activeFetchedResultsController.performFetch()
@@ -96,31 +96,34 @@ final class AppState: NSObject, ObservableObject {
     
     func editDay() -> Void {
         for toDo in activeList {
-            toDo.moveToStore()
+            toDo.moveToStore(stayActive: true)
         }
         
-        updateScene()
+        setupList()
     }
     
     func completeDay() -> Void {
         if activeList.allSatisfy({ $0.isComplete }) {
             activeList.forEach({ $0.totallyFinish() })
+            
+            #if DEBUG
+            #else
+            Analytics.logEvent("completedDay", parameters: nil)
+            #endif
         }
-        
-        #if DEBUG
-        #else
-        Analytics.logEvent("completedDay", parameters: nil)
-        #endif
     }
     
     func startDay() {
-        for toDo in storeList { if toDo.isActive { toDo.moveToDay() } }
-        try? context.save()
-        
-        #if DEBUG
-        #else
-        Analytics.logEvent("startedDay", parameters: nil)
-        #endif
+        if !activeList.isEmpty || storeList.contains(where: { $0.isActive }) {
+            for toDo in storeList { if toDo.isActive { toDo.moveToDay() } }
+            for toDo in activeList { toDo.moveToDay() }
+            try? context.save()
+            
+            #if DEBUG
+            #else
+            Analytics.logEvent("startedDay", parameters: nil)
+            #endif
+        }
     }
     
     func deleteFromStore(index: Int) {
@@ -130,7 +133,7 @@ final class AppState: NSObject, ObservableObject {
     private func updateScene() -> Void {
         DispatchQueue.main.async {
             if self.hasOnboarded == false { self.scene = .onboarding }
-            else if self.activeList.count >= 1 {
+            else if self.activeList.allSatisfy({ $0.movedAt != nil }) && self.activeList.count >= 1 {
                 if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
                 else if self.focusedToDo != nil { self.scene = .focusing }
                 else { self.scene = .middle }

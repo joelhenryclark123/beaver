@@ -69,11 +69,11 @@ extension ToDo {
         }
     }
     
-    func moveToStore() {
+    func moveToStore(stayActive: Bool = false) {
         guard let context = self.managedObjectContext else { fatalError() }
         
         context.perform {
-            self.isActive = false
+            self.isActive = stayActive
             self.movedAt = nil
             self.focusing = false
             self.saveContext()
@@ -158,10 +158,10 @@ extension ToDo {
         
         let calendar = Calendar.current
         
-        let beginningOfDay = calendar.startOfDay(for: Date())
+        let beginningOfDay = calendar.startOfDay(for: Date()) as NSDate
         
         fetchRequest.predicate = NSPredicate(
-            format: "(movedAt > %@)", beginningOfDay as NSDate
+            format: "(movedAt > %@) || (completedAt > %@)", beginningOfDay, beginningOfDay
         )
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "createdAt", ascending: true)
