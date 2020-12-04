@@ -76,7 +76,7 @@ struct ContentView: View {
     }
     
     func endDay() {
-        self.state.activeList.forEach({ $0.moveToStore() })
+        self.state.refresh(newFetch: true)
     }
 }
 

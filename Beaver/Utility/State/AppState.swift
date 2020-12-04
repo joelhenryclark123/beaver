@@ -22,8 +22,8 @@ final class AppState: NSObject, ObservableObject {
     
     // MARK: - Other Properties
     var context: NSManagedObjectContext
-    var activeFetchedResultsController: NSFetchedResultsController<ToDo>
-    var storeFetchedResultsController: NSFetchedResultsController<ToDo>
+    var activeFetchedResultsController: NSFetchedResultsController<ToDo>!
+    var storeFetchedResultsController: NSFetchedResultsController<ToDo>!
     
     // MARK: - Initialization
     init(moc: NSManagedObjectContext) {
@@ -34,12 +34,22 @@ final class AppState: NSObject, ObservableObject {
         // Load To Dos / Context
         self.context = moc
         
+        super.init()
+        
+        self.setupFetchController()
+        self.setupLists()
+                
+        setupLists()
+    }
+    
+    private func setupFetchController() {
         self.activeFetchedResultsController = NSFetchedResultsController<ToDo>.init(
             fetchRequest: ToDo.todayListFetch,
             managedObjectContext: context,
             sectionNameKeyPath: nil,
             cacheName: nil
         )
+        self.activeFetchedResultsController.delegate = self
         
         self.storeFetchedResultsController = NSFetchedResultsController<ToDo>.init(
             fetchRequest: ToDo.storeFetch,
@@ -47,15 +57,10 @@ final class AppState: NSObject, ObservableObject {
             sectionNameKeyPath: nil,
             cacheName: nil
         )
-        
-        super.init()
-                
-        self.activeFetchedResultsController.delegate = self
-        
-        setupList()
+        self.storeFetchedResultsController.delegate = self
     }
     
-    private func setupList(toScene: Scene? = nil) {
+    private func setupLists() {
         // Active List
         do {
             try self.activeFetchedResultsController.performFetch()
@@ -68,11 +73,20 @@ final class AppState: NSObject, ObservableObject {
             try self.storeFetchedResultsController.performFetch()
             self.storeList = self.storeFetchedResultsController.fetchedObjects ?? []
         } catch { fatalError() }
-        
-        updateScene()
     }
-        
+    
     // MARK: - Functions
+    public func refresh(newFetch: Bool = false) {
+        if newFetch {
+            self.setupFetchController()
+        }
+        self.setupLists()
+        self.focusedToDo = self.activeList.first(where: { $0.focusing })
+        self.updateScene()
+        
+        print(storeList.description)
+    }
+    
     func createToDo(title: String, active: Bool) -> Void {
         let toDo = ToDo(
             context: self.context,
@@ -81,7 +95,7 @@ final class AppState: NSObject, ObservableObject {
         )
         
         active ? activeList.append(toDo) : storeList.append(toDo)
-                
+        
         #if DEBUG
         #else
         Analytics.logEvent("createdToDo", parameters: nil)
@@ -99,18 +113,27 @@ final class AppState: NSObject, ObservableObject {
             toDo.moveToStore(stayActive: true)
         }
         
-        setupList()
+        setupLists()
     }
     
     func completeDay() -> Void {
-        if activeList.allSatisfy({ $0.isComplete }) {
-            activeList.forEach({ $0.totallyFinish() })
-            
-            #if DEBUG
-            #else
-            Analytics.logEvent("completedDay", parameters: nil)
-            #endif
+        if !activeList.contains(where: { $0.isComplete }) {
+            let toDo = ToDo(context: context, title: "Finish Day")
+            toDo.movedAt = Date()
+            toDo.completedAt = Date()
+            try? context.save()
         }
+        activeList.forEach { (toDo) in
+            if toDo.isComplete {
+                toDo.totallyFinish()
+            } else {
+                toDo.moveToStore(stayActive: false)
+            }
+        }
+        #if DEBUG
+        #else
+        Analytics.logEvent("completedDay", parameters: nil)
+        #endif
     }
     
     func startDay() {
@@ -131,24 +154,21 @@ final class AppState: NSObject, ObservableObject {
     }
     
     private func updateScene() -> Void {
-        DispatchQueue.main.async {
-            if self.hasOnboarded == false { self.scene = .onboarding }
-            else if self.activeList.allSatisfy({ $0.movedAt != nil }) && self.activeList.count >= 1 {
-                if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
-                else if self.focusedToDo != nil { self.scene = .focusing }
-                else { self.scene = .middle }
-            }
-            else { self.scene = .beginning }
+        if self.hasOnboarded == false { self.scene = .onboarding }
+        else if self.activeList.allSatisfy({ $0.movedAt != nil }) && self.activeList.count >= 1 {
+            if self.activeList.allSatisfy({ $0.isArchived }) { self.scene = .end }
+            else if self.focusedToDo != nil { self.scene = .focusing }
+            else { self.scene = .middle }
         }
+        else { self.scene = .beginning }
     }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension AppState: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        guard let active = controller.fetchedObjects as? [ToDo] else { return }
-        self.focusedToDo = active.first(where: { $0.focusing })
-        self.activeList = active
-        updateScene()
+        DispatchQueue.main.async {
+            self.refresh()
+        }
     }
 }
