@@ -266,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				E9B9365824E9E2B500F77602 /* BeaverWidgets.swift */,
-				E9B9365A24E9E2B500F77602 /* BeaverWidgets.intentdefinition */,
 				E9B9365B24E9E2BB00F77602 /* Assets.xcassets */,
 				E9B9365D24E9E2BB00F77602 /* Info.plist */,
 			);
@@ -303,6 +302,7 @@
 				E98073E823F723ED00FDAF08 /* Views */,
 				E9B3722E240335C7003B46B0 /* Utility */,
 				E9F51B9B23B83CA60068B86E /* Assets.xcassets */,
+				E9B9365A24E9E2B500F77602 /* BeaverWidgets.intentdefinition */,
 				E9F51B9D23B83CA60068B86E /* Preview Content */,
 			);
 			path = Beaver;
@@ -687,7 +687,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -712,7 +712,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
