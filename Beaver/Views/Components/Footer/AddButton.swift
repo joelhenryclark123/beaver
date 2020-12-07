@@ -20,20 +20,19 @@ struct AddButton: View {
             ZStack {
                 // Background Circle
                 Circle()
-                    .foregroundColor(Color("dimWhite"))
+                    .foregroundColor(Color(state.scene.color.rawValue + "Dark"))
+                    .shadow(color: Color(state.scene.color.rawValue + "Shadow"), radius: 12, x: 0, y: 8)
                 
                 // Plus Button
                 Image(systemName: "plus")
                     .resizable()
                     .frame(width: 24, height: 24)
-                    .foregroundColor(Color(state.scene.color.rawValue + "Dark"))
+                    .foregroundColor(Color("accentWhite"))
                 
-                // Inner Shadow
+                // Border
                 Circle()
-                    .stroke(Color.clear, lineWidth: 4)
+                    .stroke(Color(state.scene.color.rawValue + "Light"), lineWidth: 4)
                     .foregroundColor(.clear)
-                    .modifier(FocalistShadow(option: .dark))
-                    .clipShape(Circle())
                 
             }
         }
