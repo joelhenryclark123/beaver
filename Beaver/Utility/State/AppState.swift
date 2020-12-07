@@ -38,8 +38,6 @@ final class AppState: NSObject, ObservableObject {
         
         self.setupFetchController()
         self.setupLists()
-                
-        setupLists()
     }
     
     private func setupFetchController() {

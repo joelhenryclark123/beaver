@@ -43,10 +43,12 @@ struct StoreView: View {
                 Text(instruction)
                     .foregroundColor(Color("dimWhite"))
                 
-            }.listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
+            }.listRowBackground(EmptyView())
+            .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
             
             ForEach(self.state.storeList) { toDo in
                 StoreItem(toDo: toDo)
+                    .listRowBackground(EmptyView())
             }.onDelete { (offsets) in
                 for index in offsets {
                     state.deleteFromStore(index: index)
