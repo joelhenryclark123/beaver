@@ -83,8 +83,6 @@ final class AppState: NSObject, ObservableObject {
         self.setupLists()
         self.focusedToDo = self.activeList.first(where: { $0.focusing })
         self.updateScene()
-        
-        print(storeList.description)
     }
     
     func createToDo(title: String, active: Bool) -> Void {
@@ -151,6 +149,12 @@ final class AppState: NSObject, ObservableObject {
     
     func deleteFromStore(index: Int) {
         storeList.remove(at: index).delete()
+    }
+    
+    func unfocus() {
+        if self.focusedToDo != nil {
+            self.focusedToDo?.toggleFocus()
+        }
     }
     
     private func updateScene() -> Void {

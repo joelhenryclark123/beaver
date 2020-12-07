@@ -57,6 +57,7 @@ struct ContentView: View {
                 Footer(adding: $adding)
                     .padding(.horizontal)
                     .padding(.bottom, 8)
+                    .zIndex(6)
             }
         }
         .onReceive(

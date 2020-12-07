@@ -16,26 +16,25 @@ struct AddButton: View {
     let dimensions = CGSize(width: 64, height: 64)
     
     var body: some View {
-        Button(action: action) {
-            ZStack {
-                // Background Circle
-                Circle()
-                    .foregroundColor(Color(state.scene.color.rawValue + "Dark"))
-                    .shadow(color: Color(state.scene.color.rawValue + "Shadow"), radius: 12, x: 0, y: 8)
-                
-                // Plus Button
-                Image(systemName: "plus")
-                    .resizable()
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(Color("accentWhite"))
-                
-                // Border
-                Circle()
-                    .stroke(Color(state.scene.color.rawValue + "Light"), lineWidth: 4)
-                    .foregroundColor(.clear)
-                
-            }
+        ZStack {
+            // Background Circle
+            Circle()
+                .foregroundColor(Color(state.scene.color.rawValue + "Dark"))
+                .shadow(color: Color(state.scene.color.rawValue + "Shadow"), radius: 12, x: 0, y: 8)
+            
+            // Plus Button
+            Image(systemName: "plus")
+                .resizable()
+                .frame(width: 24, height: 24)
+                .foregroundColor(Color("accentWhite"))
+            
+            // Border
+            Circle()
+                .stroke(Color(state.scene.color.rawValue + "Light"), lineWidth: 4)
+                .foregroundColor(.clear)
+            
         }
+        .modifier(BouncePress(action: action))
         .frame(width: dimensions.width, height: dimensions.height)
         
     }

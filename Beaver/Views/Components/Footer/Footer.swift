@@ -18,9 +18,12 @@ struct Footer: View {
     var body: some View {
         HStack {
             // Left Item
-            if state.scene == .middle {
+            switch state.scene {
+            case .middle:
                 NudgeButton(nudging: .constant(false), icon: .previous, action: { state.editDay() })
-            } else {
+            case .focusing:
+                NudgeButton(nudging: .constant(false), icon: .previous, action: { self.state.unfocus() })
+            default:
                 NudgeButton(nudging: .constant(false), icon: .previous, action: { }).hidden()
             }
             

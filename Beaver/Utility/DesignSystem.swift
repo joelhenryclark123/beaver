@@ -150,3 +150,26 @@ func buildGradient(color: FocalistColor) -> Gradient {
         Color(color.rawValue + "Dark")
     ])
 }
+
+// MARK: Gestures w/ animation
+struct BouncePress: ViewModifier {
+    @GestureState var state: (pressing: Bool, offset: CGSize) = (false, CGSize.zero)
+    
+    var action: () -> Void
+        
+    func body(content: Content) -> some View {
+        content
+            .offset(state.offset)
+            .scaleEffect(state.pressing ? 0.7 : 1.0)
+            .animation(.interactiveSpring())
+            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).updating($state, body: { (value, state, tx) in
+                state.offset = CGSize(width: value.translation.width / 4, height: value.translation.height / 4)
+                state.pressing = true
+            }).onEnded({ (value) in
+                if value.translation.width <= 32 && value.translation.height <= 32,
+                   value.translation.width >= -32 && value.translation.height >= -32 {
+                    action()
+                }
+            }))
+    }
+}
