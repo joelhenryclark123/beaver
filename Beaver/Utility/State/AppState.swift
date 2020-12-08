@@ -36,8 +36,7 @@ final class AppState: NSObject, ObservableObject {
         
         super.init()
         
-        self.setupFetchController()
-        self.setupLists()
+        self.refresh(newFetch: true)
     }
     
     private func setupFetchController() {
