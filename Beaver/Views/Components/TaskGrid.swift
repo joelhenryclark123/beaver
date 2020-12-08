@@ -35,6 +35,8 @@ struct TaskGrid: View {
                     CardView(toDo: toDo)
                 }
             }.padding()
+            
+            Spacer().frame(height: 72).listRowBackground(EmptyView())
         }
     }
     

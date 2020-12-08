@@ -24,7 +24,7 @@ struct ContentView: View {
             MainBackground()
                 .zIndex(0)
             
-            VStack {
+            ZStack {
                 if self.state.scene == .onboarding {
                     Onboarding()
                         .transition(.storeTransition)
@@ -53,11 +53,14 @@ struct ContentView: View {
                             .zIndex(2)
                     }
                 }
+                
+                VStack {
+                    Spacer()
+                    Footer(adding: $adding)
+                }
+                .edgesIgnoringSafeArea(.bottom)
+                .zIndex(6)
 
-                Footer(adding: $adding)
-                    .padding(.horizontal)
-                    .padding(.bottom, 8)
-                    .zIndex(6)
             }
         }
         .onReceive(

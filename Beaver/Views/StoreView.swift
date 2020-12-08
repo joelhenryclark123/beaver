@@ -56,6 +56,8 @@ struct StoreView: View {
             }
             .listRowBackground(EmptyView())
             .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
+            
+            Spacer().frame(height: 72).listRowBackground(EmptyView())
         }
         .listStyle(SidebarListStyle())
         .animation(.easeIn(duration: 0.2))

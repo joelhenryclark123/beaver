@@ -101,6 +101,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 context: context,
                 title: "Sleep all day",
                 isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
+            ),
+            ToDo(
+                context: context,
+                title: "Sleep all day",
+                isActive: false
             )
         ]
         

@@ -9,30 +9,29 @@
 import SwiftUI
 
 struct NudgeButton: View {
+    @EnvironmentObject var state: AppState
     @Binding var nudging: Bool
     @State var icon: Icon
     
     var action: () -> Void
-    
     let dimensions = CGSize(width: 48, height: 48)
     
     var body: some View {
-        Button(action: action) {
-            ZStack {
-                if nudging {
-                    // Background
-                    Circle()
-                        .foregroundColor(Color("dimWhite"))
-                        .modifier(FocalistShadow(option: .heavy))
-                        .overlay(Circle().stroke(Color("accentWhite"), lineWidth: 4))
-                }
-                
-                icon.image
-                    .frame(maxHeight: 14, alignment: .center)
-                    .foregroundColor(nudging ? icon.highlightColor : Color("accentWhite"))
-                    .modifier(FocalistShadow(option: .light))
-            }
+        ZStack {
+            Circle()
+                .foregroundColor(nudging ? Color("accentWhite") : Color(state.scene.color.rawValue + "Dark"))
+                .modifier(FocalistShadow(option: .heavy))
+                .overlay(Circle().stroke(
+                            nudging ? Color("accentWhite") : Color(state.scene.color.rawValue + "Light"),
+                            lineWidth: 2
+                ))
+            
+            icon.image
+                .frame(maxHeight: 14, alignment: .center)
+                .foregroundColor(nudging ? icon.highlightColor : Color("accentWhite"))
+                .modifier(FocalistShadow(option: .light))
         }
+        .modifier(BouncePress(draggable: false, action: action))
         .frame(width: dimensions.width, height: dimensions.height)
         .transition(.opacity)
         .animation(.easeIn(duration: 0.2))
