@@ -71,6 +71,7 @@ struct CardView: View {
             }
         }
         .scaleEffect(self.pressing ? 0.9 : 1.0)
+        .transition(.scale)
         .animation(.easeIn(duration: 0.2))
         .onTapGesture(count: 1) { handleTap() }
         .onLongPressGesture { handleLongPress() }

@@ -23,7 +23,7 @@ struct DayView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .matchedGeometryEffect(id: self.state.focusedToDo!.id.uuidString, in: daySpace)
                     .padding()
-                    .zIndex(1)
+                    .zIndex(0)
             } else {
                 TaskGrid(namespace: daySpace, list: state.activeList)
                     .zIndex(0)
