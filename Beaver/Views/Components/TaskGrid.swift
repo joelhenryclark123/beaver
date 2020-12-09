@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TaskGrid: View {
     @EnvironmentObject var state: AppState
+    var namespace: Namespace.ID
     let list: [ToDo]
     
     let columns: [GridItem] = [
@@ -33,6 +34,7 @@ struct TaskGrid: View {
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(list, id: \.self) { toDo in
                     CardView(toDo: toDo)
+                        .matchedGeometryEffect(id: toDo.id.uuidString, in: namespace)
                 }
             }.padding()
             
@@ -40,14 +42,9 @@ struct TaskGrid: View {
         }
     }
     
-    init(toDos: FetchedResults<ToDo>) {
-        list = toDos.map({ (toDo) -> ToDo in
-            toDo
-        })
-    }
-    
-    init(list: [ToDo]) {
+    init(namespace: Namespace.ID, list: [ToDo]) {
         self.list = list
+        self.namespace = namespace
     }
     
     var todayWeekDay: String {

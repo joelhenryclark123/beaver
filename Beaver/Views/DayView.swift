@@ -14,16 +14,18 @@ import FirebaseAnalytics
 struct DayView: View {
     @EnvironmentObject var state: AppState
     @State var showingAlert: Bool = false
+    @Namespace private var daySpace
     
     var body: some View {
         ZStack {
             if self.state.focusedToDo != nil {
                 CardView(toDo: self.state.focusedToDo!)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .matchedGeometryEffect(id: self.state.focusedToDo!.id.uuidString, in: daySpace)
                     .padding()
-                    .zIndex(0)
+                    .zIndex(1)
             } else {
-                TaskGrid(list: state.activeList)
+                TaskGrid(namespace: daySpace, list: state.activeList)
                     .zIndex(0)
             }
         }
