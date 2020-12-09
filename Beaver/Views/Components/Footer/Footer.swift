@@ -43,14 +43,15 @@ struct Footer: View {
                 NudgeButton(nudging: $nudge, icon: .previous, action: { }).hidden()
             }
         }
-        .padding(.top, 8)
         .padding(.bottom, 34)
         .padding(.horizontal)
+        .padding(.top, 8)
         .background(
             LinearGradient(gradient: Gradient(stops: [
                 .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.0), location: 0),
-                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.2), location: 0.25),
+                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.2), location: 0.2),
                 .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.6), location: 0.5),
+                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.6), location: 0.8),
                 .init(color: Color(state.scene.color.rawValue + "Dark").opacity(1.0), location: 1.0),
             ]), startPoint: .top, endPoint: .bottom)
         )
