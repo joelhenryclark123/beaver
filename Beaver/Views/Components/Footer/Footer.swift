@@ -14,6 +14,7 @@ struct Footer: View {
     @Binding var adding: Bool
     
     @State var showingCompleteAlert: Bool = false
+    @State var rightNudgeError: Int = 0
     
     var body: some View {
         HStack {
@@ -37,6 +38,12 @@ struct Footer: View {
             switch state.scene {
             case .beginning:
                 NudgeButton(nudging: $nudge, icon: .next, action: { state.startDay() })
+                    .modifier(Shake(animatableData: CGFloat(rightNudgeError)))
+                    .onReceive(NotificationCenter.default.publisher(for: Notification.Name(rawValue: "StartDayError")), perform: { _ in
+                        withAnimation(.default) {
+                            self.rightNudgeError += 1
+                        }
+                    })
             case .middle:
                 NudgeButton(nudging: $nudge, icon: .check, action: { self.showingCompleteAlert.toggle() })
             default:
@@ -50,8 +57,8 @@ struct Footer: View {
             LinearGradient(gradient: Gradient(stops: [
                 .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.0), location: 0),
                 .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.2), location: 0.2),
-                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.6), location: 0.5),
-                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.6), location: 0.8),
+                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.5), location: 0.5),
+                .init(color: Color(state.scene.color.rawValue + "Dark").opacity(0.8), location: 0.8),
                 .init(color: Color(state.scene.color.rawValue + "Dark").opacity(1.0), location: 1.0),
             ]), startPoint: .top, endPoint: .bottom)
         )

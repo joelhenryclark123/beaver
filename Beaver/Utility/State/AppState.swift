@@ -147,6 +147,10 @@ final class AppState: NSObject, ObservableObject {
             #else
             Analytics.logEvent("startedDay", parameters: nil)
             #endif
+        } else {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.warning)
+            NotificationCenter.default.post(.init(name: .init(rawValue: "StartDayError")))
         }
     }
     

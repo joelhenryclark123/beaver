@@ -26,9 +26,12 @@ struct CardView: View {
     
     func handleLongPress() {
         if !self.toDo.isComplete {
+            if !toDo.focusing {
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.success)
+            }
+            
             self.toDo.toggleFocus()
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.success)
         }
     }
     
