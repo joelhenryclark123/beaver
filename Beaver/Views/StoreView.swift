@@ -36,7 +36,7 @@ struct StoreView: View {
     var toDoListView: some View {
         List {
             VStack(alignment: .leading) {
-                Text("Queue")
+                Text("Backlog")
                     .font(.largeTitle).bold()
                     .foregroundColor(Color("accentWhite"))
 

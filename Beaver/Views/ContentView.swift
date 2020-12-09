@@ -14,7 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var state: AppState
     @State var adding: Bool = false
     
-    @State var textAlert: TextAlert = TextAlert(title: "New To Do", message: "New to dos go to the queue", accept: "Add", action: { string in
+    @State var textAlert: TextAlert = TextAlert(title: "New To-Do", message: "New to-dos go to the backlog", accept: "Add", action: { string in
         return
     })
     
