@@ -11,7 +11,9 @@ import SwiftUI
 struct CardView: View {
     @EnvironmentObject var state: AppState
     @ObservedObject var toDo: ToDo
-    @GestureState var pressing: Bool = false
+    
+    @State var pressing: Bool = false
+    
     static let cornerRadius: CGFloat = 48
     
     func handleTap() {
@@ -25,6 +27,8 @@ struct CardView: View {
     func handleLongPress() {
         if !self.toDo.isComplete {
             self.toDo.toggleFocus()
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
         }
     }
     
@@ -32,11 +36,11 @@ struct CardView: View {
         Group {
             if toDo.isComplete {
                 Color("otherBlue")
-                .overlay(
-                    RoundedRectangle(cornerRadius: CardView.cornerRadius)
-                        .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
-                        .modifier(FocalistShadow(option: .light))
-                )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: CardView.cornerRadius)
+                            .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
+                            .modifier(FocalistShadow(option: .light))
+                    )
             }
             else {
                 Color("accentWhite")
@@ -49,7 +53,7 @@ struct CardView: View {
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .center) {
             background
             if !self.toDo.isComplete {
                 Text(self.toDo.title)
@@ -67,38 +71,43 @@ struct CardView: View {
                     .scaledToFit()
                     .foregroundColor(Color("dimWhite"))
                     .transition(.scale)
+                    .animation(.easeInOut(duration: 0.15))
                     .zIndex(4)
             }
         }
-        .scaleEffect(self.pressing ? 0.9 : 1.0)
-        .transition(.scale)
-        .animation(.easeIn(duration: 0.2))
-        .onTapGesture(count: 1) { handleTap() }
-        .onLongPressGesture { handleLongPress() }
+        .scaleEffect(self.pressing ? 0.8 : 1.0)
+        .onTapGesture {
+            self.handleTap()
+        }
+        .onLongPressGesture(minimumDuration: 0.8, maximumDistance: 20, pressing: { (press) in
+            pressing = press
+        }, perform: {
+            handleLongPress()
+        })
         .aspectRatio(1.0, contentMode: .fit)
     }
     
-    var hold: some Gesture {
-        // Get some haptics going
-        let generator = UINotificationFeedbackGenerator()
-        
-        return SimultaneousGesture(
-            LongPressGesture(minimumDuration: 0.75, maximumDistance: 1)
-                .updating($pressing, body: { (bool, state, tx) in
-                    state = bool
-                }).onEnded({ (value) in
-                    self.toDo.toggleFocus()
-                }),
-            TapGesture(count: 2)
-                .onEnded({
-                    if !self.toDo.isComplete {
-                        generator.notificationOccurred(.success)
-                    }
-
-                    self.toDo.completeToggle()
-                })
-        )
-    }
+//    var hold: some Gesture {
+//        // Get some haptics going
+//        let generator = UINotificationFeedbackGenerator()
+//
+//        return SimultaneousGesture(
+//            LongPressGesture(minimumDuration: 0.75, maximumDistance: 1)
+//                .updating($pressing, body: { (bool, state, tx) in
+//                    state = bool
+//                }).onEnded({ (value) in
+//                    self.toDo.toggleFocus()
+//                }),
+//            TapGesture(count: 2)
+//                .onEnded({
+//                    if !self.toDo.isComplete {
+//                        generator.notificationOccurred(.success)
+//                    }
+//
+//                    self.toDo.completeToggle()
+//                })
+//        )
+//    }
 }
 
 //struct CardView_Previews: PreviewProvider {

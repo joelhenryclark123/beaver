@@ -19,6 +19,7 @@ final class AppState: NSObject, ObservableObject {
     @Published var activeList: [ToDo] = []
     @Published var scene: Scene = .beginning
     @Published var focusedToDo: ToDo?
+    @Published var lastFocused: ToDo?
     
     // MARK: - Other Properties
     var context: NSManagedObjectContext
@@ -78,7 +79,12 @@ final class AppState: NSObject, ObservableObject {
             self.setupFetchController()
         }
         self.setupLists()
-        self.focusedToDo = self.activeList.first(where: { $0.focusing })
+        
+        if let toFocus = self.activeList.first(where: { $0.focusing }) {
+            self.lastFocused = self.focusedToDo
+            self.focusedToDo = toFocus
+        }
+        
         self.updateScene()
     }
     

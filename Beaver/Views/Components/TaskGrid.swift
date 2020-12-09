@@ -17,7 +17,7 @@ struct TaskGrid: View {
         .init(.flexible()),
         .init(.flexible())
     ]
-    
+        
     var body: some View {
         ScrollView {
             VStack(alignment: .center) {
@@ -35,6 +35,8 @@ struct TaskGrid: View {
                 ForEach(list, id: \.self) { toDo in
                     CardView(toDo: toDo)
                         .matchedGeometryEffect(id: toDo.id.uuidString, in: namespace)
+                        .opacity(toDo.focusing ? 0.0 : 1.0)
+                        .zIndex(toDo == self.state.lastFocused ? .infinity : 1)
                 }
             }.padding()
             

@@ -17,16 +17,22 @@ struct DayView: View {
     @Namespace private var daySpace
     
     var body: some View {
-        ZStack {
-            if self.state.focusedToDo != nil {
-                CardView(toDo: self.state.focusedToDo!)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .matchedGeometryEffect(id: self.state.focusedToDo!.id.uuidString, in: daySpace)
-                    .padding()
-                    .zIndex(0)
-            } else {
+        let focusing = (self.state.focusedToDo != nil)
+        
+        return ZStack {
+            if !focusing {
                 TaskGrid(namespace: daySpace, list: state.activeList)
                     .zIndex(0)
+                    .opacity(focusing ? 0.0 : 1.0)
+                    .animation(.easeInOut(duration: 0.15))
+            } else {
+                CardView(toDo: self.state.focusedToDo!)
+                    .matchedGeometryEffect(id: self.state.focusedToDo!.id.uuidString, in: daySpace)
+                    .transition(.offset())
+                    .animation(.easeInOut(duration: 0.15))
+                    .frame(maxHeight: .infinity)
+                    .padding()
+                    .zIndex(1)
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in

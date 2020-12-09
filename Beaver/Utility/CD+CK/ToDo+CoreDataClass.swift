@@ -41,7 +41,7 @@ public class ToDo: NSManagedObject, Identifiable {
         try? self.managedObjectContext?.save()
     }
     
-    // MARK: Other Properties
+    // MARK: Calculated Properties
     var onTodaysList: Bool {
         let calendar = Calendar.current
         guard let movedAt = self.movedAt else { return false }
@@ -57,7 +57,8 @@ public class ToDo: NSManagedObject, Identifiable {
         self.isComplete && (self.isActive == false)
     }
     
-    public let id = UUID()
+    // MARK: Other Properties
+    public let id = UUID() // Used for MatchedGeometryEffect
 }
 
 //MARK: Operations
