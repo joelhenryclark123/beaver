@@ -41,7 +41,7 @@ public class ToDo: NSManagedObject, Identifiable {
         try? self.managedObjectContext?.save()
     }
     
-    // MARK: Calculated Properties
+    // MARK: Other Properties
     var onTodaysList: Bool {
         let calendar = Calendar.current
         guard let movedAt = self.movedAt else { return false }
@@ -56,6 +56,8 @@ public class ToDo: NSManagedObject, Identifiable {
     var isArchived: Bool {
         self.isComplete && (self.isActive == false)
     }
+    
+    public let id = UUID()
 }
 
 //MARK: Operations
