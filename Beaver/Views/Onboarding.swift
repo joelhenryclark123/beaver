@@ -30,7 +30,6 @@ struct Onboarding: View {
                     Text("\(secondsLeft) seconds")
                         .padding(.top, 16)
                 }
-                
             }
             .multilineTextAlignment(.center)
             .padding(.horizontal)
@@ -40,6 +39,7 @@ struct Onboarding: View {
                 WideButton(.accentYellow, "Get Started") {
                     self.state.finishOnboarding()
                 }
+                .padding(.bottom, 85)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
