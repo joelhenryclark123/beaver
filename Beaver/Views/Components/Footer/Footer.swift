@@ -13,6 +13,8 @@ struct Footer: View {
     @State var nudge: Bool = false
     @Binding var adding: Bool
     
+    @State var showingCompleteAlert: Bool = false
+    
     var body: some View {
         HStack {
             // Left Item
@@ -21,9 +23,9 @@ struct Footer: View {
             } else {
                 NudgeButton(nudging: .constant(false), icon: .previous, action: { }).hidden()
             }
-                        
+            
             Spacer()
-                        
+            
             AddButton(action: { adding.toggle() })
             
             Spacer()
@@ -33,7 +35,7 @@ struct Footer: View {
             case .beginning:
                 NudgeButton(nudging: $nudge, icon: .next, action: { state.startDay() })
             case .middle:
-                NudgeButton(nudging: $nudge, icon: .check, action: { state.completeDay() })
+                NudgeButton(nudging: $nudge, icon: .check, action: { self.showingCompleteAlert.toggle() })
             default:
                 NudgeButton(nudging: $nudge, icon: .previous, action: { }).hidden()
             }
@@ -42,6 +44,13 @@ struct Footer: View {
             setNudge()
         }.onAppear{
             setNudge()
+        }
+        .alert(isPresented: $showingCompleteAlert) {
+            Alert(
+                title: Text("Complete Day"), message: Text("Are you sure?"),
+                primaryButton: .default(Text("Yup!"), action: self.state.completeDay),
+                secondaryButton: .cancel(Text("Not yet"), action: { showingCompleteAlert.toggle() })
+            )
         }
     }
     
