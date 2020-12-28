@@ -16,7 +16,6 @@ struct StoreView: View {
     @EnvironmentObject var state: AppState
     @State var nudging: Bool = false
     @State var showingSchool = false
-    @ObservedObject var canvasLoader = CanvasLoader.shared
     
     var instruction: String = "Pick today's tasks"
     
@@ -40,34 +39,8 @@ struct StoreView: View {
                     }
                 }
             } else {
-                ScrollView {
-                    VStack {
-                        ForEach(canvasLoader.courses, id: \.self) { course in
-                            CourseView(course: course)
-                        }
-                    }
-                }.onAppear(perform: {
-                        CanvasLoader.shared.loadCourses(context: state.context)
-                    })
+                CanvasView()
             }
-        }
-    }
-    
-    struct CourseView: View {
-        @ObservedObject var course: CanvasCourse
-        var body: some View {
-            LazyVStack(alignment: .leading) {
-                Text(course.name ?? "ERROR")
-                    .multilineTextAlignment(.leading)
-                
-                ForEach(Array(course.assignments! as Set), id: \.self) { assignment in
-                    Text(verbatim: (assignment as! CanvasAssignment).title)
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading, 16)
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.leading, 16)
         }
     }
     

@@ -17,6 +17,8 @@
 		E90AE837259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */; };
 		E90AE838259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */; };
 		E90AE839259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */; };
+		E90AE83D259A9B9100F54DC2 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE83C259A9B9100F54DC2 /* CanvasView.swift */; };
+		E90AE842259A9C0300F54DC2 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE841259A9C0300F54DC2 /* CourseView.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
@@ -95,6 +97,8 @@
 		E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasCourse+CoreDataProperties.swift"; path = "Beaver/Utility/Canvas/CanvasCourse+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasCourse+CoreDataClass.swift"; path = "Beaver/Utility/Canvas/CanvasCourse+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasAssignments+CoreDataClass.swift"; path = "Beaver/Utility/Canvas/CanvasAssignments+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		E90AE83C259A9B9100F54DC2 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		E90AE841259A9C0300F54DC2 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -175,6 +179,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E90AE840259A9BBB00F54DC2 /* Canvas Module */ = {
+			isa = PBXGroup;
+			children = (
+				E90AE83C259A9B9100F54DC2 /* CanvasView.swift */,
+				E90AE841259A9C0300F54DC2 /* CourseView.swift */,
+			);
+			path = "Canvas Module";
+			sourceTree = "<group>";
+		};
 		E95D679C23E75FD800AB3320 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +219,7 @@
 				E9A39B8C242FD33D00D182E5 /* DoneView.swift */,
 				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
 				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
+				E90AE840259A9BBB00F54DC2 /* Canvas Module */,
 				E9869031240AC77300A03FA2 /* Components */,
 			);
 			path = Views;
@@ -567,11 +581,13 @@
 				E97A8283256D9A1100C6860F /* AddButton.swift in Sources */,
 				E90AE837259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
+				E90AE83D259A9B9100F54DC2 /* CanvasView.swift in Sources */,
 				E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */,
 				E9B9365F24E9E2BB00F77602 /* BeaverWidgets.intentdefinition in Sources */,
 				E982485F242FFE2F00840A78 /* Transitions.swift in Sources */,
 				E9B9D164259A6AB700977511 /* schema.json in Sources */,
 				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
+				E90AE842259A9C0300F54DC2 /* CourseView.swift in Sources */,
 				E90AE836259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
 				E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */,
