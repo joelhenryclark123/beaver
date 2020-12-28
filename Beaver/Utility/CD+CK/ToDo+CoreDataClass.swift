@@ -58,7 +58,7 @@ public class ToDo: NSManagedObject, Identifiable {
     }
     
     // MARK: Other Properties
-    public let id = UUID() // Used for MatchedGeometryEffect
+    public let geometryId = UUID() // Used for MatchedGeometryEffect
 }
 
 //MARK: Operations

@@ -1,0 +1,17 @@
+query BeaverQuery {
+  allCourses {
+    id
+    name
+    term {
+      endAt
+      startAt
+    }
+    assignmentsConnection {
+      nodes {
+        id
+        name
+        dueAt
+      }
+    }
+  }
+}

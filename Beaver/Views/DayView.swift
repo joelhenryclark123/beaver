@@ -27,7 +27,7 @@ struct DayView: View {
                     .animation(.easeInOut(duration: 0.15))
             } else {
                 CardView(toDo: self.state.focusedToDo!)
-                    .matchedGeometryEffect(id: self.state.focusedToDo!.id.uuidString, in: daySpace)
+                    .matchedGeometryEffect(id: self.state.focusedToDo!.geometryId.uuidString, in: daySpace)
                     .transition(.offset())
                     .animation(.easeInOut(duration: 0.15))
                     .frame(maxHeight: .infinity)

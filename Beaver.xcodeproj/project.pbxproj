@@ -9,7 +9,14 @@
 /* Begin PBXBuildFile section */
 		26BEF83390C150A46873268A /* Pods_BeaverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD8E68299840AC96490F724 /* Pods_BeaverTests.framework */; };
 		A567656C493CEBDBE96A7256 /* Pods_Beaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */; };
-		E9225D24253E1E020094E960 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9225D23253E1E020094E960 /* API.swift */; };
+		E90AE7FE259A71EE00F54DC2 /* CanvasLoader.swift in Resources */ = {isa = PBXBuildFile; fileRef = E90AE7FD259A71EE00F54DC2 /* CanvasLoader.swift */; };
+		E90AE80E259A739F00F54DC2 /* Queries.graphql in Resources */ = {isa = PBXBuildFile; fileRef = E90AE80D259A739F00F54DC2 /* Queries.graphql */; };
+		E90AE812259A749100F54DC2 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE811259A749100F54DC2 /* API.swift */; };
+		E90AE82F259A76CF00F54DC2 /* CanvasLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE7FD259A71EE00F54DC2 /* CanvasLoader.swift */; };
+		E90AE836259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE832259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift */; };
+		E90AE837259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */; };
+		E90AE838259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */; };
+		E90AE839259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
@@ -33,6 +40,7 @@
 		E9B43454256C5C4400A2A525 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B43453256C5C4400A2A525 /* Scene.swift */; };
 		E9B9364924E9D2ED00F77602 /* ToDo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9364824E9D2ED00F77602 /* ToDo+CoreDataProperties.swift */; };
 		E9B9365F24E9E2BB00F77602 /* BeaverWidgets.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = E9B9365A24E9E2B500F77602 /* BeaverWidgets.intentdefinition */; };
+		E9B9D164259A6AB700977511 /* schema.json in Sources */ = {isa = PBXBuildFile; fileRef = E9B9D163259A6AB700977511 /* schema.json */; };
 		E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB5768240EB83E0083BE7D /* Onboarding.swift */; };
 		E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB576A240EB8E00083BE7D /* WideButton.swift */; };
 		E9E5D7AE24648BA10059BDFD /* PreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */; };
@@ -80,12 +88,18 @@
 		760882B16F980BDFA4403F63 /* Pods-BeaverTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BeaverTests.debug.xcconfig"; path = "Target Support Files/Pods-BeaverTests/Pods-BeaverTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A66C7620CB89BBC32295C873 /* Pods_BeaverWidgetsExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BeaverWidgetsExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E58D71A839AD09B34E8C0C1D /* Pods_Beaver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beaver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9225D23253E1E020094E960 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E90AE7FD259A71EE00F54DC2 /* CanvasLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CanvasLoader.swift; sourceTree = "<group>"; };
+		E90AE80D259A739F00F54DC2 /* Queries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queries.graphql; sourceTree = "<group>"; };
+		E90AE811259A749100F54DC2 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		E90AE832259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasAssignments+CoreDataProperties.swift"; path = "Beaver/Utility/Canvas/CanvasAssignments+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasCourse+CoreDataProperties.swift"; path = "Beaver/Utility/Canvas/CanvasCourse+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasCourse+CoreDataClass.swift"; path = "Beaver/Utility/Canvas/CanvasCourse+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CanvasAssignments+CoreDataClass.swift"; path = "Beaver/Utility/Canvas/CanvasAssignments+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
-		E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E97A827B256D997600C6860F /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		E97A8282256D9A1100C6860F /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		E97A829E256D9FDC00C6860F /* NudgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NudgeButton.swift; sourceTree = "<group>"; };
@@ -108,6 +122,7 @@
 		E9B9365A24E9E2B500F77602 /* BeaverWidgets.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = BeaverWidgets.intentdefinition; sourceTree = "<group>"; };
 		E9B9365B24E9E2BB00F77602 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9B9365D24E9E2BB00F77602 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E9B9D163259A6AB700977511 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		E9BB5768240EB83E0083BE7D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E9BB576A240EB8E00083BE7D /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
 		E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelper.swift; sourceTree = "<group>"; };
@@ -222,6 +237,10 @@
 		E9B3722D240335A4003B46B0 /* CD+CK */ = {
 			isa = PBXGroup;
 			children = (
+				E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */,
+				E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */,
+				E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */,
+				E90AE832259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift */,
 				E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */,
 				E95D679B23E75F8600AB3320 /* Stack.entitlements */,
 				E9F9F36F23BA46EB00EC1EBE /* ToDo+CoreDataClass.swift */,
@@ -235,10 +254,10 @@
 			children = (
 				E97E0F64240C99F400A46140 /* DesignSystem.swift */,
 				E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */,
-				E9225D23253E1E020094E960 /* API.swift */,
 				E9926335240B1CDC003D7658 /* Extensions */,
 				E9B3722F240335EF003B46B0 /* State */,
 				E9B3722D240335A4003B46B0 /* CD+CK */,
+				E9B9D169259A6ABC00977511 /* Canvas */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -270,6 +289,17 @@
 				E9B9365D24E9E2BB00F77602 /* Info.plist */,
 			);
 			path = BeaverWidgets;
+			sourceTree = "<group>";
+		};
+		E9B9D169259A6ABC00977511 /* Canvas */ = {
+			isa = PBXGroup;
+			children = (
+				E90AE811259A749100F54DC2 /* API.swift */,
+				E90AE80D259A739F00F54DC2 /* Queries.graphql */,
+				E9B9D163259A6AB700977511 /* schema.json */,
+				E90AE7FD259A71EE00F54DC2 /* CanvasLoader.swift */,
+			);
+			path = Canvas;
 			sourceTree = "<group>";
 		};
 		E9F51B8923B83CA00068B86E = {
@@ -334,6 +364,7 @@
 			buildConfigurationList = E9F51BA623B83CA60068B86E /* Build configuration list for PBXNativeTarget "Beaver" */;
 			buildPhases = (
 				2273CE552CBF5C1B1EEAB43E /* [CP] Check Pods Manifest.lock */,
+				E90AE80A259A730200F54DC2 /* Generate Apollo GraphQL API */,
 				E9F51B8E23B83CA00068B86E /* Sources */,
 				E9F51B8F23B83CA00068B86E /* Frameworks */,
 				E9F51B9023B83CA00068B86E /* Resources */,
@@ -415,7 +446,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90AE80E259A739F00F54DC2 /* Queries.graphql in Resources */,
 				E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */,
+				E90AE7FE259A71EE00F54DC2 /* CanvasLoader.swift in Resources */,
 				E9F51BA223B83CA60068B86E /* LaunchScreen.storyboard in Resources */,
 				E95EA62F2426B0B3006D6446 /* GoogleService-Info.plist in Resources */,
 				E9F51B9F23B83CA60068B86E /* Preview Assets.xcassets in Resources */,
@@ -493,6 +526,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E90AE80A259A730200F54DC2 /* Generate Apollo GraphQL API */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Apollo GraphQL API";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nSCRIPT_PATH=\"${PODS_ROOT}/Apollo/scripts\"\ncd \"${SRCROOT}/${TARGET_NAME}/Utility/Canvas\"\n\"${SCRIPT_PATH}\"/run-bundled-codegen.sh codegen:generate --target=swift --includes=./**/*.graphql --localSchemaFile=\"schema.json\" API.swift\n\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -500,26 +551,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90AE82F259A76CF00F54DC2 /* CanvasLoader.swift in Sources */,
 				E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */,
 				E9B37231240335FC003B46B0 /* AppState.swift in Sources */,
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
 				E97A82C1256ECC4800C6860F /* TextAlert.swift in Sources */,
 				E9F7A3352409B2A50037B9A4 /* ToDo+CoreDataClass.swift in Sources */,
 				E97A827C256D997600C6860F /* Footer.swift in Sources */,
+				E90AE812259A749100F54DC2 /* API.swift in Sources */,
 				E9B2F65223F75ECD00BE2133 /* StoreItem.swift in Sources */,
 				E9B9364924E9D2ED00F77602 /* ToDo+CoreDataProperties.swift in Sources */,
 				E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */,
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E98DB1E7245A183C00D8FD3D /* MainBackground.swift in Sources */,
 				E97A8283256D9A1100C6860F /* AddButton.swift in Sources */,
+				E90AE837259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
 				E9FBEB8D240AEA8200BCB531 /* CardView.swift in Sources */,
 				E9B9365F24E9E2BB00F77602 /* BeaverWidgets.intentdefinition in Sources */,
 				E982485F242FFE2F00840A78 /* Transitions.swift in Sources */,
+				E9B9D164259A6AB700977511 /* schema.json in Sources */,
 				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
-				E9225D24253E1E020094E960 /* API.swift in Sources */,
+				E90AE836259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift in Sources */,
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
 				E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */,
+				E90AE838259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */,
 				E9B43454256C5C4400A2A525 /* Scene.swift in Sources */,
@@ -527,6 +583,7 @@
 				E97A829F256D9FDC00C6860F /* NudgeButton.swift in Sources */,
 				E9E5D7AE24648BA10059BDFD /* PreviewHelper.swift in Sources */,
 				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,
+				E90AE839259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

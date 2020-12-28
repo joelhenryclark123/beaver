@@ -15,31 +15,69 @@ struct StoreView: View {
     // MARK: - Properties
     @EnvironmentObject var state: AppState
     @State var nudging: Bool = false
+    @State var showingSchool = false
+    @ObservedObject var canvasLoader = CanvasLoader.shared
     
     var instruction: String = "Pick today's tasks"
     
     // MARK: - Views
     var body: some View {
-        ZStack {
-            if state.storeList.isEmpty {
-                emptyState
-                    .transition(.identity)
-                    .zIndex(0)
-            } else {
-                VStack {
-                    toDoListView
+        VStack {
+            Button("Switch!") {
+                self.showingSchool.toggle()
+            }
+            
+            if !showingSchool {
+                ZStack {
+                    if state.storeList.isEmpty {
+                        emptyState
+                            .transition(.identity)
+                            .zIndex(0)
+                    } else {
+                        VStack {
+                            toDoListView
+                        }
+                    }
                 }
+            } else {
+                ScrollView {
+                    VStack {
+                        ForEach(canvasLoader.courses, id: \.self) { course in
+                            CourseView(course: course)
+                        }
+                    }
+                }.onAppear(perform: {
+                        CanvasLoader.shared.loadCourses(context: state.context)
+                    })
             }
         }
     }
-        
+    
+    struct CourseView: View {
+        @ObservedObject var course: CanvasCourse
+        var body: some View {
+            LazyVStack(alignment: .leading) {
+                Text(course.name ?? "ERROR")
+                    .multilineTextAlignment(.leading)
+                
+                ForEach(Array(course.assignments! as Set), id: \.self) { assignment in
+                    Text(verbatim: (assignment as! CanvasAssignment).title)
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 16)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.leading, 16)
+        }
+    }
+    
     var toDoListView: some View {
         List {
             VStack(alignment: .leading) {
                 Text("Backlog")
                     .font(.largeTitle).bold()
                     .foregroundColor(Color("accentWhite"))
-
+                
                 Text(instruction)
                     .foregroundColor(Color("dimWhite"))
                 
@@ -92,23 +130,23 @@ struct StoreView_Previews: PreviewProvider {
             isActive: false
         )
         
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 200 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 300 miles",
-//            isActive: true
-//        )
-//
-//        let _ = ToDo(
-//            context: mc,
-//            title: "Walk 400 miles",
-//            isActive: true
-//        )
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 200 miles",
+        //            isActive: true
+        //        )
+        //
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 300 miles",
+        //            isActive: true
+        //        )
+        //
+        //        let _ = ToDo(
+        //            context: mc,
+        //            title: "Walk 400 miles",
+        //            isActive: true
+        //        )
         
         return mc
     }()
@@ -125,9 +163,9 @@ struct StoreView_Previews: PreviewProvider {
                     .environmentObject(state)
                     .frame(maxHeight: .infinity)
                 
-//                AddBar()
-//                    .environmentObject(state)
-//                    .frame(maxHeight: .infinity, alignment: .top)
+                //                AddBar()
+                //                    .environmentObject(state)
+                //                    .frame(maxHeight: .infinity, alignment: .top)
             }
         }
     }
