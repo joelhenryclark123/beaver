@@ -13,11 +13,9 @@ struct CanvasView: View {
     @ObservedObject var canvasLoader = CanvasLoader.shared
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                ForEach(canvasLoader.courses, id: \.self) { course in
-                    CourseView(course: course)
-                }
+        LazyVStack {
+            ForEach(canvasLoader.courses, id: \.self) { course in
+                CourseView(course: course)
             }
         }.onAppear(perform: {
             CanvasLoader.shared.loadCourses(context: state.context)

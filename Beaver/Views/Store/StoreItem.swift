@@ -22,7 +22,6 @@ struct StoreItem: View {
             .onTapGesture(perform: {
                 self.toDo.activeToggle()
             })
-
     }
     
     var body: some View {

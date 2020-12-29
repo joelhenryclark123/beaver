@@ -175,6 +175,26 @@ struct BouncePress: ViewModifier {
     }
 }
 
+struct BouncePressWithHold: ViewModifier {
+    @State var pressing: Bool = false
+    var handleTap: () -> Void
+    var handleLongPress: () -> Void
+    
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(self.pressing ? 0.8 : 1.0)
+            .onTapGesture {
+                self.handleTap()
+            }
+            .onLongPressGesture(minimumDuration: 0.8, maximumDistance: 20) { (press) in
+                self.pressing = press
+            } perform: {
+                handleLongPress()
+            }
+    }
+
+}
+
 // MARK: Shake Animation
 struct Shake: GeometryEffect {
     var amount: CGFloat = 10

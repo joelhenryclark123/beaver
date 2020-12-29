@@ -13,7 +13,7 @@ struct CourseView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             label
-            .padding(.leading, 16)
+                .padding(.leading, 16)
             
             taskScroller
         }
@@ -34,7 +34,8 @@ struct CourseView: View {
                     .frame(width: 16, height: 143)
                 
                 ForEach(Array(course.assignments! as Set), id: \.self) { assignment in
-                    CanvasAssignmentView(assignment: assignment as! CanvasAssignment)
+                    NewStoreItem(toDo: assignment as! ToDo)
+                        .frame(width: 143, height: 143)
                         .padding(.bottom, 16)
                 }
                 
