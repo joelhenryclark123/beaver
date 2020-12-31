@@ -34,11 +34,16 @@ struct StoreView: View {
                 header
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
+                #if DEBUG
                 if selectedTab == .personal {
                     personalListView
                 } else {
                     CanvasView()
                 }
+                #else
+                personalListView
+                #endif
+                
                 
                 Spacer()
                     .frame(height: 80)

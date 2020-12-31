@@ -86,7 +86,6 @@ extension ToDo {
     func completeToggle() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
-            if self.isActive {
                 if self.completedAt == nil {
                     self.completedAt = Date()
                 } else {
@@ -94,9 +93,6 @@ extension ToDo {
                 }
                 
                 self.focusing = false
-            } else {
-                fatalError()
-            }
             
             self.saveContext()
         }
@@ -155,6 +151,17 @@ extension ToDo {
     }
     
     // MARK:- Fetch Requests
+    static var selectedFetch: NSFetchRequest<ToDo> {
+        let entity: String = String(describing: ToDo.self)
+        let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "isActive == true"
+        )
+        
+        return fetchRequest
+    }
+    
     static var todayListFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
@@ -189,6 +196,8 @@ extension ToDo {
             NSSortDescriptor(key: "inboxDate", ascending: true),
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
+        
+        fetchRequest.includesSubentities = false
         
         return fetchRequest
     }

@@ -42,4 +42,23 @@ public class CanvasCourse: NSManagedObject {
         
         return fetchRequest
     }
+    
+    static func activeClasses(_ date: Date = Date()) -> NSFetchRequest<CanvasCourse> {
+        let entity: String = String(describing: CanvasCourse.self)
+        let fetchRequest = NSFetchRequest<CanvasCourse>(entityName: entity)
+        
+        let calendar = Calendar.current
+        
+        let today = calendar.startOfDay(for: date) as NSDate
+        let tenYearsLater = calendar.date(byAdding: .year, value: 10, to: date)! as NSDate
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "(startDate < %@) && (endDate > %@)", today, tenYearsLater
+        )
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "name", ascending: true)
+        ]
+        
+        return fetchRequest
+    }
 }

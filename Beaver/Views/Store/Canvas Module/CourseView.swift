@@ -28,13 +28,16 @@ struct CourseView: View {
     }
     
     var taskScroller: some View {
-        ScrollView(.horizontal) {
+        let assignments: [CanvasAssignment] = (Array(course.assignments! as Set) as! [CanvasAssignment]).filter { (assignment) -> Bool in
+            assignment.isComplete == false
+        }
+        return ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 Spacer()
                     .frame(width: 16, height: 143)
                 
-                ForEach(Array(course.assignments! as Set), id: \.self) { assignment in
-                    NewStoreItem(toDo: assignment as! ToDo)
+                ForEach(assignments, id: \.self) { assignment in
+                    NewStoreItem(toDo: assignment as ToDo)
                         .frame(width: 143, height: 143)
                         .padding(.bottom, 16)
                 }

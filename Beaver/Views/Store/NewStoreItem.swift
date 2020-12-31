@@ -28,16 +28,10 @@ struct NewStoreItem: View {
         }))
         .contextMenu(ContextMenu(menuItems: {
             Button(action: {
-                // Delete ToDo
+                toDo.delete()
             }) {
                 Text("Delete")
                 Image(systemName: "trash")
-            }
-            Button(action: {
-                // Complete
-            }) {
-                Text("Complete")
-                Image(systemName: "checkmark")
             }
         }))
     }

@@ -193,6 +193,7 @@
 		E90AE861259AB2B800F54DC2 /* Store */ = {
 			isa = PBXGroup;
 			children = (
+				E90AE840259A9BBB00F54DC2 /* Canvas Module */,
 				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
 				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
 				E90AE862259AB2D700F54DC2 /* NewStoreItem.swift */,
@@ -231,7 +232,6 @@
 				E9A39B8C242FD33D00D182E5 /* DoneView.swift */,
 				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
 				E90AE861259AB2B800F54DC2 /* Store */,
-				E90AE840259A9BBB00F54DC2 /* Canvas Module */,
 				E9869031240AC77300A03FA2 /* Components */,
 			);
 			path = Views;
@@ -262,10 +262,6 @@
 		E9B3722D240335A4003B46B0 /* CD+CK */ = {
 			isa = PBXGroup;
 			children = (
-				E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */,
-				E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */,
-				E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */,
-				E90AE832259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift */,
 				E95D67FE23E8973F00AB3320 /* Stack.xcdatamodeld */,
 				E95D679B23E75F8600AB3320 /* Stack.entitlements */,
 				E9F9F36F23BA46EB00EC1EBE /* ToDo+CoreDataClass.swift */,
@@ -319,10 +315,14 @@
 		E9B9D169259A6ABC00977511 /* Canvas */ = {
 			isa = PBXGroup;
 			children = (
+				E90AE7FD259A71EE00F54DC2 /* CanvasLoader.swift */,
+				E90AE834259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift */,
+				E90AE833259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift */,
+				E90AE835259A799900F54DC2 /* CanvasAssignments+CoreDataClass.swift */,
+				E90AE832259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift */,
 				E90AE811259A749100F54DC2 /* API.swift */,
 				E90AE80D259A739F00F54DC2 /* Queries.graphql */,
 				E9B9D163259A6AB700977511 /* schema.json */,
-				E90AE7FD259A71EE00F54DC2 /* CanvasLoader.swift */,
 			);
 			path = Canvas;
 			sourceTree = "<group>";
@@ -772,7 +772,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -781,7 +781,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = App.Beaver;
 				PRODUCT_NAME = Beaver;
 				SWIFT_VERSION = 5.0;
@@ -797,7 +797,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Beaver/Utility/CD+CK/Stack.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 29;
 				DEVELOPMENT_ASSET_PATHS = "\"Beaver/Preview Content\"";
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
@@ -806,7 +806,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = App.Beaver;
 				PRODUCT_NAME = Beaver;
 				SWIFT_VERSION = 5.0;

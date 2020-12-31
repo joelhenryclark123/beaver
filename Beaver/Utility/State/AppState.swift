@@ -138,9 +138,9 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func startDay() {
-        if !activeList.isEmpty || storeList.contains(where: { $0.isActive }) {
-            for toDo in storeList { if toDo.isActive { toDo.moveToDay() } }
-            for toDo in activeList { toDo.moveToDay() }
+        if let selected = try? self.context.fetch(ToDo.selectedFetch),
+           !selected.isEmpty  {
+            selected.forEach({ $0.moveToDay() })
             try? context.save()
             
             #if DEBUG
