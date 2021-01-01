@@ -59,7 +59,7 @@ struct TaskGrid: View {
     var todayDate: String {
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        dateFormatter.dateFormat = "MMMM d, yyyy"
         let currentDateString: String = dateFormatter.string(from: date)
         return currentDateString
     }

@@ -37,13 +37,39 @@ struct CourseView: View {
                     .frame(width: 16, height: 143)
                 
                 ForEach(assignments, id: \.self) { assignment in
-                    NewStoreItem(toDo: assignment as ToDo)
-                        .frame(width: 143, height: 143)
-                        .padding(.bottom, 16)
+                    VStack(spacing: 8) {
+                        NewStoreItem(toDo: assignment as ToDo)
+                            .frame(width: 143, height: 143)
+                        
+                        DueRow(assignment: assignment)
+                    }
+                    .padding(.bottom, 16)
                 }
                 
                 Spacer()
                     .frame(width: 16, height: 143)
+            }
+        }
+    }
+    
+    struct DueRow: View {
+        @ObservedObject var assignment: CanvasAssignment
+        
+        var body: some View {
+            if assignment.dueDate != nil {
+                Text("Due " + assignment.mmddDueDate!)
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .modifier(FocalistFont(font: .smallText))
+                    .background(assignment.isActive ? Color("accentWhite") : Color("unselectedBlack"))
+                    .foregroundColor(assignment.isActive ? Color("blackText") : Color("accentWhite"))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+            } else {
+                Text("not due")
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .modifier(FocalistFont(font: .smallText))
+                    .hidden()
             }
         }
     }

@@ -39,6 +39,13 @@ public class CanvasAssignment: ToDo {
         saveContext()
     }
     
+    var mmddDueDate: String? {
+        guard let dueDate = dueDate else { return nil }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d"
+        return formatter.string(from: dueDate)
+    }
+    
     static func makeFetch(for id: String) -> NSFetchRequest<CanvasAssignment> {
         let entity: String = String(describing: CanvasAssignment.self)
         let fetchRequest = NSFetchRequest<CanvasAssignment>(entityName: entity)

@@ -70,6 +70,7 @@ struct StoreView: View {
             ForEach(Tab.allCases, id: \.self) { value in
                 Text(value.localizedName)
                     .modifier(FocalistFont(font: .mediumText))
+                    .foregroundColor(Color("blackText"))
                     .padding(.vertical, 4)
                     .padding(.horizontal, 12)
                     .background(Color("accentWhite").opacity(value == selectedTab ? 1.0 : 0.7))
