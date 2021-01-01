@@ -124,10 +124,12 @@ class CanvasLoader: NSObject, ObservableObject {
         
         for assignment in queryAssignments {
             guard let assignment = assignment else { return }
+            let index = canvasCourse.assignments?.count ?? 0
             let toDo = CanvasAssignment(
                 context: canvasCourse.managedObjectContext!,
                 id: assignment.id,
                 title: assignment.name!,
+                index: index,
                 dueDate: dateFormatter.date(from: assignment.dueAt ?? "")
             )
             

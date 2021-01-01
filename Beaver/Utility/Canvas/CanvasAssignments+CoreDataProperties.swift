@@ -18,5 +18,6 @@ extension CanvasAssignment {
 
     @NSManaged public var dueDate: Date?
     @NSManaged public var id: String?
+    @NSManaged public var index: Int16
     @NSManaged public var course: CanvasCourse?
 }

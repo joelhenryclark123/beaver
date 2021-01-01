@@ -155,8 +155,11 @@ extension ToDo {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
         
+        let calendar = Calendar.current
+        let beginningOfDay = calendar.startOfDay(for: Date()) as NSDate
+        
         fetchRequest.predicate = NSPredicate(
-            format: "isActive == true"
+            format: "(isActive == true) && ((completedAt > %@) || (completedAt == nil))", beginningOfDay
         )
         
         return fetchRequest

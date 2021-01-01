@@ -32,6 +32,30 @@ public class CanvasCourse: NSManagedObject {
         try? self.managedObjectContext?.save()
     }
     
+    func moveAssignment(_ source: IndexSet, _ destination: Int) {
+        var assignments = getAssignmentsArray()
+//        guard let startIndex = source.first else { fatalError("No index set in CanvasCourse.moveAssignment(source: destination:)")}
+        
+        guard let context = managedObjectContext else { fatalError() }
+        context.perform {
+            assignments.move(fromOffsets: source, toOffset: destination)
+            
+            for i in assignments.indices {
+                assignments[i].index = Int16(i)
+            }
+        
+            self.saveContext()
+        }
+    }
+    
+    func getAssignmentsArray() -> [CanvasAssignment] {
+        guard let assignments = self.assignments,
+              let assignmentsArray = Array(assignments as Set) as? [CanvasAssignment]
+        else { return [] }
+        
+        return assignmentsArray.sorted(by: { $0.index < $1.index })
+    }
+    
     static func makeFetch(for id: String) -> NSFetchRequest<CanvasCourse> {
         let entity: String = String(describing: CanvasCourse.self)
         let fetchRequest = NSFetchRequest<CanvasCourse>(entityName: entity)

@@ -15,6 +15,7 @@ public class CanvasAssignment: ToDo {
         context: NSManagedObjectContext,
         id: String,
         title: String,
+        index: Int,
         dueDate: Date?
     ) {
         self.init(context: context)
@@ -28,6 +29,9 @@ public class CanvasAssignment: ToDo {
         self.focusing = false
         self.id = id
         self.dueDate = dueDate
+        
+        // Set index
+        self.index = Int16(index)
         
         // Set inbox date
         if inboxDate == nil {

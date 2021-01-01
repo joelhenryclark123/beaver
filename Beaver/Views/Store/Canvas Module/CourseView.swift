@@ -10,14 +10,42 @@ import SwiftUI
 
 struct CourseView: View {
     @ObservedObject var course: CanvasCourse
+    @State var assignments = [CanvasAssignment]()
+    @State var editing: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             label
                 .padding(.leading, 16)
+                .onTapGesture {
+                    self.editing.toggle()
+                }
             
             taskScroller
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .sheet(isPresented: $editing, content: {
+            editor
+        })
+        .onAppear(perform: {
+            assignments = course.getAssignmentsArray()
+        }).onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave), perform: { _ in
+            assignments = course.getAssignmentsArray()
+        })
+    }
+    
+    var editor: some View {
+        NavigationView {
+            List {
+                ForEach(assignments, id: \.self) { assignment in
+                    Text(assignment.title)
+                }.onMove(perform: { indices, newOffset in
+                    course.moveAssignment(indices, newOffset)
+                })
+            }
+            .navigationTitle(course.name ?? "")
+            .navigationBarItems(trailing: EditButton())
+        }
     }
     
     var label: some View {
@@ -28,7 +56,7 @@ struct CourseView: View {
     }
     
     var taskScroller: some View {
-        let assignments: [CanvasAssignment] = (Array(course.assignments! as Set) as! [CanvasAssignment]).filter { (assignment) -> Bool in
+        let incompleteAssignments = assignments.filter { (assignment) -> Bool in
             assignment.isComplete == false
         }
         return ScrollView(.horizontal) {
@@ -36,7 +64,7 @@ struct CourseView: View {
                 Spacer()
                     .frame(width: 16, height: 143)
                 
-                ForEach(assignments, id: \.self) { assignment in
+                ForEach(incompleteAssignments, id: \.self) { assignment in
                     VStack(spacing: 8) {
                         NewStoreItem(toDo: assignment as ToDo)
                             .frame(width: 143, height: 143)

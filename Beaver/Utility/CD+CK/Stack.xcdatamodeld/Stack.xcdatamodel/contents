@@ -3,6 +3,7 @@
     <entity name="CanvasAssignment" representedClassName="CanvasAssignment" parentEntity="ToDo" syncable="YES">
         <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="course" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CanvasCourse" inverseName="assignments" inverseEntity="CanvasCourse"/>
     </entity>
     <entity name="CanvasCourse" representedClassName="CanvasCourse" syncable="YES">
@@ -22,7 +23,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CanvasAssignment" positionX="-27" positionY="81" width="128" height="74"/>
+        <element name="CanvasAssignment" positionX="-27" positionY="81" width="128" height="89"/>
         <element name="CanvasCourse" positionX="-36" positionY="63" width="128" height="104"/>
         <element name="ToDo" positionX="-36" positionY="9" width="128" height="134"/>
     </elements>
