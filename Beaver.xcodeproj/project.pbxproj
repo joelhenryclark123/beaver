@@ -20,6 +20,7 @@
 		E90AE83D259A9B9100F54DC2 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE83C259A9B9100F54DC2 /* CanvasView.swift */; };
 		E90AE842259A9C0300F54DC2 /* CourseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE841259A9C0300F54DC2 /* CourseView.swift */; };
 		E90AE863259AB2D700F54DC2 /* NewStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE862259AB2D700F54DC2 /* NewStoreItem.swift */; };
+		E938EF3925A15DCE0013FBBB /* CanvasAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
 		E95D679E23E75FD800AB3320 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95D679D23E75FD800AB3320 /* CloudKit.framework */; };
@@ -101,6 +102,7 @@
 		E90AE83C259A9B9100F54DC2 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		E90AE841259A9C0300F54DC2 /* CourseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseView.swift; sourceTree = "<group>"; };
 		E90AE862259AB2D700F54DC2 /* NewStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStoreItem.swift; sourceTree = "<group>"; };
+		E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasAuthView.swift; sourceTree = "<group>"; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -185,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				E90AE83C259A9B9100F54DC2 /* CanvasView.swift */,
+				E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */,
 				E90AE841259A9C0300F54DC2 /* CourseView.swift */,
 			);
 			path = "Canvas Module";
@@ -579,6 +582,7 @@
 				E90AE82F259A76CF00F54DC2 /* CanvasLoader.swift in Sources */,
 				E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */,
 				E9B37231240335FC003B46B0 /* AppState.swift in Sources */,
+				E938EF3925A15DCE0013FBBB /* CanvasAuthView.swift in Sources */,
 				E90AE863259AB2D700F54DC2 /* NewStoreItem.swift in Sources */,
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
 				E97A82C1256ECC4800C6860F /* TextAlert.swift in Sources */,

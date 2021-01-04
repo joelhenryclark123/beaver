@@ -10,7 +10,7 @@ import SwiftUI
 
 struct NewStoreItem: View {
     @ObservedObject var toDo: ToDo
-    
+    @State var editingToDo: Bool = false
     var body: some View {
         ZStack {
             background
@@ -33,22 +33,47 @@ struct NewStoreItem: View {
                 Text("Delete")
                 Image(systemName: "trash")
             }
+            
+            Button(action: {
+                editingToDo = true
+            }) {
+                Text("Edit")
+                Image(systemName: "pencil")
+            }
         }))
+        .fullScreenCover(isPresented: $editingToDo, content: {
+            Editor(toDo: toDo, showing: $editingToDo)
+        })
     }
-
+    
     var background: some View {
         RoundedRectangle(cornerRadius: 40)
             .foregroundColor(toDo.isActive ? Color("accentWhite") :  Color("unselectedBlack"))
             .aspectRatio(1.0, contentMode: .fit)        
     }
-}
-
-struct NewStoreItem_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color("accentPinkDark")
-            NewStoreItem(toDo: ToDo(context: ContentView_Previews.demoContext, title: "Hello!"))
-                .frame(width: 143, height: 143)
+    
+    struct Editor: View {
+        @State var title: String = ""
+        @ObservedObject var toDo: ToDo
+        @Binding var showing: Bool
+        
+        var body: some View {
+            NavigationView {
+                VStack {
+                    TextField("Title", text: $title)
+                    Spacer()
+                }
+                .padding()
+                .navigationTitle("Edit")
+                .navigationBarItems(leading: Button("Save") {
+                    toDo.title = title
+                    toDo.saveContext()
+                    showing = false
+                })
+            }
+            .onAppear(perform: {
+                title = toDo.title
+            })
         }
     }
 }

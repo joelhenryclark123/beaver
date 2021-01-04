@@ -10,12 +10,14 @@ import Foundation
 import Apollo
 import CoreData
 import SwiftUI
+import SwiftKeychainWrapper
 
 // A class to call Canvas' GraphQL API
 // Right now, it'll call Umich's Canvas API, with my info, looking for classes in Fall 2018
 class CanvasLoader: NSObject, ObservableObject {
     // MARK: - Properties
     @Published var courses = [CanvasCourse]()
+    
     lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
@@ -27,7 +29,7 @@ class CanvasLoader: NSObject, ObservableObject {
         networkTransport: RequestChainNetworkTransport(
             interceptorProvider: LegacyInterceptorProvider(store: CanvasLoader.defaultStore),
             endpointURL: URL(string: CanvasLoader.baseURL)!,
-            additionalHeaders: ["Authorization": "Bearer \(CanvasLoader.access_token)"],
+            additionalHeaders: ["Authorization": "Bearer \(CanvasLoader.access_token!)"],
             autoPersistQueries: false,
             requestBodyCreator: ApolloRequestBodyCreator(),
             useGETForQueries: false,
@@ -38,7 +40,7 @@ class CanvasLoader: NSObject, ObservableObject {
     var storeFetchedResultsController: NSFetchedResultsController<CanvasCourse>!
 
     // MARK: Static
-    static let access_token = "1770~VcWaBnny5ouhJ1LCcNo8g9dE69kyfAbg6rpD5LMAm0rLOPKeXgwMU8sDtfNGNGUZ"
+    static var access_token: String? = KeychainWrapper.standard[.CanvasToken]
     static let baseURL = "https://umich.instructure.com/api/graphql"
     static let todaysDate = Date()
     static let shared = CanvasLoader()
@@ -62,9 +64,37 @@ class CanvasLoader: NSObject, ObservableObject {
                 guard let completion = completion else { return }
                 completion()
             case .failure(let err):
+                NotificationCenter.default.post(name: .invalidCanvasAccessToken, object: nil)
+                KeychainWrapper.standard.remove(forKey: .CanvasToken)
+                CanvasLoader.access_token = nil
                 print(err)
             }
         }
+    }
+    
+    
+    
+    func setAccessToken(_ accessToken: String) {
+        CanvasLoader.access_token = accessToken
+        
+        KeychainWrapper.standard.set(
+            accessToken,
+            forKey: KeychainWrapper.Key.CanvasToken.rawValue,
+            withAccessibility: nil,
+            isSynchronizable: true
+        )
+        
+        apollo = ApolloClient(
+            networkTransport: RequestChainNetworkTransport(
+                interceptorProvider: LegacyInterceptorProvider(store: CanvasLoader.defaultStore),
+                endpointURL: URL(string: CanvasLoader.baseURL)!,
+                additionalHeaders: ["Authorization": "Bearer \(CanvasLoader.access_token!)"],
+                autoPersistQueries: false,
+                requestBodyCreator: ApolloRequestBodyCreator(),
+                useGETForQueries: false,
+                useGETForPersistedQueryRetry: false),
+            store: CanvasLoader.defaultStore
+        )
     }
     
     private func setupFetchController(_ context: NSManagedObjectContext) {
@@ -145,4 +175,13 @@ extension CanvasLoader: NSFetchedResultsControllerDelegate {
             self.loadCourseArray()
         }
     }
+}
+
+// MARK: - Extensions
+extension KeychainWrapper.Key {
+    static let CanvasToken: KeychainWrapper.Key = "CanvasToken"
+}
+
+extension NSNotification.Name {
+    public static let invalidCanvasAccessToken = Notification.Name("invalidCanvasAccessToken")
 }

@@ -17,16 +17,10 @@ struct CourseView: View {
         VStack(alignment: .leading, spacing: 8) {
             label
                 .padding(.leading, 16)
-                .onTapGesture {
-                    self.editing.toggle()
-                }
             
             taskScroller
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .sheet(isPresented: $editing, content: {
-            editor
-        })
         .onAppear(perform: {
             assignments = course.getAssignmentsArray()
         }).onReceive(NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave), perform: { _ in
@@ -34,7 +28,7 @@ struct CourseView: View {
         })
     }
     
-    var editor: some View {
+    var courseEditor: some View {
         NavigationView {
             List {
                 ForEach(assignments, id: \.self) { assignment in
@@ -53,6 +47,12 @@ struct CourseView: View {
             .modifier(FocalistFont(font: .heading4))
             .foregroundColor(Color("accentWhite"))
             .multilineTextAlignment(.leading)
+            .onTapGesture {
+                editing.toggle()
+            }
+            .sheet(isPresented: $editing, content: {
+                courseEditor
+            })
     }
     
     var taskScroller: some View {

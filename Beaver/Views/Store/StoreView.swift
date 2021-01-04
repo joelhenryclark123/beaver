@@ -10,6 +10,7 @@ import SwiftUI
 import CoreData
 import FirebaseAnalytics
 import Combine
+import SwiftKeychainWrapper
 
 struct StoreView: View {
     // MARK: - Properties
@@ -49,6 +50,9 @@ struct StoreView: View {
                     .frame(height: 80)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in
+                KeychainWrapper.standard.remove(forKey: .CanvasToken)
+            })
         }
     }
     

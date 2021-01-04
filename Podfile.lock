@@ -65,10 +65,12 @@ PODS:
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
   - PromisesObjC (1.2.11)
+  - SwiftKeychainWrapper (4.0.1)
 
 DEPENDENCIES:
   - Apollo
   - Firebase/Analytics
+  - SwiftKeychainWrapper
 
 SPEC REPOS:
   trunk:
@@ -83,6 +85,7 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   Apollo: f6c6410ebee82dd5846be87b81cedc8bc7754a82
@@ -96,7 +99,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
 
-PODFILE CHECKSUM: c25d47498dbb04c6f801a7d604f236c9bb3e0683
+PODFILE CHECKSUM: 427192d920badc71ccff0bd848e4d6ea81ef6f68
 
 COCOAPODS: 1.10.0
