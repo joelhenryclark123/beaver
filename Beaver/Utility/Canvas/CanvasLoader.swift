@@ -17,6 +17,7 @@ import SwiftKeychainWrapper
 class CanvasLoader: NSObject, ObservableObject {
     // MARK: - Properties
     @Published var courses = [CanvasCourse]()
+    @Published var betweenSemesters: Bool = false
     
     lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -107,7 +108,7 @@ class CanvasLoader: NSObject, ObservableObject {
 
         let date = calendar.date(from: dateComponents)! // 2018-10-10
 
-        let fetchRequest = CanvasCourse.activeClasses(date)
+        let fetchRequest = CanvasCourse.activeClasses()
         
         self.storeFetchedResultsController = NSFetchedResultsController<CanvasCourse>.init(
             fetchRequest: fetchRequest,
@@ -123,6 +124,7 @@ class CanvasLoader: NSObject, ObservableObject {
         do {
             try self.storeFetchedResultsController.performFetch()
             self.courses = self.storeFetchedResultsController.fetchedObjects ?? []
+            if self.courses.isEmpty { betweenSemesters = true }
         } catch { fatalError() }
     }
     
@@ -133,7 +135,7 @@ class CanvasLoader: NSObject, ObservableObject {
         let fetch = CanvasCourse.makeFetch(for: queryCourse.id)
         
         if let course = try? context.fetch(fetch), course.count == 1 {
-            // TODO: Make sure assignments are up to date
+            processAssignments(canvasCourse: course.first!, queryCourse: queryCourse)
         } else {
             let course = CanvasCourse(
                 context: context,
@@ -154,16 +156,22 @@ class CanvasLoader: NSObject, ObservableObject {
         
         for assignment in queryAssignments {
             guard let assignment = assignment else { return }
-            let index = canvasCourse.assignments?.count ?? 0
-            let toDo = CanvasAssignment(
-                context: canvasCourse.managedObjectContext!,
-                id: assignment.id,
-                title: assignment.name!,
-                index: index,
-                dueDate: dateFormatter.date(from: assignment.dueAt ?? "")
-            )
-            
-            canvasCourse.addToAssignments(toDo)
+            if let toDo = try? canvasCourse.managedObjectContext?.fetch(CanvasAssignment.makeFetch(for: assignment.id)).first {
+                toDo.title = assignment.name!
+                toDo.dueDate = dateFormatter.date(from: assignment.dueAt ?? "")
+                toDo.saveContext()
+            } else {
+                let index = canvasCourse.assignments?.count ?? 0
+                let toDo = CanvasAssignment(
+                    context: canvasCourse.managedObjectContext!,
+                    id: assignment.id,
+                    title: assignment.name!,
+                    index: index,
+                    dueDate: dateFormatter.date(from: assignment.dueAt ?? "")
+                )
+                
+                canvasCourse.addToAssignments(toDo)
+            }
         }
     }
 }

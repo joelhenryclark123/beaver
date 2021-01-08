@@ -29,6 +29,7 @@ public class CanvasAssignment: ToDo {
         self.focusing = false
         self.id = id
         self.dueDate = dueDate
+        self.hidden = false
         
         // Set index
         self.index = Int16(index)
@@ -48,6 +49,15 @@ public class CanvasAssignment: ToDo {
         let formatter = DateFormatter()
         formatter.dateFormat = "M/d"
         return formatter.string(from: dueDate)
+    }
+    
+    @objc
+    override func delete() {
+        guard let context = self.managedObjectContext else { return }
+        context.perform {
+            self.hidden = true
+            self.saveContext()
+        }
     }
     
     static func makeFetch(for id: String) -> NSFetchRequest<CanvasAssignment> {
@@ -70,7 +80,7 @@ public class CanvasAssignment: ToDo {
         let beginningOfTomorrow = calendar.startOfDay(for: tomorrow)
                 
         fetchRequest.predicate = NSPredicate(
-            format: "(completedAt == nil) && (inboxDate < %@)", beginningOfTomorrow as NSDate
+            format: "(completedAt == nil) && (inboxDate < %@) && (hidden == false)", beginningOfTomorrow as NSDate
         )
         
         fetchRequest.sortDescriptors = [

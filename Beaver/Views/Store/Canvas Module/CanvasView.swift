@@ -22,6 +22,7 @@ struct CanvasView: View {
                 courses
             }
         }.onAppear(perform: {
+//            KeychainWrapper.standard[.CanvasToken] = "1770~VcWaBnny5ouhJ1LCcNo8g9dE69kyfAbg6rpD5LMAm0rLOPKeXgwMU8sDtfNGNGUZ"
             if KeychainWrapper.standard.string(forKey: .CanvasToken) != nil {
                 showingAuth = false
             }
@@ -32,11 +33,17 @@ struct CanvasView: View {
     
     var courses: some View {
         LazyVStack {
-            ForEach(canvasLoader.courses, id: \.self) { course in
-                CourseView(course: course)
+            if canvasLoader.betweenSemesters {
+                Text("Enjoy the break!")
+                    .padding(.top, 80)
+                    .foregroundColor(Color("accentWhite"))
+            } else {
+                ForEach(canvasLoader.courses, id: \.self) { course in
+                    CourseView(course: course)
+                }
             }
         }.onAppear(perform: {
-            CanvasLoader.shared.loadCourses(context: state.context)
+            canvasLoader.loadCourses(context: state.context)
         })
     }
 }

@@ -13,6 +13,9 @@ struct CardView: View {
     @ObservedObject var toDo: ToDo
     
     @State var pressing: Bool = false
+    @State var toDoIsAssignment: Bool = false
+    @State var topLine: String = ""
+    @State var bottomLine: String = ""
     
     static let cornerRadius: CGFloat = 48
     
@@ -59,14 +62,29 @@ struct CardView: View {
         ZStack(alignment: .center) {
             background
             if !self.toDo.isComplete {
-                Text(self.toDo.title)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .transition(.opacity)
-                    .modifier(FocalistFont(font: .mediumText))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.black)
-                    .padding(8)
-                    .zIndex(3)
+                VStack(spacing: 8) {
+                    if toDoIsAssignment {
+                        Text(topLine)
+                            .modifier(FocalistFont(font: .reallySmallText))
+                            .foregroundColor(Color("blackText").opacity(0.6))
+                    }
+                    
+                    Text(self.toDo.title)
+                        .modifier(FocalistFont(font: .mediumText))
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    if toDoIsAssignment {
+                        Text(bottomLine)
+                            .modifier(FocalistFont(font: .reallySmallText))
+                            .foregroundColor(Color("blackText").opacity(0.6))
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .multilineTextAlignment(.center)
+                .zIndex(3)
+                .transition(.opacity)
+                .padding(8)
             } else {
                 Image(systemName: "checkmark")
                     .resizable()
@@ -88,29 +106,16 @@ struct CardView: View {
             handleLongPress()
         })
         .aspectRatio(1.0, contentMode: .fit)
+        .onAppear(perform: {
+            if let assignment = toDo as? CanvasAssignment {
+                topLine = assignment.course!.name!
+                if assignment.dueDate != nil {
+                    bottomLine = "Due " + assignment.mmddDueDate!
+                }
+                toDoIsAssignment = true
+            }
+        })
     }
-    
-//    var hold: some Gesture {
-//        // Get some haptics going
-//        let generator = UINotificationFeedbackGenerator()
-//
-//        return SimultaneousGesture(
-//            LongPressGesture(minimumDuration: 0.75, maximumDistance: 1)
-//                .updating($pressing, body: { (bool, state, tx) in
-//                    state = bool
-//                }).onEnded({ (value) in
-//                    self.toDo.toggleFocus()
-//                }),
-//            TapGesture(count: 2)
-//                .onEnded({
-//                    if !self.toDo.isComplete {
-//                        generator.notificationOccurred(.success)
-//                    }
-//
-//                    self.toDo.completeToggle()
-//                })
-//        )
-//    }
 }
 
 //struct CardView_Previews: PreviewProvider {

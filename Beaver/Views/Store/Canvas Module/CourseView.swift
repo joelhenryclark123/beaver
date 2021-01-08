@@ -32,7 +32,12 @@ struct CourseView: View {
         NavigationView {
             List {
                 ForEach(assignments, id: \.self) { assignment in
-                    Text(assignment.title)
+                    if assignment.dueDate != nil {
+                        Text(assignment.title + " (Due " + assignment.mmddDueDate! + ")")
+                    } else {
+                        Text(assignment.title)
+                    }
+                    .opacity(assignment.hidden ? 0.6 : 1.0)
                 }.onMove(perform: { indices, newOffset in
                     course.moveAssignment(indices, newOffset)
                 })

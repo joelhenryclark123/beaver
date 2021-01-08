@@ -11,7 +11,7 @@ import SwiftUI
 struct FocalistFont: ViewModifier {
     enum Typography {
         case heading1, heading2, heading3, heading4
-        case largeText, mediumText, caption, smallText
+        case largeText, mediumText, caption, smallText, reallySmallText
         case largeTextSemibold, mediumTextSemibold, captionSemibold, smallTextSemibold
         
         var fontSize: CGFloat {
@@ -32,6 +32,8 @@ struct FocalistFont: ViewModifier {
                 return 16
             case .smallText, .smallTextSemibold:
                 return 12
+            case .reallySmallText:
+                return 8
             }
         }
         
@@ -39,7 +41,7 @@ struct FocalistFont: ViewModifier {
             switch self {
             case .heading1, .heading2, .heading3, .heading4:
                 return .bold
-            case .largeText, .mediumText, .caption, .smallText:
+            case .largeText, .mediumText, .caption, .smallText, .reallySmallText:
                 return .regular
             case .largeTextSemibold, .mediumTextSemibold, .captionSemibold, .smallTextSemibold:
                 return .semibold

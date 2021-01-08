@@ -123,6 +123,7 @@ extension ToDo {
         }
     }
         
+    @objc
     func delete() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {

@@ -35,24 +35,17 @@ struct StoreView: View {
                 header
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                #if DEBUG
                 if selectedTab == .personal {
                     personalListView
                 } else {
                     CanvasView()
                 }
-                #else
-                personalListView
-                #endif
                 
                 
                 Spacer()
                     .frame(height: 80)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in
-                KeychainWrapper.standard.remove(forKey: .CanvasToken)
-            })
         }
     }
     
