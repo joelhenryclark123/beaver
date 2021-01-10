@@ -11,7 +11,6 @@ import SwiftKeychainWrapper
 
 struct CanvasAuthView: View {
     @State var accessToken: String = ""
-    @Binding var showing: Bool
     
     var body: some View {
         TextField("Canvas Access Token", text: $accessToken, onCommit: {
@@ -21,6 +20,5 @@ struct CanvasAuthView: View {
     
     func saveToKeychain() {
         CanvasLoader.shared.setAccessToken(accessToken)
-        showing = false
     }
 }

@@ -13,11 +13,17 @@ import SwiftUI
 import SwiftKeychainWrapper
 
 // A class to call Canvas' GraphQL API
-// Right now, it'll call Umich's Canvas API, with my info, looking for classes in Fall 2018
 class CanvasLoader: NSObject, ObservableObject {
     // MARK: - Properties
     @Published var courses = [CanvasCourse]()
     @Published var betweenSemesters: Bool = false
+    @Published var tokenSet: Bool = false
+    
+    override init() {
+        super.init()
+        tokenSet = (KeychainWrapper.standard.string(forKey: .CanvasToken) != nil)
+        CanvasLoader.access_token = KeychainWrapper.standard.string(forKey: .CanvasToken)
+    }
     
     lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -39,9 +45,9 @@ class CanvasLoader: NSObject, ObservableObject {
     )
     
     var storeFetchedResultsController: NSFetchedResultsController<CanvasCourse>!
-
+    
     // MARK: Static
-    static var access_token: String? = KeychainWrapper.standard[.CanvasToken]
+    static var access_token: String? = nil
     static let baseURL = "https://umich.instructure.com/api/graphql"
     static let todaysDate = Date()
     static let shared = CanvasLoader()
@@ -49,7 +55,7 @@ class CanvasLoader: NSObject, ObservableObject {
     
     // MARK: - Methods
     func loadCourses(context: NSManagedObjectContext, completion: ( () -> Void )? = nil) {
-        setupFetchController(context)
+        self.setupFetchController(context)
         
         // Call Canvas API
         CanvasLoader.shared.apollo.fetch(query: BeaverQueryQuery()) { result in
@@ -65,7 +71,7 @@ class CanvasLoader: NSObject, ObservableObject {
                 guard let completion = completion else { return }
                 completion()
             case .failure(let err):
-                NotificationCenter.default.post(name: .invalidCanvasAccessToken, object: nil)
+                self.tokenSet = false
                 KeychainWrapper.standard.remove(forKey: .CanvasToken)
                 CanvasLoader.access_token = nil
                 print(err)
@@ -78,24 +84,21 @@ class CanvasLoader: NSObject, ObservableObject {
     func setAccessToken(_ accessToken: String) {
         CanvasLoader.access_token = accessToken
         
-        KeychainWrapper.standard.set(
-            accessToken,
-            forKey: KeychainWrapper.Key.CanvasToken.rawValue,
-            withAccessibility: .whenUnlocked,
-            isSynchronizable: true
-        )
-                
+        KeychainWrapper.standard[.CanvasToken] = accessToken
+        
         apollo = ApolloClient(
             networkTransport: RequestChainNetworkTransport(
                 interceptorProvider: LegacyInterceptorProvider(store: CanvasLoader.defaultStore),
                 endpointURL: URL(string: CanvasLoader.baseURL)!,
-                additionalHeaders: ["Authorization": "Bearer \(CanvasLoader.access_token!)"],
+                additionalHeaders: ["Authorization": "Bearer \(accessToken)"],
                 autoPersistQueries: false,
                 requestBodyCreator: ApolloRequestBodyCreator(),
                 useGETForQueries: false,
                 useGETForPersistedQueryRetry: false),
             store: CanvasLoader.defaultStore
         )
+        
+        tokenSet = true
     }
     
     private func setupFetchController(_ context: NSManagedObjectContext) {
@@ -105,9 +108,9 @@ class CanvasLoader: NSObject, ObservableObject {
                                             year: 2018,
                                             month: 10,
                                             day: 10)
-
+        
         let date = calendar.date(from: dateComponents)! // 2018-10-10
-
+        
         let fetchRequest = CanvasCourse.activeClasses()
         
         self.storeFetchedResultsController = NSFetchedResultsController<CanvasCourse>.init(

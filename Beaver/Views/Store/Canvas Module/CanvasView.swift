@@ -12,22 +12,17 @@ import SwiftKeychainWrapper
 struct CanvasView: View {
     @EnvironmentObject var state: AppState
     @ObservedObject var canvasLoader = CanvasLoader.shared
-    @State var showingAuth = true
     
+    // "1770~VcWaBnny5ouhJ1LCcNo8g9dE69kyfAbg6rpD5LMAm0rLOPKeXgwMU8sDtfNGNGUZ"
     var body: some View {
         Group {
-            if showingAuth {
-                CanvasAuthView(showing: $showingAuth)
+            if !(canvasLoader.tokenSet) {
+                CanvasAuthView()
             } else {
                 courses
             }
         }.onAppear(perform: {
-//            KeychainWrapper.standard[.CanvasToken] = "1770~VcWaBnny5ouhJ1LCcNo8g9dE69kyfAbg6rpD5LMAm0rLOPKeXgwMU8sDtfNGNGUZ"
-            if KeychainWrapper.standard.string(forKey: .CanvasToken) != nil {
-                showingAuth = false
-            }
-        }).onReceive(NotificationCenter.default.publisher(for: .invalidCanvasAccessToken), perform: { _ in
-            showingAuth = true
+            print(KeychainWrapper.standard.string(forKey: .CanvasToken) != nil)
         })
     }
     
