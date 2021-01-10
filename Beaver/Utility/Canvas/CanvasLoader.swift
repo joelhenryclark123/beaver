@@ -81,10 +81,10 @@ class CanvasLoader: NSObject, ObservableObject {
         KeychainWrapper.standard.set(
             accessToken,
             forKey: KeychainWrapper.Key.CanvasToken.rawValue,
-            withAccessibility: nil,
+            withAccessibility: .whenUnlocked,
             isSynchronizable: true
         )
-        
+                
         apollo = ApolloClient(
             networkTransport: RequestChainNetworkTransport(
                 interceptorProvider: LegacyInterceptorProvider(store: CanvasLoader.defaultStore),
