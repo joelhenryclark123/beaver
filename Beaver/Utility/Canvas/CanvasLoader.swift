@@ -102,7 +102,6 @@ class CanvasLoader: NSObject, ObservableObject {
     }
     
     private func setupFetchController(_ context: NSManagedObjectContext) {
-        // TODO: remove date setting in production
         let calendar = Calendar.current
         let dateComponents = DateComponents(calendar: calendar,
                                             year: 2018,
@@ -111,7 +110,7 @@ class CanvasLoader: NSObject, ObservableObject {
         
         let date = calendar.date(from: dateComponents)! // 2018-10-10
         
-        let fetchRequest = CanvasCourse.activeClasses()
+        let fetchRequest = CanvasCourse.activeClasses(date)
         
         self.storeFetchedResultsController = NSFetchedResultsController<CanvasCourse>.init(
             fetchRequest: fetchRequest,

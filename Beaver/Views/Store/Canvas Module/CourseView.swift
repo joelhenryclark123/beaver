@@ -63,7 +63,7 @@ struct CourseView: View {
     
     var taskScroller: some View {
         let incompleteAssignments = assignments.filter { (assignment) -> Bool in
-            assignment.isComplete == false
+            (assignment.isComplete == false) && (assignment.hidden == false)
         }
         return ScrollView(.horizontal) {
             HStack(spacing: 8) {
