@@ -110,7 +110,7 @@ class CanvasLoader: NSObject, ObservableObject {
         
         let date = calendar.date(from: dateComponents)! // 2018-10-10
         
-        let fetchRequest = CanvasCourse.activeClasses(date)
+        let fetchRequest = CanvasCourse.activeClasses()
         
         self.storeFetchedResultsController = NSFetchedResultsController<CanvasCourse>.init(
             fetchRequest: fetchRequest,
