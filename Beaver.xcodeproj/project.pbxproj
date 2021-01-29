@@ -47,6 +47,7 @@
 		E9B9D164259A6AB700977511 /* schema.json in Sources */ = {isa = PBXBuildFile; fileRef = E9B9D163259A6AB700977511 /* schema.json */; };
 		E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB5768240EB83E0083BE7D /* Onboarding.swift */; };
 		E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BB576A240EB8E00083BE7D /* WideButton.swift */; };
+		E9DF7D6E25C4B724004E3783 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DF7D6D25C4B724004E3783 /* EditorView.swift */; };
 		E9E5D7AE24648BA10059BDFD /* PreviewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */; };
 		E9F51B9623B83CA00068B86E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9523B83CA00068B86E /* AppDelegate.swift */; };
 		E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F51B9723B83CA00068B86E /* SceneDelegate.swift */; };
@@ -107,7 +108,7 @@
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
 		E95D679D23E75FD800AB3320 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E95D67FF23E8973F00AB3320 /* Stack.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Stack.xcdatamodel; sourceTree = "<group>"; };
-		E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E95EA62E2426B0B3006D6446 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E97A827B256D997600C6860F /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		E97A8282256D9A1100C6860F /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		E97A829E256D9FDC00C6860F /* NudgeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NudgeButton.swift; sourceTree = "<group>"; };
@@ -133,6 +134,7 @@
 		E9B9D163259A6AB700977511 /* schema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		E9BB5768240EB83E0083BE7D /* Onboarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Onboarding.swift; sourceTree = "<group>"; };
 		E9BB576A240EB8E00083BE7D /* WideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WideButton.swift; sourceTree = "<group>"; };
+		E9DF7D6D25C4B724004E3783 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		E9E5D7AD24648BA10059BDFD /* PreviewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewHelper.swift; sourceTree = "<group>"; };
 		E9F51B9223B83CA00068B86E /* Beaver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beaver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F51B9523B83CA00068B86E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				E98073E623F71C6A00FDAF08 /* DayView.swift */,
 				E9A39B8C242FD33D00D182E5 /* DoneView.swift */,
 				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
+				E9DF7D6D25C4B724004E3783 /* EditorView.swift */,
 				E90AE861259AB2B800F54DC2 /* Store */,
 				E9869031240AC77300A03FA2 /* Components */,
 			);
@@ -602,6 +605,7 @@
 				E9B9365F24E9E2BB00F77602 /* BeaverWidgets.intentdefinition in Sources */,
 				E982485F242FFE2F00840A78 /* Transitions.swift in Sources */,
 				E9B9D164259A6AB700977511 /* schema.json in Sources */,
+				E9DF7D6E25C4B724004E3783 /* EditorView.swift in Sources */,
 				E9A39B8D242FD33D00D182E5 /* DoneView.swift in Sources */,
 				E90AE842259A9C0300F54DC2 /* CourseView.swift in Sources */,
 				E90AE836259A799900F54DC2 /* CanvasAssignments+CoreDataProperties.swift in Sources */,

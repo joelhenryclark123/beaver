@@ -28,21 +28,21 @@ struct NewStoreItem: View {
         }))
         .contextMenu(ContextMenu(menuItems: {
             Button(action: {
-                toDo.delete()
-            }) {
-                Text("Delete")
-                Image(systemName: "trash")
-            }
-            
-            Button(action: {
                 editingToDo = true
             }) {
                 Text("Edit")
                 Image(systemName: "pencil")
             }
+            
+            Button(action: {
+                toDo.delete()
+            }) {
+                Text("Delete")
+                Image(systemName: "trash")
+            }
         }))
         .fullScreenCover(isPresented: $editingToDo, content: {
-            Editor(toDo: toDo, showing: $editingToDo)
+            EditorView(toDo: toDo, showing: $editingToDo)
         })
     }
     
@@ -50,30 +50,5 @@ struct NewStoreItem: View {
         RoundedRectangle(cornerRadius: 40)
             .foregroundColor(toDo.isActive ? Color("accentWhite") :  Color("unselectedBlack"))
             .aspectRatio(1.0, contentMode: .fit)        
-    }
-    
-    struct Editor: View {
-        @State var title: String = ""
-        @ObservedObject var toDo: ToDo
-        @Binding var showing: Bool
-        
-        var body: some View {
-            NavigationView {
-                VStack {
-                    TextField("Title", text: $title)
-                    Spacer()
-                }
-                .padding()
-                .navigationTitle("Edit")
-                .navigationBarItems(leading: Button("Save") {
-                    toDo.title = title
-                    toDo.saveContext()
-                    showing = false
-                })
-            }
-            .onAppear(perform: {
-                title = toDo.title
-            })
-        }
     }
 }

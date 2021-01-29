@@ -15,19 +15,7 @@ import SwiftKeychainWrapper
 struct StoreView: View {
     // MARK: - Properties
     @EnvironmentObject var state: AppState
-    @State var nudging: Bool = false
-    
-    var instruction: String = "Pick today's tasks"
-    
-    enum Tab: String, Equatable, CaseIterable {
-        case personal = "Personal"
-        case school = "Canvas"
         
-        var localizedName: LocalizedStringKey { LocalizedStringKey(rawValue) }
-    }
-    
-    @State var selectedTab: Tab = .personal
-    
     // MARK: - Views
     var body: some View {
         ScrollView {
@@ -35,12 +23,7 @@ struct StoreView: View {
                 header
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if selectedTab == .personal {
-                    personalListView
-                } else {
-                    CanvasView()
-                }
-                
+                personalListView
                 
                 Spacer()
                     .frame(height: 80)
@@ -55,29 +38,11 @@ struct StoreView: View {
             Text("Plan Your Day")
                 .modifier(FocalistFont(font: .heading2))
                 .foregroundColor(Color("accentWhite"))
-            
-            switcher
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 16)
     }
     
-    var switcher: some View {
-        HStack(spacing: 12) {
-            ForEach(Tab.allCases, id: \.self) { value in
-                Text(value.localizedName)
-                    .modifier(FocalistFont(font: .mediumText))
-                    .foregroundColor(Color("blackText"))
-                    .padding(.vertical, 4)
-                    .padding(.horizontal, 12)
-                    .background(Color("accentWhite").opacity(value == selectedTab ? 1.0 : 0.7))
-                    .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    .onTapGesture {
-                        self.selectedTab = value
-                    }
-            }
-        }
-    }
     var personalListView: some View {
         LazyVGrid(columns: [
             .init(.flexible()),

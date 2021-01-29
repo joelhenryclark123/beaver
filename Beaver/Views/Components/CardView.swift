@@ -12,12 +12,14 @@ struct CardView: View {
     @EnvironmentObject var state: AppState
     @ObservedObject var toDo: ToDo
     
+    @State var editingToDo: Bool = false
+    
     @State var pressing: Bool = false
     @State var toDoIsAssignment: Bool = false
     @State var topLine: String = ""
     @State var bottomLine: String = ""
     
-    static let cornerRadius: CGFloat = 48
+    static let cornerRadius: CGFloat = 40
     
     func handleTap() {
         if self.state.scene == .beginning {
@@ -27,35 +29,24 @@ struct CardView: View {
         }
     }
     
-    func handleLongPress() {
-        if !self.toDo.isComplete {
-            if !toDo.focusing {
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-            }
-            
-            self.toDo.toggleFocus()
-        }
-    }
-    
     var background: some View {
         Group {
             if toDo.isComplete {
-                Color("otherBlue")
+                RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .continuous)
+                    .foregroundColor(Color("otherBlue"))
                     .overlay(
                         RoundedRectangle(cornerRadius: CardView.cornerRadius)
                             .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
                             .modifier(FocalistShadow(option: .light))
                     )
+                    .clipShape(RoundedRectangle(cornerRadius: CardView.cornerRadius))
             }
             else {
-                Color("accentWhite")
+                RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .continuous)
+                    .foregroundColor(Color("accentWhite"))
                     .modifier(FocalistShadow(option: .light))
             }
         }
-        .clipShape(
-            RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .circular)
-        )
     }
     
     var body: some View {
@@ -92,20 +83,48 @@ struct CardView: View {
                     .scaledToFit()
                     .foregroundColor(Color("dimWhite"))
                     .transition(.scale)
-                    .animation(.easeInOut(duration: 0.15))
                     .zIndex(4)
             }
         }
-        .scaleEffect(self.pressing ? 0.8 : 1.0)
-        .onTapGesture {
+        .modifier(BouncePressWithHold(handleTap: {
             self.handleTap()
-        }
-        .onLongPressGesture(minimumDuration: 0.8, maximumDistance: 20, pressing: { (press) in
-            pressing = press
-        }, perform: {
-            handleLongPress()
-        })
+        }, handleLongPress: {
+            return
+        }))
         .aspectRatio(1.0, contentMode: .fit)
+        .contextMenu(toDo.isComplete ? nil : ContextMenu(menuItems: {
+            Button(action: {
+                editingToDo = true
+            }) {
+                Text("Edit")
+                Image(systemName: "pencil")
+            }
+            
+            Button(action: {
+                toDo.delete()
+            }) {
+                Text("Delete")
+                Image(systemName: "trash")
+            }
+            
+            Button(action: {
+                toDo.moveToStore()
+            }) {
+                Text("Finish Later")
+                Image(systemName: "moon.fill")
+            }
+            
+            Button(action: {
+                toDo.toggleFocus()
+            }) {
+                Text("Focus")
+                Image(systemName: "eyes")
+            }
+        }))
+        .fullScreenCover(isPresented: $editingToDo, content: {
+            EditorView(toDo: toDo, showing: $editingToDo)
+        })
+        .scaleEffect(self.pressing ? 0.8 : 1.0)
         .onAppear(perform: {
             if let assignment = toDo as? CanvasAssignment {
                 topLine = assignment.course!.name!
@@ -115,6 +134,7 @@ struct CardView: View {
                 toDoIsAssignment = true
             }
         })
+        .transition(.opacity)
     }
 }
 
