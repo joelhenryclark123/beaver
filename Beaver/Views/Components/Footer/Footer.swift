@@ -80,7 +80,13 @@ struct Footer: View {
         DispatchQueue.main.async {
             switch state.scene {
             case .beginning:
-                self.nudge = state.storeList.contains(where: { $0.isActive })
+                self.nudge = {
+                    state.storeList.contains(where: { $0.isActive }) ||
+                        CanvasLoader.shared.courses.contains(where: { (course) -> Bool in
+                            guard let assignments = course.assignments else { return false }
+                            return assignments.contains(where: { ($0 as! CanvasAssignment).isActive })
+                        })
+                }()
             case .middle:
                 self.nudge = state.activeList.allSatisfy({ $0.isComplete })
             default:

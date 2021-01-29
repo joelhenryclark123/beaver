@@ -58,7 +58,7 @@ public class ToDo: NSManagedObject, Identifiable {
     }
     
     // MARK: Other Properties
-    public let id = UUID() // Used for MatchedGeometryEffect
+    public let geometryId = UUID() // Used for MatchedGeometryEffect
 }
 
 //MARK: Operations
@@ -86,7 +86,6 @@ extension ToDo {
     func completeToggle() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
-            if self.isActive {
                 if self.completedAt == nil {
                     self.completedAt = Date()
                 } else {
@@ -94,9 +93,6 @@ extension ToDo {
                 }
                 
                 self.focusing = false
-            } else {
-                fatalError()
-            }
             
             self.saveContext()
         }
@@ -127,6 +123,7 @@ extension ToDo {
         }
     }
         
+    @objc
     func delete() {
         guard let context = self.managedObjectContext else { fatalError() }
         context.perform {
@@ -155,6 +152,20 @@ extension ToDo {
     }
     
     // MARK:- Fetch Requests
+    static var selectedFetch: NSFetchRequest<ToDo> {
+        let entity: String = String(describing: ToDo.self)
+        let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
+        
+        let calendar = Calendar.current
+        let beginningOfDay = calendar.startOfDay(for: Date()) as NSDate
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "(isActive == true) && ((completedAt > %@) || (completedAt == nil))", beginningOfDay
+        )
+        
+        return fetchRequest
+    }
+    
     static var todayListFetch: NSFetchRequest<ToDo> {
         let entity: String = String(describing: ToDo.self)
         let fetchRequest: NSFetchRequest<ToDo> = NSFetchRequest<ToDo>(entityName: entity)
@@ -189,6 +200,8 @@ extension ToDo {
             NSSortDescriptor(key: "inboxDate", ascending: true),
             NSSortDescriptor(key: "createdAt", ascending: true)
         ]
+        
+        fetchRequest.includesSubentities = false
         
         return fetchRequest
     }

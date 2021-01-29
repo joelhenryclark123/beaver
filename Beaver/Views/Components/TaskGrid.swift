@@ -34,7 +34,7 @@ struct TaskGrid: View {
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(list, id: \.self) { toDo in
                     CardView(toDo: toDo)
-                        .matchedGeometryEffect(id: toDo.id.uuidString, in: namespace)
+                        .matchedGeometryEffect(id: toDo.geometryId.uuidString, in: namespace)
                         .opacity(toDo.focusing ? 0.0 : 1.0)
                         .zIndex(toDo == self.state.lastFocused ? .infinity : 1)
                 }
@@ -59,7 +59,7 @@ struct TaskGrid: View {
     var todayDate: String {
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        dateFormatter.dateFormat = "MMMM d, yyyy"
         let currentDateString: String = dateFormatter.string(from: date)
         return currentDateString
     }
