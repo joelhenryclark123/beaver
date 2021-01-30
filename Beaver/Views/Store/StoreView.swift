@@ -40,7 +40,7 @@ struct StoreView: View {
                 .foregroundColor(Color("accentWhite"))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 16)
+        .padding([.leading, .top], 16)
     }
     
     var personalListView: some View {

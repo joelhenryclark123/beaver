@@ -101,13 +101,6 @@ struct CardView: View {
             }
             
             Button(action: {
-                toDo.delete()
-            }) {
-                Text("Delete")
-                Image(systemName: "trash")
-            }
-            
-            Button(action: {
                 toDo.moveToStore()
             }) {
                 Text("Finish Later")
