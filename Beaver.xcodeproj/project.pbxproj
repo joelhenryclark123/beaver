@@ -22,6 +22,7 @@
 		E90AE863259AB2D700F54DC2 /* NewStoreItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90AE862259AB2D700F54DC2 /* NewStoreItem.swift */; };
 		E9192AA527933AC9000EB461 /* DestinationSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */; };
 		E9192AA827934865000EB461 /* EditorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AA727934865000EB461 /* EditorHeader.swift */; };
+		E9192AAC27934D84000EB461 /* ToDoMakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AAB27934D84000EB461 /* ToDoMakerView.swift */; };
 		E938EF3925A15DCE0013FBBB /* CanvasAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
@@ -107,6 +108,7 @@
 		E90AE862259AB2D700F54DC2 /* NewStoreItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStoreItem.swift; sourceTree = "<group>"; };
 		E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSwitcher.swift; sourceTree = "<group>"; };
 		E9192AA727934865000EB461 /* EditorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorHeader.swift; sourceTree = "<group>"; };
+		E9192AAB27934D84000EB461 /* ToDoMakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMakerView.swift; sourceTree = "<group>"; };
 		E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasAuthView.swift; sourceTree = "<group>"; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */,
+				E9192AAB27934D84000EB461 /* ToDoMakerView.swift */,
 				E9192AA727934865000EB461 /* EditorHeader.swift */,
 			);
 			path = Editor;
@@ -628,6 +631,7 @@
 				E9926337240B1D0B003D7658 /* GeometryProxy.swift in Sources */,
 				E9192AA827934865000EB461 /* EditorHeader.swift in Sources */,
 				E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */,
+				E9192AAC27934D84000EB461 /* ToDoMakerView.swift in Sources */,
 				E90AE838259A799900F54DC2 /* CanvasCourse+CoreDataClass.swift in Sources */,
 				E9F51B9A23B83CA00068B86E /* ContentView.swift in Sources */,
 				E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */,

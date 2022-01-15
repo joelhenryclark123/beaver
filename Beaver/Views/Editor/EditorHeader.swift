@@ -9,15 +9,14 @@
 import SwiftUI
 
 struct EditorHeader: View {
-//    @Binding var destination: Scene
-    @State var destination = Scene.beginning
-    @State var nudging = false
+    @Binding var destination: Scene
+//    @State var destination = Scene.beginning
     
     var body: some View {
         HStack {
             NudgeButton(
                 scene: $destination,
-                nudging: $nudging,
+                nudging: .constant(false),
                 icon: .previous
             ) {
                 print("previous")
@@ -31,7 +30,7 @@ struct EditorHeader: View {
             
             NudgeButton(
                 scene: $destination,
-                nudging: $nudging,
+                nudging: .constant(false),
                 icon: .next) {
                 print("add")
             }
@@ -52,8 +51,8 @@ struct EditorHeader_Previews: PreviewProvider {
             .overlay(Color.black.opacity(0.3))
             .edgesIgnoringSafeArea(.all)
             
-//            EditorHeader(destination: .constant(scene))
-            EditorHeader()
+            EditorHeader(destination: .constant(scene))
+//            EditorHeader()
         }
     }
 }
