@@ -23,6 +23,7 @@
 		E9192AA527933AC9000EB461 /* DestinationSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */; };
 		E9192AA827934865000EB461 /* EditorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AA727934865000EB461 /* EditorHeader.swift */; };
 		E9192AAC27934D84000EB461 /* ToDoMakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AAB27934D84000EB461 /* ToDoMakerView.swift */; };
+		E9192AB027935BD1000EB461 /* AnimatedBeavGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AAF27935BD1000EB461 /* AnimatedBeavGradient.swift */; };
 		E938EF3925A15DCE0013FBBB /* CanvasAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
@@ -109,6 +110,7 @@
 		E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSwitcher.swift; sourceTree = "<group>"; };
 		E9192AA727934865000EB461 /* EditorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorHeader.swift; sourceTree = "<group>"; };
 		E9192AAB27934D84000EB461 /* ToDoMakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMakerView.swift; sourceTree = "<group>"; };
+		E9192AAF27935BD1000EB461 /* AnimatedBeavGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBeavGradient.swift; sourceTree = "<group>"; };
 		E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasAuthView.swift; sourceTree = "<group>"; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				E98DB1E6245A183C00D8FD3D /* MainBackground.swift */,
+				E9192AAF27935BD1000EB461 /* AnimatedBeavGradient.swift */,
 				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
 				E9BB576A240EB8E00083BE7D /* WideButton.swift */,
 				E959B15324F01E73007CA0CE /* TaskGrid.swift */,
@@ -607,6 +610,7 @@
 				E90AE863259AB2D700F54DC2 /* NewStoreItem.swift in Sources */,
 				E9192AA527933AC9000EB461 /* DestinationSwitcher.swift in Sources */,
 				E9B2F64F23F75EB200BE2133 /* StoreView.swift in Sources */,
+				E9192AB027935BD1000EB461 /* AnimatedBeavGradient.swift in Sources */,
 				E97A82C1256ECC4800C6860F /* TextAlert.swift in Sources */,
 				E9F7A3352409B2A50037B9A4 /* ToDo+CoreDataClass.swift in Sources */,
 				E97A827C256D997600C6860F /* Footer.swift in Sources */,

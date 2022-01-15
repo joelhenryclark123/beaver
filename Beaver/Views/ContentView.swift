@@ -21,7 +21,7 @@ struct ContentView: View {
     //MARK: Body
     var body: some View {
         ZStack {
-            MainBackground()
+            MainBackground(scene: $state.scene)
                 .zIndex(0)
             
             ZStack {

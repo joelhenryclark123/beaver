@@ -92,8 +92,7 @@ struct DayView_Previews: PreviewProvider {
     
     static var previews: some View {
         ZStack {
-        MainBackground()
-            .environmentObject(state)
+            MainBackground(scene: .constant(state.scene))
 
         DayView()
             .environmentObject(state)
