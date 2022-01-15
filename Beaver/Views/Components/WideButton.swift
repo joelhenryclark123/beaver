@@ -33,7 +33,7 @@ struct WideButton: View {
                 .padding(.vertical, 16)
                 .background(Color(color.rawValue))
                 .clipShape(RoundedRectangle(cornerRadius: WideButton.cornerRadius, style: .circular))
-                .modifier(FocalistShadow(option: .heavy))
+                .modifier(FocalistShadow(option: .heavy, color: color.shadowColor))
         }
         .frame(maxHeight: .infinity, alignment: .bottom)
         .padding(.horizontal, 32)

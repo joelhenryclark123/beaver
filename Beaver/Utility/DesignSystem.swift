@@ -64,17 +64,6 @@ struct FocalistShadow: ViewModifier {
         case dark
         case light
         
-        var color: Color {
-            switch self {
-            case .heavy:
-                return Color("heavyShadow")
-            case .dark:
-                return Color("darkShadow")
-            case .light:
-                return Color("lightShadow")
-            }
-        }
-        
         var radius: CGFloat {
             switch self {
             case .heavy:
@@ -106,11 +95,12 @@ struct FocalistShadow: ViewModifier {
     }
     
     var option: Shadow
+    var color: Color
     
     func body(content: Content) -> some View {
         content
             .shadow(
-                color: option.color,
+                color: color,
                 radius: option.radius,
                 x: option.x,
                 y: option.y
@@ -144,6 +134,10 @@ enum FocalistColor: String {
     case accentPink = "accentPink"
     case accentOrange = "accentOrange"
     case accentYellow = "accentYellow"
+    
+    var shadowColor: Color {
+        return Color(self.rawValue + "Shadow")
+    }
 }
 
 func buildGradient(color: FocalistColor) -> Gradient {

@@ -37,14 +37,14 @@ struct CardView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: CardView.cornerRadius)
                             .stroke(Color("otherBlue").opacity(0.0), lineWidth: 4)
-                            .modifier(FocalistShadow(option: .light))
+                            .modifier(FocalistShadow(option: .light, color: state.scene.color.shadowColor))
                     )
                     .clipShape(RoundedRectangle(cornerRadius: CardView.cornerRadius))
             }
             else {
                 RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .continuous)
                     .foregroundColor(Color("accentWhite"))
-                    .modifier(FocalistShadow(option: .light))
+                    .modifier(FocalistShadow(option: .light, color: state.scene.color.shadowColor))
             }
         }
     }

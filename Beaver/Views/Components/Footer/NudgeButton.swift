@@ -28,7 +28,7 @@ struct NudgeButton: View {
         ZStack {
             Circle()
                 .foregroundColor(insideColor)
-                .modifier(FocalistShadow(option: .heavy))
+                .modifier(FocalistShadow(option: .heavy, color: scene.color.shadowColor))
                 .overlay(Circle().stroke(
                             outsideColor,
                             lineWidth: 2
@@ -37,7 +37,7 @@ struct NudgeButton: View {
             icon.image
                 .frame(maxHeight: 14, alignment: .center)
                 .foregroundColor(nudging ? icon.highlightColor : Color("accentWhite"))
-                .modifier(FocalistShadow(option: .light))
+                .modifier(FocalistShadow(option: .light, color: scene.color.shadowColor))
         }
         .modifier(BouncePress(draggable: false, action: action))
         .frame(width: dimensions.width, height: dimensions.height)
