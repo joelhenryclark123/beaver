@@ -75,7 +75,10 @@ struct ContentView: View {
                 }
             }
         })
-        .alert(isPresented: $adding, textAlert)
+        .fullScreenCover(isPresented: $adding, content: {
+            ToDoMakerView(showing: $adding)
+        })
+        .alert(isPresented: .constant(false), textAlert)
         .edgesIgnoringSafeArea(.all)
     }
     

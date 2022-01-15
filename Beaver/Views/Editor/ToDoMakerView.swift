@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ToDoMakerView: View {
+    @Binding var showing: Bool
     @State var destination: Scene = .beginning
     
     var body: some View {
@@ -16,7 +17,7 @@ struct ToDoMakerView: View {
             background
             
             VStack {
-                EditorHeader(destination: $destination)
+                EditorHeader(destination: $destination, leftAction: { showing = false })
                 
                 Spacer()
                 
@@ -34,11 +35,7 @@ struct ToDoMakerView: View {
     
     var background: some View {
         ZStack {
-            LinearGradient(
-                gradient: buildGradient(color: destination.color),
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            AnimatedBeavGradient(scene: $destination)
             
             Color.black.opacity(0.3)
         }.edgesIgnoringSafeArea(.all)
@@ -47,6 +44,6 @@ struct ToDoMakerView: View {
 
 struct ToDoMakerView_Previews: PreviewProvider {
     static var previews: some View {
-        ToDoMakerView()
+        ToDoMakerView(showing: .constant(true))
     }
 }

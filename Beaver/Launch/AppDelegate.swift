@@ -109,7 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
         ]
         
-        try! container.initializeCloudKitSchema(options: .printSchema)
+        try? container.initializeCloudKitSchema(options: .printSchema)
         
         #endif
         

@@ -22,15 +22,8 @@ struct DestinationSwitcher: View {
     var body: some View {
         ZStack {
             // Border
-            RoundedRectangle(cornerRadius: 23.0)
-                .fill(
-                    LinearGradient(
-                        gradient: buildGradient(color: destination.color),
-                        startPoint: .top,
-                        endPoint: .bottom
-                    )
-                )
-                .id(title.hashValue)
+            AnimatedBeavGradient(scene: $destination)
+                .clipShape(RoundedRectangle(cornerRadius: 23.0))
 
             
             // White Background
@@ -43,16 +36,17 @@ struct DestinationSwitcher: View {
                 .id(title.hashValue)
                 .modifier(FocalistFont(font: .mediumText))
                 .foregroundColor(Color(destination.color.rawValue + "Dark"))
+                .transaction { transaction in
+                    transaction.animation = .easeInOut(duration: 0.3)
+                }
+                .transition(.opacity)
         }
         .frame(width: 144, height: 48, alignment: .center)
         .modifier(FocalistShadow(option: .button, color: destination.color.shadowColor))
         .modifier(BouncePress(draggable: false, action: {
             change()
         }))
-        .transaction { transaction in
-            transaction.animation = .easeInOut(duration: 1.0)
-        }
-        .transition(.opacity)
+        
     }
     
     func change() {

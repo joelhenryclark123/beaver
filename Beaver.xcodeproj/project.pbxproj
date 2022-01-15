@@ -217,9 +217,9 @@
 		E9192AA627933B49000EB461 /* Editor */ = {
 			isa = PBXGroup;
 			children = (
-				E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */,
 				E9192AAB27934D84000EB461 /* ToDoMakerView.swift */,
 				E9192AA727934865000EB461 /* EditorHeader.swift */,
+				E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -251,11 +251,11 @@
 			isa = PBXGroup;
 			children = (
 				E9F51B9923B83CA00068B86E /* ContentView.swift */,
-				E9192AA627933B49000EB461 /* Editor */,
 				E98073E623F71C6A00FDAF08 /* DayView.swift */,
 				E9A39B8C242FD33D00D182E5 /* DoneView.swift */,
 				E9BB5768240EB83E0083BE7D /* Onboarding.swift */,
 				E9DF7D6D25C4B724004E3783 /* EditorView.swift */,
+				E9192AA627933B49000EB461 /* Editor */,
 				E90AE861259AB2B800F54DC2 /* Store */,
 				E9869031240AC77300A03FA2 /* Components */,
 			);

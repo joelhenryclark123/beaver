@@ -33,6 +33,7 @@ struct NudgeButton: View {
                             outsideColor,
                             lineWidth: 2
                 ))
+                .animation(.easeInOut(duration: 0.3))
             
             icon.image
                 .frame(maxHeight: 14, alignment: .center)
@@ -42,7 +43,6 @@ struct NudgeButton: View {
         .modifier(BouncePress(draggable: false, action: action))
         .frame(width: dimensions.width, height: dimensions.height)
         .transition(.opacity)
-        .animation(.easeIn(duration: 0.2))
     }
     
     enum Icon {

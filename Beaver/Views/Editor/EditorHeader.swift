@@ -12,6 +12,8 @@ struct EditorHeader: View {
     @Binding var destination: Scene
 //    @State var destination = Scene.beginning
     
+    var leftAction: () -> Void = { print("previous") }
+    
     var body: some View {
         HStack {
             NudgeButton(
@@ -19,7 +21,7 @@ struct EditorHeader: View {
                 nudging: .constant(false),
                 icon: .previous
             ) {
-                print("previous")
+                leftAction()
             }
             
             Spacer()
