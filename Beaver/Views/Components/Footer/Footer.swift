@@ -21,11 +21,11 @@ struct Footer: View {
             // Left Item
             switch state.scene {
             case .middle:
-                NudgeButton(nudging: .constant(false), icon: .previous, action: { state.editDay() })
+                NudgeButton(scene: $state.scene, nudging: .constant(false), icon: .previous, action: { state.editDay() })
             case .focusing:
-                NudgeButton(nudging: .constant(false), icon: .previous, action: { self.state.unfocus() })
+                NudgeButton(scene: $state.scene, nudging: .constant(false), icon: .previous, action: { self.state.unfocus() })
             default:
-                NudgeButton(nudging: .constant(false), icon: .previous, action: { }).hidden()
+                NudgeButton(scene: $state.scene, nudging: .constant(false), icon: .previous, action: { }).hidden()
             }
             
             Spacer()
@@ -37,7 +37,7 @@ struct Footer: View {
             // Right Item
             switch state.scene {
             case .beginning:
-                NudgeButton(nudging: $nudge, icon: .next, action: { state.startDay() })
+                NudgeButton(scene: $state.scene, nudging: $nudge, icon: .next, action: { state.startDay() })
                     .modifier(Shake(animatableData: CGFloat(rightNudgeError)))
                     .onReceive(NotificationCenter.default.publisher(for: Notification.Name(rawValue: "StartDayError")), perform: { _ in
                         withAnimation(.default) {
@@ -45,9 +45,9 @@ struct Footer: View {
                         }
                     })
             case .middle:
-                NudgeButton(nudging: $nudge, icon: .check, action: { self.showingCompleteAlert.toggle() })
+                NudgeButton(scene: $state.scene, nudging: $nudge, icon: .check, action: { self.showingCompleteAlert.toggle() })
             default:
-                NudgeButton(nudging: $nudge, icon: .previous, action: { }).hidden()
+                NudgeButton(scene: $state.scene, nudging: $nudge, icon: .previous, action: { }).hidden()
             }
         }
         .padding(.bottom, 34)
