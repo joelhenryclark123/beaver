@@ -19,7 +19,7 @@ struct EditorHeader: View {
             NudgeButton(
                 scene: $destination,
                 nudging: .constant(false),
-                icon: .previous
+                icon: .x
             ) {
                 leftAction()
             }
@@ -33,7 +33,7 @@ struct EditorHeader: View {
             NudgeButton(
                 scene: $destination,
                 nudging: .constant(false),
-                icon: .next) {
+                icon: .plus) {
                 print("add")
             }
         }

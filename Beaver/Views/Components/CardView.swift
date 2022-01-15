@@ -44,7 +44,7 @@ struct CardView: View {
             else {
                 RoundedRectangle(cornerRadius: CardView.cornerRadius, style: .continuous)
                     .foregroundColor(Color("accentWhite"))
-                    .modifier(FocalistShadow(option: .light, color: state.scene.color.shadowColor))
+                    .modifier(FocalistShadow(option: .dark, color: state.scene.color.shadowColor))
             }
         }
     }

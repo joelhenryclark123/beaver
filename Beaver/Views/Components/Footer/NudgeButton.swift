@@ -24,6 +24,14 @@ struct NudgeButton: View {
         nudging ? Color("accentWhite") : Color(scene.color.rawValue + "Light")
     }
     
+    var iconHeight: Double {
+        if icon == .plus {
+            return 16.0
+        } else {
+            return 14.0
+        }
+    }
+    
     var body: some View {
         ZStack {
             Circle()
@@ -36,7 +44,9 @@ struct NudgeButton: View {
                 .animation(.easeInOut(duration: 0.3))
             
             icon.image
-                .frame(maxHeight: 14, alignment: .center)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(maxHeight: CGFloat(iconHeight), alignment: .center)
                 .foregroundColor(nudging ? icon.highlightColor : Color("accentWhite"))
                 .modifier(FocalistShadow(option: .light, color: scene.color.shadowColor))
         }
@@ -49,6 +59,8 @@ struct NudgeButton: View {
         case check
         case next
         case previous
+        case x
+        case plus
         
         var image: Image {
             switch self {
@@ -58,6 +70,11 @@ struct NudgeButton: View {
                 return Image(systemName: "chevron.right")
             case .previous:
                 return Image(systemName: "chevron.left")
+            case .x:
+                return Image(systemName: "xmark")
+            case .plus:
+                return Image(systemName: "plus")
+                
             }
         }
         

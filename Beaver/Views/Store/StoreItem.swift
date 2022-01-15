@@ -18,7 +18,6 @@ struct StoreItem: View {
             .foregroundColor(
                 toDo.isActive ? Color("accentWhite") : Color("lightShadow")
             )
-            .modifier(FocalistShadow(option: toDo.isActive ? .dark : .light, color: FocalistColor.accentPink.shadowColor))
             .onTapGesture(perform: {
                 self.toDo.activeToggle()
             })

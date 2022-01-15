@@ -49,6 +49,7 @@ struct NewStoreItem: View {
     var background: some View {
         RoundedRectangle(cornerRadius: 40)
             .foregroundColor(toDo.isActive ? Color("accentWhite") :  Color("unselectedBlack"))
-            .aspectRatio(1.0, contentMode: .fit)        
+            .aspectRatio(1.0, contentMode: .fit)
+            .modifier(FocalistShadow(option: .dark, color: toDo.isActive ? FocalistColor.accentPink.shadowColor : Color.clear))
     }
 }
