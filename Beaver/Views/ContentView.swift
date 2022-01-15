@@ -37,14 +37,15 @@ struct ContentView: View {
                             .transition(.storeTransition)
                             .frame(maxHeight: .infinity, alignment: .top)
                             .animation(.spring())
-                            .zIndex(4)
+                            .zIndex(3)
                     }
                     
                     if ((self.state.scene == .middle) || (self.state.scene == .focusing)) {
                         DayView()
                             .transition(.dayTransition)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                            .zIndex(3)
+                            .animation(.spring())
+                            .zIndex(4)
                     }
                     
                     if self.state.scene == .end {

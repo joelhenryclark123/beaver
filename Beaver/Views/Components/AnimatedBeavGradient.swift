@@ -21,6 +21,9 @@ struct AnimatedBeavGradient: View {
             greenBackground
                 .opacity(scene == .end ? 1.0 : 0.0)
             
+            otherBlueBackground
+                .opacity(scene == .focusing ? 1.0 : 0.0)
+            
         }
         .transaction { transaction in
             transaction.animation = .easeInOut(duration: 0.3)
@@ -47,6 +50,14 @@ struct AnimatedBeavGradient: View {
     var greenBackground: some View {
         LinearGradient(
             gradient: buildGradient(color: FocalistColor.accentGreen),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+    }
+    
+    var otherBlueBackground: some View {
+        LinearGradient(
+            gradient: buildGradient(color: FocalistColor.otherBlue),
             startPoint: .top,
             endPoint: .bottom
         )

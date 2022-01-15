@@ -12,14 +12,11 @@ import SwiftUI
 extension AnyTransition {
     static var dayTransition: AnyTransition {
         AnyTransition
-            .scale(scale: 25.0)
-            .combined(with: .opacity)
-            .animation(.spring())
+            .move(edge: .trailing)
     }
     
     static var storeTransition: AnyTransition {
         AnyTransition
-            .move(edge: .bottom)
-            .combined(with: .offset(x: 0, y: 100))
+            .move(edge: .leading)
     }
 }
