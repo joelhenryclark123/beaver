@@ -28,6 +28,7 @@ struct ToDoMakerView: View {
             }
             .frame(maxHeight: .infinity)
             .padding(.horizontal, 16)
+            .padding(.vertical, 8)
         }
     }
     

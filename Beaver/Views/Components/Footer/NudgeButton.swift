@@ -28,7 +28,7 @@ struct NudgeButton: View {
         ZStack {
             Circle()
                 .foregroundColor(insideColor)
-                .modifier(FocalistShadow(option: .heavy, color: scene.color.shadowColor))
+                .modifier(FocalistShadow(option: .button, color: scene.color.shadowColor))
                 .overlay(Circle().stroke(
                             outsideColor,
                             lineWidth: 2

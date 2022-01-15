@@ -63,6 +63,7 @@ struct FocalistShadow: ViewModifier {
         case heavy
         case dark
         case light
+        case button
         
         var radius: CGFloat {
             switch self {
@@ -72,12 +73,14 @@ struct FocalistShadow: ViewModifier {
                 return 2
             case .light:
                 return 1
+            case .button:
+                return 12
             }
         }
         
         var x: CGFloat {
             switch self {
-            case .heavy, .dark, .light:
+            case .heavy, .dark, .light, .button:
                 return CGFloat.zero
             }
         }
@@ -90,6 +93,8 @@ struct FocalistShadow: ViewModifier {
                 return 2
             case .light:
                 return 1
+            case .button:
+                return 8
             }
         }
     }

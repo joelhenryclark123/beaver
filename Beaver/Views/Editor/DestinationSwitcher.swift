@@ -45,6 +45,7 @@ struct DestinationSwitcher: View {
                 .foregroundColor(Color(destination.color.rawValue + "Dark"))
         }
         .frame(width: 144, height: 48, alignment: .center)
+        .modifier(FocalistShadow(option: .button, color: destination.color.shadowColor))
         .modifier(BouncePress(draggable: false, action: {
             change()
         }))

@@ -20,7 +20,7 @@ struct AddButton: View {
             // Background Circle
             Circle()
                 .foregroundColor(Color(state.scene.color.rawValue + "Dark"))
-                .shadow(color: Color(state.scene.color.rawValue + "Shadow"), radius: 12, x: 0, y: 8)
+                .modifier(FocalistShadow(option: .button, color: state.scene.color.shadowColor))
             
             // Plus Button
             Image(systemName: "plus")
