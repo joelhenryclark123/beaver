@@ -9,21 +9,16 @@
 import SwiftUI
 
 struct MainBackground: View {
-    @EnvironmentObject var state: AppState
+    @Binding var scene: Scene
     
     var body: some View {
-        LinearGradient(
-            gradient: buildGradient(color: state.scene.color),
-            startPoint: .top,
-            endPoint: .bottom
-        )
-        .edgesIgnoringSafeArea(.all)
+        AnimatedBeavGradient(scene: $scene)
+            .edgesIgnoringSafeArea(.all)
     }
 }
 
-//struct MainBackground_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainBackground()
-//        .environmentObject(AppState())
-//    }
-//}
+struct MainBackground_Previews: PreviewProvider {
+    static var previews: some View {
+        MainBackground(scene: .constant(.middle))
+    }
+}
