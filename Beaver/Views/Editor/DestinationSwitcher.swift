@@ -30,6 +30,8 @@ struct DestinationSwitcher: View {
                         endPoint: .bottom
                     )
                 )
+                .id(title.hashValue)
+
             
             // White Background
             RoundedRectangle(cornerRadius: 23.0)
@@ -38,26 +40,33 @@ struct DestinationSwitcher: View {
             
             // Title
             Text(title)
+                .id(title.hashValue)
                 .modifier(FocalistFont(font: .mediumText))
                 .foregroundColor(Color(destination.color.rawValue + "Dark"))
         }
         .frame(width: 144, height: 48, alignment: .center)
-        .modifier(BouncePress(action: {
+        .modifier(BouncePress(draggable: false, action: {
             change()
         }))
+        .transaction { transaction in
+            transaction.animation = .easeInOut(duration: 1.0)
+        }
+        .transition(.opacity)
     }
     
     func change() {
-        if destination == .beginning {
-            destination = .middle
-        } else {
-            destination = .beginning
+        withAnimation {
+            if destination == .beginning {
+                destination = .middle
+            } else {
+                destination = .beginning
+            }
         }
     }
 }
 
 struct DestinationSwitcher_Previews: PreviewProvider {
-    static let scene = Scene.middle
+    static var scene = Scene.beginning
     
     static var previews: some View {
         ZStack {
@@ -70,6 +79,7 @@ struct DestinationSwitcher_Previews: PreviewProvider {
             .edgesIgnoringSafeArea(.all)
             
             DestinationSwitcher(destination: .constant(scene))
+//            DestinationSwitcher()
         }
     }
 }

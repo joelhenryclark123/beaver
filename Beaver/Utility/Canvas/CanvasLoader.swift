@@ -108,7 +108,7 @@ class CanvasLoader: NSObject, ObservableObject {
                                             month: 10,
                                             day: 10)
         
-        let date = calendar.date(from: dateComponents)! // 2018-10-10
+        _ = calendar.date(from: dateComponents)! // 2018-10-10
         
         let fetchRequest = CanvasCourse.activeClasses()
         
