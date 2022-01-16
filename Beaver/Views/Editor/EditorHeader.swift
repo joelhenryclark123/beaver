@@ -12,7 +12,8 @@ struct EditorHeader: View {
     @Binding var destination: Scene
 //    @State var destination = Scene.beginning
     
-    var leftAction: () -> Void = { print("previous") }
+    var leftAction: () -> Void = { print("back") }
+    var rightAction: () -> Void = { print("add") }
     
     var body: some View {
         HStack {
@@ -34,7 +35,7 @@ struct EditorHeader: View {
                 scene: $destination,
                 nudging: .constant(false),
                 icon: .plus) {
-                print("add")
+                rightAction()
             }
         }
     }

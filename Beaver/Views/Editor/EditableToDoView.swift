@@ -20,19 +20,21 @@ struct EditableToDoView: View {
     var onSubmit: (_ text: String) -> ()
     
     var body: some View {
-        ZStack {
-            SquareBackgroundView(foregroundColor: Color("accentWhite"), shadowColor: scene.color.shadowColor)
-                .overlay(textField)
-        }
+        SquareBackgroundView(foregroundColor: Color("accentWhite"), shadowColor: scene.color.shadowColor)
+            .overlay(textField)
     }
     
     var textField: some View {
-        TextField("", text: $text, onCommit: { onSubmit(text) })
-            .modifier(FocalistFont(font: .mediumText))
-            .multilineTextAlignment(.center)
-            .accentColor(scene.color.asColor())
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(16)
+        TextField(
+            "New",
+            text: $text,
+            onCommit: { onSubmit(text) }
+        )
+        .modifier(FocalistFont(font: .mediumText))
+        .multilineTextAlignment(.center)
+        .accentColor(scene.color.asColor())
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(16)
     }
     
 }

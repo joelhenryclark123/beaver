@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ToDoMakerView: View {
+    @EnvironmentObject var state: AppState
     @Binding var showing: Bool
     @State var destination: Scene = .beginning
     @State var text = ""
@@ -20,7 +21,8 @@ struct ToDoMakerView: View {
             VStack {
                 EditorHeader(
                     destination: $destination,
-                    leftAction: { showing = false }
+                    leftAction: { showing = false },
+                    rightAction: { submit(text) }
                 )
                 
                 Spacer()
@@ -46,7 +48,22 @@ struct ToDoMakerView: View {
     }
     
     func submit(_ text: String) {
-        return
+        guard text != "" else { showing = false; return }
+        
+        let mc = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        let toDo = ToDo(
+            context: mc,
+            title: text,
+            isActive: destination == .middle ? true : false,
+            inboxDate: Date()
+        )
+        
+        if destination == .middle && state.scene == .middle {
+            toDo.moveToDay()
+        }
+        
+        showing = false
     }
 }
 
