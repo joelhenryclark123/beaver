@@ -11,19 +11,23 @@ import SwiftUI
 struct ToDoMakerView: View {
     @Binding var showing: Bool
     @State var destination: Scene = .beginning
+    @State var text = ""
     
     var body: some View {
         ZStack {
             background
             
             VStack {
-                EditorHeader(destination: $destination, leftAction: { showing = false })
+                EditorHeader(
+                    destination: $destination,
+                    leftAction: { showing = false }
+                )
                 
                 Spacer()
                 
-                Rectangle()
-                    .foregroundColor(.white)
-                    .aspectRatio(1.0, contentMode: .fit)
+                EditableToDoView(text: $text, scene: $destination) { text in
+                    submit(text)
+                }
                 
                 Spacer()
             }
@@ -39,6 +43,10 @@ struct ToDoMakerView: View {
             
             Color.black.opacity(0.3)
         }.edgesIgnoringSafeArea(.all)
+    }
+    
+    func submit(_ text: String) {
+        return
     }
 }
 

@@ -24,6 +24,8 @@
 		E9192AA827934865000EB461 /* EditorHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AA727934865000EB461 /* EditorHeader.swift */; };
 		E9192AAC27934D84000EB461 /* ToDoMakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AAB27934D84000EB461 /* ToDoMakerView.swift */; };
 		E9192AB027935BD1000EB461 /* AnimatedBeavGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AAF27935BD1000EB461 /* AnimatedBeavGradient.swift */; };
+		E9192AB22794A0A9000EB461 /* EditableToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AB12794A0A9000EB461 /* EditableToDoView.swift */; };
+		E9192AB42794A1DC000EB461 /* SquareBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9192AB32794A1DC000EB461 /* SquareBackgroundView.swift */; };
 		E938EF3925A15DCE0013FBBB /* CanvasAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */; };
 		E93E180A23F9ECBF0022295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9F51B9B23B83CA60068B86E /* Assets.xcassets */; };
 		E959B15424F01E73007CA0CE /* TaskGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E959B15324F01E73007CA0CE /* TaskGrid.swift */; };
@@ -111,6 +113,8 @@
 		E9192AA727934865000EB461 /* EditorHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorHeader.swift; sourceTree = "<group>"; };
 		E9192AAB27934D84000EB461 /* ToDoMakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoMakerView.swift; sourceTree = "<group>"; };
 		E9192AAF27935BD1000EB461 /* AnimatedBeavGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedBeavGradient.swift; sourceTree = "<group>"; };
+		E9192AB12794A0A9000EB461 /* EditableToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableToDoView.swift; sourceTree = "<group>"; };
+		E9192AB32794A1DC000EB461 /* SquareBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareBackgroundView.swift; sourceTree = "<group>"; };
 		E938EF3825A15DCE0013FBBB /* CanvasAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasAuthView.swift; sourceTree = "<group>"; };
 		E959B15324F01E73007CA0CE /* TaskGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskGrid.swift; sourceTree = "<group>"; };
 		E95D679B23E75F8600AB3320 /* Stack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Stack.entitlements; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				E9192AAB27934D84000EB461 /* ToDoMakerView.swift */,
+				E9192AB12794A0A9000EB461 /* EditableToDoView.swift */,
 				E9192AA727934865000EB461 /* EditorHeader.swift */,
 				E9192AA427933AC9000EB461 /* DestinationSwitcher.swift */,
 			);
@@ -268,6 +273,7 @@
 				E98DB1E6245A183C00D8FD3D /* MainBackground.swift */,
 				E9192AAF27935BD1000EB461 /* AnimatedBeavGradient.swift */,
 				E9FBEB8C240AEA8200BCB531 /* CardView.swift */,
+				E9192AB32794A1DC000EB461 /* SquareBackgroundView.swift */,
 				E9BB576A240EB8E00083BE7D /* WideButton.swift */,
 				E959B15324F01E73007CA0CE /* TaskGrid.swift */,
 				E97A827F256D9A0700C6860F /* Footer */,
@@ -620,6 +626,7 @@
 				E9BB576B240EB8E00083BE7D /* WideButton.swift in Sources */,
 				E97E0F65240C99F400A46140 /* DesignSystem.swift in Sources */,
 				E98DB1E7245A183C00D8FD3D /* MainBackground.swift in Sources */,
+				E9192AB42794A1DC000EB461 /* SquareBackgroundView.swift in Sources */,
 				E97A8283256D9A1100C6860F /* AddButton.swift in Sources */,
 				E90AE837259A799900F54DC2 /* CanvasCourse+CoreDataProperties.swift in Sources */,
 				E9F51B9823B83CA00068B86E /* SceneDelegate.swift in Sources */,
@@ -641,6 +648,7 @@
 				E98073E723F71C6A00FDAF08 /* DayView.swift in Sources */,
 				E9B43454256C5C4400A2A525 /* Scene.swift in Sources */,
 				E9BB5769240EB83E0083BE7D /* Onboarding.swift in Sources */,
+				E9192AB22794A0A9000EB461 /* EditableToDoView.swift in Sources */,
 				E97A829F256D9FDC00C6860F /* NudgeButton.swift in Sources */,
 				E9E5D7AE24648BA10059BDFD /* PreviewHelper.swift in Sources */,
 				E95D680023E8973F00AB3320 /* Stack.xcdatamodeld in Sources */,

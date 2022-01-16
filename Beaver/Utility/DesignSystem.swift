@@ -143,6 +143,10 @@ enum FocalistColor: String {
     var shadowColor: Color {
         return Color(self.rawValue + "Shadow")
     }
+    
+    func asColor() -> Color {
+        return Color(self.rawValue)
+    }
 }
 
 func buildGradient(color: FocalistColor) -> Gradient {
