@@ -167,7 +167,7 @@ struct BouncePress: ViewModifier {
         content
             .offset(draggable ? state.offset : CGSize.zero)
             .scaleEffect(state.pressing ? 0.7 : 1.0)
-            .animation(.interactiveSpring())
+            .animation(.interactiveSpring(), value: state.pressing)
             .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).updating($state, body: { (value, state, tx) in
                 state.offset = CGSize(width: value.translation.width / 4, height: value.translation.height / 4)
                 state.pressing = true
@@ -188,6 +188,7 @@ struct BouncePressWithHold: ViewModifier {
     func body(content: Content) -> some View {
         content
             .scaleEffect(self.pressing ? 0.8 : 1.0)
+            .animation(.interactiveSpring(), value: pressing)
             .onTapGesture {
                 self.handleTap()
             }

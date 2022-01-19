@@ -13,7 +13,20 @@ struct NewStoreItem: View {
     @State var editingToDo: Bool = false
     var body: some View {
         ZStack {
-            background
+            Group {
+            if toDo.isActive {
+                SquareBackgroundView(
+                    foregroundColor: toDo.isActive ? Color("accentWhite") : Color("unselectedBlack"),
+                    shadowColor: toDo.isActive ? FocalistColor.accentPink.shadowColor : Color.clear
+                )
+            } else {
+                SquareBackgroundView(
+                    foregroundColor: toDo.isActive ? Color("accentWhite") : Color("unselectedBlack"),
+                    shadowColor: toDo.isActive ? FocalistColor.accentPink.shadowColor : Color.clear
+                )
+            } }
+                .transition(.opacity)
+                .animation(.spring(), value: toDo.isActive)
             
             Text(toDo.title)
                 .modifier(FocalistFont(font: .mediumText))
@@ -46,10 +59,10 @@ struct NewStoreItem: View {
         })
     }
     
-    var background: some View {
-        RoundedRectangle(cornerRadius: 40)
-            .foregroundColor(toDo.isActive ? Color("accentWhite") :  Color("unselectedBlack"))
-            .aspectRatio(1.0, contentMode: .fit)
-            .modifier(FocalistShadow(option: .dark, color: toDo.isActive ? FocalistColor.accentPink.shadowColor : Color.clear))
-    }
+//    var background: some View {
+//        RoundedRectangle(cornerRadius: 40)
+//            .foregroundColor(toDo.isActive ? Color("accentWhite") :  Color("unselectedBlack"))
+//            .aspectRatio(1.0, contentMode: .fit)
+//            .modifier(FocalistShadow(option: .dark, color: toDo.isActive ? FocalistColor.accentPink.shadowColor : Color.clear))
+//    }
 }

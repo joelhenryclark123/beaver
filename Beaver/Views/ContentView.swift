@@ -13,7 +13,10 @@ import Combine
 struct ContentView: View {
     @EnvironmentObject var state: AppState
     @State var adding: Bool = false
+    @State var scene: Scene = .beginning
+    @State var animating: Bool = true
     
+    // Placeholder... never really appears
     @State var textAlert: TextAlert = TextAlert(title: "New To-Do", message: "New to-dos go to the backlog", accept: "Add", action: { string in
         return
     })
@@ -25,34 +28,27 @@ struct ContentView: View {
                 .zIndex(0)
             
             ZStack {
-                if self.state.scene == .onboarding {
+                switch scene {
+                case .onboarding:
                     Onboarding()
                         .transition(.storeTransition)
-                        .animation(.spring())
                         .zIndex(5)
-                }
-                else {
-                    if self.state.scene == .beginning {
-                        StoreView()
-                            .transition(.storeTransition)
-                            .frame(maxHeight: .infinity, alignment: .top)
-                            .animation(.spring())
-                            .zIndex(3)
-                    }
-                    
-                    if ((self.state.scene == .middle) || (self.state.scene == .focusing)) {
-                        DayView()
-                            .transition(.dayTransition)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                            .animation(.spring())
-                            .zIndex(4)
-                    }
-                    
-                    if self.state.scene == .end {
-                        DoneView()
-                            .transition(AnyTransition.opacity.animation(.spring()))
-                            .zIndex(2)
-                    }
+                case .beginning:
+                    StoreView()
+                        .transition(.storeTransition)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .zIndex(3)
+                case .middle, .focusing:
+                    DayView()
+                        .transition(.dayTransition)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .zIndex(4)
+                case .end:
+                    DoneView()
+                        .transition(AnyTransition.opacity.animation(.spring()))
+                        .zIndex(2)
+                case .attaching:
+                    EmptyView()
                 }
                 
                 VStack {
@@ -63,11 +59,18 @@ struct ContentView: View {
                 .zIndex(6)
 
             }
+            .animation(.spring(), value: scene)
         }
+        .onChange(of: self.state.scene, perform: { newValue in
+            self.scene = newValue
+            animating.toggle()
+        })
         .onReceive(
             NotificationCenter.default.publisher(for: .NSCalendarDayChanged)
                 .receive(on: RunLoop.main)) { (_) in self.endDay() }
         .onAppear(perform: {
+            self.scene = self.state.scene
+            
             textAlert.action = { (string: String?) in
                 DispatchQueue.main.async {
                     if let string = string {
@@ -95,7 +98,7 @@ struct ContentView_Previews: PreviewProvider {
         
         let toDos = try! mc.fetch(ToDo.fetchRequest())
         for toDo in toDos {
-            (toDo as! ToDo).delete()
+            (toDo).delete()
         }
         
         let list: [ToDo] = [

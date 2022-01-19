@@ -14,6 +14,8 @@ struct EditableToDoView: View {
     @Binding var text: String
     @Binding var scene: Scene
     
+    @FocusState private var isFocused: Bool
+    
     //    @State var text: String
     //    @State var scene: Scene
     
@@ -22,11 +24,14 @@ struct EditableToDoView: View {
     var body: some View {
         SquareBackgroundView(foregroundColor: Color("accentWhite"), shadowColor: scene.color.shadowColor)
             .overlay(textField)
+            .onTapGesture {
+                isFocused = true
+            }
     }
     
     var textField: some View {
         TextField(
-            "New",
+            "",
             text: $text,
             onCommit: { onSubmit(text) }
         )
@@ -35,6 +40,12 @@ struct EditableToDoView: View {
         .accentColor(scene.color.asColor())
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(16)
+        .focused($isFocused)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isFocused = true
+            }
+        }
     }
     
 }

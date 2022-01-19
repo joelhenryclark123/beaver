@@ -212,8 +212,8 @@
 			children = (
 				E90AE840259A9BBB00F54DC2 /* Canvas Module */,
 				E9B2F64E23F75EB200BE2133 /* StoreView.swift */,
-				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
 				E90AE862259AB2D700F54DC2 /* NewStoreItem.swift */,
+				E9B2F65123F75ECD00BE2133 /* StoreItem.swift */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -819,6 +819,7 @@
 				ENABLE_PREVIEWS = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = Beaver/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -844,6 +845,7 @@
 				DEVELOPMENT_TEAM = FYM4933UYP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Beaver/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

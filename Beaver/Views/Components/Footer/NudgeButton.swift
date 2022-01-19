@@ -41,7 +41,7 @@ struct NudgeButton: View {
                             outsideColor,
                             lineWidth: 2
                 ))
-                .animation(.easeInOut(duration: 0.3))
+                .animation(.easeInOut(duration: 0.3), value: nudging)
             
             icon.image
                 .resizable()

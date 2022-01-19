@@ -16,25 +16,29 @@ struct DayView: View {
     @State var showingAlert: Bool = false
     @Namespace private var daySpace
     
+    @State var focusing: Bool = false
+    
     var body: some View {
-        let focusing = (self.state.focusedToDo != nil)
-        
-        return ZStack {
+        Group {
             if !focusing {
                 TaskGrid(namespace: daySpace, list: state.activeList)
                     .zIndex(0)
                     .opacity(focusing ? 0.0 : 1.0)
-                    .animation(.spring())
+                    .animation(.spring(), value: focusing)
             } else {
                 CardView(toDo: self.state.focusedToDo!)
                     .matchedGeometryEffect(id: self.state.focusedToDo!.geometryId.uuidString, in: daySpace)
                     .transition(.offset())
-                    .animation(.spring(blendDuration: 0.2))
                     .frame(maxHeight: .infinity)
                     .padding()
                     .zIndex(1)
+                    .animation(.spring(blendDuration: 0.2), value: focusing)
+
             }
         }
+        .onAppear(perform: {
+            focusing = (self.state.focusedToDo != nil)
+        })
         .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in
             self.showingAlert = true
         })
@@ -58,7 +62,7 @@ struct DayView_Previews: PreviewProvider {
         
         let toDos = try! mc.fetch(ToDo.fetchRequest())
         for toDo in toDos {
-            (toDo as! ToDo).delete()
+            (toDo).delete()
         }
         
         let list: [ToDo] = [

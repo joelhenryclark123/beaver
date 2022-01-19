@@ -74,12 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
         let toDos = try! container.viewContext.fetch(ToDo.fetchRequest())
         for toDo in toDos {
-            container.viewContext.delete(toDo as! NSManagedObject)
+            container.viewContext.delete(toDo as NSManagedObject)
         }
         
         let courses = try! container.viewContext.fetch(CanvasCourse.fetchRequest())
         for course in courses {
-            container.viewContext.delete(course as! NSManagedObject)
+            container.viewContext.delete(course as NSManagedObject)
         }
         
         try! container.viewContext.save()
@@ -115,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Clean to dos
         DispatchQueue.main.async {
-            let allToDos = try! container.viewContext.fetch(ToDo.fetchRequest()) as! [ToDo]
+            let allToDos = try! container.viewContext.fetch(ToDo.fetchRequest())
             allToDos.forEach { (toDo) in
                 if (toDo.inboxDate == nil) { toDo.inboxDate = toDo.createdAt }
             }

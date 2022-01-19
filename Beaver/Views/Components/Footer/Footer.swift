@@ -21,7 +21,7 @@ struct Footer: View {
             // Left Item
             switch state.scene {
             case .middle:
-                NudgeButton(scene: $state.scene, nudging: .constant(false), icon: .previous, action: { state.editDay() })
+                NudgeButton(scene: $state.scene, nudging: .constant(false), icon: .previous, action: { withAnimation { state.editDay() } })
             case .focusing:
                 NudgeButton(scene: $state.scene, nudging: .constant(false), icon: .previous, action: { self.state.unfocus() })
             default:

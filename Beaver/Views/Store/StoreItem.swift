@@ -32,7 +32,7 @@ struct StoreItem: View {
             .padding(.vertical, 8)
             .background(cardBackground)
             .transition(.opacity)
-            .animation(.easeIn(duration: 0.2))
+            .animation(.easeIn(duration: 0.2), value: toDo.isActive)
     }
 }
 

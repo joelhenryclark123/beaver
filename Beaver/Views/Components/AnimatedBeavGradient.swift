@@ -12,6 +12,9 @@ struct AnimatedBeavGradient: View {
     @Binding var scene: Scene
     var body: some View {
         ZStack {
+            orangeBackground
+                .opacity(scene == .onboarding ? 1.0 : 0.0)
+            
             pinkBackground
                 .opacity(scene == .beginning ? 1.0 : 0.0)
             
@@ -58,6 +61,14 @@ struct AnimatedBeavGradient: View {
     var otherBlueBackground: some View {
         LinearGradient(
             gradient: buildGradient(color: FocalistColor.otherBlue),
+            startPoint: .top,
+            endPoint: .bottom
+        )
+    }
+    
+    var orangeBackground: some View {
+        LinearGradient(
+            gradient: buildGradient(color: FocalistColor.accentOrange),
             startPoint: .top,
             endPoint: .bottom
         )

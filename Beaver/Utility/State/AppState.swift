@@ -118,40 +118,42 @@ final class AppState: NSObject, ObservableObject {
     }
     
     func completeDay() -> Void {
-        if !activeList.contains(where: { $0.isComplete }) {
-            let toDo = ToDo(context: context, title: "Finish Day")
-            toDo.movedAt = Date()
-            toDo.completedAt = Date()
-            try? context.save()
-        }
-        activeList.forEach { (toDo) in
-            if toDo.isComplete {
-                toDo.totallyFinish()
-            } else {
-                toDo.moveToStore(stayActive: false)
+        withAnimation {
+            if !activeList.contains(where: { $0.isComplete }) {
+                let toDo = ToDo(context: context, title: "Finish Day")
+                toDo.movedAt = Date()
+                toDo.completedAt = Date()
+                try? context.save()
             }
+            activeList.forEach { (toDo) in
+                if toDo.isComplete {
+                    toDo.totallyFinish()
+                } else {
+                    toDo.moveToStore(stayActive: false)
+                }
+            }
+            #if DEBUG
+            #else
+            Analytics.logEvent("completedDay", parameters: nil)
+            #endif
         }
-        #if DEBUG
-        #else
-        Analytics.logEvent("completedDay", parameters: nil)
-        #endif
     }
     
     func startDay() {
-        if let selected = try? self.context.fetch(ToDo.selectedFetch),
-           !selected.isEmpty  {
-            selected.forEach({ $0.moveToDay() })
-            try? context.save()
-            
-            #if DEBUG
-            #else
-            Analytics.logEvent("startedDay", parameters: nil)
-            #endif
-        } else {
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.warning)
-            NotificationCenter.default.post(.init(name: .init(rawValue: "StartDayError")))
-        }
+            if let selected = try? self.context.fetch(ToDo.selectedFetch),
+               !selected.isEmpty  {
+                selected.forEach({ $0.moveToDay() })
+                try? context.save()
+                
+                #if DEBUG
+                #else
+                Analytics.logEvent("startedDay", parameters: nil)
+                #endif
+            } else {
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.warning)
+                NotificationCenter.default.post(.init(name: .init(rawValue: "StartDayError")))
+            }
     }
     
     func deleteFromStore(index: Int) {
