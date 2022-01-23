@@ -31,7 +31,7 @@ struct ContentView: View {
                 switch scene {
                 case .onboarding:
                     Onboarding()
-                        .transition(.storeTransition)
+                        .transition(.move(edge: .top))
                         .zIndex(5)
                 case .beginning:
                     StoreView()

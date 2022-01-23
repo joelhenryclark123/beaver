@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct DestinationSwitcher: View {
+    @EnvironmentObject var state: AppState
     @Binding var destination: Scene
     
     var title: String {
@@ -44,7 +45,9 @@ struct DestinationSwitcher: View {
         .frame(width: 144, height: 48, alignment: .center)
         .modifier(FocalistShadow(option: .button, color: destination.color.shadowColor))
         .modifier(BouncePress(draggable: false, action: {
-            change()
+            if state.scene != .end {
+                change()
+            }
         }))
         
     }

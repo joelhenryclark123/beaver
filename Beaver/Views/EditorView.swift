@@ -13,10 +13,13 @@ struct EditorView: View {
     @ObservedObject var toDo: ToDo
     @Binding var showing: Bool
     
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
         NavigationView {
             VStack {
                 TextField("Title", text: $title)
+                    .focused($isFocused)
                 Spacer()
             }
             .padding()
@@ -25,10 +28,16 @@ struct EditorView: View {
                 toDo.title = title
                 toDo.saveContext()
                 showing = false
-            })
+            }).onTapGesture {
+                isFocused = true
+            }
         }
         .onAppear(perform: {
             title = toDo.title
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isFocused = true
+            }
         })
     }
 }

@@ -12,12 +12,17 @@ import SwiftUI
 extension AnyTransition {
     static var dayTransition: AnyTransition {
         AnyTransition
-            .asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading))
+            .asymmetric(
+                insertion: .move(edge: .trailing).combined(with: .opacity),
+                removal: .move(edge: .leading).combined(with: .opacity))
     }
     
     static var storeTransition: AnyTransition {
         AnyTransition
-            .asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing))
+            .asymmetric(
+                insertion: .move(edge: .leading).combined(with: .opacity),
+                removal: .move(edge: .trailing).combined(with: .opacity)
+            )
 
     }
 }
