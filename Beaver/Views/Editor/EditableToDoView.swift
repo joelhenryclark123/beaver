@@ -35,6 +35,7 @@ struct EditableToDoView: View {
             text: $text,
             onCommit: { onSubmit(text) }
         )
+        .foregroundColor(.black)
         .modifier(FocalistFont(font: .mediumText))
         .multilineTextAlignment(.center)
         .accentColor(scene.color.asColor())
