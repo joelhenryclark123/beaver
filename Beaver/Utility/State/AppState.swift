@@ -20,6 +20,7 @@ final class AppState: NSObject, ObservableObject {
     @Published var scene: Scene = .beginning
     @Published var focusedToDo: ToDo?
     @Published var lastFocused: ToDo?
+    @Published var lastScene: Scene? = nil
     
     // MARK: - Other Properties
     var context: NSManagedObjectContext
@@ -114,11 +115,14 @@ final class AppState: NSObject, ObservableObject {
             toDo.moveToStore(stayActive: true)
         }
         
+        self.lastScene = .beginning
         setupLists()
     }
     
     func completeDay() -> Void {
         withAnimation {
+            self.lastScene = .middle
+            
             if !activeList.contains(where: { $0.isComplete }) {
                 let toDo = ToDo(context: context, title: "Finish Day")
                 toDo.movedAt = Date()
@@ -145,6 +149,8 @@ final class AppState: NSObject, ObservableObject {
                 selected.forEach({ $0.moveToDay() })
                 try? context.save()
                 
+                self.lastScene = .beginning
+                
                 #if DEBUG
                 #else
                 Analytics.logEvent("startedDay", parameters: nil)
@@ -162,6 +168,7 @@ final class AppState: NSObject, ObservableObject {
     
     func unfocus() {
         if self.focusedToDo != nil {
+            self.lastScene = .focusing
             self.focusedToDo?.toggleFocus()
         }
     }

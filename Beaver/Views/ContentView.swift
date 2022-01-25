@@ -14,12 +14,13 @@ struct ContentView: View {
     @EnvironmentObject var state: AppState
     @State var adding: Bool = false
     @State var scene: Scene = .beginning
-    @State var animating: Bool = true
     
     // Placeholder... never really appears
     @State var textAlert: TextAlert = TextAlert(title: "New To-Do", message: "New to-dos go to the backlog", accept: "Add", action: { string in
         return
     })
+    
+    @State var dayTransition: AnyTransition = .identity
     
     //MARK: Body
     var body: some View {
@@ -40,7 +41,7 @@ struct ContentView: View {
                         .zIndex(3)
                 case .middle, .focusing:
                     DayView()
-                        .transition(.dayTransition)
+                        .transition(dayTransition)
                         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                         .zIndex(4)
                 case .end:
@@ -61,9 +62,19 @@ struct ContentView: View {
             }
             .animation(.spring(), value: scene)
         }
-        .onChange(of: self.state.scene, perform: { newValue in
-            self.scene = newValue
-            animating.toggle()
+        .onChange(of: self.state.scene, perform: { newScene in
+            DispatchQueue.main.async {
+                if newScene == .focusing {
+                    print("newScene is focusing")
+                    self.dayTransition = .opacity
+                } else if self.scene == .focusing {
+                    self.dayTransition = .opacity
+                } else {
+                    self.dayTransition = .dayTransition
+                }
+                
+                self.scene = newScene
+            }
         })
         .onReceive(
             NotificationCenter.default.publisher(for: .NSCalendarDayChanged)

@@ -17,27 +17,29 @@ struct DayView: View {
     @Namespace private var daySpace
     
     @State var focusing: Bool = false
+    @State private var focusedToDos = [ToDo]()
     
     var body: some View {
         Group {
-            if !focusing {
-                TaskGrid(namespace: daySpace, list: state.activeList)
-                    .zIndex(0)
-                    .opacity(focusing ? 0.0 : 1.0)
-                    .animation(.spring(), value: focusing)
-            } else {
-                CardView(toDo: self.state.focusedToDo!)
-                    .matchedGeometryEffect(id: self.state.focusedToDo!.geometryId.uuidString, in: daySpace)
+            if focusing {
+                CardView(toDo: focusedToDos.first!)
+                    .matchedGeometryEffect(id: focusedToDos.first!.geometryId.uuidString, in: daySpace)
                     .transition(.offset())
                     .frame(maxHeight: .infinity)
                     .padding()
                     .zIndex(1)
-                    .animation(.spring(blendDuration: 0.2), value: focusing)
-
+            } else {
+                TaskGrid(namespace: daySpace, list: state.activeList)
+                    .zIndex(0)
+                    .opacity(focusing ? 0.0 : 1.0)
             }
         }
+        .animation(.spring(blendDuration: 0.2), value: focusing)
         .onAppear(perform: {
-            focusing = (self.state.focusedToDo != nil)
+            refocus()
+        })
+        .onChange(of: state.focusedToDo, perform: { newValue in
+            refocus()
         })
         .onReceive(NotificationCenter.default.publisher(for: .deviceDidShakeNotification), perform: { _ in
             self.showingAlert = true
@@ -51,6 +53,18 @@ struct DayView: View {
                 }), secondaryButton: .cancel(Text("Nope."), action: {
                     self.showingAlert = false
                 }))
+        }
+    }
+    
+    func refocus() {
+        if let newFocus = self.state.focusedToDo {
+            if focusedToDos.first != newFocus {
+                focusedToDos.removeAll()
+                focusedToDos.insert(self.state.focusedToDo!, at: 0)
+            }
+            focusing = true
+        } else {
+            focusing = false
         }
     }
 }
